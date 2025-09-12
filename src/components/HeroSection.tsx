@@ -54,7 +54,7 @@ const HeroSection = () => {
 
           {/* CTAs */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-            <Button size="lg" className="bg-gradient-to-r from-primary to-secondary text-white hover:opacity-90 transform hover:scale-105 transition-all">
+            <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 transform hover:scale-105 transition-all">
               Explore Full Platform
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>

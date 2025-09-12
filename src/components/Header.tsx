@@ -42,7 +42,7 @@ const Header = () => {
             <Button variant="ghost" size="sm">
               Login
             </Button>
-            <Button size="sm" className="bg-gradient-to-r from-primary to-secondary text-white hover:opacity-90">
+            <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90">
               Start Free Trial
             </Button>
           </div>
@@ -75,7 +75,7 @@ const Header = () => {
                 <Button variant="ghost" size="sm">
                   Login
                 </Button>
-                <Button size="sm" className="bg-gradient-to-r from-primary to-secondary text-white">
+                <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90">
                   Start Free Trial
                 </Button>
               </div>
