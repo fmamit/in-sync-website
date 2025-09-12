@@ -30,9 +30,11 @@ const HeroSection = () => {
           <div className="mb-12 flex justify-center">
             <div className="relative max-w-md mx-auto">
               <img 
-                src={insyncDiagram} 
+                src={`${insyncDiagram}?t=${Date.now()}`}
                 alt="In-Sync Platform Integration Diagram"
                 className="w-full h-auto hover:scale-105 transition-transform duration-500"
+                onError={(e) => console.error('Image failed to load:', e)}
+                onLoad={() => console.log('Image loaded successfully')}
               />
             </div>
           </div>
