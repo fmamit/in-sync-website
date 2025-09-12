@@ -11,6 +11,8 @@ import {
   Shield,
   ArrowRight
 } from "lucide-react";
+import crmLeadsView from "@/assets/crm-leads-view.png";
+import crmDetailView from "@/assets/crm-detail-view.png";
 
 const PlatformOverview = () => {
   const capabilities = [
@@ -141,6 +143,58 @@ const PlatformOverview = () => {
               </Card>
             );
           })}
+        </div>
+
+        {/* Interface Showcase */}
+        <div className="mt-20">
+          <div className="text-center mb-12">
+            <h3 className="text-2xl md:text-3xl font-bold mb-4">
+              See{" "}
+              <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                In-Sync CRM
+              </span>{" "}
+              in Action
+            </h3>
+            <p className="text-muted-foreground max-w-xl mx-auto">
+              Experience our intuitive interface designed for modern sales teams
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8 mb-16">
+            {/* Leads Management */}
+            <div className="space-y-4">
+              <div className="aspect-video rounded-xl overflow-hidden shadow-2xl border border-primary/10">
+                <img 
+                  src={crmLeadsView} 
+                  alt="In-Sync CRM Leads Management Interface"
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+              <div className="text-center">
+                <h4 className="font-semibold text-lg mb-2">Leads Management</h4>
+                <p className="text-sm text-muted-foreground">
+                  Track, filter, and manage your entire sales pipeline with powerful search and filtering capabilities
+                </p>
+              </div>
+            </div>
+
+            {/* Customer Detail View */}
+            <div className="space-y-4">
+              <div className="aspect-video rounded-xl overflow-hidden shadow-2xl border border-primary/10">
+                <img 
+                  src={crmDetailView} 
+                  alt="In-Sync CRM Customer Detail View Interface"
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+              <div className="text-center">
+                <h4 className="font-semibold text-lg mb-2">360° Customer View</h4>
+                <p className="text-sm text-muted-foreground">
+                  Complete customer profiles with timeline, communication history, and real-time collaboration tools
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* CTA Section */}
