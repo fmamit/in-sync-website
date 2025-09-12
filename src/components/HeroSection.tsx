@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Play, CheckCircle } from "lucide-react";
+import insyncDiagram from "@/assets/insync-diagram.png";
 
 const HeroSection = () => {
   return (
@@ -25,30 +26,14 @@ const HeroSection = () => {
             20+ integrations. Field force automation. Built for every industry.
           </p>
 
-          {/* Hero Visual Placeholder */}
+          {/* Hero Visual */}
           <div className="mb-12 flex justify-center">
-            <div className="relative">
-              <div className="w-80 h-80 md:w-96 md:h-96 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-full flex items-center justify-center border border-primary/20">
-                <div className="w-32 h-32 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center">
-                  <div className="text-white font-bold text-2xl">IN-SYNC</div>
-                </div>
-              </div>
-              {/* Spoke elements */}
-              <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-4">
-                <div className="w-16 h-16 bg-card border border-border rounded-lg flex items-center justify-center shadow-lg">
-                  <div className="w-8 h-8 bg-primary/20 rounded"></div>
-                </div>
-              </div>
-              <div className="absolute bottom-0 right-0 transform translate-x-4 translate-y-4">
-                <div className="w-16 h-16 bg-card border border-border rounded-lg flex items-center justify-center shadow-lg">
-                  <div className="w-8 h-8 bg-secondary/20 rounded"></div>
-                </div>
-              </div>
-              <div className="absolute top-1/2 left-0 transform -translate-x-4 -translate-y-1/2">
-                <div className="w-16 h-16 bg-card border border-border rounded-lg flex items-center justify-center shadow-lg">
-                  <div className="w-8 h-8 bg-primary/20 rounded"></div>
-                </div>
-              </div>
+            <div className="relative max-w-md mx-auto">
+              <img 
+                src={insyncDiagram} 
+                alt="In-Sync Platform Integration Diagram"
+                className="w-full h-auto hover:scale-105 transition-transform duration-500"
+              />
             </div>
           </div>
 
