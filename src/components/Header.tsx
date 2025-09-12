@@ -1,0 +1,90 @@
+import { Button } from "@/components/ui/button";
+import { Menu, X } from "lucide-react";
+import { useState } from "react";
+import insyncLogo from "@/assets/insync-logo.png";
+
+const Header = () => {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const navigation = [
+    { name: "Features", href: "/features" },
+    { name: "Industries", href: "/industries" },
+    { name: "Use Cases", href: "/use-cases" },
+    { name: "Integrations", href: "/integrations" },
+    { name: "Pricing", href: "/pricing" },
+    { name: "Resources", href: "/resources" },
+  ];
+
+  return (
+    <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-md">
+      <div className="container mx-auto px-4">
+        <div className="flex h-16 items-center justify-between">
+          {/* Logo */}
+          <div className="flex items-center space-x-2">
+            <img src={insyncLogo} alt="In-Sync" className="h-8 w-auto" />
+          </div>
+
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center space-x-8">
+            {navigation.map((item) => (
+              <a
+                key={item.name}
+                href={item.href}
+                className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors"
+              >
+                {item.name}
+              </a>
+            ))}
+          </nav>
+
+          {/* Desktop CTAs */}
+          <div className="hidden md:flex items-center space-x-4">
+            <Button variant="ghost" size="sm">
+              Login
+            </Button>
+            <Button size="sm" className="bg-gradient-to-r from-primary to-secondary text-white hover:opacity-90">
+              Start Free Trial
+            </Button>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <Button
+            variant="ghost"
+            size="sm"
+            className="md:hidden"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </Button>
+        </div>
+
+        {/* Mobile Menu */}
+        {isMobileMenuOpen && (
+          <div className="md:hidden border-t bg-background/95 backdrop-blur-md">
+            <nav className="flex flex-col space-y-4 px-4 py-6">
+              {navigation.map((item) => (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors"
+                >
+                  {item.name}
+                </a>
+              ))}
+              <div className="flex flex-col space-y-2 pt-4">
+                <Button variant="ghost" size="sm">
+                  Login
+                </Button>
+                <Button size="sm" className="bg-gradient-to-r from-primary to-secondary text-white">
+                  Start Free Trial
+                </Button>
+              </div>
+            </nav>
+          </div>
+        )}
+      </div>
+    </header>
+  );
+};
+
+export default Header;
