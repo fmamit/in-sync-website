@@ -9,7 +9,7 @@ import {
   Youtube,
   ArrowRight
 } from "lucide-react";
-import insyncLogo from "@/assets/insync-logo.png";
+import insyncLogo from "@/assets/insync-logo-color.png";
 
 const Footer = () => {
   const footerLinks = {
@@ -90,15 +90,15 @@ const Footer = () => {
             <div className="space-y-3 mb-6">
               <div className="flex items-center gap-3 text-sm">
                 <Phone className="h-4 w-4 text-primary" />
-                <span>+91 80470 83502</span>
+                <span>+91 92288 24668</span>
               </div>
               <div className="flex items-center gap-3 text-sm">
                 <Mail className="h-4 w-4 text-primary" />
-                <span>hello@in-sync.co.in</span>
+                <span>delight@in-sync.co.in</span>
               </div>
               <div className="flex items-start gap-3 text-sm">
                 <MapPin className="h-4 w-4 text-primary mt-0.5" />
-                <span>DGK 912, DLF Galleria, Action Area 1B<br />New Town, Kolkata - 700156</span>
+                <span>Gurgaon, Haryana, India - 122002</span>
               </div>
             </div>
 
