@@ -51,7 +51,7 @@ const Footer = () => {
           <div className="max-w-4xl mx-auto text-center">
             <h3 className="text-2xl md:text-3xl font-bold mb-4">
               Stay Updated with{" "}
-              <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+              <span className="text-primary">
                 Latest Innovations
               </span>
             </h3>
