@@ -9,7 +9,8 @@ import {
   Zap, 
   ArrowRight,
   CheckCircle,
-  Infinity
+  Infinity,
+  Shield
 } from "lucide-react";
 
 const KeyFeatures = () => {
@@ -81,6 +82,23 @@ const KeyFeatures = () => {
       ],
       gradient: "from-orange-50/30 via-background to-amber-50/20",
       badge: "Connected"
+    },
+    {
+      id: "security-compliance",
+      icon: Shield,
+      iconColor: "text-red-600",
+      title: "Security & Compliance",
+      subtitle: "Enterprise-Grade Protection",
+      description: "Advanced data security protocols, comprehensive user management, and built-in compliance features to meet industry standards and regulations.",
+      features: [
+        "Data Security",
+        "User Management",
+        "Compliance Features",
+        "Access Controls",
+        "Audit Trails"
+      ],
+      gradient: "from-red-50/30 via-background to-rose-50/20",
+      badge: "Secure"
     },
     {
       id: "ai-first",
