@@ -10,7 +10,8 @@ import {
   ArrowRight,
   CheckCircle,
   Infinity,
-  Shield
+  Shield,
+  BarChart3
 } from "lucide-react";
 
 const KeyFeatures = () => {
@@ -99,6 +100,23 @@ const KeyFeatures = () => {
       ],
       gradient: "from-red-50/30 via-background to-rose-50/20",
       badge: "Secure"
+    },
+    {
+      id: "custom-analytics",
+      icon: BarChart3,
+      iconColor: "text-indigo-600",
+      title: "Custom KPI driven Analytics",
+      subtitle: "Data-Driven Insights",
+      description: "Advanced analytics platform with customizable KPI dashboards, real-time reporting, and intelligent business intelligence to drive informed decision-making.",
+      features: [
+        "Custom KPI Dashboards",
+        "Real-time Reporting",
+        "Business Intelligence",
+        "Data Visualization",
+        "Performance Metrics"
+      ],
+      gradient: "from-indigo-50/30 via-background to-blue-50/20",
+      badge: "Analytics Pro"
     },
     {
       id: "ai-first",
