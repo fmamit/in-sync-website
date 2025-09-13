@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 import aiAssistantIcon from "@/assets/ai-assistant-icon.jpg";
 import fieldWorkerIcon from "@/assets/field-worker-icon.jpg";
-import analyticsIcon from "@/assets/analytics-icon.jpg";
+import analyticsIcon from "@/assets/analytics-icon.png";
 import integrationsIcon from "@/assets/integrations-icon.jpg";
 import multiChannelMarketingIcon from "@/assets/multi-channel-marketing-icon.jpg";
 
