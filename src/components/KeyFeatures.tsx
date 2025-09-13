@@ -20,6 +20,7 @@ import analyticsIcon from "@/assets/analytics-icon.png";
 import integrationsIcon from "@/assets/integrations-icon.jpg";
 import multiChannelMarketingIcon from "@/assets/multi-channel-marketing-icon.jpg";
 import noCodeIcon from "@/assets/no-code-icon.png";
+import unlimitedUsersIcon from "@/assets/unlimited-users-icon.png";
 
 const KeyFeatures = () => {
   const keyFeatures = [
@@ -212,8 +213,18 @@ const KeyFeatures = () => {
     },
     {
       id: "unlimited-users",
-      icon: Users,
-      iconColor: "text-green-600",
+      icon: () => (
+        <img 
+          src={unlimitedUsersIcon} 
+          alt="Unlimited Users" 
+          className="w-full h-full object-contain"
+          style={{
+            backgroundColor: 'white',
+            borderRadius: '12px'
+          }}
+        />
+      ),
+      iconColor: "",
       title: "Unlimited User Pricing",
       subtitle: "Scale Without Limits",
       description: "Revolutionary pricing model that grows with your success, not your team size. Add unlimited users across all departments without worrying about per-seat costs.",
