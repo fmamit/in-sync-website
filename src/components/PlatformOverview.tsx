@@ -146,7 +146,7 @@ const PlatformOverview = () => {
         </div>
 
         {/* Interface Showcase */}
-        <div className="mt-20 bg-gradient-to-br from-purple-50/20 via-background to-pink-50/10 py-16 rounded-3xl">
+        <div className="mt-20 bg-gradient-to-r from-emerald-50/25 via-teal-50/15 to-cyan-50/20 py-16 rounded-3xl">
           <div className="text-center mb-12">
             <h3 className="text-2xl md:text-3xl font-bold mb-4">
               See{" "}
