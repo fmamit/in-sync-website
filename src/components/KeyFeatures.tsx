@@ -44,8 +44,10 @@ const KeyFeatures = () => {
     },
     {
       id: "ai-first",
-      icon: Brain,
-      iconColor: "text-purple-600",
+      icon: () => (
+        <img src="/src/assets/ai-head-icon.jpg" alt="AI Assistant" className="w-full h-full object-contain" />
+      ),
+      iconColor: "",
       title: "AI-First Platform",
       subtitle: "Gargi AI at Your Service",
       description: "Revolutionary AI assistant that understands your business context, automates complex workflows, and provides intelligent insights to drive growth.",
