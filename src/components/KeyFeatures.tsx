@@ -263,7 +263,7 @@ const KeyFeatures = () => {
                   <div className="relative">
                     <div className={`w-64 h-64 bg-gradient-to-br from-white/90 to-white/60 rounded-2xl shadow-xl flex items-center justify-center`}>
                        {typeof feature.icon === 'function' ? (
-                         <div className="w-32 h-32">
+                         <div className="w-64 h-64">
                            {React.createElement(feature.icon)}
                          </div>
                        ) : (
