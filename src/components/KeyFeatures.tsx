@@ -49,6 +49,23 @@ const KeyFeatures = () => {
       badge: "Field Ready"
     },
     {
+      id: "multi-channel-marketing",
+      icon: Zap,
+      iconColor: "text-purple-600",
+      title: "Multi-channel Marketing",
+      subtitle: "Calling, Messaging & Automation",
+      description: "Integrated marketing campaigns across multiple channels with automated calling, messaging, and workflow automation to engage customers effectively.",
+      features: [
+        "Automated Calling",
+        "SMS & Email Campaigns",
+        "Marketing Automation",
+        "Multi-channel Outreach",
+        "Campaign Analytics"
+      ],
+      gradient: "from-purple-50/30 via-background to-violet-50/20",
+      badge: "Marketing Pro"
+    },
+    {
       id: "ai-first",
       icon: Brain,
       iconColor: "text-purple-600",
