@@ -1,6 +1,5 @@
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
-import PlatformIntro from "@/components/PlatformIntro";
 import KeyFeatures from "@/components/KeyFeatures";
 import PlatformOverview from "@/components/PlatformOverview";
 import Footer from "@/components/Footer";
@@ -11,7 +10,6 @@ const Index = () => {
       <Header />
       <main>
         <HeroSection />
-        <PlatformIntro />
         <KeyFeatures />
         <PlatformOverview />
       </main>
