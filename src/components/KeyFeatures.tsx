@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import aiAssistantIcon from "@/assets/ai-assistant-icon.jpg";
 import fieldWorkerIcon from "@/assets/field-worker-icon.jpg";
+import analyticsIcon from "@/assets/analytics-icon.jpg";
 
 const KeyFeatures = () => {
   const keyFeatures = [
@@ -134,8 +135,18 @@ const KeyFeatures = () => {
     },
     {
       id: "custom-analytics",
-      icon: BarChart3,
-      iconColor: "text-indigo-600",
+      icon: () => (
+        <img 
+          src={analyticsIcon} 
+          alt="Analytics Dashboard" 
+          className="w-full h-full object-contain"
+          style={{
+            backgroundColor: 'white',
+            borderRadius: '12px'
+          }}
+        />
+      ),
+      iconColor: "",
       title: "Custom KPI driven Analytics",
       subtitle: "Data-Driven Insights",
       description: "Advanced analytics platform with customizable KPI dashboards, real-time reporting, and intelligent business intelligence to drive informed decision-making.",
