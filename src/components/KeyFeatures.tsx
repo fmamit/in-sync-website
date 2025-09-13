@@ -17,68 +17,157 @@ import {
 const KeyFeatures = () => {
   const keyFeatures = [
     {
-      id: "predictive-lead-scoring",
-      icon: Brain,
+      id: "crm-sales",
+      icon: Users,
       iconColor: "text-blue-600",
-      title: "Predictive Lead Scoring 2.0",
-      subtitle: "AI-Powered Sales Intelligence",
-      description: "Beyond basic scoring - our advanced AI predicts deal outcomes and provides actionable insights to maximize your conversion rates and sales efficiency.",
+      title: "CRM & Sales",
+      subtitle: "Complete Sales Management",
+      description: "Comprehensive customer relationship management with advanced sales pipeline tracking, automated workflows, and integrated customer service tools.",
       features: [
-        "Predict likelihood of closing within 30/60/90 days",
-        "AI-powered next-best-action recommendations based on lead behavior patterns",
-        "Automatic lead temperature adjustments based on engagement decay",
-        "Cross-reference with similar successful deals in your database"
+        "Contact Management",
+        "Pipeline Tracking", 
+        "Task Automation",
+        "Customer Service",
+        "Sales Analytics"
       ],
       gradient: "from-blue-50/30 via-background to-indigo-50/20",
-      badge: "AI Scoring"
+      badge: "Sales Ready"
     },
     {
-      id: "intelligent-pipeline",
-      icon: BarChart3,
+      id: "field-force",
+      icon: Smartphone,
       iconColor: "text-green-600",
-      title: "Intelligent Pipeline Management",
-      subtitle: "Smart Deal Progression",
-      description: "Automated risk assessment and progression insights that help you identify bottlenecks, prevent deal slippage, and optimize your sales process.",
+      title: "Field Force Management",
+      subtitle: "Mobile Operations & Tracking",
+      description: "Real-time GPS tracking, mobile workforce management, and performance analytics for field teams and remote operations.",
       features: [
-        "Automated deal risk assessment (flag deals likely to slip or stall)",
-        "Smart deal progression suggestions (\"This deal type typically requires 3 more touchpoints\")",
-        "Seasonal/industry pattern recognition for forecasting",
-        "Automatic pipeline hygiene (flag outdated deals, suggest archiving)"
+        "GPS Tracking",
+        "Mobile Operations",
+        "Performance Management",
+        "Route Optimization",
+        "Time & Attendance"
       ],
       gradient: "from-green-50/30 via-background to-emerald-50/20",
-      badge: "Smart Pipeline"
+      badge: "Field Ready"
     },
     {
-      id: "conversational-ai",
-      icon: Smartphone,
+      id: "multi-channel-marketing",
+      icon: Zap,
       iconColor: "text-purple-600",
-      title: "Conversational AI Expansion",
-      subtitle: "Gargi Across All Channels",
-      description: "Extend Gargi's capabilities beyond calling to create seamless multi-channel conversations with advanced sentiment analysis and intelligent escalation.",
+      title: "Multi-channel Marketing",
+      subtitle: "Calling, Messaging & Automation",
+      description: "Integrated marketing campaigns across multiple channels with automated calling, messaging, and workflow automation to engage customers effectively.",
       features: [
-        "Extend Gargi beyond calling to WhatsApp/SMS conversations",
-        "Multi-language support for international markets",
-        "Sentiment analysis on all customer communications",
-        "Automatic escalation when AI detects frustration or buying signals"
+        "Automated Calling",
+        "SMS & Email Campaigns",
+        "Marketing Automation",
+        "Multi-channel Outreach",
+        "Campaign Analytics"
       ],
       gradient: "from-purple-50/30 via-background to-violet-50/20",
-      badge: "Multi-Channel AI"
+      badge: "Marketing Pro"
     },
     {
-      id: "behavioral-triggers",
-      icon: Zap,
+      id: "integrations",
+      icon: Infinity,
       iconColor: "text-orange-500",
-      title: "Behavioral Trigger Automation",
-      subtitle: "Smart Response System",
-      description: "Intelligent automation that responds to customer behavior patterns in real-time, ensuring no opportunity is missed and engagement is always optimized.",
+      title: "Integrations",
+      subtitle: "Seamless Connectivity",
+      description: "Connect with accounting systems, ERP solutions, analytics platforms, and create custom integrations for complete business ecosystem synchronization.",
       features: [
-        "If prospect visits pricing page 3+ times → auto-assign to senior sales rep",
-        "If customer hasn't placed order in 45 days → trigger retention campaign",
-        "If field rep visits same location repeatedly without conversion → suggest territory reassignment",
-        "Email engagement drops below threshold → switch to WhatsApp/SMS"
+        "Accounting/ERP Integration",
+        "Analytics Platforms",
+        "Data Validation",
+        "Custom Connectivity",
+        "API Management"
       ],
       gradient: "from-orange-50/30 via-background to-amber-50/20",
-      badge: "Auto Triggers"
+      badge: "Connected"
+    },
+    {
+      id: "security-compliance",
+      icon: Shield,
+      iconColor: "text-red-600",
+      title: "Security & Compliance",
+      subtitle: "Enterprise-Grade Protection",
+      description: "Advanced data security protocols, comprehensive user management, and built-in compliance features to meet industry standards and regulations.",
+      features: [
+        "Data Security",
+        "User Management",
+        "Compliance Features",
+        "Access Controls",
+        "Audit Trails"
+      ],
+      gradient: "from-red-50/30 via-background to-rose-50/20",
+      badge: "Secure"
+    },
+    {
+      id: "custom-analytics",
+      icon: BarChart3,
+      iconColor: "text-indigo-600",
+      title: "Custom KPI driven Analytics",
+      subtitle: "Data-Driven Insights",
+      description: "Advanced analytics platform with customizable KPI dashboards, real-time reporting, and intelligent business intelligence to drive informed decision-making.",
+      features: [
+        "Custom KPI Dashboards",
+        "Real-time Reporting",
+        "Business Intelligence",
+        "Data Visualization",
+        "Performance Metrics"
+      ],
+      gradient: "from-indigo-50/30 via-background to-blue-50/20",
+      badge: "Analytics Pro"
+    },
+    {
+      id: "ai-first",
+      icon: Brain,
+      iconColor: "text-purple-600",
+      title: "AI-First Platform",
+      subtitle: "Gargi AI at Your Service",
+      description: "Revolutionary AI assistant that understands your business context, automates complex workflows, and provides intelligent insights to drive growth.",
+      features: [
+        "Natural Language Processing",
+        "Predictive Lead Scoring", 
+        "Automated Task Assignment",
+        "Smart Response Generation",
+        "Behavioral Pattern Analysis"
+      ],
+      gradient: "from-purple-50/30 via-background to-indigo-50/20",
+      badge: "AI-Powered"
+    },
+    {
+      id: "no-code",
+      icon: Wrench,
+      iconColor: "text-orange-500",
+      title: "True No-Code Platform",
+      subtitle: "Build Without Boundaries",
+      description: "Drag-and-drop interface builder, visual workflow designer, and customizable modules. Create complex business processes without writing a single line of code.",
+      features: [
+        "Visual Workflow Builder",
+        "Custom Form Designer",
+        "Automated Process Rules",
+        "Dynamic Field Creation",
+        "Instant Module Generation"
+      ],
+      gradient: "from-orange-50/30 via-background to-amber-50/20",
+      badge: "Zero Code"
+    },
+    {
+      id: "unlimited-users",
+      icon: Users,
+      iconColor: "text-green-600",
+      title: "Unlimited User Pricing",
+      subtitle: "Scale Without Limits",
+      description: "Revolutionary pricing model that grows with your success, not your team size. Add unlimited users across all departments without worrying about per-seat costs.",
+      features: [
+        "No Per-User Charges",
+        "Unlimited Team Members",
+        "All Features Included",
+        "Enterprise-Grade Security",
+        "24/7 Priority Support"
+      ],
+      gradient: "from-green-50/30 via-background to-emerald-50/20",
+      badge: "∞ Users"
     }
   ];
 
