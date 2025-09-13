@@ -1,3 +1,4 @@
+import React from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -213,7 +214,13 @@ const KeyFeatures = () => {
                 <div className={index % 2 === 1 ? 'lg:col-start-2' : ''}>
                   <div className="flex items-center gap-3 mb-4">
                     <div className={`p-3 bg-white/80 rounded-xl shadow-sm`}>
-                      <feature.icon className={`h-6 w-6 ${feature.iconColor}`} />
+                      {typeof feature.icon === 'function' ? (
+                        <div className="w-6 h-6">
+                          {React.createElement(feature.icon)}
+                        </div>
+                      ) : (
+                        React.createElement(feature.icon, { className: `h-6 w-6 ${feature.iconColor}` })
+                      )}
                     </div>
                     <Badge variant="secondary" className="text-xs">
                       {feature.badge}
@@ -253,7 +260,13 @@ const KeyFeatures = () => {
                 <div className={`${index % 2 === 1 ? 'lg:col-start-1' : ''} flex justify-center`}>
                   <div className="relative">
                     <div className={`w-64 h-64 bg-gradient-to-br from-white/90 to-white/60 rounded-2xl shadow-xl flex items-center justify-center`}>
-                      <feature.icon className={`h-24 w-24 ${feature.iconColor} opacity-80`} />
+                      {typeof feature.icon === 'function' ? (
+                        <div className="w-24 h-24">
+                          {React.createElement(feature.icon)}
+                        </div>
+                      ) : (
+                        React.createElement(feature.icon, { className: `h-24 w-24 ${feature.iconColor} opacity-80` })
+                      )}
                     </div>
                     {/* Decorative elements */}
                     <div className={`absolute -top-4 -right-4 w-16 h-16 bg-gradient-to-br ${feature.gradient} rounded-full blur-sm opacity-60`}></div>
