@@ -19,6 +19,7 @@ import fieldWorkerIcon from "@/assets/field-worker-icon.jpg";
 import analyticsIcon from "@/assets/analytics-icon.png";
 import integrationsIcon from "@/assets/integrations-icon.jpg";
 import multiChannelMarketingIcon from "@/assets/multi-channel-marketing-icon.jpg";
+import noCodeIcon from "@/assets/no-code-icon.png";
 
 const KeyFeatures = () => {
   const keyFeatures = [
@@ -184,8 +185,18 @@ const KeyFeatures = () => {
     },
     {
       id: "no-code",
-      icon: Wrench,
-      iconColor: "text-orange-500",
+      icon: () => (
+        <img 
+          src={noCodeIcon} 
+          alt="No-Code Platform" 
+          className="w-full h-full object-contain"
+          style={{
+            backgroundColor: 'white',
+            borderRadius: '12px'
+          }}
+        />
+      ),
+      iconColor: "",
       title: "True No-Code Platform",
       subtitle: "Build Without Boundaries",
       description: "Drag-and-drop interface builder, visual workflow designer, and customizable modules. Create complex business processes without writing a single line of code.",
