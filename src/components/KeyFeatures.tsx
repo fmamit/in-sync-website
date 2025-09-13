@@ -21,6 +21,7 @@ import integrationsIcon from "@/assets/integrations-icon.jpg";
 import multiChannelMarketingIcon from "@/assets/multi-channel-marketing-icon.jpg";
 import noCodeIcon from "@/assets/no-code-icon.png";
 import unlimitedUsersIcon from "@/assets/unlimited-users-icon.png";
+import securityComplianceIcon from "@/assets/security-compliance-icon.png";
 
 const KeyFeatures = () => {
   const keyFeatures = [
@@ -240,8 +241,18 @@ const KeyFeatures = () => {
     },
     {
       id: "security-compliance",
-      icon: Shield,
-      iconColor: "text-red-600",
+      icon: () => (
+        <img 
+          src={securityComplianceIcon} 
+          alt="Security & Compliance" 
+          className="w-full h-full object-contain"
+          style={{
+            backgroundColor: 'white',
+            borderRadius: '12px'
+          }}
+        />
+      ),
+      iconColor: "",
       title: "Security & Compliance",
       subtitle: "Enterprise-Grade Protection",
       description: "Advanced data security protocols, comprehensive user management, and built-in compliance features to meet industry standards and regulations.",
