@@ -15,7 +15,7 @@ const HeroSection = () => {
           {/* Main Headline */}
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 text-foreground leading-tight">
             One Platform,{" "}
-            <span className="text-red-500">
+            <span className="text-green-600">
               Endless Possibilities
             </span>
           </h1>
