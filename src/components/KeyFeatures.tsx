@@ -15,6 +15,7 @@ import {
   BarChart3
 } from "lucide-react";
 import aiAssistantIcon from "@/assets/ai-assistant-icon.jpg";
+import fieldWorkerIcon from "@/assets/field-worker-icon.jpg";
 
 const KeyFeatures = () => {
   const keyFeatures = [
@@ -72,8 +73,18 @@ const KeyFeatures = () => {
     },
     {
       id: "field-force",
-      icon: Smartphone,
-      iconColor: "text-green-600",
+      icon: () => (
+        <img 
+          src={fieldWorkerIcon} 
+          alt="Field Worker" 
+          className="w-full h-full object-contain"
+          style={{
+            backgroundColor: 'white',
+            borderRadius: '12px'
+          }}
+        />
+      ),
+      iconColor: "",
       title: "Field Force Management",
       subtitle: "Mobile Operations & Tracking",
       description: "Real-time GPS tracking, mobile workforce management, and performance analytics for field teams and remote operations.",
