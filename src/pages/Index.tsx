@@ -11,8 +11,8 @@ const Index = () => {
       <Header />
       <main>
         <HeroSection />
-        <KeyFeatures />
         <DetailedFeatures />
+        <KeyFeatures />
         <PlatformOverview />
       </main>
       <Footer />

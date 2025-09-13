@@ -12,6 +12,16 @@ import {
 } from "lucide-react";
 
 const DetailedFeatures = () => {
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
+
   const featureSections = [
     {
       id: "crm-sales",
@@ -21,6 +31,7 @@ const DetailedFeatures = () => {
       description: "Contact management, pipeline tracking, task automation, customer service",
       gradient: "from-blue-50/30 via-background to-cyan-50/20",
       badge: "Sales Ready",
+      targetSection: "platform-overview",
       features: [
         "Contact Management",
         "Pipeline Tracking", 
@@ -36,6 +47,7 @@ const DetailedFeatures = () => {
       description: "GPS tracking, mobile operations, performance management",
       gradient: "from-emerald-50/30 via-background to-green-50/20", 
       badge: "Mobile GPS",
+      targetSection: "mobile-first",
       features: [
         "GPS Tracking",
         "Mobile Operations",
@@ -51,6 +63,7 @@ const DetailedFeatures = () => {
       description: "Calling, messaging, marketing automation",
       gradient: "from-purple-50/30 via-background to-violet-50/20",
       badge: "All-in-One",
+      targetSection: "platform-overview",
       features: [
         "Voice Calling",
         "Messaging Platform",
@@ -66,6 +79,7 @@ const DetailedFeatures = () => {
       description: "Accounting/ERP, analytics, validation, custom connectivity",
       gradient: "from-orange-50/30 via-background to-amber-50/20",
       badge: "Connect All",
+      targetSection: "no-code",
       features: [
         "Accounting/ERP Integration",
         "Advanced Analytics",
@@ -81,6 +95,7 @@ const DetailedFeatures = () => {
       description: "Data security, user management, compliance features",
       gradient: "from-red-50/30 via-background to-rose-50/20",
       badge: "Enterprise Security",
+      targetSection: "unlimited-users",
       features: [
         "Advanced Data Security",
         "User Access Management",
@@ -117,7 +132,8 @@ const DetailedFeatures = () => {
           {featureSections.map((feature) => (
             <Card 
               key={feature.id} 
-              className={`bg-gradient-to-br ${feature.gradient} border-0 shadow-lg hover:shadow-xl transition-all duration-300 group`}
+              className={`bg-gradient-to-br ${feature.gradient} border-0 shadow-lg hover:shadow-xl transition-all duration-300 group cursor-pointer`}
+              onClick={() => scrollToSection(feature.targetSection)}
             >
               <CardHeader className="pb-4">
                 <div className="flex items-center gap-3 mb-3">
