@@ -266,9 +266,9 @@ const KeyFeatures = () => {
                 {/* Visual Element */}
                 <div className={`${index % 2 === 1 ? 'lg:col-start-1' : ''} flex justify-center`}>
                   <div className="relative">
-                    <div className={`w-64 h-64 bg-gradient-to-br from-white/90 to-white/60 rounded-2xl shadow-xl flex items-center justify-center`}>
+                    <div className={`w-96 h-96 bg-gradient-to-br from-white/90 to-white/60 rounded-2xl shadow-xl flex items-center justify-center`}>
                       {typeof feature.icon === 'function' ? (
-                        <div className="w-24 h-24">
+                        <div className="w-80 h-80">
                           {React.createElement(feature.icon)}
                         </div>
                       ) : (
