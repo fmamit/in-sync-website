@@ -51,7 +51,7 @@ const Footer = () => {
           <div className="max-w-4xl mx-auto text-center">
             <h3 className="text-2xl md:text-3xl font-bold mb-4">
               Stay Updated with{" "}
-              <span className="text-primary">
+              <span className="text-orange-500">
                 Latest Innovations
               </span>
             </h3>

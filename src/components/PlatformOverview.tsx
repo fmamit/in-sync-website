@@ -105,7 +105,7 @@ const PlatformOverview = () => {
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-5xl font-bold mb-4">
             Every Feature. Every Department.{" "}
-            <span className="text-primary">
+            <span className="text-blue-600">
               Every Industry.
             </span>
           </h2>
@@ -150,7 +150,7 @@ const PlatformOverview = () => {
           <div className="text-center mb-12">
             <h3 className="text-2xl md:text-3xl font-bold mb-4">
               See{" "}
-              <span className="text-primary">
+              <span className="text-purple-600">
                 In-Sync CRM
               </span>{" "}
               in Action
