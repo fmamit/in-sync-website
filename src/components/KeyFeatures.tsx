@@ -18,6 +18,7 @@ import aiAssistantIcon from "@/assets/ai-assistant-icon.jpg";
 import fieldWorkerIcon from "@/assets/field-worker-icon.jpg";
 import analyticsIcon from "@/assets/analytics-icon.jpg";
 import integrationsIcon from "@/assets/integrations-icon.jpg";
+import multiChannelMarketingIcon from "@/assets/multi-channel-marketing-icon.jpg";
 
 const KeyFeatures = () => {
   const keyFeatures = [
@@ -129,8 +130,18 @@ const KeyFeatures = () => {
     },
     {
       id: "multi-channel-marketing",
-      icon: Zap,
-      iconColor: "text-purple-600",
+      icon: () => (
+        <img 
+          src={multiChannelMarketingIcon} 
+          alt="Multi-channel Marketing" 
+          className="w-full h-full object-contain"
+          style={{
+            backgroundColor: 'white',
+            borderRadius: '12px'
+          }}
+        />
+      ),
+      iconColor: "",
       title: "Multi-channel Marketing",
       subtitle: "Calling, Messaging & Automation",
       description: "Integrated marketing campaigns across multiple channels with automated calling, messaging, and workflow automation to engage customers effectively.",
