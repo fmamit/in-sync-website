@@ -50,6 +50,10 @@ const KeyFeatures = () => {
           src={aiAssistantIcon} 
           alt="AI Assistant" 
           className="w-full h-full object-contain"
+          style={{
+            mixBlendMode: 'darken',
+            filter: 'contrast(1.1) brightness(0.95)'
+          }}
         />
       ),
       iconColor: "",
