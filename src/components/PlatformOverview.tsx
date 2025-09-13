@@ -19,6 +19,7 @@ const PlatformOverview = () => {
     {
       icon: Database,
       title: "DATA & CRM",
+      iconColor: "text-blue-600",
       features: [
         "Contact Management",
         "Lead Pipeline",
@@ -29,6 +30,7 @@ const PlatformOverview = () => {
     {
       icon: Brain,
       title: "AI AUTOMATION",
+      iconColor: "text-purple-600",
       features: [
         "Gargi AI",
         "Predictive Analytics",
@@ -39,6 +41,7 @@ const PlatformOverview = () => {
     {
       icon: MapPin,
       title: "FIELD FORCE",
+      iconColor: "text-red-500",
       features: [
         "GPS Tracking",
         "Route Optimization",
@@ -49,6 +52,7 @@ const PlatformOverview = () => {
     {
       icon: Puzzle,
       title: "INTEGRATIONS",
+      iconColor: "text-orange-500",
       features: [
         "20+ Built-in",
         "Excel Native",
@@ -59,6 +63,7 @@ const PlatformOverview = () => {
     {
       icon: MessageCircle,
       title: "COMMUNICATION",
+      iconColor: "text-green-600",
       features: [
         "Click-to-Call",
         "Auto Dialer",
@@ -69,6 +74,7 @@ const PlatformOverview = () => {
     {
       icon: BarChart3,
       title: "ANALYTICS",
+      iconColor: "text-indigo-600",
       features: [
         "PowerBI Integration",
         "Custom Reports",
@@ -79,6 +85,7 @@ const PlatformOverview = () => {
     {
       icon: Wrench,
       title: "NO-CODE BUILD",
+      iconColor: "text-pink-500",
       features: [
         "Workflow Builder",
         "Form Designer",
@@ -89,6 +96,7 @@ const PlatformOverview = () => {
     {
       icon: Shield,
       title: "SECURITY",
+      iconColor: "text-teal-600",
       features: [
         "Private Cloud",
         "Separate Instance",
@@ -123,7 +131,7 @@ const PlatformOverview = () => {
                 <CardHeader className="pb-3">
                   <div className="flex items-center gap-3 mb-2">
                     <div className="p-2 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-lg group-hover:from-primary/20 group-hover:to-secondary/20 transition-colors">
-                      <Icon className="h-5 w-5 text-primary" />
+                      <Icon className={`h-5 w-5 ${capability.iconColor}`} />
                     </div>
                   </div>
                   <CardTitle className="text-sm font-semibold text-foreground/90">
