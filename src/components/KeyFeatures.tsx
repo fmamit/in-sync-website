@@ -272,7 +272,7 @@ const KeyFeatures = () => {
                           {React.createElement(feature.icon)}
                         </div>
                       ) : (
-                        React.createElement(feature.icon, { className: `h-24 w-24 ${feature.iconColor} opacity-80` })
+                        React.createElement(feature.icon, { className: `h-40 w-40 ${feature.iconColor} opacity-80` })
                       )}
                     </div>
                     {/* Decorative elements */}
