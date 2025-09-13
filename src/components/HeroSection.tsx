@@ -11,24 +11,39 @@ const HeroSection = () => {
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-tr from-secondary/20 to-transparent rounded-full blur-3xl"></div>
 
       <div className="container mx-auto px-4 relative z-10">
-        <div className="max-w-4xl mx-auto text-center">
-          {/* Main Headline */}
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 text-foreground leading-tight">
-            Meet the CRM with AI that cuts costs by{" "}
-            <span className="text-green-600">
-              99.8%
-            </span>
-          </h1>
+        <div className="grid lg:grid-cols-2 gap-12 items-center mb-12">
+          {/* Left Side - Text Content */}
+          <div className="text-left">
+            {/* Main Headline */}
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 text-foreground leading-tight">
+              Meet the CRM with AI that cuts costs by{" "}
+              <span className="text-green-600">
+                99.8%
+              </span>
+            </h1>
 
-          {/* Subheadline */}
-          <p className="text-lg md:text-xl lg:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto leading-relaxed">
-            AI-powered CRM with no-code customization. Unlimited users. 
-            20+ integrations. Field force automation. Built for every industry.
-          </p>
+            {/* Subheadline */}
+            <p className="text-lg md:text-xl lg:text-2xl text-muted-foreground mb-8 leading-relaxed">
+              AI-powered CRM with no-code customization. Unlimited users. 
+              20+ integrations. Field force automation. Built for every industry.
+            </p>
 
-          {/* Hero Visual */}
-          <div className="mb-12 flex justify-center">
-            <div className="relative max-w-md mx-auto">
+            {/* CTAs */}
+            <div className="flex flex-col sm:flex-row gap-4 mb-8">
+              <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 transform hover:scale-105 transition-all">
+                Explore Full Platform
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+              <Button size="lg" variant="outline" className="group border-primary/20 hover:bg-primary/5">
+                <Play className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
+                Start Free Trial
+              </Button>
+            </div>
+          </div>
+
+          {/* Right Side - Hero Visual */}
+          <div className="flex justify-center lg:justify-end">
+            <div className="relative max-w-md">
               <img 
                 src={`${insyncDiagram}?t=${Date.now()}`}
                 alt="In-Sync Platform Integration Diagram"
@@ -38,19 +53,10 @@ const HeroSection = () => {
               />
             </div>
           </div>
+        </div>
 
-          {/* CTAs */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-            <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 transform hover:scale-105 transition-all">
-              Explore Full Platform
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
-            <Button size="lg" variant="outline" className="group border-primary/20 hover:bg-primary/5">
-              <Play className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
-              Start Free Trial
-            </Button>
-          </div>
-
+        {/* Centered Content Below */}
+        <div className="max-w-4xl mx-auto text-center">
           {/* Proof Banner */}
           <div className="bg-card border border-border rounded-2xl p-6 mb-8 shadow-lg">
             <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-12">
