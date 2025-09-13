@@ -22,19 +22,22 @@ import multiChannelMarketingIcon from "@/assets/multi-channel-marketing-icon.jpg
 import noCodeIcon from "@/assets/no-code-icon.png";
 import unlimitedUsersIcon from "@/assets/unlimited-users-icon.png";
 import securityComplianceIcon from "@/assets/security-compliance-icon.png";
+import crmSalesIcon from "@/assets/crm-sales-icon.png";
 
 const KeyFeatures = () => {
   const keyFeatures = [
     {
       id: "crm-sales",
       icon: () => (
-        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M8 8h32l-4 8H12l-4-8z" fill="#3599B8"/>
-          <path d="M12 16h24l-3 8H15l-3-8z" fill="#01B8AA"/>
-          <path d="M15 24h18l-3 8H18l-3-8z" fill="#2E738A"/>
-          <path d="M18 32h12l-2 8H20l-2-8z" fill="#8AD4EB"/>
-          <circle cx="26" cy="44" r="2" fill="#3599B8"/>
-        </svg>
+        <img 
+          src={crmSalesIcon} 
+          alt="CRM & Sales" 
+          className="w-full h-full object-contain"
+          style={{
+            backgroundColor: 'white',
+            borderRadius: '12px'
+          }}
+        />
       ),
       iconColor: "",
       title: "CRM & Sales",
