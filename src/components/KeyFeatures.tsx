@@ -66,6 +66,23 @@ const KeyFeatures = () => {
       badge: "Marketing Pro"
     },
     {
+      id: "integrations",
+      icon: Infinity,
+      iconColor: "text-orange-500",
+      title: "Integrations",
+      subtitle: "Seamless Connectivity",
+      description: "Connect with accounting systems, ERP solutions, analytics platforms, and create custom integrations for complete business ecosystem synchronization.",
+      features: [
+        "Accounting/ERP Integration",
+        "Analytics Platforms",
+        "Data Validation",
+        "Custom Connectivity",
+        "API Management"
+      ],
+      gradient: "from-orange-50/30 via-background to-amber-50/20",
+      badge: "Connected"
+    },
+    {
       id: "ai-first",
       icon: Brain,
       iconColor: "text-purple-600",
