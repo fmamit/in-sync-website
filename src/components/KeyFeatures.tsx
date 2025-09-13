@@ -18,8 +18,16 @@ const KeyFeatures = () => {
   const keyFeatures = [
     {
       id: "crm-sales",
-      icon: Users,
-      iconColor: "text-blue-600",
+      icon: () => (
+        <svg width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 8h32l-4 8H12l-4-8z" fill="#3599B8"/>
+          <path d="M12 16h24l-3 8H15l-3-8z" fill="#01B8AA"/>
+          <path d="M15 24h18l-3 8H18l-3-8z" fill="#2E738A"/>
+          <path d="M18 32h12l-2 8H20l-2-8z" fill="#8AD4EB"/>
+          <circle cx="26" cy="44" r="2" fill="#3599B8"/>
+        </svg>
+      ),
+      iconColor: "",
       title: "CRM & Sales",
       subtitle: "Complete Sales Management",
       description: "Comprehensive customer relationship management with advanced sales pipeline tracking, automated workflows, and integrated customer service tools.",
