@@ -18,7 +18,6 @@ const HeroSection = () => {
             <span className="text-green-600">
               99.8%
             </span>
-            {" "}- and you can configure it yourself without writing a single line of code
           </h1>
 
           {/* Subheadline */}
