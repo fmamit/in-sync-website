@@ -14,10 +14,11 @@ const HeroSection = () => {
         <div className="max-w-4xl mx-auto text-center">
           {/* Main Headline */}
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 text-foreground leading-tight">
-            One Platform,{" "}
+            Meet the CRM with AI that cuts costs by{" "}
             <span className="text-green-600">
-              Endless Possibilities
+              99.8%
             </span>
+            {" "}- and you can configure it yourself without writing a single line of code
           </h1>
 
           {/* Subheadline */}
