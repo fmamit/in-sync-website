@@ -19,7 +19,7 @@ const KeyFeatures = () => {
     {
       id: "crm-sales",
       icon: () => (
-        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M8 8h32l-4 8H12l-4-8z" fill="#3599B8"/>
           <path d="M12 16h24l-3 8H15l-3-8z" fill="#01B8AA"/>
           <path d="M15 24h18l-3 8H18l-3-8z" fill="#2E738A"/>
