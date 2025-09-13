@@ -32,6 +32,23 @@ const KeyFeatures = () => {
       badge: "Sales Ready"
     },
     {
+      id: "field-force",
+      icon: Smartphone,
+      iconColor: "text-green-600",
+      title: "Field Force Management",
+      subtitle: "Mobile Operations & Tracking",
+      description: "Real-time GPS tracking, mobile workforce management, and performance analytics for field teams and remote operations.",
+      features: [
+        "GPS Tracking",
+        "Mobile Operations",
+        "Performance Management",
+        "Route Optimization",
+        "Time & Attendance"
+      ],
+      gradient: "from-green-50/30 via-background to-emerald-50/20",
+      badge: "Field Ready"
+    },
+    {
       id: "ai-first",
       icon: Brain,
       iconColor: "text-purple-600",
