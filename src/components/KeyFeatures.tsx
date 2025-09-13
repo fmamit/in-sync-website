@@ -150,23 +150,6 @@ const KeyFeatures = () => {
       ],
       gradient: "from-green-50/30 via-background to-emerald-50/20",
       badge: "∞ Users"
-    },
-    {
-      id: "mobile-first",
-      icon: Smartphone,
-      iconColor: "text-blue-500",
-      title: "Mobile-First Design",
-      subtitle: "Work from Anywhere",
-      description: "Native mobile apps for iOS and Android, offline capabilities, and GPS-enabled field force management. Your entire business in your pocket.",
-      features: [
-        "Native Mobile Apps",
-        "Offline Data Sync",
-        "GPS Location Tracking",
-        "Real-time Notifications",
-        "Touch-Optimized Interface"
-      ],
-      gradient: "from-blue-50/30 via-background to-cyan-50/20",
-      badge: "Mobile Ready"
     }
   ];
 
