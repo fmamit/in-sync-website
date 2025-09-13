@@ -34,6 +34,23 @@ const KeyFeatures = () => {
       badge: "Sales Ready"
     },
     {
+      id: "ai-first",
+      icon: Brain,
+      iconColor: "text-purple-600",
+      title: "AI-First Platform",
+      subtitle: "Gargi AI at Your Service",
+      description: "Revolutionary AI assistant that understands your business context, automates complex workflows, and provides intelligent insights to drive growth.",
+      features: [
+        "Natural Language Processing",
+        "Predictive Lead Scoring", 
+        "Automated Task Assignment",
+        "Smart Response Generation",
+        "Behavioral Pattern Analysis"
+      ],
+      gradient: "from-purple-50/30 via-background to-indigo-50/20",
+      badge: "AI-Powered"
+    },
+    {
       id: "field-force",
       icon: Smartphone,
       iconColor: "text-green-600",
@@ -49,23 +66,6 @@ const KeyFeatures = () => {
       ],
       gradient: "from-green-50/30 via-background to-emerald-50/20",
       badge: "Field Ready"
-    },
-    {
-      id: "multi-channel-marketing",
-      icon: Zap,
-      iconColor: "text-purple-600",
-      title: "Multi-channel Marketing",
-      subtitle: "Calling, Messaging & Automation",
-      description: "Integrated marketing campaigns across multiple channels with automated calling, messaging, and workflow automation to engage customers effectively.",
-      features: [
-        "Automated Calling",
-        "SMS & Email Campaigns",
-        "Marketing Automation",
-        "Multi-channel Outreach",
-        "Campaign Analytics"
-      ],
-      gradient: "from-purple-50/30 via-background to-violet-50/20",
-      badge: "Marketing Pro"
     },
     {
       id: "integrations",
@@ -85,21 +85,21 @@ const KeyFeatures = () => {
       badge: "Connected"
     },
     {
-      id: "security-compliance",
-      icon: Shield,
-      iconColor: "text-red-600",
-      title: "Security & Compliance",
-      subtitle: "Enterprise-Grade Protection",
-      description: "Advanced data security protocols, comprehensive user management, and built-in compliance features to meet industry standards and regulations.",
+      id: "multi-channel-marketing",
+      icon: Zap,
+      iconColor: "text-purple-600",
+      title: "Multi-channel Marketing",
+      subtitle: "Calling, Messaging & Automation",
+      description: "Integrated marketing campaigns across multiple channels with automated calling, messaging, and workflow automation to engage customers effectively.",
       features: [
-        "Data Security",
-        "User Management",
-        "Compliance Features",
-        "Access Controls",
-        "Audit Trails"
+        "Automated Calling",
+        "SMS & Email Campaigns",
+        "Marketing Automation",
+        "Multi-channel Outreach",
+        "Campaign Analytics"
       ],
-      gradient: "from-red-50/30 via-background to-rose-50/20",
-      badge: "Secure"
+      gradient: "from-purple-50/30 via-background to-violet-50/20",
+      badge: "Marketing Pro"
     },
     {
       id: "custom-analytics",
@@ -117,23 +117,6 @@ const KeyFeatures = () => {
       ],
       gradient: "from-indigo-50/30 via-background to-blue-50/20",
       badge: "Analytics Pro"
-    },
-    {
-      id: "ai-first",
-      icon: Brain,
-      iconColor: "text-purple-600",
-      title: "AI-First Platform",
-      subtitle: "Gargi AI at Your Service",
-      description: "Revolutionary AI assistant that understands your business context, automates complex workflows, and provides intelligent insights to drive growth.",
-      features: [
-        "Natural Language Processing",
-        "Predictive Lead Scoring", 
-        "Automated Task Assignment",
-        "Smart Response Generation",
-        "Behavioral Pattern Analysis"
-      ],
-      gradient: "from-purple-50/30 via-background to-indigo-50/20",
-      badge: "AI-Powered"
     },
     {
       id: "no-code",
@@ -168,6 +151,23 @@ const KeyFeatures = () => {
       ],
       gradient: "from-green-50/30 via-background to-emerald-50/20",
       badge: "∞ Users"
+    },
+    {
+      id: "security-compliance",
+      icon: Shield,
+      iconColor: "text-red-600",
+      title: "Security & Compliance",
+      subtitle: "Enterprise-Grade Protection",
+      description: "Advanced data security protocols, comprehensive user management, and built-in compliance features to meet industry standards and regulations.",
+      features: [
+        "Data Security",
+        "User Management",
+        "Compliance Features",
+        "Access Controls",
+        "Audit Trails"
+      ],
+      gradient: "from-red-50/30 via-background to-rose-50/20",
+      badge: "Secure"
     }
   ];
 
