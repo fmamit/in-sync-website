@@ -17,6 +17,7 @@ import {
 import aiAssistantIcon from "@/assets/ai-assistant-icon.jpg";
 import fieldWorkerIcon from "@/assets/field-worker-icon.jpg";
 import analyticsIcon from "@/assets/analytics-icon.jpg";
+import integrationsIcon from "@/assets/integrations-icon.jpg";
 
 const KeyFeatures = () => {
   const keyFeatures = [
@@ -101,8 +102,18 @@ const KeyFeatures = () => {
     },
     {
       id: "integrations",
-      icon: Infinity,
-      iconColor: "text-orange-500",
+      icon: () => (
+        <img 
+          src={integrationsIcon} 
+          alt="Integrations Dashboard" 
+          className="w-full h-full object-contain"
+          style={{
+            backgroundColor: 'white',
+            borderRadius: '12px'
+          }}
+        />
+      ),
+      iconColor: "",
       title: "Integrations",
       subtitle: "Seamless Connectivity",
       description: "Connect with accounting systems, ERP solutions, analytics platforms, and create custom integrations for complete business ecosystem synchronization.",
