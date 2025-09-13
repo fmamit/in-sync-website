@@ -44,32 +44,8 @@ const KeyFeatures = () => {
     },
     {
       id: "ai-first",
-      icon: () => (
-        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-          {/* Simple elegant head shape */}
-          <path d="M24 6c-7 0-12 5-12 12v6c0 4 2 7 5 9l3 5c0 2 2 4 4 4s4-2 4-4l3-5c3-2 5-5 5-9v-6c0-7-5-12-12-12z" 
-                stroke="#aa5af0" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
-          
-          {/* Open eyes */}
-          <circle cx="20" cy="20" r="2" 
-                  stroke="#aa5af0" strokeWidth="1.5" fill="none"/>
-          <circle cx="28" cy="20" r="2" 
-                  stroke="#aa5af0" strokeWidth="1.5" fill="none"/>
-          <circle cx="20" cy="20" r="0.8" fill="#aa5af0"/>
-          <circle cx="28" cy="20" r="0.8" fill="#aa5af0"/>
-          
-          {/* Eyelashes */}
-          <path d="M18 18l-1-1M20 17l0-1M22 18l1-1" 
-                stroke="#aa5af0" strokeWidth="1" strokeLinecap="round"/>
-          <path d="M26 18l-1-1M28 17l0-1M30 18l1-1" 
-                stroke="#aa5af0" strokeWidth="1" strokeLinecap="round"/>
-          
-          {/* Gentle smile */}
-          <path d="M22 26c1 1 3 1 4 0" 
-                stroke="#aa5af0" strokeWidth="1.5" fill="none" strokeLinecap="round"/>
-        </svg>
-      ),
-      iconColor: "",
+      icon: Brain,
+      iconColor: "text-purple-600",
       title: "AI-First Platform",
       subtitle: "Gargi AI at Your Service",
       description: "Revolutionary AI assistant that understands your business context, automates complex workflows, and provides intelligent insights to drive growth.",
