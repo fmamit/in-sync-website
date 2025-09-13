@@ -19,7 +19,7 @@ const PlatformOverview = () => {
     {
       icon: Database,
       title: "DATA & CRM",
-      iconColor: "text-blue-600",
+      iconColor: "text-cyan-500",
       features: [
         "Contact Management",
         "Lead Pipeline",
@@ -30,7 +30,7 @@ const PlatformOverview = () => {
     {
       icon: Brain,
       title: "AI AUTOMATION",
-      iconColor: "text-purple-600",
+      iconColor: "text-violet-600",
       features: [
         "Gargi AI",
         "Predictive Analytics",
@@ -41,7 +41,7 @@ const PlatformOverview = () => {
     {
       icon: MapPin,
       title: "FIELD FORCE",
-      iconColor: "text-red-500",
+      iconColor: "text-rose-500",
       features: [
         "GPS Tracking",
         "Route Optimization",
@@ -52,7 +52,7 @@ const PlatformOverview = () => {
     {
       icon: Puzzle,
       title: "INTEGRATIONS",
-      iconColor: "text-orange-500",
+      iconColor: "text-amber-500",
       features: [
         "20+ Built-in",
         "Excel Native",
@@ -63,7 +63,7 @@ const PlatformOverview = () => {
     {
       icon: MessageCircle,
       title: "COMMUNICATION",
-      iconColor: "text-green-600",
+      iconColor: "text-emerald-600",
       features: [
         "Click-to-Call",
         "Auto Dialer",
@@ -74,7 +74,7 @@ const PlatformOverview = () => {
     {
       icon: BarChart3,
       title: "ANALYTICS",
-      iconColor: "text-indigo-600",
+      iconColor: "text-blue-500",
       features: [
         "PowerBI Integration",
         "Custom Reports",
@@ -85,7 +85,7 @@ const PlatformOverview = () => {
     {
       icon: Wrench,
       title: "NO-CODE BUILD",
-      iconColor: "text-pink-500",
+      iconColor: "text-fuchsia-500",
       features: [
         "Workflow Builder",
         "Form Designer",
@@ -96,7 +96,7 @@ const PlatformOverview = () => {
     {
       icon: Shield,
       title: "SECURITY",
-      iconColor: "text-teal-600",
+      iconColor: "text-slate-600",
       features: [
         "Private Cloud",
         "Separate Instance",
