@@ -15,6 +15,23 @@ import {
 const KeyFeatures = () => {
   const keyFeatures = [
     {
+      id: "crm-sales",
+      icon: Users,
+      iconColor: "text-blue-600",
+      title: "CRM & Sales",
+      subtitle: "Complete Sales Management",
+      description: "Comprehensive customer relationship management with advanced sales pipeline tracking, automated workflows, and integrated customer service tools.",
+      features: [
+        "Contact Management",
+        "Pipeline Tracking", 
+        "Task Automation",
+        "Customer Service",
+        "Sales Analytics"
+      ],
+      gradient: "from-blue-50/30 via-background to-indigo-50/20",
+      badge: "Sales Ready"
+    },
+    {
       id: "ai-first",
       icon: Brain,
       iconColor: "text-purple-600",
