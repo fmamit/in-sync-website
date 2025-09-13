@@ -102,7 +102,7 @@ const PlatformOverview = () => {
     <section className="py-20 bg-gradient-to-br from-purple-50/20 via-background to-blue-50/10">
       <div className="container mx-auto px-4">
         {/* Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-16 bg-gradient-to-r from-blue-50/30 via-transparent to-purple-50/20 py-12 rounded-2xl">
           <h2 className="text-3xl md:text-5xl font-bold mb-4">
             Every Feature. Every Department.{" "}
             <span className="text-blue-600">
@@ -146,7 +146,7 @@ const PlatformOverview = () => {
         </div>
 
         {/* Interface Showcase */}
-        <div className="mt-20">
+        <div className="mt-20 bg-gradient-to-br from-purple-50/20 via-background to-pink-50/10 py-16 rounded-3xl">
           <div className="text-center mb-12">
             <h3 className="text-2xl md:text-3xl font-bold mb-4">
               See{" "}

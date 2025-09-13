@@ -46,9 +46,9 @@ const Footer = () => {
   return (
     <footer className="bg-gradient-to-br from-orange-50/10 via-card to-accent/5 border-t border-border">
       {/* Newsletter Section */}
-      <div className="border-b border-border/50">
+      <div className="border-b border-border/50 bg-gradient-to-r from-orange-50/15 via-background to-yellow-50/10">
         <div className="container mx-auto px-4 py-12">
-          <div className="max-w-4xl mx-auto text-center">
+          <div className="max-w-4xl mx-auto text-center bg-gradient-to-br from-orange-50/20 to-transparent py-8 rounded-2xl">
             <h3 className="text-2xl md:text-3xl font-bold mb-4">
               Stay Updated with{" "}
               <span className="text-orange-500">
