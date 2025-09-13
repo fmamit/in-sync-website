@@ -4,7 +4,7 @@ import insyncDiagram from "@/assets/insync-diagram.png";
 
 const HeroSection = () => {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-background to-accent/20 py-20 lg:py-32">
+    <section className="relative overflow-hidden bg-gradient-to-br from-background via-blue-50/30 to-accent/20 py-20 lg:py-32">
       {/* Background Elements */}
       <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
       <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-primary/20 to-transparent rounded-full blur-3xl"></div>

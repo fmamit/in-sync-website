@@ -44,7 +44,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-gradient-to-br from-card to-accent/5 border-t border-border">
+    <footer className="bg-gradient-to-br from-orange-50/10 via-card to-accent/5 border-t border-border">
       {/* Newsletter Section */}
       <div className="border-b border-border/50">
         <div className="container mx-auto px-4 py-12">
