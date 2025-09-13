@@ -121,7 +121,7 @@ const KeyFeatures = () => {
       id: "no-code",
       icon: Wrench,
       iconColor: "text-orange-500",
-      title: "No-Code Revolution",
+      title: "True No-Code Platform",
       subtitle: "Build Without Boundaries",
       description: "Drag-and-drop interface builder, visual workflow designer, and customizable modules. Create complex business processes without writing a single line of code.",
       features: [
