@@ -173,15 +173,14 @@ const KeyFeatures = () => {
         />
       ),
       iconColor: "",
-      title: "Custom KPI driven Analytics",
+      title: "Adaptive Business Intelligence",
       subtitle: "Data-Driven Insights",
-      description: "Advanced analytics platform with customizable KPI dashboards, real-time reporting, and intelligent business intelligence to drive informed decision-making.",
+      description: "Powered by Microsoft PowerBI, Azure Databricks, Azure Data Factory, and Lakehouse architecture. Advanced analytics platform with customizable KPI dashboards, real-time reporting, and intelligent business intelligence to drive informed decision-making.",
       features: [
-        "Custom KPI Dashboards",
-        "Real-time Reporting",
-        "Business Intelligence",
-        "Data Visualization",
-        "Performance Metrics"
+        "Custom KPI Dashboards → Get the exact metrics you need in minutes, not months - unlike rigid web-based reports that take weeks to customize",
+        "Real-time Reporting → Make faster decisions with live data updates that adapt instantly to your changing business requirements",
+        "Agile Data Visualization → Build and modify reports on-the-fly without IT dependency or lengthy development cycles",
+        "Performance Metrics Automation → Track what matters most with flexible KPIs that evolve with your business goals"
       ],
       gradient: "from-indigo-50/30 via-background to-blue-50/20",
       badge: "Analytics Pro"
