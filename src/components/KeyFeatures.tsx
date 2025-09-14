@@ -99,11 +99,12 @@ const KeyFeatures = () => {
       subtitle: "Cloud-Based Contact Center",
       description: "Complete contact center solution with omnichannel support, automated call distribution, real-time monitoring, and advanced workforce management capabilities.",
       features: [
-        "Omnichannel Support",
-        "Automated Call Distribution",
-        "Real-time Monitoring",
-        "Workforce Management",
-        "Quality Assurance"
+        "Tata SIP Trunking with Mobile Display → Build instant trust and increase pickup rates by 60% with caller ID showing mobile number",
+        "Omnichannel Support → Increase customer satisfaction by 35% with seamless experience across voice, chat, email, and social",
+        "Automated Call Distribution → Reduce wait times by 50% with intelligent routing to the right agent every time",
+        "Real-time Monitoring → Boost first-call resolution by 40% with live performance insights and instant coaching",
+        "Workforce Management → Cut operational costs by 25% with optimized scheduling and resource allocation",
+        "Quality Assurance → Improve agent performance by 30% with automated call scoring and targeted training"
       ],
       gradient: "from-teal-50/30 via-background to-cyan-50/20",
       badge: "Contact Center"
