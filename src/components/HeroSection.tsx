@@ -11,6 +11,10 @@ import quessLogo from "@/assets/quess-logo.png";
 import redefineLogo from "@/assets/redefine-logo.png";
 import seedsLogo from "@/assets/seeds-logo.png";
 import uhcLogo from "@/assets/uhc-logo.png";
+import incredLogo from "@/assets/incred-logo.png";
+import ecofyLogo from "@/assets/ecofy-logo.svg";
+import mothersonLogo from "@/assets/motherson-logo.jpg";
+import rupeeBossLogo from "@/assets/rupee-boss-logo.jpg";
 
 const HeroSection = () => {
   const customerLogos = [
@@ -23,7 +27,11 @@ const HeroSection = () => {
     { src: quessLogo, alt: "Quess" },
     { src: redefineLogo, alt: "Redefine" },
     { src: seedsLogo, alt: "Seeds" },
-    { src: uhcLogo, alt: "United Health Care Staffing" }
+    { src: uhcLogo, alt: "United Health Care Staffing" },
+    { src: incredLogo, alt: "InCred" },
+    { src: ecofyLogo, alt: "Ecofy" },
+    { src: mothersonLogo, alt: "Motherson" },
+    { src: rupeeBossLogo, alt: "Rupee Boss" }
   ];
 
   return (
