@@ -16,106 +16,106 @@ const FeaturesOverview = () => {
   const features = [
     {
       id: "crm-sales",
-      title: "DATA & CRM",
+      title: "CRM & Sales",
       icon: Database,
       color: "text-blue-600",
       bgColor: "bg-blue-50",
       items: [
         "Contact Management",
-        "Lead Pipeline", 
-        "Custom Fields",
-        "Task Management"
+        "Pipeline Tracking", 
+        "Task Automation",
+        "Customer Service"
       ]
     },
     {
       id: "ai-first",
-      title: "AI AUTOMATION",
+      title: "AI That Actually Works",
       icon: Brain,
       color: "text-purple-600",
       bgColor: "bg-purple-50",
       items: [
-        "Gargi AI",
-        "Predictive Analytics",
-        "Smart Workflows",
-        "Auto-responses"
+        "Predictive Lead Scoring",
+        "Pipeline Management",
+        "Conversational AI",
+        "Behavioral Triggers"
+      ]
+    },
+    {
+      id: "ccaas",
+      title: "CCaaS - Contact Center",
+      icon: MessageSquare,
+      color: "text-teal-600",
+      bgColor: "bg-teal-50",
+      items: [
+        "Tata SIP Trunking",
+        "Call Distribution",
+        "Real-time Monitoring",
+        "One Click CSAT"
+      ]
+    },
+    {
+      id: "multi-channel-marketing",
+      title: "Multi-channel Marketing",
+      icon: Zap,
+      color: "text-purple-600",
+      bgColor: "bg-purple-50",
+      items: [
+        "CRM-Integrated Campaigns",
+        "Event-Based Notifications",
+        "Drip Marketing",
+        "Campaign Analytics"
       ]
     },
     {
       id: "field-force",
-      title: "FIELD FORCE",
+      title: "Smart Field Operations",
       icon: MapPin,
       color: "text-green-600",
       bgColor: "bg-green-50",
       items: [
         "GPS Tracking",
-        "Route Optimization",
-        "Live Reporting",
-        "Expense Management"
-      ]
-    },
-    {
-      id: "integrations",
-      title: "INTEGRATIONS",
-      icon: Zap,
-      color: "text-orange-600",
-      bgColor: "bg-orange-50",
-      items: [
-        "20+ Built-in",
-        "Excel Native",
-        "WhatsApp API",
-        "Tally/Busy"
-      ]
-    },
-    {
-      id: "multi-channel-marketing",
-      title: "COMMUNICATION",
-      icon: MessageSquare,
-      color: "text-teal-600",
-      bgColor: "bg-teal-50",
-      items: [
-        "Click-to-Call",
-        "Auto Dialer",
-        "WhatsApp Automation",
-        "Email/SMS"
+        "Mobile Operations",
+        "Performance Analytics",
+        "Time & Attendance"
       ]
     },
     {
       id: "custom-analytics",
-      title: "ANALYTICS",
+      title: "Adaptive Business Intelligence",
       icon: BarChart3,
       color: "text-indigo-600",
       bgColor: "bg-indigo-50",
       items: [
-        "PowerBI Integration",
-        "Custom Reports",
-        "Real-time KPIs",
+        "Custom KPI Dashboards",
+        "Real-time Reporting",
+        "Data Visualization",
         "Performance Metrics"
       ]
     },
     {
       id: "no-code",
-      title: "NO-CODE BUILD",
+      title: "True No-Code Platform",
       icon: Wrench,
       color: "text-pink-600",
       bgColor: "bg-pink-50",
       items: [
-        "Workflow Builder",
-        "Form Designer",
-        "Process Rules",
-        "Custom Modules"
+        "Visual Workflow Builder",
+        "Custom Form Designer",
+        "Approval Matrix Builder",
+        "Instant Module Generation"
       ]
     },
     {
-      id: "security-compliance",
-      title: "SECURITY",
-      icon: Shield,
-      color: "text-red-600",
-      bgColor: "bg-red-50",
+      id: "integrations",
+      title: "Proven Integrations",
+      icon: Zap,
+      color: "text-orange-600",
+      bgColor: "bg-orange-50",
       items: [
-        "Private Cloud",
-        "Separate Instance",
-        "2FA Security",
-        "Data Ownership"
+        "Enterprise Communication",
+        "Analytics Pipeline",
+        "Lead Generation Ecosystem",
+        "Business Operations Hub"
       ]
     }
   ];
