@@ -97,14 +97,12 @@ const KeyFeatures = () => {
       iconColor: "",
       title: "CCaaS - Contact Center",
       subtitle: "Cloud-Based Contact Center",
-      description: "Complete contact center solution with omnichannel support, automated call distribution, real-time monitoring, and advanced workforce management capabilities.",
+      description: "Over 1000 callers start their day on In-Sync. Complete inbound and outbound contact center solution with omnichannel support, automated call distribution, real-time monitoring, and advanced workforce management capabilities.",
       features: [
-        "Tata SIP Trunking with Mobile Display → Build instant trust and increase pickup rates by 60% with caller ID showing mobile number",
-        "Omnichannel Support → Increase customer satisfaction by 35% with seamless experience across voice, chat, email, and social",
+        "Tata SIP Trunking with Mobile Display → Build instant trust and increase pickup rates by 60% with caller ID showing your mobile number",
         "Automated Call Distribution → Reduce wait times by 50% with intelligent routing to the right agent every time",
         "Real-time Monitoring → Boost first-call resolution by 40% with live performance insights and instant coaching",
-        "Workforce Management → Cut operational costs by 25% with optimized scheduling and resource allocation",
-        "Quality Assurance → Improve agent performance by 30% with automated call scoring and targeted training"
+        "One Click CSAT → Capture customer feedback instantly and improve service quality with effortless satisfaction surveys"
       ],
       gradient: "from-teal-50/30 via-background to-cyan-50/20",
       badge: "Contact Center"
@@ -358,12 +356,24 @@ const KeyFeatures = () => {
                   </p>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
-                    {feature.features.map((item, idx) => (
-                      <div key={idx} className="flex items-center gap-2">
-                        <CheckCircle className={`h-4 w-4 ${feature.iconColor}`} />
-                        <span className="text-sm font-medium">{item}</span>
-                      </div>
-                    ))}
+                    {feature.features.map((item, idx) => {
+                      const parts = item.split(' → ');
+                      const hasArrow = parts.length === 2;
+                      
+                      return (
+                        <div key={idx} className="flex items-center gap-2">
+                          <CheckCircle className={`h-4 w-4 ${feature.iconColor}`} />
+                          {hasArrow ? (
+                            <span className="text-sm">
+                              <span className="font-medium">{parts[0]}</span>
+                              <span className="text-muted-foreground"> → {parts[1]}</span>
+                            </span>
+                          ) : (
+                            <span className="text-sm font-medium">{item}</span>
+                          )}
+                        </div>
+                      );
+                    })}
                   </div>
 
                   <Button 
