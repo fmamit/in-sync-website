@@ -7,6 +7,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
+import QuoteGenerator from "./QuoteGenerator";
 import { 
   Calculator, 
   Users, 
@@ -70,6 +71,24 @@ const CostCalculator = ({ className = "" }: CostCalculatorProps) => {
   const subtotal = basePlanCost + modulesCost + messagingCost + callingCost;
   const annualDiscount = billingCycle === "annual" && subtotal > 0 ? subtotal * 0.2 : 0;
   const totalCost = subtotal - annualDiscount;
+
+  // Prepare quote data for generation
+  const quoteData = {
+    selectedPlan: plans[selectedPlan].name,
+    planPrice: basePlanCost,
+    currency,
+    billingCycle,
+    selectedModules: selectedModules.map(id => addOnModules.find(m => m.id === id)?.name || id),
+    modulePrice: modulesCost,
+    messageVolume,
+    messagingCost,
+    callMinutes,
+    callingCost,
+    subtotal,
+    discount: annualDiscount,
+    totalCost,
+    teamSize
+  };
 
   const formatCurrency = (amount: number) => {
     const symbol = currency === "USD" ? "$" : "₹";
@@ -381,10 +400,12 @@ const CostCalculator = ({ className = "" }: CostCalculatorProps) => {
                 <Button className="w-full" size="lg">
                   Get Started with {plans[selectedPlan].name}
                 </Button>
-                <Button variant="outline" className="w-full" size="sm">
-                  <Download className="w-4 h-4 mr-2" />
-                  Download Quote
-                </Button>
+              </div>
+
+              {/* Quote Generator */}
+              <div className="pt-4 border-t">
+                <div className="text-sm font-medium text-foreground mb-3">Generate Professional Quote</div>
+                <QuoteGenerator quoteData={quoteData} />
               </div>
 
               {/* Additional Info */}
