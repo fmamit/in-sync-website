@@ -1,6 +1,6 @@
 import crmLeadsView from "@/assets/crm-leads-new.png";
 import crmDetailView from "@/assets/crm-detail-new.png";
-import aiVoiceView from "@/assets/ai-voice-new.png";
+import autodialerView from "@/assets/autodialer-new.png";
 import dripMarketingView from "@/assets/drip-marketing-new.png";
 
 const CRMShowcase = () => {
@@ -55,19 +55,19 @@ const CRMShowcase = () => {
             </div>
           </div>
 
-          {/* AI Voice Assistant */}
+          {/* Auto Dialler */}
           <div className="space-y-4">
             <div className="aspect-video rounded-xl overflow-hidden shadow-2xl border border-primary/10">
               <img 
-                src={aiVoiceView} 
-                alt="In-Sync AI Voice Assistant Interface"
+                src={autodialerView} 
+                alt="In-Sync Auto Dialler Interface"
                 className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
               />
             </div>
             <div className="text-center">
-              <h4 className="font-semibold text-lg mb-2">AI Voice Assistant</h4>
+              <h4 className="font-semibold text-lg mb-2">Auto Dialler</h4>
               <p className="text-sm text-muted-foreground">
-                Intelligent voice automation with multiple voice options for seamless customer interactions
+                Automated calling campaigns with progress tracking, agent assignment, and bulk upload capabilities
               </p>
             </div>
           </div>
