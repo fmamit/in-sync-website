@@ -4,6 +4,7 @@ import KeyFeatures from "@/components/KeyFeatures";
 import CRMShowcase from "@/components/CRMShowcase";
 import PlatformOverview from "@/components/PlatformOverview";
 import Footer from "@/components/Footer";
+import LogoProcessor from "@/components/LogoProcessor";
 
 const Index = () => {
   return (
@@ -16,6 +17,7 @@ const Index = () => {
         <CRMShowcase />
       </main>
       <Footer />
+      <LogoProcessor />
     </div>
   );
 };
