@@ -6,17 +6,22 @@ import crmLeadsView from "@/assets/crm-leads-new.png";
 import crmDetailView from "@/assets/crm-detail-new.png";
 import autodialerView from "@/assets/autodialer-new.png";
 import dripMarketingView from "@/assets/drip-marketing-new.png";
+import aiVoiceView from "@/assets/ai-voice-new.png";
+import crmLeadsOldView from "@/assets/crm-leads-view.png";
+import crmDetailOldView from "@/assets/crm-detail-view.png";
+import insyncDiagram from "@/assets/insync-diagram.png";
+import colorPalette from "@/assets/color-palette.png";
 
 const CRMShowcase = () => {
   const crmFeatures = [
     {
-      id: "crm-leads",
+      id: "crm-leads-new",
       image: crmLeadsView,
       title: "CRM & Leads Management",
       description: "Advanced CRM with lead tracking, filtering, and comprehensive customer data management"
     },
     {
-      id: "customer-support",
+      id: "customer-support-new",
       image: crmDetailView,
       title: "Customer Support Hub",
       description: "Complete customer support workflow with ticket management, timeline tracking, and team collaboration"
@@ -32,6 +37,36 @@ const CRMShowcase = () => {
       image: dripMarketingView,
       title: "Automated Marketing",
       description: "Multi-channel drip campaigns with WhatsApp, SMS, and Email integration for maximum reach"
+    },
+    {
+      id: "ai-voice",
+      image: aiVoiceView,
+      title: "AI Voice Assistant",
+      description: "Intelligent voice-powered assistant for hands-free CRM operations and customer interactions"
+    },
+    {
+      id: "crm-leads-classic",
+      image: crmLeadsOldView,
+      title: "CRM Leads Overview",
+      description: "Comprehensive leads dashboard with advanced filtering and management capabilities"
+    },
+    {
+      id: "customer-detail-classic",
+      image: crmDetailOldView,
+      title: "Customer Detail View",
+      description: "Detailed customer profile with complete interaction history and engagement tracking"
+    },
+    {
+      id: "platform-diagram",
+      image: insyncDiagram,
+      title: "Platform Architecture",
+      description: "Complete In-Sync platform overview showing integrated modules and workflow connections"
+    },
+    {
+      id: "design-system",
+      image: colorPalette,
+      title: "Design System",
+      description: "Consistent and modern design language across all In-Sync platform interfaces"
     }
   ];
 
