@@ -1,8 +1,31 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Play, CheckCircle } from "lucide-react";
 import insyncDiagram from "@/assets/insync-diagram.png";
+import growthvineLogo from "@/assets/growthvine-logo.jpeg";
+import audiLogo from "@/assets/audi-logo.png";
+import capitalIndiaLogo from "@/assets/capital-india-logo.jpg";
+import carTrendsLogo from "@/assets/car-trends-logo.webp";
+import ezeepayLogo from "@/assets/ezeepay-logo.png";
+import hiranandaniLogo from "@/assets/hiranandani-logo.png";
+import quessLogo from "@/assets/quess-logo.png";
+import redefineLogo from "@/assets/redefine-logo.png";
+import seedsLogo from "@/assets/seeds-logo.png";
+import uhcLogo from "@/assets/uhc-logo.png";
 
 const HeroSection = () => {
+  const customerLogos = [
+    { src: growthvineLogo, alt: "GrowthVine" },
+    { src: audiLogo, alt: "Audi" },
+    { src: capitalIndiaLogo, alt: "Capital India" },
+    { src: carTrendsLogo, alt: "Car Trends" },
+    { src: ezeepayLogo, alt: "Ezeepay" },
+    { src: hiranandaniLogo, alt: "Hiranandani" },
+    { src: quessLogo, alt: "Quess" },
+    { src: redefineLogo, alt: "Redefine" },
+    { src: seedsLogo, alt: "Seeds" },
+    { src: uhcLogo, alt: "United Health Care Staffing" }
+  ];
+
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-background via-blue-50/30 to-accent/20 py-20 lg:py-32">
       {/* Background Elements */}
@@ -75,13 +98,17 @@ const HeroSection = () => {
             </div>
           </div>
 
-          {/* Client Logos Placeholder */}
+          {/* Client Logos */}
           <div>
             <p className="text-sm text-muted-foreground mb-6">Trusted by leading brands worldwide</p>
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4 items-center opacity-60">
-              {Array.from({ length: 8 }).map((_, i) => (
-                <div key={i} className="h-12 bg-muted/50 rounded-lg flex items-center justify-center">
-                  <div className="w-16 h-6 bg-muted rounded"></div>
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 items-center opacity-70">
+              {customerLogos.map((logo, i) => (
+                <div key={i} className="h-16 flex items-center justify-center p-2 rounded-lg hover:opacity-100 transition-opacity duration-300 grayscale hover:grayscale-0">
+                  <img 
+                    src={logo.src} 
+                    alt={logo.alt}
+                    className="max-h-12 max-w-full object-contain"
+                  />
                 </div>
               ))}
             </div>
