@@ -21,11 +21,15 @@ import Footer from "@/components/Footer";
 
 const Pricing = () => {
   const [billingCycle, setBillingCycle] = useState<"monthly" | "annual">("monthly");
+  const [currency, setCurrency] = useState<"USD" | "INR">("USD");
 
   const plans = [
     {
       name: "Starter",
-      price: { monthly: 0, annual: 0 },
+      price: { 
+        USD: { monthly: 0, annual: 0 },
+        INR: { monthly: 0, annual: 0 }
+      },
       originalPrice: null,
       description: "Perfect for small teams getting started",
       badge: "Free Forever",
@@ -45,8 +49,14 @@ const Pricing = () => {
     },
     {
       name: "Growth", 
-      price: { monthly: 199, annual: 1590 }, // 20% discount for annual
-      originalPrice: { monthly: null, annual: 2388 },
+      price: { 
+        USD: { monthly: 199, annual: 1590 },
+        INR: { monthly: 14999, annual: 119992 } // ₹14,999/month, ₹1,19,992/year (20% discount)
+      },
+      originalPrice: { 
+        USD: { monthly: null, annual: 2388 },
+        INR: { monthly: null, annual: 179988 }
+      },
       description: "For growing businesses that need automation",
       badge: "Most Popular",
       badgeColor: "bg-primary",
@@ -67,8 +77,14 @@ const Pricing = () => {
     },
     {
       name: "Scale",
-      price: { monthly: 999, annual: 7992 }, // 20% discount for annual  
-      originalPrice: { monthly: null, annual: 11988 },
+      price: { 
+        USD: { monthly: 999, annual: 7992 },
+        INR: { monthly: 74999, annual: 599992 } // ₹74,999/month, ₹5,99,992/year (20% discount)
+      },
+      originalPrice: { 
+        USD: { monthly: null, annual: 11988 },
+        INR: { monthly: null, annual: 899988 }
+      },
       description: "Enterprise-grade solution for scaling businesses",
       badge: "Enterprise",
       badgeColor: "bg-purple-500",
@@ -94,7 +110,7 @@ const Pricing = () => {
     {
       name: "Voice Calling",
       description: "High-quality voice calls with advanced features",
-      pricing: "Pulse-based pricing",
+      pricing: currency === "USD" ? "Pulse-based pricing" : "Usage-based pricing",
       detail: "Rates vary by geography and usage",
       icon: Phone,
       features: [
@@ -108,7 +124,7 @@ const Pricing = () => {
     {
       name: "Messaging Services",
       description: "SMS, WhatsApp, and multi-channel messaging",
-      pricing: "$0.01",
+      pricing: currency === "USD" ? "$0.01" : "₹0.75",
       detail: "Per message sent",
       icon: MessageSquare,
       features: [
@@ -122,12 +138,12 @@ const Pricing = () => {
   ];
 
   const addOnModules = [
-    { name: "Advanced Analytics", price: 99 },
-    { name: "Custom Workflow Builder", price: 99 },
-    { name: "API Access & Webhooks", price: 99 },
-    { name: "White-label Branding", price: 99 },
-    { name: "Advanced Security & Compliance", price: 99 },
-    { name: "Custom Integrations", price: 99 }
+    { name: "Advanced Analytics", price: { USD: 99, INR: 7499 } },
+    { name: "Custom Workflow Builder", price: { USD: 99, INR: 7499 } },
+    { name: "API Access & Webhooks", price: { USD: 99, INR: 7499 } },
+    { name: "White-label Branding", price: { USD: 99, INR: 7499 } },
+    { name: "Advanced Security & Compliance", price: { USD: 99, INR: 7499 } },
+    { name: "Custom Integrations", price: { USD: 99, INR: 7499 } }
   ];
 
   return (
@@ -152,8 +168,17 @@ const Pricing = () => {
             No hidden fees. Add only what you need. Start free and scale as you grow.
           </p>
           
-          {/* Billing Toggle */}
-          <div className="flex items-center justify-center gap-4 mb-8">
+          {/* Currency and Billing Toggles */}
+          <div className="flex items-center justify-center gap-6 mb-8">
+            {/* Currency Toggle */}
+            <Tabs value={currency} onValueChange={(value) => setCurrency(value as "USD" | "INR")} className="w-auto">
+              <TabsList className="grid w-fit grid-cols-2 bg-muted">
+                <TabsTrigger value="USD">USD ($)</TabsTrigger>
+                <TabsTrigger value="INR">INR (₹)</TabsTrigger>
+              </TabsList>
+            </Tabs>
+            
+            {/* Billing Toggle */}
             <Tabs value={billingCycle} onValueChange={(value) => setBillingCycle(value as "monthly" | "annual")} className="w-auto">
               <TabsList className="grid w-fit grid-cols-2 bg-muted">
                 <TabsTrigger value="monthly">Monthly</TabsTrigger>
@@ -194,17 +219,19 @@ const Pricing = () => {
                   <div className="mt-4">
                     <div className="flex items-baseline justify-center gap-1">
                       <span className="text-4xl font-bold text-foreground">
-                        ${plan.price[billingCycle].toLocaleString()}
+                        {currency === "USD" ? "$" : "₹"}{plan.price[currency][billingCycle].toLocaleString()}
                       </span>
-                      {plan.price[billingCycle] > 0 && (
+                      {plan.price[currency][billingCycle] > 0 && (
                         <span className="text-muted-foreground">
                           /{billingCycle === 'monthly' ? 'mo' : 'yr'}
                         </span>
                       )}
                     </div>
-                    {billingCycle === 'annual' && plan.originalPrice?.annual && (
+                    {billingCycle === 'annual' && plan.originalPrice?.[currency]?.annual && (
                       <div className="text-sm text-muted-foreground mt-1">
-                        <span className="line-through">${plan.originalPrice.annual.toLocaleString()}</span>
+                        <span className="line-through">
+                          {currency === "USD" ? "$" : "₹"}{plan.originalPrice[currency].annual.toLocaleString()}
+                        </span>
                         <span className="ml-2 text-primary font-semibold">Save 20%</span>
                       </div>
                     )}
@@ -287,7 +314,7 @@ const Pricing = () => {
       {/* Add-on Modules */}
       <section className="py-16 px-4">
         <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-12">
+            <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-foreground mb-4">
               Additional Modules
             </h2>
@@ -297,7 +324,7 @@ const Pricing = () => {
             </p>
             <div className="flex items-center justify-center gap-4">
               <Badge variant="secondary" className="text-lg px-4 py-2">
-                $99 per module per month
+                {currency === "USD" ? "$99" : "₹7,499"} per module per month
               </Badge>
             </div>
           </div>
@@ -311,7 +338,9 @@ const Pricing = () => {
                       <div className="w-2 h-2 bg-primary rounded-full"></div>
                       <span className="font-medium">{module.name}</span>
                     </div>
-                    <Badge variant="outline">${module.price}/mo</Badge>
+                    <Badge variant="outline">
+                      {currency === "USD" ? "$" : "₹"}{module.price[currency]}/mo
+                    </Badge>
                   </div>
                 </CardContent>
               </Card>
