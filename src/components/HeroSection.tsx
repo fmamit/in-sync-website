@@ -15,6 +15,7 @@ import incredLogo from "@/assets/incred-logo.png";
 import ecofyLogo from "@/assets/ecofy-logo.svg";
 import mothersonLogo from "@/assets/motherson-logo.jpg";
 import rupeeBossLogo from "@/assets/rupee-boss-logo.jpg";
+import evcoLogo from "@/assets/evco-logo.png";
 
 const HeroSection = () => {
   const customerLogos = [
@@ -31,7 +32,8 @@ const HeroSection = () => {
     { src: incredLogo, alt: "InCred" },
     { src: ecofyLogo, alt: "Ecofy" },
     { src: mothersonLogo, alt: "Motherson" },
-    { src: rupeeBossLogo, alt: "Rupee Boss" }
+    { src: rupeeBossLogo, alt: "Rupee Boss" },
+    { src: evcoLogo, alt: "EV-CO" }
   ];
 
   return (
