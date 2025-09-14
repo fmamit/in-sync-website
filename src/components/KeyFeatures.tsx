@@ -317,7 +317,8 @@ const KeyFeatures = () => {
         <div className="space-y-16">
           {keyFeatures.map((feature, index) => (
             <div 
-              key={feature.id} 
+              key={feature.id}
+              id={feature.id}
               className={`bg-gradient-to-br ${feature.gradient} rounded-3xl p-8 md:p-12`}
             >
               <div className={`grid grid-cols-1 lg:grid-cols-2 gap-8 items-center ${index % 2 === 1 ? 'lg:grid-flow-col-dense' : ''}`}>

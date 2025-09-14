@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
+import FeaturesOverview from "@/components/FeaturesOverview";
 import KeyFeatures from "@/components/KeyFeatures";
 import CRMShowcase from "@/components/CRMShowcase";
 import PlatformOverview from "@/components/PlatformOverview";
@@ -12,6 +13,7 @@ const Index = () => {
       <main>
         <HeroSection />
         <PlatformOverview />
+        <FeaturesOverview />
         <KeyFeatures />
         <CRMShowcase />
       </main>
