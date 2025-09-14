@@ -12,8 +12,7 @@ import {
   CheckCircle,
   Infinity,
   Shield,
-  BarChart3,
-  Headphones
+  BarChart3
 } from "lucide-react";
 import aiAssistantIcon from "@/assets/ai-assistant-icon.jpg";
 import fieldWorkerIcon from "@/assets/field-worker-icon.jpg";
@@ -24,6 +23,7 @@ import noCodeIcon from "@/assets/no-code-icon.png";
 import unlimitedUsersIcon from "@/assets/unlimited-users-icon.png";
 import securityComplianceIcon from "@/assets/security-compliance-icon.png";
 import crmSalesIcon from "@/assets/crm-sales-icon.png";
+import ccaasIcon from "@/assets/ccaas-icon.jpg";
 
 const KeyFeatures = () => {
   const keyFeatures = [
@@ -83,8 +83,18 @@ const KeyFeatures = () => {
     },
     {
       id: "ccaas",
-      icon: Headphones,
-      iconColor: "text-teal-600",
+      icon: () => (
+        <img 
+          src={ccaasIcon} 
+          alt="CCaaS Contact Center" 
+          className="w-full h-full object-contain"
+          style={{
+            backgroundColor: 'white',
+            borderRadius: '12px'
+          }}
+        />
+      ),
+      iconColor: "",
       title: "CCaaS - Contact Center",
       subtitle: "Cloud-Based Contact Center",
       description: "Complete contact center solution with omnichannel support, automated call distribution, real-time monitoring, and advanced workforce management capabilities.",
@@ -324,11 +334,11 @@ const KeyFeatures = () => {
                   <div className="flex items-center gap-3 mb-4">
                     <div className={`p-3 bg-white/80 rounded-xl shadow-sm`}>
                       {typeof feature.icon === 'function' ? (
-                        <div className="w-6 h-6">
+                        <div className="w-15 h-15">
                           {React.createElement(feature.icon)}
                         </div>
                       ) : (
-                        React.createElement(feature.icon, { className: `h-6 w-6 ${feature.iconColor}` })
+                        React.createElement(feature.icon, { className: `h-15 w-15 ${feature.iconColor}` })
                       )}
                     </div>
                     <Badge variant="secondary" className="text-xs">
