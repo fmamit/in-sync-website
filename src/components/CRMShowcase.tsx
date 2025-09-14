@@ -1,5 +1,7 @@
-import crmLeadsView from "@/assets/crm-leads-view.png";
-import crmDetailView from "@/assets/crm-detail-view.png";
+import crmLeadsView from "@/assets/crm-leads-new.png";
+import crmDetailView from "@/assets/crm-detail-new.png";
+import aiVoiceView from "@/assets/ai-voice-new.png";
+import dripMarketingView from "@/assets/drip-marketing-new.png";
 
 const CRMShowcase = () => {
   return (
@@ -18,8 +20,8 @@ const CRMShowcase = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8">
-          {/* Leads Management */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
+          {/* CRM Leads Management */}
           <div className="space-y-4">
             <div className="aspect-video rounded-xl overflow-hidden shadow-2xl border border-primary/10">
               <img 
@@ -29,26 +31,60 @@ const CRMShowcase = () => {
               />
             </div>
             <div className="text-center">
-              <h4 className="font-semibold text-lg mb-2">Leads Management</h4>
+              <h4 className="font-semibold text-lg mb-2">CRM & Leads Management</h4>
               <p className="text-sm text-muted-foreground">
-                Track, filter, and manage your entire sales pipeline with powerful search and filtering capabilities
+                Advanced CRM with lead tracking, filtering, and comprehensive customer data management
               </p>
             </div>
           </div>
 
-          {/* Customer Detail View */}
+          {/* Customer Support Details */}
           <div className="space-y-4">
             <div className="aspect-video rounded-xl overflow-hidden shadow-2xl border border-primary/10">
               <img 
                 src={crmDetailView} 
-                alt="In-Sync CRM Customer Detail View Interface"
+                alt="In-Sync Customer Support Detail View"
                 className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
               />
             </div>
             <div className="text-center">
-              <h4 className="font-semibold text-lg mb-2">360° Customer View</h4>
+              <h4 className="font-semibold text-lg mb-2">Customer Support Hub</h4>
               <p className="text-sm text-muted-foreground">
-                Complete customer profiles with timeline, communication history, and real-time collaboration tools
+                Complete customer support workflow with ticket management, timeline tracking, and team collaboration
+              </p>
+            </div>
+          </div>
+
+          {/* AI Voice Assistant */}
+          <div className="space-y-4">
+            <div className="aspect-video rounded-xl overflow-hidden shadow-2xl border border-primary/10">
+              <img 
+                src={aiVoiceView} 
+                alt="In-Sync AI Voice Assistant Interface"
+                className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+              />
+            </div>
+            <div className="text-center">
+              <h4 className="font-semibold text-lg mb-2">AI Voice Assistant</h4>
+              <p className="text-sm text-muted-foreground">
+                Intelligent voice automation with multiple voice options for seamless customer interactions
+              </p>
+            </div>
+          </div>
+
+          {/* Drip Marketing */}
+          <div className="space-y-4">
+            <div className="aspect-video rounded-xl overflow-hidden shadow-2xl border border-primary/10">
+              <img 
+                src={dripMarketingView} 
+                alt="In-Sync Drip Marketing Campaign Interface"
+                className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+              />
+            </div>
+            <div className="text-center">
+              <h4 className="font-semibold text-lg mb-2">Automated Marketing</h4>
+              <p className="text-sm text-muted-foreground">
+                Multi-channel drip campaigns with WhatsApp, SMS, and Email integration for maximum reach
               </p>
             </div>
           </div>
