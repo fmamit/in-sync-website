@@ -3,7 +3,7 @@ import { ArrowRight, Play, CheckCircle } from "lucide-react";
 import insyncDiagram from "@/assets/insync-diagram.png";
 import growthvineLogo from "@/assets/growthvine-logo.jpeg";
 import audiLogo from "@/assets/audi-logo.png";
-import capitalIndiaLogo from "@/assets/capital-india-logo.jpg";
+import capitalIndiaLogo from "@/assets/capital-india-logo.png";
 import carTrendsLogo from "@/assets/car-trends-logo.webp";
 import ezeepayLogo from "@/assets/ezeepay-logo.png";
 import hiranandaniLogo from "@/assets/hiranandani-logo.png";
