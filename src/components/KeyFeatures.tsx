@@ -277,15 +277,14 @@ const KeyFeatures = () => {
         />
       ),
       iconColor: "",
-      title: "Security & Compliance",
+      title: "Impenetrable Data Shield",
       subtitle: "Enterprise-Grade Protection",
-      description: "Advanced data security protocols, comprehensive user management, and built-in compliance features to meet industry standards and regulations.",
+      description: "Each client gets their own isolated Azure instance - your data never touches another company's environment. Plus private cloud hosting options for ultimate control and zero shared-server risks.",
       features: [
-        "Data Security",
-        "User Management",
-        "Compliance Features",
-        "Access Controls",
-        "Audit Trails"
+        "Separate Instance Fortress → Your data lives in its own private digital vault - completely isolated from other clients with zero cross-contamination risk",
+        "Private Cloud Sovereignty → Deploy on your own private cloud infrastructure and maintain 100% control over where your sensitive data lives",
+        "Military-Grade Access Control → 2-factor authentication, NDA-backed data ownership, and automatic session timeouts protect every entry point",
+        "Bulletproof Audit Trail → Track every login, every change, every access attempt with comprehensive logs that satisfy the strictest compliance auditors"
       ],
       gradient: "from-red-50/30 via-background to-rose-50/20",
       badge: "Secure"
