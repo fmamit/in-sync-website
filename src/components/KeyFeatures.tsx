@@ -46,11 +46,11 @@ const KeyFeatures = () => {
       subtitle: "Complete Sales Management",
       description: "Comprehensive customer relationship management with advanced sales pipeline tracking, automated workflows, and integrated customer service tools.",
       features: [
-        "Contact Management",
-        "Pipeline Tracking", 
-        "Task Automation",
-        "Customer Service",
-        "Sales Analytics"
+        "Contact Management → Never lose a lead again with centralized customer data and interaction history",
+        "Pipeline Tracking → Increase close rates by 30% with real-time deal visibility and bottleneck identification", 
+        "Task Automation → Save 15 hours/week by eliminating manual follow-ups and data entry",
+        "Customer Service → Boost customer retention by 25% with integrated support and faster response times",
+        "Sales Analytics → Make data-driven decisions that increase revenue by 20% with actionable insights"
       ],
       gradient: "from-blue-50/30 via-background to-indigo-50/20",
       badge: "Sales Ready"
