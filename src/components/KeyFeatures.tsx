@@ -68,8 +68,8 @@ const KeyFeatures = () => {
         />
       ),
       iconColor: "",
-      title: "AI-First Platform",
-      subtitle: "Gargi AI at Your Service",
+      title: "AI That Actually Works",
+      subtitle: "Lead with Gargi's proven 99.8% cost reduction",
       description: "Revolutionary AI assistant that understands your business context, automates complex workflows, and provides intelligent insights to drive growth.",
       features: [
         "Natural Language Processing",
