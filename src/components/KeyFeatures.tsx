@@ -147,15 +147,14 @@ const KeyFeatures = () => {
         />
       ),
       iconColor: "",
-      title: "Field Force Management",
+      title: "Smart Field Operations",
       subtitle: "Mobile Operations & Tracking",
-      description: "Real-time GPS tracking, mobile workforce management, and performance analytics for field teams and remote operations.",
+      description: "Real-time GPS tracking, mobile workforce management, and performance analytics for field sales teams, collection agents, site workers, and delivery personnel.",
       features: [
-        "GPS Tracking",
-        "Mobile Operations",
-        "Performance Management",
-        "Route Optimization",
-        "Time & Attendance"
+        "GPS Tracking & Route Optimization → Cut reimbursement claims by 45% with accurate location tracking and optimized travel routes",
+        "Mobile Operations Management → Boost field productivity by 30% with real-time task assignment and progress monitoring",
+        "Performance Analytics → Increase revenue by 30% with data-driven insights on field team effectiveness",
+        "Time & Attendance Automation → Eliminate timesheet fraud and save 10 hours/week on payroll processing"
       ],
       gradient: "from-green-50/30 via-background to-emerald-50/20",
       badge: "Field Ready"
