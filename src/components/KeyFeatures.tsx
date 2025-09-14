@@ -203,11 +203,10 @@ const KeyFeatures = () => {
       subtitle: "Build Without Boundaries",
       description: "Drag-and-drop interface builder, visual workflow designer, and customizable modules. Create complex business processes without writing a single line of code.",
       features: [
-        "Visual Workflow Builder",
-        "Custom Form Designer",
-        "Automated Process Rules",
-        "Dynamic Field Creation",
-        "Instant Module Generation"
+        "Visual Workflow Builder → Launch new processes in hours, not months - eliminate costly developer dependencies and IT bottlenecks",
+        "Custom Form Designer → Adapt to changing business needs instantly with drag-and-drop forms that non-technical users can build",
+        "Complex Approval Matrix Builder → Design multi-level approval workflows with conditional routing without any coding knowledge",
+        "Instant Module Generation → Build custom business applications 10x faster than traditional coding methods"
       ],
       gradient: "from-orange-50/30 via-background to-amber-50/20",
       badge: "Zero Code"
