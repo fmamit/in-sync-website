@@ -14,7 +14,7 @@ import uhcLogo from "@/assets/uhc-logo.png";
 import incredLogo from "@/assets/incred-logo.png";
 import ecofyLogo from "@/assets/ecofy-logo.svg";
 import mothersonLogo from "@/assets/motherson-logo.jpg";
-import rupeeBossLogo from "@/assets/rupee-boss-logo.jpg";
+import rupeeBossLogo from "@/assets/rupee-boss-logo.webp";
 import evcoLogo from "@/assets/evco-logo.png";
 
 const HeroSection = () => {
