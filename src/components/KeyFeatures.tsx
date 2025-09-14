@@ -24,6 +24,7 @@ import noCodeIcon from "@/assets/no-code-icon.png";
 import unlimitedUsersIcon from "@/assets/unlimited-users-icon.png";
 import securityComplianceIcon from "@/assets/security-compliance-icon.png";
 import crmSalesIcon from "@/assets/crm-sales-icon.png";
+import ccaasIcon from "@/assets/ccaas-icon.jpg";
 
 const KeyFeatures = () => {
   const keyFeatures = [
@@ -83,8 +84,18 @@ const KeyFeatures = () => {
     },
     {
       id: "ccaas",
-      icon: Headphones,
-      iconColor: "text-teal-600",
+      icon: () => (
+        <img 
+          src={ccaasIcon} 
+          alt="CCaaS Contact Center" 
+          className="w-full h-full object-contain"
+          style={{
+            backgroundColor: 'white',
+            borderRadius: '12px'
+          }}
+        />
+      ),
+      iconColor: "",
       title: "CCaaS - Contact Center",
       subtitle: "Cloud-Based Contact Center",
       description: "Complete contact center solution with omnichannel support, automated call distribution, real-time monitoring, and advanced workforce management capabilities.",
