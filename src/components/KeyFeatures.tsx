@@ -225,15 +225,14 @@ const KeyFeatures = () => {
         />
       ),
       iconColor: "",
-      title: "Integrations",
+      title: "Proven Integrations",
       subtitle: "Seamless Connectivity",
-      description: "Connect with accounting systems, ERP solutions, analytics platforms, and create custom integrations for complete business ecosystem synchronization.",
+      description: "Connect with 50+ essential business platforms including Tata Teleservices, Microsoft Azure, Kaleyra, ScoreMe, Google Suite, and accounting systems for complete business ecosystem synchronization.",
       features: [
-        "Accounting/ERP Integration",
-        "Analytics Platforms",
-        "Data Validation",
-        "Custom Connectivity",
-        "API Management"
+        "Enterprise Communication Stack → Eliminate data silos with native integrations to Tata calling, Kaleyra WhatsApp API, and Route Mobile SMS",
+        "Advanced Analytics Pipeline → Make smarter decisions with PowerBI, Azure Data Factory, and Databricks feeding real-time insights",
+        "Lead Generation Ecosystem → Capture leads from Facebook, Google, LinkedIn, Instagram, and Apollo.io in one unified system",
+        "Business Operations Hub → Streamline workflows with Google Forms, Excel, Busy accounting, Tally, and Zapier API connectivity"
       ],
       gradient: "from-orange-50/30 via-background to-amber-50/20",
       badge: "Connected"
