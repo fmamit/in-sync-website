@@ -12,7 +12,6 @@ const Header = () => {
     { name: "Use Cases", href: "/use-cases" },
     { name: "Integrations", href: "/integrations" },
     { name: "Pricing", href: "/pricing" },
-    { name: "Calculator", href: "/calculator" },
     { name: "Resources", href: "/resources" },
   ];
 

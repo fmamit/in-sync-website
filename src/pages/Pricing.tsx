@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import CostCalculator from "@/components/CostCalculator";
 import { 
   Check, 
   Star, 
@@ -14,7 +16,10 @@ import {
   ArrowRight,
   Shield,
   Clock,
-  Globe
+  Globe,
+  Calculator,
+  ChevronDown,
+  ChevronUp
 } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -22,6 +27,7 @@ import Footer from "@/components/Footer";
 const Pricing = () => {
   const [billingCycle, setBillingCycle] = useState<"monthly" | "annual">("monthly");
   const [currency, setCurrency] = useState<"USD" | "INR">("USD");
+  const [showCalculator, setShowCalculator] = useState(false);
 
   const plans = [
     {
@@ -188,6 +194,28 @@ const Pricing = () => {
                 </TabsTrigger>
               </TabsList>
             </Tabs>
+          </div>
+          
+          {/* Cost Calculator Toggle */}
+          <div className="mt-8">
+            <Collapsible open={showCalculator} onOpenChange={setShowCalculator}>
+              <CollapsibleTrigger asChild>
+                <Button 
+                  variant="outline" 
+                  size="lg" 
+                  className="bg-primary/5 hover:bg-primary/10 border-primary/20"
+                >
+                  <Calculator className="w-5 h-5 mr-2" />
+                  Calculate Your Exact Costs
+                  {showCalculator ? <ChevronUp className="w-4 h-4 ml-2" /> : <ChevronDown className="w-4 h-4 ml-2" />}
+                </Button>
+              </CollapsibleTrigger>
+              <CollapsibleContent className="mt-8">
+                <div className="bg-muted/30 rounded-lg p-6">
+                  <CostCalculator />
+                </div>
+              </CollapsibleContent>
+            </Collapsible>
           </div>
         </div>
       </section>
