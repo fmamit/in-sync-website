@@ -2,71 +2,71 @@ import React, { useCallback, useEffect, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import crmLeadsView from "@/assets/crm-leads-new.png";
-import crmDetailView from "@/assets/crm-detail-new.png";
-import autodialerView from "@/assets/autodialer-new.png";
-import dripMarketingView from "@/assets/drip-marketing-new.png";
-import aiVoiceView from "@/assets/ai-voice-new.png";
-import crmLeadsOldView from "@/assets/crm-leads-view.png";
-import crmDetailOldView from "@/assets/crm-detail-view.png";
-import insyncDiagram from "@/assets/insync-diagram.png";
-import colorPalette from "@/assets/color-palette.png";
+import aiVoice2 from "@/assets/ai-voice-2.png";
+import dripMarketing2 from "@/assets/drip-marketing-2.png";
+import autodialer2 from "@/assets/autodialer-2.png";
+import crm2 from "@/assets/crm-2.png";
+import ticketing2 from "@/assets/ticketing-2.png";
+import crmDescription2 from "@/assets/crm-description-2.png";
+import email2 from "@/assets/email-2.png";
+import whatsapp2 from "@/assets/whatsapp-2.png";
+import sms2 from "@/assets/sms-2.png";
 
 const CRMShowcase = () => {
   const crmFeatures = [
     {
-      id: "crm-leads-new",
-      image: crmLeadsView,
+      id: "ai-voice-gargi",
+      image: aiVoice2,
+      title: "Gargi AI Voice Assistant",
+      description: "Advanced AI voice interface with natural language processing, voice selection, and real-time transcription capabilities"
+    },
+    {
+      id: "crm-leads",
+      image: crm2,
       title: "CRM & Leads Management",
-      description: "Advanced CRM with lead tracking, filtering, and comprehensive customer data management"
+      description: "Comprehensive CRM system with advanced filtering, lead tracking, and customer data management across all touchpoints"
     },
     {
-      id: "customer-support-new",
-      image: crmDetailView,
-      title: "Customer Support Hub",
-      description: "Complete customer support workflow with ticket management, timeline tracking, and team collaboration"
+      id: "customer-support-tickets",
+      image: ticketing2,
+      title: "Customer Support Ticketing",
+      description: "Complete ticketing system with categorization, priority flags, and detailed customer support workflow management"
     },
     {
-      id: "auto-dialler",
-      image: autodialerView,
-      title: "Auto Dialler",
-      description: "Automated calling campaigns with progress tracking, agent assignment, and bulk upload capabilities"
+      id: "customer-support-details",
+      image: crmDescription2,
+      title: "Customer Support Details",
+      description: "Detailed customer support case view with timeline tracking, interaction history, and comprehensive ticket management"
+    },
+    {
+      id: "autodialer",
+      image: autodialer2,
+      title: "Auto Dialler Campaigns",
+      description: "Automated calling campaigns with progress tracking, agent assignment, bulk upload, and comprehensive campaign management"
     },
     {
       id: "drip-marketing",
-      image: dripMarketingView,
-      title: "Automated Marketing",
-      description: "Multi-channel drip campaigns with WhatsApp, SMS, and Email integration for maximum reach"
+      image: dripMarketing2,
+      title: "Drip Marketing Automation",
+      description: "Multi-channel drip campaigns with journey management, trigger-based automation, and detailed analytics tracking"
     },
     {
-      id: "ai-voice",
-      image: aiVoiceView,
-      title: "AI Voice Assistant",
-      description: "Intelligent voice-powered assistant for hands-free CRM operations and customer interactions"
+      id: "email-messaging",
+      image: email2,
+      title: "Email Communication",
+      description: "Integrated email platform with team collaboration, broadcast messaging, and comprehensive inbox management"
     },
     {
-      id: "crm-leads-classic",
-      image: crmLeadsOldView,
-      title: "CRM Leads Overview",
-      description: "Comprehensive leads dashboard with advanced filtering and management capabilities"
+      id: "whatsapp-business",
+      image: whatsapp2,
+      title: "WhatsApp Business Integration",
+      description: "Native WhatsApp business messaging with contact management, media sharing, and seamless customer communication"
     },
     {
-      id: "customer-detail-classic",
-      image: crmDetailOldView,
-      title: "Customer Detail View",
-      description: "Detailed customer profile with complete interaction history and engagement tracking"
-    },
-    {
-      id: "platform-diagram",
-      image: insyncDiagram,
-      title: "Platform Architecture",
-      description: "Complete In-Sync platform overview showing integrated modules and workflow connections"
-    },
-    {
-      id: "design-system",
-      image: colorPalette,
-      title: "Design System",
-      description: "Consistent and modern design language across all In-Sync platform interfaces"
+      id: "sms-messaging",
+      image: sms2,
+      title: "SMS Communication Platform",
+      description: "Complete SMS messaging solution with team inboxes, broadcast capabilities, and automated message scheduling"
     }
   ];
 
