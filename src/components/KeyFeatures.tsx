@@ -123,13 +123,12 @@ const KeyFeatures = () => {
       iconColor: "",
       title: "Multi-channel Marketing",
       subtitle: "Calling, Messaging & Automation",
-      description: "Integrated marketing campaigns across multiple channels with automated calling, messaging, and workflow automation to engage customers effectively.",
+      description: "Over 10 million messages sent through the platform and growing daily. Integrated marketing campaigns across multiple channels with automated calling, messaging, and workflow automation to engage customers effectively.",
       features: [
-        "Automated Calling",
-        "SMS & Email Campaigns",
-        "Marketing Automation",
-        "Multi-channel Outreach",
-        "Campaign Analytics"
+        "CRM-Integrated Multi-channel Campaigns → Launch coordinated campaigns directly from your CRM and increase conversion rates by 45%",
+        "Event-Based Multi-channel Notifications → Trigger instant, personalized messages across channels based on customer actions and behaviors",
+        "Drip Marketing Automation → Convert 25% more leads with perfectly timed, personalized message sequences",
+        "Campaign Analytics → Optimize marketing ROI by 35% with detailed performance insights across all channels"
       ],
       gradient: "from-purple-50/30 via-background to-violet-50/20",
       badge: "Marketing Pro"
