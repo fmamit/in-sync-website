@@ -140,8 +140,8 @@ const FeaturesOverview = () => {
             Platform Overview
           </Badge>
           <h2 className="text-3xl md:text-5xl font-bold mb-4">
-            Everything You Need in{" "}
-            <span className="text-teal-600">One Platform</span>
+            Every Feature. Every Department.{" "}
+            <span className="text-teal-600">Every Industry.</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
             Discover how In-Sync's integrated modules work together to transform your business operations
