@@ -110,60 +110,6 @@ const KeyFeatures = () => {
       badge: "Contact Center"
     },
     {
-      id: "field-force",
-      icon: () => (
-        <img 
-          src={fieldWorkerIcon} 
-          alt="Field Worker" 
-          className="w-full h-full object-contain"
-          style={{
-            backgroundColor: 'white',
-            borderRadius: '12px'
-          }}
-        />
-      ),
-      iconColor: "",
-      title: "Field Force Management",
-      subtitle: "Mobile Operations & Tracking",
-      description: "Real-time GPS tracking, mobile workforce management, and performance analytics for field teams and remote operations.",
-      features: [
-        "GPS Tracking",
-        "Mobile Operations",
-        "Performance Management",
-        "Route Optimization",
-        "Time & Attendance"
-      ],
-      gradient: "from-green-50/30 via-background to-emerald-50/20",
-      badge: "Field Ready"
-    },
-    {
-      id: "integrations",
-      icon: () => (
-        <img 
-          src={integrationsIcon} 
-          alt="Integrations Dashboard" 
-          className="w-full h-full object-contain"
-          style={{
-            backgroundColor: 'white',
-            borderRadius: '12px'
-          }}
-        />
-      ),
-      iconColor: "",
-      title: "Integrations",
-      subtitle: "Seamless Connectivity",
-      description: "Connect with accounting systems, ERP solutions, analytics platforms, and create custom integrations for complete business ecosystem synchronization.",
-      features: [
-        "Accounting/ERP Integration",
-        "Analytics Platforms",
-        "Data Validation",
-        "Custom Connectivity",
-        "API Management"
-      ],
-      gradient: "from-orange-50/30 via-background to-amber-50/20",
-      badge: "Connected"
-    },
-    {
       id: "multi-channel-marketing",
       icon: () => (
         <img 
@@ -189,6 +135,33 @@ const KeyFeatures = () => {
       ],
       gradient: "from-purple-50/30 via-background to-violet-50/20",
       badge: "Marketing Pro"
+    },
+    {
+      id: "field-force",
+      icon: () => (
+        <img 
+          src={fieldWorkerIcon} 
+          alt="Field Worker" 
+          className="w-full h-full object-contain"
+          style={{
+            backgroundColor: 'white',
+            borderRadius: '12px'
+          }}
+        />
+      ),
+      iconColor: "",
+      title: "Field Force Management",
+      subtitle: "Mobile Operations & Tracking",
+      description: "Real-time GPS tracking, mobile workforce management, and performance analytics for field teams and remote operations.",
+      features: [
+        "GPS Tracking",
+        "Mobile Operations",
+        "Performance Management",
+        "Route Optimization",
+        "Time & Attendance"
+      ],
+      gradient: "from-green-50/30 via-background to-emerald-50/20",
+      badge: "Field Ready"
     },
     {
       id: "custom-analytics",
@@ -243,6 +216,33 @@ const KeyFeatures = () => {
       ],
       gradient: "from-orange-50/30 via-background to-amber-50/20",
       badge: "Zero Code"
+    },
+    {
+      id: "integrations",
+      icon: () => (
+        <img 
+          src={integrationsIcon} 
+          alt="Integrations Dashboard" 
+          className="w-full h-full object-contain"
+          style={{
+            backgroundColor: 'white',
+            borderRadius: '12px'
+          }}
+        />
+      ),
+      iconColor: "",
+      title: "Integrations",
+      subtitle: "Seamless Connectivity",
+      description: "Connect with accounting systems, ERP solutions, analytics platforms, and create custom integrations for complete business ecosystem synchronization.",
+      features: [
+        "Accounting/ERP Integration",
+        "Analytics Platforms",
+        "Data Validation",
+        "Custom Connectivity",
+        "API Management"
+      ],
+      gradient: "from-orange-50/30 via-background to-amber-50/20",
+      badge: "Connected"
     },
     {
       id: "unlimited-users",
