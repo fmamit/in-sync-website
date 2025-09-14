@@ -251,15 +251,14 @@ const KeyFeatures = () => {
         />
       ),
       iconColor: "",
-      title: "Unlimited User Pricing",
-      subtitle: "Scale Without Limits",
+      title: "Pricing That Breaks Every Rule",
+      subtitle: "Scale Without Fear",
       description: "Revolutionary pricing model that grows with your success, not your team size. Add unlimited users across all departments without worrying about per-seat costs.",
       features: [
-        "No Per-User Charges",
-        "Unlimited Team Members",
-        "All Features Included",
-        "Enterprise-Grade Security",
-        "24/7 Priority Support"
+        "Zero Per-User Extortion → Hire 10 or 10,000 employees - your software costs stay flat while competitors charge you into bankruptcy",
+        "Unlimited Team Army → Scale from garage startup to global empire without software vendors holding your growth hostage",
+        "Full Arsenal Unleashed → Every single user gets every premium feature - no gatekeeping, no upgrade traps, no \"enterprise only\" torture",
+        "Fort Knox for Everyone → Your newest intern gets the same bulletproof security as your CEO - because protection isn't a luxury tier"
       ],
       gradient: "from-green-50/30 via-background to-emerald-50/20",
       badge: "∞ Users"
