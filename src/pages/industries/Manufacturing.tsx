@@ -11,7 +11,9 @@ const Manufacturing = () => {
       {/* Breadcrumb */}
       <div className="bg-muted/30 py-4">
         <div className="container mx-auto px-4">
-          <p className="text-sm text-muted-foreground">Home &gt; Industries &gt; Manufacturing</p>
+          <p className="text-sm text-muted-foreground">
+            <a href="/" className="hover:text-primary transition-colors">Home</a> &gt; <a href="/industries" className="hover:text-primary transition-colors">Industries</a> &gt; Manufacturing
+          </p>
         </div>
       </div>
 

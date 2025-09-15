@@ -10,7 +10,7 @@ const FinancialServices = () => {
       <Header />
       {/* Breadcrumb */}
       <div className="bg-muted/50 py-3 px-4 text-sm text-muted-foreground">
-        Home &gt; Industries &gt; Financial Services
+        <a href="/" className="hover:text-primary transition-colors">Home</a> &gt; <a href="/industries" className="hover:text-primary transition-colors">Industries</a> &gt; Financial Services
       </div>
 
       {/* Hero Section */}
