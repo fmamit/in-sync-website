@@ -3,12 +3,23 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import Header from "@/components/Header";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import Footer from "@/components/Footer";
 
 const Education = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
+      
+      {/* Breadcrumbs */}
+      <div className="container mx-auto px-4 pt-4">
+        <Breadcrumbs 
+          items={[
+            { label: "Industries", href: "/industries" },
+            { label: "Education" }
+          ]} 
+        />
+      </div>
       
       {/* Breadcrumb */}
       <div className="bg-muted/30 py-4 px-4">
