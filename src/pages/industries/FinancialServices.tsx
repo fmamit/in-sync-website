@@ -16,390 +16,399 @@ const FinancialServices = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
-                SOX-Compliant CRM for Financial Excellence
+                Stop Losing Customers to Scattered Data and Poor Follow-ups
               </h1>
               <p className="text-xl mb-8 opacity-90 leading-relaxed">
-                Streamline client relationships, ensure regulatory compliance, and accelerate growth with financial services CRM solutions trusted by 300+ financial institutions.
+                Transform chaotic spreadsheets into a unified customer engine that drives 3x faster loan approvals, eliminates missed opportunities, and builds lasting relationships that grow your portfolio.
               </p>
               
-              <div className="grid grid-cols-2 gap-4 mb-8">
-                <div className="text-center p-4 bg-white/10 rounded-lg backdrop-blur-sm">
-                  <div className="text-2xl font-bold mb-1">99.9%</div>
-                  <div className="text-sm opacity-80">Uptime SLA</div>
-                </div>
-                <div className="text-center p-4 bg-white/10 rounded-lg backdrop-blur-sm">
-                  <div className="text-2xl font-bold mb-1">300+</div>
-                  <div className="text-sm opacity-80">Financial Institutions</div>
-                </div>
-                <div className="text-center p-4 bg-white/10 rounded-lg backdrop-blur-sm">
-                  <div className="text-2xl font-bold mb-1">60%</div>
-                  <div className="text-sm opacity-80">Faster Onboarding</div>
-                </div>
-                <div className="text-center p-4 bg-white/10 rounded-lg backdrop-blur-sm">
-                  <div className="text-2xl font-bold mb-1">150+</div>
-                  <div className="text-sm opacity-80">Banking Integrations</div>
-                </div>
+              {/* What This Means */}
+              <div className="mb-8">
+                <h3 className="text-lg font-semibold mb-4">What This Means for Your Business:</h3>
+                <ul className="space-y-2 text-sm opacity-90">
+                  <li className="flex items-start gap-2">
+                    <Check className="h-4 w-4 mt-0.5 flex-shrink-0" />
+                    <span>Never lose another qualified lead due to poor follow-up</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check className="h-4 w-4 mt-0.5 flex-shrink-0" />
+                    <span>Cut loan processing time from weeks to days</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check className="h-4 w-4 mt-0.5 flex-shrink-0" />
+                    <span>Build a database that grows your business instead of slowing it down</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check className="h-4 w-4 mt-0.5 flex-shrink-0" />
+                    <span>Get complete visibility into your team's performance</span>
+                  </li>
+                </ul>
               </div>
               
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button size="lg" className="bg-white text-primary hover:bg-white/90">
-                  Schedule Financial Demo
+                  See How Leading Banks Do It - Schedule Demo
                 </Button>
                 <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary">
-                  View Compliance Docs
+                  Calculate Your Revenue Impact
                 </Button>
               </div>
             </div>
             
             <div className="text-center">
               <div className="text-8xl mb-4">🏦</div>
-              <p className="opacity-80">Trusted by leading financial institutions</p>
+              <p className="opacity-80">Transform your financial services in India</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Industry Challenges */}
+      {/* The Hidden Cost of Scattered Customer Data */}
       <section className="py-16 px-4 bg-muted/20">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Industry Challenges We Solve</h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Financial services organizations face complex regulatory and operational challenges that require specialized solutions.
-            </p>
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">The Hidden Cost of Scattered Customer Data</h2>
+            <div className="max-w-4xl mx-auto mb-8">
+              <h3 className="text-xl font-semibold mb-4 text-primary">You're Bleeding Revenue Every Day</h3>
+              <p className="text-lg text-muted-foreground">
+                When your loan officers can't find customer information, when follow-ups slip through cracks, when customers wait weeks for basic updates - you're not just losing transactions, you're losing trust. In India's competitive financial market, that's business suicide.
+              </p>
+            </div>
           </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <Card className="hover:shadow-lg transition-shadow">
-              <CardHeader className="text-center">
-                <Shield className="h-12 w-12 text-destructive mx-auto mb-4" />
-                <CardTitle className="text-lg">Regulatory Compliance</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li>• SOX, GDPR, FINRA requirements</li>
-                  <li>• KYC and AML compliance</li>
-                  <li>• Audit trail maintenance</li>
-                  <li>• Risk assessment protocols</li>
-                </ul>
-              </CardContent>
-            </Card>
 
-            <Card className="hover:shadow-lg transition-shadow">
-              <CardHeader className="text-center">
-                <TrendingUp className="h-12 w-12 text-destructive mx-auto mb-4" />
-                <CardTitle className="text-lg">Portfolio Management</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li>• High-value client coordination</li>
-                  <li>• Multi-generational planning</li>
-                  <li>• Investment performance tracking</li>
-                  <li>• Cross-selling optimization</li>
-                </ul>
-              </CardContent>
-            </Card>
+          <div className="mb-8">
+            <h3 className="text-2xl font-bold text-center mb-8 text-red-600">The Real Impact:</h3>
+          </div>
 
-            <Card className="hover:shadow-lg transition-shadow">
-              <CardHeader className="text-center">
-                <Lock className="h-12 w-12 text-destructive mx-auto mb-4" />
-                <CardTitle className="text-lg">Data Security</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li>• Financial data protection</li>
-                  <li>• Secure client communications</li>
-                  <li>• Breach prevention protocols</li>
-                  <li>• Access control management</li>
-                </ul>
-              </CardContent>
-            </Card>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {[
+              {
+                icon: "📉",
+                title: "Lost Revenue",
+                description: "40% of qualified leads never convert due to poor follow-up",
+                impact: "Direct revenue loss and competitive disadvantage"
+              },
+              {
+                icon: "🔄",
+                title: "Customer Churn", 
+                description: "Customers switch to competitors who respond faster",
+                impact: "Lost lifetime value and acquisition costs"
+              },
+              {
+                icon: "😤",
+                title: "Team Frustration",
+                description: "Your best people waste hours searching for basic information",
+                impact: "Higher turnover and reduced productivity"
+              },
+              {
+                icon: "⚠️",
+                title: "Compliance Risk",
+                description: "Scattered records create audit nightmares",
+                impact: "Regulatory penalties and reputation damage"
+              },
+              {
+                icon: "🚫",
+                title: "Growth Ceiling",
+                description: "You can't scale what you can't track",
+                impact: "Limited expansion and missed opportunities"
+              }
+            ].map((crisis, index) => (
+              <Card key={index} className="hover:shadow-lg transition-shadow border-red-200">
+                <CardContent className="p-6">
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 bg-red-500 rounded-full flex items-center justify-center text-xl text-white flex-shrink-0">
+                      {crisis.icon}
+                    </div>
+                    <div>
+                      <h4 className="text-lg font-semibold mb-2 text-red-700">{crisis.title}</h4>
+                      <p className="text-muted-foreground mb-2">{crisis.description}</p>
+                      <p className="text-sm text-red-600 font-medium">{crisis.impact}</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Solutions Section */}
+      {/* How Leading Indian Financial Institutions Win */}
       <section className="py-16 px-4">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Comprehensive Financial Services Solutions</h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Purpose-built features designed for financial institutions, from boutique advisors to major banks.
-            </p>
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">
+              How Leading Indian Financial Institutions Win
+            </h2>
           </div>
 
-          {/* Wealth Management */}
-          <div className="mb-12 p-8 bg-muted/30 rounded-xl border-l-4 border-primary">
-            <div className="flex items-center gap-4 mb-6">
-              <div className="p-3 bg-primary rounded-lg text-primary-foreground">
-                <TrendingUp className="h-6 w-6" />
+          <div className="space-y-12">
+            {/* Turn Every Lead into Revenue */}
+            <div className="bg-gradient-to-r from-green-50 to-blue-50 rounded-lg p-8 border-l-4 border-green-500">
+              <div className="mb-6">
+                <h3 className="text-2xl font-bold text-green-700 mb-4">Turn Every Lead into Revenue</h3>
+                <h4 className="text-lg font-semibold text-gray-800 mb-4">From Chaos to Cash Flow</h4>
+                <p className="text-gray-700 mb-6">
+                  Stop watching qualified prospects slip away because someone forgot to follow up. In-sync automatically tracks every customer interaction, reminds your team of critical follow-ups, and ensures no opportunity dies in a spreadsheet.
+                </p>
               </div>
-              <h3 className="text-2xl font-bold">Wealth Management</h3>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-lg">Client Portfolio Excellence</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-2 text-sm">
-                    <li className="flex items-start gap-2">
-                      <Check className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                      <span>Unified client profiles with complete financial history</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <Check className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                      <span>Investment goal planning and progress tracking</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <Check className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                      <span>Risk tolerance assessment and monitoring</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <Check className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                      <span>Estate planning coordination tools</span>
-                    </li>
-                  </ul>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-lg">Advanced Analytics</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-2 text-sm">
-                    <li className="flex items-start gap-2">
-                      <Check className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                      <span>Real-time portfolio performance dashboards</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <Check className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                      <span>Automated rebalancing recommendations</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <Check className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                      <span>Multi-generational wealth tracking</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <Check className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                      <span>Investment committee workflows</span>
-                    </li>
-                  </ul>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-
-          {/* Compliance Management */}
-          <div className="mb-12 p-8 bg-muted/30 rounded-xl border-l-4 border-primary">
-            <div className="flex items-center gap-4 mb-6">
-              <div className="p-3 bg-primary rounded-lg text-primary-foreground">
-                <Shield className="h-6 w-6" />
+              
+              <div className="mb-6">
+                <h4 className="text-lg font-semibold mb-4 text-green-700">What You Get:</h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {[
+                    { metric: "3x Faster Response Times", description: "Automated alerts ensure instant follow-up" },
+                    { metric: "Zero Lost Leads", description: "Every prospect gets tracked from first contact to closing" },
+                    { metric: "Predictable Revenue", description: "Know exactly which deals will close this month" },
+                    { metric: "Team Accountability", description: "See who's performing and who needs help" }
+                  ].map((benefit, index) => (
+                    <div key={index} className="flex items-start gap-3 p-4 bg-white rounded-lg">
+                      <Check className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+                      <div>
+                        <h5 className="font-semibold text-green-700">{benefit.metric}</h5>
+                        <p className="text-sm text-gray-600">{benefit.description}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
-              <h3 className="text-2xl font-bold">Compliance Management</h3>
             </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-lg">Regulatory Excellence</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-2 text-sm">
-                    <li className="flex items-start gap-2">
-                      <Check className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                      <span>KYC documentation and verification</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <Check className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                      <span>AML monitoring and reporting</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <Check className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                      <span>FINRA communication archiving</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <Check className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                      <span>SOX-compliant audit trails</span>
-                    </li>
-                  </ul>
-                </CardContent>
-              </Card>
 
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-lg">Automated Monitoring</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-2 text-sm">
-                    <li className="flex items-start gap-2">
-                      <Check className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                      <span>Automated compliance reporting</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <Check className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                      <span>Risk-based monitoring algorithms</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <Check className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                      <span>Regulatory filing preparation</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <Check className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                      <span>Audit-ready documentation</span>
-                    </li>
-                  </ul>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-
-          {/* Institutional Banking */}
-          <div className="mb-12 p-8 bg-muted/30 rounded-xl border-l-4 border-primary">
-            <div className="flex items-center gap-4 mb-6">
-              <div className="p-3 bg-primary rounded-lg text-primary-foreground">
-                <Building className="h-6 w-6" />
+            {/* Make Your Field Team Unstoppable */}
+            <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-8 border-l-4 border-blue-500">
+              <div className="mb-6">
+                <h3 className="text-2xl font-bold text-blue-700 mb-4">Make Your Field Team Unstoppable</h3>
+                <h4 className="text-lg font-semibold text-gray-800 mb-4">From Guesswork to Guaranteed Results</h4>
+                <p className="text-gray-700 mb-6">
+                  Your field officers are your revenue engine. But when they're working blind - not knowing customer history, missing appointments, or filing fake reports - you're burning money. In-sync gives you complete field visibility that drives real results.
+                </p>
               </div>
-              <h3 className="text-2xl font-bold">Institutional Banking</h3>
+              
+              <div className="mb-6">
+                <h4 className="text-lg font-semibold mb-4 text-blue-700">The Business Impact:</h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {[
+                    { metric: "200% Better Territory Coverage", description: "GPS tracking shows exactly where your team is" },
+                    { metric: "Eliminate Fake Visits", description: "Selfie attendance with customer location proves real meetings" },
+                    { metric: "Double Conversion Rates", description: "Armed with complete customer history, your team closes more deals" },
+                    { metric: "Cut Management Overhead", description: "Stop micromanaging and start scaling" }
+                  ].map((benefit, index) => (
+                    <div key={index} className="flex items-start gap-3 p-4 bg-white rounded-lg">
+                      <Check className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
+                      <div>
+                        <h5 className="font-semibold text-blue-700">{benefit.metric}</h5>
+                        <p className="text-sm text-gray-600">{benefit.description}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-lg">Relationship Mastery</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-2 text-sm">
-                    <li className="flex items-start gap-2">
-                      <Check className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                      <span>Complex organizational mapping</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <Check className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                      <span>Deal flow management</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <Check className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                      <span>Credit risk assessment</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <Check className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                      <span>Treasury management coordination</span>
-                    </li>
-                  </ul>
-                </CardContent>
-              </Card>
 
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-lg">Advanced Analytics</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-2 text-sm">
-                    <li className="flex items-start gap-2">
-                      <Check className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                      <span>Corporate hierarchy visualization</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <Check className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                      <span>Deal pipeline analytics</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <Check className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                      <span>Credit decision workflows</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <Check className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                      <span>Profitability analysis</span>
-                    </li>
-                  </ul>
-                </CardContent>
-              </Card>
+            {/* Transform Customer Experience */}
+            <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg p-8 border-l-4 border-purple-500">
+              <div className="mb-6">
+                <h3 className="text-2xl font-bold text-purple-700 mb-4">Transform Customer Experience into Competitive Advantage</h3>
+                <h4 className="text-lg font-semibold text-gray-800 mb-4">From Manual Chaos to Automated Excellence</h4>
+                <p className="text-gray-700 mb-6">
+                  While your competitors send manual updates days later, your customers get instant WhatsApp confirmations, real-time loan status updates, and personalized service that builds loyalty.
+                </p>
+              </div>
+              
+              <div className="mb-6">
+                <h4 className="text-lg font-semibold mb-4 text-purple-700">Customer Retention Benefits:</h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {[
+                    { metric: "Instant Communication", description: "WhatsApp integration means customers always know their status" },
+                    { metric: "Professional Image", description: "Automated, consistent communication builds trust" },
+                    { metric: "Faster Service", description: "What takes competitors weeks, you deliver in days" },
+                    { metric: "Higher Lifetime Value", description: "Happy customers refer more business and stay longer" }
+                  ].map((benefit, index) => (
+                    <div key={index} className="flex items-start gap-3 p-4 bg-white rounded-lg">
+                      <Check className="h-5 w-5 text-purple-600 mt-0.5 flex-shrink-0" />
+                      <div>
+                        <h5 className="font-semibold text-purple-700">{benefit.metric}</h5>
+                        <p className="text-sm text-gray-600">{benefit.description}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* See Everything, Control Everything */}
+            <div className="bg-gradient-to-r from-orange-50 to-red-50 rounded-lg p-8 border-l-4 border-orange-500">
+              <div className="mb-6">
+                <h3 className="text-2xl font-bold text-orange-700 mb-4">See Everything, Control Everything</h3>
+                <h4 className="text-lg font-semibold text-gray-800 mb-4">From Flying Blind to Total Control</h4>
+                <p className="text-gray-700 mb-6">
+                  Stop running your business on gut feelings and Excel guesses. In-sync's real-time dashboards show you exactly what's happening across every branch, every team member, and every customer relationship.
+                </p>
+              </div>
+              
+              <div className="mb-6">
+                <h4 className="text-lg font-semibold mb-4 text-orange-700">Management Visibility:</h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {[
+                    { metric: "Live Performance Metrics", description: "Know your numbers in real-time, not at month-end" },
+                    { metric: "Predictive Analytics", description: "Spot problems before they become disasters" },
+                    { metric: "Resource Optimization", description: "Deploy your team where they'll generate maximum revenue" },
+                    { metric: "Scalable Growth", description: "Built to handle your expansion without breaking" }
+                  ].map((benefit, index) => (
+                    <div key={index} className="flex items-start gap-3 p-4 bg-white rounded-lg">
+                      <Check className="h-5 w-5 text-orange-600 mt-0.5 flex-shrink-0" />
+                      <div>
+                        <h5 className="font-semibold text-orange-700">{benefit.metric}</h5>
+                        <p className="text-sm text-gray-600">{benefit.description}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Compliance & Security */}
-      <section className="py-16 px-4 bg-secondary text-secondary-foreground">
-        <div className="container mx-auto max-w-6xl text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-8">Industry-Leading Compliance & Security</h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-            <div className="p-6 bg-secondary-foreground/10 rounded-lg">
-              <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4 text-primary-foreground font-bold">
-                SOX
-              </div>
-              <h3 className="font-semibold mb-2">SOX Compliance</h3>
-              <p className="text-sm opacity-80">Financial controls and audit trails</p>
-            </div>
-            
-            <div className="p-6 bg-secondary-foreground/10 rounded-lg">
-              <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4 text-primary-foreground font-bold">
-                FINRA
-              </div>
-              <h3 className="font-semibold mb-2">FINRA Ready</h3>
-              <p className="text-sm opacity-80">Communication archiving</p>
-            </div>
-            
-            <div className="p-6 bg-secondary-foreground/10 rounded-lg">
-              <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4 text-primary-foreground font-bold">
-                GDPR
-              </div>
-              <h3 className="font-semibold mb-2">GDPR Compliant</h3>
-              <p className="text-sm opacity-80">EU data protection</p>
-            </div>
-            
-            <div className="p-6 bg-secondary-foreground/10 rounded-lg">
-              <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4 text-primary-foreground font-bold">
-                SOC2
-              </div>
-              <h3 className="font-semibold mb-2">SOC 2 Type II</h3>
-              <p className="text-sm opacity-80">Security verification</p>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="p-4 bg-secondary-foreground/10 rounded-lg">
-              <h4 className="font-semibold mb-2">🔐 AES-256 Encryption</h4>
-              <p className="text-sm opacity-80">Data protection at rest and in transit</p>
-            </div>
-            <div className="p-4 bg-secondary-foreground/10 rounded-lg">
-              <h4 className="font-semibold mb-2">🎯 Zero-Trust Security</h4>
-              <p className="text-sm opacity-80">Multi-factor authentication required</p>
-            </div>
-            <div className="p-4 bg-secondary-foreground/10 rounded-lg">
-              <h4 className="font-semibold mb-2">📊 24/7 Monitoring</h4>
-              <p className="text-sm opacity-80">Real-time threat detection</p>
-            </div>
-            <div className="p-4 bg-secondary-foreground/10 rounded-lg">
-              <h4 className="font-semibold mb-2">💾 Automated Backup</h4>
-              <p className="text-sm opacity-80">Point-in-time recovery available</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Case Study */}
+      {/* Regional Bank Case Study Section */}
       <section className="py-16 px-4 bg-muted/20">
-        <div className="container mx-auto max-w-4xl">
-          <Card className="p-8">
-            <div className="text-center mb-8">
-              <h2 className="text-2xl md:text-3xl font-bold mb-2">Premier Investment Firm</h2>
-              <p className="text-lg text-primary font-semibold">60% Faster Client Onboarding</p>
-            </div>
+        <div className="container mx-auto max-w-6xl">
+          <Card className="shadow-2xl">
+            <CardContent className="p-12">
+              <div className="text-center mb-8">
+                <h2 className="text-3xl font-bold mb-3">Regional Bank Increases Loan Approvals by 250%</h2>
+                <p className="text-primary text-lg font-semibold">Real Results from Real Indian Banks</p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                <div className="bg-red-50 p-6 rounded-lg border-l-4 border-red-500">
+                  <h3 className="text-xl font-bold text-red-700 mb-3">The Breaking Point</h3>
+                  <p className="text-muted-foreground">A growing regional bank was losing ₹2 crore monthly to poor lead management. Loan officers couldn't track applications, customers waited weeks for updates, and 60% of qualified leads were switching to competitors.</p>
+                </div>
+                
+                <div className="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-500">
+                  <h3 className="text-xl font-bold text-blue-700 mb-3">The Transformation</h3>
+                  <p className="text-muted-foreground">Within 30 days of implementing In-sync, they had complete visibility into every loan application, automated customer communication, and field teams that actually visited prospects.</p>
+                </div>
+
+                <div className="bg-green-50 p-6 rounded-lg border-l-4 border-green-500">
+                  <h3 className="text-xl font-bold text-green-700 mb-3">The Revenue Impact</h3>
+                  <p className="text-muted-foreground">From ₹5 crore to ₹17.5 crore monthly disbursements with 85% faster processing and zero lost applications.</p>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
+                {[
+                  { metric: "250%", description: "More loan approvals - from ₹5 crore to ₹17.5 crore monthly", color: "text-green-600" },
+                  { metric: "85%", description: "Faster processing - customer satisfaction jumped to 4.8", color: "text-blue-600" },
+                  { metric: "0", description: "Lost applications - every inquiry tracked automatically", color: "text-purple-600" },
+                  { metric: "300%", description: "Field efficiency with GPS verification", color: "text-orange-600" }
+                ].map((result, index) => (
+                  <div key={index} className="text-center bg-white p-6 rounded-lg shadow-md">
+                    <h3 className={`text-2xl md:text-3xl font-bold mb-2 ${result.color}`}>{result.metric}</h3>
+                    <p className="text-xs text-muted-foreground">{result.description}</p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-lg border border-green-200">
+                <blockquote className="text-lg italic mb-4 text-gray-700">
+                  "We went from losing customers to competitors to having customers recommend us to their friends. The difference is like night and day."
+                </blockquote>
+                <cite className="text-sm font-semibold text-green-700">- Branch Manager, Regional Bank</cite>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+
+      {/* Why This Matters More Than Ever */}
+      <section className="py-16 px-4 bg-slate-800 text-white">
+        <div className="container mx-auto max-w-6xl text-center">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">
+            Why This Matters More Than Ever
+          </h2>
+          
+          <div className="max-w-4xl mx-auto mb-12">
+            <h3 className="text-xl font-semibold mb-6">The Indian Financial Services Revolution is Here</h3>
+            <p className="text-lg opacity-90 mb-8">
+              Digital-first customers expect instant responses. Competitors are getting faster and smarter. Regulations are getting stricter. You can either transform now or watch your market share disappear.
+            </p>
             
-            <div className="mb-8 p-6 bg-destructive/10 rounded-lg border-l-4 border-destructive">
-              <h3 className="font-semibold text-destructive mb-3">The Challenge</h3>
-              <p className="text-sm">Leading wealth management firm struggled with manual KYC processes, resulting in 45-day client onboarding cycles and increasing compliance risks.</p>
+            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-8">
+              <h4 className="text-lg font-semibold mb-6 text-yellow-300">Your Choice:</h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+                <div>
+                  <h5 className="font-semibold text-red-300 mb-3">Continue the Old Way:</h5>
+                  <ul className="space-y-2 text-sm opacity-90">
+                    <li>• Keep losing revenue to broken processes</li>
+                    <li>• Watch competitors steal your customers with better service</li>
+                    <li>• Continue burning money on inefficient field teams</li>
+                  </ul>
+                </div>
+                <div>
+                  <h5 className="font-semibold text-green-300 mb-3">Transform Into a Revenue Machine:</h5>
+                  <ul className="space-y-2 text-sm opacity-90">
+                    <li>• Dominate your market with data-driven decisions</li>
+                    <li>• Build customer loyalty through superior service</li>
+                    <li>• Scale efficiently with complete field visibility</li>
+                  </ul>
+                </div>
+              </div>
             </div>
-            
-            <div className="mb-8 p-6 bg-primary/10 rounded-lg border-l-4 border-primary">
-              <h3 className="font-semibold text-primary mb-3">The Solution</h3>
-              <p className="text-sm">Deployed In-sync's financial services CRM with automated KYC workflows, integrated risk assessment tools, and comprehensive compliance monitoring.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* What Makes In-sync Different */}
+      <section className="py-16 px-4 bg-muted/20">
+        <div className="container mx-auto max-w-6xl">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">What Makes In-sync Different</h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div>
+              <h3 className="text-2xl font-bold mb-6 text-primary">Built for Indian Financial Services Reality</h3>
+              <div className="space-y-4">
+                {[
+                  { title: "Works with your existing data", description: "Seamlessly imports from Excel and legacy systems" },
+                  { title: "Scales with your growth", description: "Unlimited users means no limits on expansion" },
+                  { title: "Secure and compliant", description: "Azure cloud with bank-grade security" },
+                  { title: "Mobile-first", description: "Built for India's mobile-heavy workforce" }
+                ].map((feature, index) => (
+                  <div key={index} className="flex items-start gap-3 p-4 bg-white rounded-lg shadow-sm">
+                    <Check className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+                    <div>
+                      <h4 className="font-semibold text-gray-800">{feature.title}</h4>
+                      <p className="text-sm text-muted-foreground">{feature.description}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
+
+            <div>
+              <h3 className="text-2xl font-bold mb-6 text-primary">Proven Technology Stack</h3>
+              <div className="space-y-4">
+                {[
+                  { title: "WhatsApp Business integration", description: "For customer communication" },
+                  { title: "Real-time GPS tracking", description: "For field team accountability" },
+                  { title: "Automated SMS and email", description: "For consistent customer updates" },
+                  { title: "Power BI integration", description: "For advanced analytics" }
+                ].map((feature, index) => (
+                  <div key={index} className="flex items-start gap-3 p-4 bg-white rounded-lg shadow-sm">
+                    <Check className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
+                    <div>
+                      <h4 className="font-semibold text-gray-800">{feature.title}</h4>
+                      <p className="text-sm text-muted-foreground">{feature.description}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
             
             <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mb-8">
               <div className="text-center p-4 bg-muted rounded-lg">
@@ -428,80 +437,47 @@ const FinancialServices = () => {
               </div>
             </div>
 
-            <div className="p-6 bg-primary/5 rounded-lg border-l-4 border-primary">
-              <h3 className="font-semibold text-primary mb-3">Implementation Highlights</h3>
-              <ul className="space-y-2 text-sm">
-                <li>• 8-week implementation across 15 offices</li>
-                <li>• Integration with core banking and trading systems</li>
-                <li>• Training for 200+ financial professionals</li>
-                <li>• Custom workflows for wealth management and institutional banking</li>
-              </ul>
-            </div>
-          </Card>
-        </div>
-      </section>
-
-      {/* Integration Ecosystem */}
+      {/* Start Your Transformation Today */}
       <section className="py-16 px-4">
-        <div className="container mx-auto max-w-6xl text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-12">Financial Services Ecosystem</h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <Card className="p-6">
-              <CardHeader>
-                <CardTitle className="text-lg text-primary">Core Banking</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ul className="text-sm space-y-2 text-left">
-                  <li>✓ Temenos T24</li>
-                  <li>✓ FIS Core Banking</li>
-                  <li>✓ Jack Henry & Associates</li>
-                  <li>✓ Fiserv DNA</li>
-                </ul>
-              </CardContent>
-            </Card>
+        <div className="container mx-auto max-w-6xl">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">Start Your Transformation Today</h2>
+            <h3 className="text-2xl font-semibold text-primary mb-8">See the Difference in 30 Days or Less</h3>
+          </div>
 
-            <Card className="p-6">
-              <CardHeader>
-                <CardTitle className="text-lg text-primary">Trading Platforms</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ul className="text-sm space-y-2 text-left">
-                  <li>✓ Bloomberg Terminal</li>
-                  <li>✓ Refinitiv Eikon</li>
-                  <li>✓ Charles River IMS</li>
-                  <li>✓ SS&C Advent</li>
-                </ul>
-              </CardContent>
-            </Card>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
+            {[
+              { week: "Week 1", title: "Import & Train", description: "Import your data and get your team trained", color: "bg-blue-50 border-blue-500" },
+              { week: "Week 2", title: "Track & Visit", description: "Start tracking every customer interaction and field visit", color: "bg-green-50 border-green-500" },
+              { week: "Week 3", title: "Automate", description: "Automate communications and see response times improve", color: "bg-purple-50 border-purple-500" },
+              { week: "Week 4", title: "See Growth", description: "Watch your conversion rates climb and revenue grow", color: "bg-orange-50 border-orange-500" }
+            ].map((phase, index) => (
+              <Card key={index} className={`${phase.color} border-l-4`}>
+                <CardContent className="p-6">
+                  <h4 className="font-bold text-lg mb-2">{phase.week}</h4>
+                  <h5 className="font-semibold mb-3">{phase.title}</h5>
+                  <p className="text-sm text-muted-foreground">{phase.description}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
 
-            <Card className="p-6">
-              <CardHeader>
-                <CardTitle className="text-lg text-primary">Compliance</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ul className="text-sm space-y-2 text-left">
-                  <li>✓ FINRA OATS</li>
-                  <li>✓ SEC Edgar</li>
-                  <li>✓ Moody's Risk</li>
-                  <li>✓ S&P Analytics</li>
-                </ul>
-              </CardContent>
-            </Card>
-
-            <Card className="p-6">
-              <CardHeader>
-                <CardTitle className="text-lg text-primary">RegTech</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ul className="text-sm space-y-2 text-left">
-                  <li>✓ AML Monitoring</li>
-                  <li>✓ KYC Automation</li>
-                  <li>✓ Trade Surveillance</li>
-                  <li>✓ Regulatory Reporting</li>
-                </ul>
-              </CardContent>
-            </Card>
+          <div className="bg-gradient-to-r from-blue-50 to-green-50 rounded-lg p-8 mb-8">
+            <h3 className="text-2xl font-bold mb-6 text-center">What You Get:</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {[
+                "Complete customer visibility across all channels",
+                "Field team accountability with GPS and selfie verification",
+                "Automated communication that delights customers",
+                "Real-time analytics that drive better decisions",
+                "Unlimited users so your entire team can participate"
+              ].map((benefit, index) => (
+                <div key={index} className="flex items-start gap-3">
+                  <Check className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+                  <span className="text-gray-700">{benefit}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -510,25 +486,33 @@ const FinancialServices = () => {
       <section className="py-16 px-4 bg-gradient-to-br from-primary via-primary-glow to-primary text-primary-foreground">
         <div className="container mx-auto max-w-4xl text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
-            Ready to Transform Your Financial Operations?
+            Ready to Stop Losing Revenue?
           </h2>
-          <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
-            Join 300+ financial institutions using In-sync to enhance compliance, accelerate growth, and deliver exceptional client experiences.
-          </p>
           
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-            <Button size="lg" className="bg-white text-primary hover:bg-white/90">
-              Schedule Compliance Demo
-            </Button>
-            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary">
-              Request SOX Assessment
-            </Button>
-          </div>
-
-          <div className="text-sm opacity-80 space-x-6">
-            <span>✓ SOX Compliant Demo Environment</span>
-            <span>✓ Financial Services Specialist</span>
-            <span>✓ Custom Integration Discussion</span>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6">
+              <h3 className="text-xl font-semibold mb-4">Schedule Your Demo Now</h3>
+              <p className="text-sm opacity-90 mb-4">See exactly how In-sync transforms scattered data into revenue growth for banks just like yours.</p>
+              <Button className="bg-white text-primary hover:bg-gray-100 w-full">
+                Schedule Demo
+              </Button>
+            </div>
+            
+            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6">
+              <h3 className="text-xl font-semibold mb-4">Calculate Your ROI</h3>
+              <p className="text-sm opacity-90 mb-4">Use our calculator to see how much revenue you're losing to poor processes right now.</p>
+              <Button className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-primary w-full">
+                Calculate ROI
+              </Button>
+            </div>
+            
+            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6">
+              <h3 className="text-xl font-semibold mb-4">Talk to Our Experts</h3>
+              <p className="text-sm opacity-90 mb-4">Get a custom plan that addresses your specific challenges and growth goals.</p>
+              <Button className="bg-white text-primary hover:bg-gray-100 w-full">
+                Talk to Experts
+              </Button>
+            </div>
           </div>
         </div>
       </section>
