@@ -212,6 +212,9 @@ const Resources = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
+  const [isAuthDialogOpen, setIsAuthDialogOpen] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [credentials, setCredentials] = useState({ username: "", password: "" });
   const [activeTab, setActiveTab] = useState("blogs");
   const { toast } = useToast();
 
@@ -305,6 +308,33 @@ const Resources = () => {
       content: ""
     });
     setIsAddDialogOpen(false);
+  };
+
+  const handleAuth = () => {
+    if (credentials.username === "asg" && credentials.password === "asg@987") {
+      setIsAuthenticated(true);
+      setIsAuthDialogOpen(false);
+      setIsAddDialogOpen(true);
+      setCredentials({ username: "", password: "" });
+      toast({
+        title: "Authentication Successful",
+        description: "You can now add new resources"
+      });
+    } else {
+      toast({
+        title: "Authentication Failed",
+        description: "Invalid username or password",
+        variant: "destructive"
+      });
+    }
+  };
+
+  const handleAddClick = () => {
+    if (isAuthenticated) {
+      setIsAddDialogOpen(true);
+    } else {
+      setIsAuthDialogOpen(true);
+    }
   };
 
   const BlogCard = ({ blog }: { blog: any }) => (
@@ -546,13 +576,55 @@ const Resources = () => {
                 </TabsList>
 
                 {/* Add Resource Button */}
+                <Button onClick={handleAddClick} className="w-full lg:w-auto">
+                  <Plus className="h-4 w-4 mr-2" />
+                  Add New {activeTab.slice(0, -1).charAt(0).toUpperCase() + activeTab.slice(1, -1)}
+                </Button>
+
+                {/* Authentication Dialog */}
+                <Dialog open={isAuthDialogOpen} onOpenChange={setIsAuthDialogOpen}>
+                  <DialogContent className="max-w-md">
+                    <DialogHeader>
+                      <DialogTitle>Authentication Required</DialogTitle>
+                    </DialogHeader>
+                    
+                    <div className="space-y-4">
+                      <div>
+                        <Label htmlFor="username">Username</Label>
+                        <Input
+                          id="username"
+                          type="text"
+                          value={credentials.username}
+                          onChange={(e) => setCredentials({...credentials, username: e.target.value})}
+                          placeholder="Enter username..."
+                        />
+                      </div>
+                      
+                      <div>
+                        <Label htmlFor="password">Password</Label>
+                        <Input
+                          id="password"
+                          type="password"
+                          value={credentials.password}
+                          onChange={(e) => setCredentials({...credentials, password: e.target.value})}
+                          placeholder="Enter password..."
+                        />
+                      </div>
+                      
+                      <div className="flex gap-3 pt-4">
+                        <Button onClick={handleAuth} className="flex-1">
+                          Login
+                        </Button>
+                        <Button variant="outline" onClick={() => setIsAuthDialogOpen(false)}>
+                          Cancel
+                        </Button>
+                      </div>
+                    </div>
+                  </DialogContent>
+                </Dialog>
+
+                {/* Add Resource Dialog */}
                 <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
-                  <DialogTrigger asChild>
-                    <Button className="w-full lg:w-auto">
-                      <Plus className="h-4 w-4 mr-2" />
-                      Add New {activeTab.slice(0, -1).charAt(0).toUpperCase() + activeTab.slice(1, -1)}
-                    </Button>
-                  </DialogTrigger>
                   <DialogContent className="max-w-2xl">
                     <DialogHeader>
                       <DialogTitle>Add New {activeTab.slice(0, -1).charAt(0).toUpperCase() + activeTab.slice(1, -1)}</DialogTitle>
