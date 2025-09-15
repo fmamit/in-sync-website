@@ -431,6 +431,8 @@ const Features = () => {
         </div>
       </section>
 
+      <KeyFeatures />
+
       {/* Transformation Stories */}
       <section className="py-20 bg-gradient-to-b from-slate-50/30 to-background">
         <div className="container mx-auto px-4">
@@ -702,8 +704,6 @@ const Features = () => {
           </div>
         </div>
       </section>
-
-      <KeyFeatures />
 
       <Footer />
     </div>
