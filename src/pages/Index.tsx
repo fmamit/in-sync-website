@@ -3,7 +3,6 @@ import HeroSection from "@/components/HeroSection";
 import InteractiveShowcase from "@/components/InteractiveShowcase";
 import FeaturesOverview from "@/components/FeaturesOverview";
 import BusinessAssessment from "@/components/BusinessAssessment";
-import KeyFeatures from "@/components/KeyFeatures";
 import ROICalculator from "@/components/ROICalculator";
 import CRMShowcase from "@/components/CRMShowcase";
 import TestimonialsShowcase from "@/components/TestimonialsShowcase";
@@ -32,8 +31,6 @@ const Index = () => {
             <BusinessAssessment />
           </div>
         </section>
-        
-        <KeyFeatures />
         
         {/* ROI Calculator */}
         <section className="py-20 bg-gradient-to-b from-background to-slate-50/30">
