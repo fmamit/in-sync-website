@@ -156,6 +156,8 @@ const Industries = () => {
                         window.location.href = '/industries/healthcare-life-sciences';
                       } else if (industry.id === 'financial') {
                         window.location.href = '/industries/financial-services';
+                      } else if (industry.id === 'manufacturing') {
+                        window.location.href = '/industries/manufacturing';
                       }
                     }}
                   >
