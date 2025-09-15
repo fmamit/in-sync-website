@@ -654,7 +654,7 @@ const RealEstate = () => {
                 <p className="text-sm opacity-90 mb-6">
                   Discover how much money you're losing to poor lead management and fake agent visits right now.
                 </p>
-                <Button variant="outline" className="w-full border-white text-white hover:bg-white hover:text-primary">
+                <Button variant="outline" className="w-full bg-white/10 border-white text-white hover:bg-white hover:text-primary">
                   Calculate Revenue
                 </Button>
               </CardContent>
