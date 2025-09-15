@@ -1,18 +1,18 @@
 import { Button } from "@/components/ui/button";
-import { Menu, X, Home } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
 import insyncLogo from "@/assets/insync-logo-color.png";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const location = useLocation();
 
   const navigation = [
-    { name: "Home", href: "/", icon: Home },
+    { name: "Features", href: "/features" },
     { name: "Industries", href: "/industries" },
+    { name: "Use Cases", href: "/use-cases" },
     { name: "Integrations", href: "/integrations" },
     { name: "Pricing", href: "/pricing" },
+    { name: "Resources", href: "/resources" },
   ];
 
   return (
@@ -20,25 +20,20 @@ const Header = () => {
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2 hover:opacity-80 transition-opacity">
+          <div className="flex items-center space-x-2">
             <img src={insyncLogo} alt="In-Sync" className="h-8 w-auto" />
-          </Link>
+          </div>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
             {navigation.map((item) => (
-              <Link
+              <a
                 key={item.name}
-                to={item.href}
-                className={`text-sm font-medium transition-colors flex items-center gap-1 ${
-                  location.pathname === item.href 
-                    ? 'text-primary font-semibold' 
-                    : 'text-foreground/80 hover:text-primary'
-                }`}
+                href={item.href}
+                className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors"
               >
-                {item.icon && <item.icon className="w-4 h-4" />}
                 {item.name}
-              </Link>
+              </a>
             ))}
           </nav>
 
@@ -68,19 +63,13 @@ const Header = () => {
           <div className="md:hidden border-t bg-background/95 backdrop-blur-md">
             <nav className="flex flex-col space-y-4 px-4 py-6">
               {navigation.map((item) => (
-                <Link
+                <a
                   key={item.name}
-                  to={item.href}
-                  className={`text-sm font-medium transition-colors flex items-center gap-2 ${
-                    location.pathname === item.href 
-                      ? 'text-primary font-semibold' 
-                      : 'text-foreground/80 hover:text-primary'
-                  }`}
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  href={item.href}
+                  className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors"
                 >
-                  {item.icon && <item.icon className="w-4 h-4" />}
                   {item.name}
-                </Link>
+                </a>
               ))}
               <div className="flex flex-col space-y-2 pt-4">
                 <Button variant="ghost" size="sm">

@@ -2,7 +2,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
 import Header from "@/components/Header";
-import Breadcrumbs from "@/components/Breadcrumbs";
 import Footer from "@/components/Footer";
 
 const Industries = () => {
@@ -108,14 +107,9 @@ const Industries = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      
-      {/* Breadcrumbs */}
-      <div className="container mx-auto px-4 pt-4">
-        <Breadcrumbs 
-          items={[
-            { label: "Industries" }
-          ]} 
-        />
+      {/* Breadcrumb */}
+      <div className="bg-muted/50 py-3 px-4 text-sm text-muted-foreground">
+        <a href="/" className="hover:text-primary transition-colors">Home</a> &gt; Industries
       </div>
 
       {/* Hero Section */}

@@ -5,9 +5,6 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import CostCalculator from "@/components/CostCalculator";
-import Header from "@/components/Header";
-import Breadcrumbs from "@/components/Breadcrumbs";
-import Footer from "@/components/Footer";
 import { 
   Check, 
   Star, 
@@ -24,6 +21,8 @@ import {
   ChevronDown,
   ChevronUp
 } from "lucide-react";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 const Pricing = () => {
   const [billingCycle, setBillingCycle] = useState<"monthly" | "annual">("monthly");
@@ -156,15 +155,6 @@ const Pricing = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      
-      {/* Breadcrumbs */}
-      <div className="container mx-auto px-4 pt-4">
-        <Breadcrumbs 
-          items={[
-            { label: "Pricing" }
-          ]} 
-        />
-      </div>
       
       {/* Hero Section */}
       <section className="pt-24 pb-16 px-4 bg-gradient-to-br from-primary/5 via-background to-secondary/5">
