@@ -33,11 +33,11 @@ serve(async (req) => {
       websiteContext: string;
     } = await req.json()
 
-    // Get Perplexity API key from secrets
-    const perplexityApiKey = Deno.env.get('PERPLEXITY_API_KEY')
+    // Get Google API key from secrets
+    const googleApiKey = Deno.env.get('GOOGLE_API_KEY')
     
-    if (!perplexityApiKey) {
-      throw new Error('Perplexity API key not configured')
+    if (!googleApiKey) {
+      throw new Error('Google API key not configured')
     }
 
     // First, try to answer using website context
@@ -62,38 +62,29 @@ User's question: ${query}`
     let requiresFollowup = false
 
     try {
-      // Call Perplexity API
-      const response = await fetch('https://api.perplexity.ai/chat/completions', {
+      // Call Google Gemini API
+      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${googleApiKey}`, {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${perplexityApiKey}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          model: 'llama-3.1-sonar-small-128k-online',
-          messages: [
-            {
-              role: 'system',
-              content: systemPrompt
-            },
-            {
-              role: 'user',
-              content: query
-            }
-          ],
-          temperature: 0.2,
-          top_p: 0.9,
-          max_tokens: 1000,
-          return_images: false,
-          return_related_questions: false,
-          frequency_penalty: 1,
-          presence_penalty: 0
+          contents: [{
+            parts: [{
+              text: `${systemPrompt}\n\nUser: ${query}`
+            }]
+          }],
+          generationConfig: {
+            temperature: 0.2,
+            topP: 0.9,
+            maxOutputTokens: 1000,
+          }
         }),
       })
 
       if (response.ok) {
         const data = await response.json()
-        answer = data.choices[0]?.message?.content || 'I apologize, but I couldn\'t generate a response. Please contact our team directly.'
+        answer = data.candidates?.[0]?.content?.parts?.[0]?.text || 'I apologize, but I couldn\'t generate a response. Please contact our team directly.'
         wasAnsweredByAI = true
         
         // Check if the answer indicates the AI couldn't help with website context
@@ -105,12 +96,12 @@ User's question: ${query}`
           requiresFollowup = true
         }
       } else {
-        throw new Error('Perplexity API request failed')
+        throw new Error('Google API request failed')
       }
-    } catch (perplexityError) {
-      console.error('Perplexity API error:', perplexityError)
+    } catch (googleError) {
+      console.error('Google API error:', googleError)
       
-      // Fallback response when Perplexity fails
+      // Fallback response when Google fails
       answer = "I'm having trouble processing your question right now. For immediate assistance with In-Sync's CRM platform, please contact our team directly at +91 92288 24668 or delight@in-sync.co.in. They'll be happy to provide detailed information about our AI-powered CRM features, pricing, and how we can help your business."
       requiresFollowup = true
     }
