@@ -145,15 +145,7 @@ const Industries = () => {
                       </li>
                     ))}
                   </ul>
-                  <Button 
-                    className="w-full" 
-                    variant="default"
-                    onClick={() => {
-                      if (industry.id === 'healthcare') {
-                        window.location.href = '/industries/healthcare';
-                      }
-                    }}
-                  >
+                  <Button className="w-full" variant="default">
                     Explore {industry.title.split(' ')[0]} Solutions
                   </Button>
                 </CardContent>
