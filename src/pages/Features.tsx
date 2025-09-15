@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Progress } from "@/components/ui/progress";
 import { 
   Database, 
   MessageSquare, 
@@ -20,10 +22,24 @@ import {
   Bot,
   Workflow,
   Settings,
-  Lock
+  Lock,
+  PlayCircle,
+  TrendingUp,
+  Clock,
+  Star,
+  ArrowRight,
+  Calculator
 } from "lucide-react";
 
 const Features = () => {
+  const [activeTab, setActiveTab] = useState("overview");
+  const [selectedFeature, setSelectedFeature] = useState(0);
+  const [calculatorValues, setCalculatorValues] = useState({
+    employees: 50,
+    callsPerDay: 100,
+    currentCost: 5000
+  });
+
   const featureCategories = [
     {
       icon: Database,
@@ -190,6 +206,85 @@ const Features = () => {
     }
   ];
 
+  const transformationStories = [
+    {
+      company: "Incred Financial Services",
+      industry: "Fintech",
+      problem: "Manual calling processes costing ₹2.5L monthly",
+      solution: "Implemented Gargi AI autonomous calling",
+      results: {
+        costReduction: "99.8%",
+        timeSaved: "160 hours/month",
+        efficiency: "300% improvement"
+      },
+      testimonial: "Gargi AI transformed our customer outreach completely. We went from spending ₹2.5L monthly on calls to just ₹500.",
+      author: "Operations Head"
+    },
+    {
+      company: "Quess Corp",
+      industry: "Manufacturing",
+      problem: "Field force tracking and coordination issues",
+      solution: "Deployed GPS tracking and mobile CRM",
+      results: {
+        productivity: "45% increase",
+        responseTime: "60% faster",
+        accuracy: "95% GPS accuracy"
+      },
+      testimonial: "Real-time tracking gave us complete visibility into field operations. Productivity increased dramatically.",
+      author: "Regional Manager"
+    },
+    {
+      company: "Motherson Group",
+      industry: "Automotive",
+      problem: "Fragmented customer communication across channels",
+      solution: "Unified multi-channel communication suite",
+      results: {
+        engagement: "70% higher",
+        responseRate: "85% improvement",
+        satisfaction: "4.8/5 rating"
+      },
+      testimonial: "Having WhatsApp, SMS, and calling in one platform revolutionized our customer engagement.",
+      author: "Customer Success Manager"
+    }
+  ];
+
+  const stepByStepGuides = [
+    {
+      title: "Set Up Your CRM in 15 Minutes",
+      steps: ["Import your contacts", "Configure pipeline stages", "Set up automation rules", "Train your team"],
+      duration: "15 min",
+      difficulty: "Beginner"
+    },
+    {
+      title: "Launch AI Calling Campaign",
+      steps: ["Record your script", "Upload contact list", "Configure Gargi AI settings", "Launch and monitor"],
+      duration: "30 min",
+      difficulty: "Intermediate"
+    },
+    {
+      title: "Deploy Field Force Tracking",
+      steps: ["Install mobile app", "Configure GPS settings", "Set up attendance rules", "Monitor live locations"],
+      duration: "45 min",
+      difficulty: "Advanced"
+    }
+  ];
+
+  const calculateSavings = () => {
+    const monthlyCalls = calculatorValues.callsPerDay * 30;
+    const aiCostPerCall = 0.05; // ₹0.05 per call with AI
+    const traditionalCostPerCall = calculatorValues.currentCost / monthlyCalls;
+    const aiMonthlyCost = monthlyCalls * aiCostPerCall;
+    const savings = calculatorValues.currentCost - aiMonthlyCost;
+    const savingsPercentage = (savings / calculatorValues.currentCost) * 100;
+    
+    return {
+      monthlySavings: savings,
+      yearlyySavings: savings * 12,
+      savingsPercentage: savingsPercentage,
+      aiCost: aiMonthlyCost
+    };
+  };
+
   const stats = [
     {
       value: "99.8%",
@@ -222,14 +317,24 @@ const Features = () => {
           <div className="text-center max-w-4xl mx-auto">
             <Badge variant="secondary" className="px-4 py-2 text-sm font-medium mb-6 bg-white/10 text-white border-white/20">
               <BarChart3 className="h-4 w-4 mr-2" />
-              Complete Feature Inventory
+              Interactive Feature Experience
             </Badge>
             <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
-              Complete Feature Inventory
+              Discover Features Through Real Stories
             </h1>
             <p className="text-xl md:text-2xl text-primary-foreground/90 mb-8 max-w-3xl mx-auto leading-relaxed">
-              Every tool your business needs to grow, automate, and scale - all in one powerful platform
+              Explore our comprehensive platform through interactive demos, transformation stories, and hands-on calculators
             </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button size="lg" variant="secondary" className="bg-white text-primary hover:bg-slate-100">
+                <PlayCircle className="h-5 w-5 mr-2" />
+                Interactive Demo
+              </Button>
+              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary">
+                <Calculator className="h-5 w-5 mr-2" />
+                Calculate Your Savings
+              </Button>
+            </div>
           </div>
         </div>
 
@@ -238,93 +343,319 @@ const Features = () => {
         <div className="absolute bottom-20 right-10 w-40 h-40 bg-teal-300/10 rounded-full blur-xl" />
       </section>
 
-      {/* Feature Categories Overview */}
+      {/* Interactive Feature Explorer */}
       <section className="py-20 bg-gradient-to-b from-background to-slate-50/30">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
+          <div className="text-center mb-12">
             <Badge variant="outline" className="px-4 py-2 text-sm font-medium border-primary/30 mb-4">
               <Zap className="h-4 w-4 mr-2 text-primary" />
-              Six Pillars of Business Excellence
+              Interactive Explorer
             </Badge>
             <h2 className="text-3xl md:text-5xl font-bold mb-4">
-              Six Pillars of Business Excellence
+              Explore Features by Category
             </h2>
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              From core CRM to advanced AI automation, discover how In-Sync transforms every aspect of your business operations
+              Click on any category to see detailed features and real-world applications
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {featureCategories.map((category, index) => {
-              const IconComponent = category.icon;
-              return (
-                <Card key={index} className="group cursor-pointer transition-all duration-300 hover:shadow-xl hover:-translate-y-2 border-0 shadow-lg animate-fade-in">
-                  <CardContent className="p-8">
-                    <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-primary to-teal-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                      <IconComponent className="h-8 w-8 text-white" />
-                    </div>
-                    
-                    <h3 className="text-xl font-bold mb-4 group-hover:text-primary transition-colors">
-                      {category.title}
-                    </h3>
-                    
-                    <ul className="space-y-3">
-                      {category.features.map((feature, featureIndex) => (
-                        <li key={featureIndex} className="flex items-start text-sm text-muted-foreground">
-                          <CheckCircle className="h-4 w-4 text-primary mr-3 flex-shrink-0 mt-0.5" />
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
-                  </CardContent>
-                </Card>
-              );
-            })}
-          </div>
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+            <TabsList className="grid w-full grid-cols-3 lg:grid-cols-6 mb-12">
+              <TabsTrigger value="overview" className="text-xs">Overview</TabsTrigger>
+              <TabsTrigger value="crm" className="text-xs">CRM</TabsTrigger>
+              <TabsTrigger value="communication" className="text-xs">Communication</TabsTrigger>
+              <TabsTrigger value="field-force" className="text-xs">Field Force</TabsTrigger>
+              <TabsTrigger value="ai" className="text-xs">AI & Automation</TabsTrigger>
+              <TabsTrigger value="no-code" className="text-xs">No-Code</TabsTrigger>
+            </TabsList>
+            
+            <TabsContent value="overview" className="space-y-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {featureCategories.map((category, index) => {
+                  const IconComponent = category.icon;
+                  return (
+                    <Card key={index} className="group cursor-pointer transition-all duration-300 hover:shadow-xl hover:-translate-y-2 border-0 shadow-lg"
+                          onClick={() => setActiveTab(index === 0 ? 'crm' : index === 1 ? 'communication' : index === 2 ? 'field-force' : index === 3 ? 'ai' : 'no-code')}>
+                      <CardContent className="p-8">
+                        <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-primary to-teal-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                          <IconComponent className="h-8 w-8 text-white" />
+                        </div>
+                        
+                        <h3 className="text-xl font-bold mb-4 group-hover:text-primary transition-colors">
+                          {category.title}
+                        </h3>
+                        
+                        <ul className="space-y-3">
+                          {category.features.slice(0, 3).map((feature, featureIndex) => (
+                            <li key={featureIndex} className="flex items-start text-sm text-muted-foreground">
+                              <CheckCircle className="h-4 w-4 text-primary mr-3 flex-shrink-0 mt-0.5" />
+                              {feature}
+                            </li>
+                          ))}
+                          <li className="text-primary text-sm font-medium cursor-pointer hover:underline">
+                            +{category.features.length - 3} more features →
+                          </li>
+                        </ul>
+                      </CardContent>
+                    </Card>
+                  );
+                })}
+              </div>
+            </TabsContent>
+            
+            {/* Detailed feature tabs would go here */}
+            <TabsContent value="crm" className="space-y-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-3">
+                    <Database className="h-6 w-6 text-primary" />
+                    Core CRM Features
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {detailedFeatures[0].items.map((item, index) => (
+                      <div key={index} className="bg-slate-50/50 rounded-lg p-6 border-l-4 border-primary">
+                        <h4 className="font-semibold text-lg mb-2">{item.title}</h4>
+                        <p className="text-muted-foreground text-sm leading-relaxed">{item.description}</p>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+            
+            {/* Add other tab contents similarly */}
+          </Tabs>
         </div>
       </section>
 
-      {/* Detailed Features */}
+      {/* Transformation Stories */}
       <section className="py-20 bg-gradient-to-b from-slate-50/30 to-background">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <Badge variant="outline" className="px-4 py-2 text-sm font-medium border-primary/30 mb-4">
-              <Settings className="h-4 w-4 mr-2 text-primary" />
-              Feature Deep Dive
+              <TrendingUp className="h-4 w-4 mr-2 text-primary" />
+              Real Transformation Stories
             </Badge>
             <h2 className="text-3xl md:text-5xl font-bold mb-4">
-              Feature Deep Dive
+              Before & After Success Stories
             </h2>
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              Explore every capability that makes In-Sync the most comprehensive business platform
+              See how businesses like yours achieved remarkable results with In-Sync
             </p>
           </div>
 
           <div className="space-y-12">
-            {detailedFeatures.map((section, sectionIndex) => {
-              const IconComponent = section.icon;
-              return (
-                <Card key={sectionIndex} className="border-0 shadow-lg">
-                  <CardContent className="p-8">
-                    <div className="flex items-center gap-4 mb-8">
-                      <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-teal-600 flex items-center justify-center">
-                        <IconComponent className="h-6 w-6 text-white" />
+            {transformationStories.map((story, index) => (
+              <Card key={index} className="border-0 shadow-lg overflow-hidden">
+                <CardContent className="p-0">
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
+                    {/* Before */}
+                    <div className="p-8 bg-red-50/50 border-r border-red-200">
+                      <div className="flex items-center gap-3 mb-6">
+                        <div className="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center">
+                          <span className="text-red-600 font-bold text-sm">Before</span>
+                        </div>
+                        <h3 className="text-xl font-bold text-red-800">{story.company}</h3>
+                        <Badge variant="outline" className="border-red-300 text-red-600">{story.industry}</Badge>
                       </div>
-                      <h3 className="text-2xl font-bold">{section.title}</h3>
+                      <h4 className="font-semibold text-lg mb-3 text-red-800">The Challenge</h4>
+                      <p className="text-red-700 mb-6">{story.problem}</p>
+                    </div>
+
+                    {/* After */}
+                    <div className="p-8 bg-green-50/50">
+                      <div className="flex items-center gap-3 mb-6">
+                        <div className="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center">
+                          <span className="text-green-600 font-bold text-sm">After</span>
+                        </div>
+                        <h3 className="text-xl font-bold text-green-800">In-Sync Solution</h3>
+                      </div>
+                      <h4 className="font-semibold text-lg mb-3 text-green-800">The Solution</h4>
+                      <p className="text-green-700 mb-6">{story.solution}</p>
+                      
+                      <div className="grid grid-cols-3 gap-4 mb-6">
+                        {Object.entries(story.results).map(([key, value]) => (
+                          <div key={key} className="text-center">
+                            <div className="text-2xl font-bold text-green-600">{value}</div>
+                            <div className="text-sm text-green-700 capitalize">{key.replace(/([A-Z])/g, ' $1')}</div>
+                          </div>
+                        ))}
+                      </div>
+                      
+                      <blockquote className="border-l-4 border-green-400 pl-4 italic text-green-700">
+                        "{story.testimonial}"
+                        <footer className="text-sm mt-2 font-medium">— {story.author}</footer>
+                      </blockquote>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Interactive ROI Calculator */}
+      <section className="py-20 bg-gradient-to-br from-primary/10 via-background to-primary/5">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <Badge variant="outline" className="px-4 py-2 text-sm font-medium border-primary/30 mb-4">
+              <Calculator className="h-4 w-4 mr-2 text-primary" />
+              ROI Calculator
+            </Badge>
+            <h2 className="text-3xl md:text-5xl font-bold mb-4">
+              Calculate Your Potential Savings
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+              See how much you could save with Gargi AI autonomous calling
+            </p>
+          </div>
+
+          <Card className="max-w-4xl mx-auto border-0 shadow-xl">
+            <CardContent className="p-8">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div>
+                  <h3 className="text-xl font-bold mb-6">Your Current Situation</h3>
+                  <div className="space-y-6">
+                    <div>
+                      <label className="block text-sm font-medium mb-2">Number of Employees</label>
+                      <input
+                        type="range"
+                        min="10"
+                        max="1000"
+                        value={calculatorValues.employees}
+                        onChange={(e) => setCalculatorValues(prev => ({...prev, employees: parseInt(e.target.value)}))}
+                        className="w-full"
+                      />
+                      <div className="text-center text-lg font-bold text-primary">{calculatorValues.employees}</div>
                     </div>
                     
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      {section.items.map((item, itemIndex) => (
-                        <div key={itemIndex} className="bg-slate-50/50 rounded-lg p-6 border-l-4 border-primary">
-                          <h4 className="font-semibold text-lg mb-2">{item.title}</h4>
-                          <p className="text-muted-foreground text-sm leading-relaxed">{item.description}</p>
-                        </div>
-                      ))}
+                    <div>
+                      <label className="block text-sm font-medium mb-2">Calls Per Day</label>
+                      <input
+                        type="range"
+                        min="10"
+                        max="1000"
+                        value={calculatorValues.callsPerDay}
+                        onChange={(e) => setCalculatorValues(prev => ({...prev, callsPerDay: parseInt(e.target.value)}))}
+                        className="w-full"
+                      />
+                      <div className="text-center text-lg font-bold text-primary">{calculatorValues.callsPerDay}</div>
                     </div>
-                  </CardContent>
-                </Card>
-              );
-            })}
+                    
+                    <div>
+                      <label className="block text-sm font-medium mb-2">Current Monthly Cost (₹)</label>
+                      <input
+                        type="range"
+                        min="1000"
+                        max="100000"
+                        step="1000"
+                        value={calculatorValues.currentCost}
+                        onChange={(e) => setCalculatorValues(prev => ({...prev, currentCost: parseInt(e.target.value)}))}
+                        className="w-full"
+                      />
+                      <div className="text-center text-lg font-bold text-primary">₹{calculatorValues.currentCost.toLocaleString()}</div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="bg-gradient-to-br from-primary/10 to-teal-600/10 rounded-xl p-6">
+                  <h3 className="text-xl font-bold mb-6">Your Potential Savings</h3>
+                  {(() => {
+                    const savings = calculateSavings();
+                    return (
+                      <div className="space-y-4">
+                        <div className="text-center">
+                          <div className="text-4xl font-bold text-primary mb-2">
+                            {savings.savingsPercentage.toFixed(1)}%
+                          </div>
+                          <p className="text-muted-foreground">Cost Reduction</p>
+                        </div>
+                        
+                        <div className="grid grid-cols-2 gap-4">
+                          <div className="text-center p-4 bg-white rounded-lg">
+                            <div className="text-2xl font-bold text-green-600">
+                              ₹{savings.monthlySavings.toLocaleString()}
+                            </div>
+                            <p className="text-sm text-muted-foreground">Monthly Savings</p>
+                          </div>
+                          <div className="text-center p-4 bg-white rounded-lg">
+                            <div className="text-2xl font-bold text-green-600">
+                              ₹{savings.yearlyySavings.toLocaleString()}
+                            </div>
+                            <p className="text-sm text-muted-foreground">Yearly Savings</p>
+                          </div>
+                        </div>
+                        
+                        <div className="text-center text-sm text-muted-foreground">
+                          With Gargi AI: ₹{savings.aiCost.toFixed(0)} per month
+                        </div>
+                        
+                        <Button className="w-full" size="lg">
+                          Get Detailed ROI Report
+                          <ArrowRight className="h-4 w-4 ml-2" />
+                        </Button>
+                      </div>
+                    );
+                  })()}
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+
+      {/* Step-by-Step Implementation */}
+      <section className="py-20 bg-gradient-to-b from-background to-slate-50/30">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <Badge variant="outline" className="px-4 py-2 text-sm font-medium border-primary/30 mb-4">
+              <Settings className="h-4 w-4 mr-2 text-primary" />
+              Implementation Guides
+            </Badge>
+            <h2 className="text-3xl md:text-5xl font-bold mb-4">
+              Get Started in Minutes
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+              Follow our step-by-step guides to implement key features quickly
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {stepByStepGuides.map((guide, index) => (
+              <Card key={index} className="border-0 shadow-lg">
+                <CardHeader>
+                  <div className="flex items-center justify-between mb-2">
+                    <Badge variant={guide.difficulty === 'Beginner' ? 'default' : guide.difficulty === 'Intermediate' ? 'secondary' : 'destructive'}>
+                      {guide.difficulty}
+                    </Badge>
+                    <div className="flex items-center text-muted-foreground text-sm">
+                      <Clock className="h-4 w-4 mr-1" />
+                      {guide.duration}
+                    </div>
+                  </div>
+                  <CardTitle className="text-lg">{guide.title}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    {guide.steps.map((step, stepIndex) => (
+                      <div key={stepIndex} className="flex items-start gap-3">
+                        <div className="w-6 h-6 rounded-full bg-primary text-white flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5">
+                          {stepIndex + 1}
+                        </div>
+                        <p className="text-sm">{step}</p>
+                      </div>
+                    ))}
+                  </div>
+                  <Button variant="outline" className="w-full mt-6">
+                    <PlayCircle className="h-4 w-4 mr-2" />
+                    Start Guide
+                  </Button>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </div>
       </section>
