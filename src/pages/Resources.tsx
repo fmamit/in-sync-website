@@ -789,28 +789,6 @@ const Resources = () => {
           </div>
         </section>
 
-        {/* Newsletter Section */}
-        <section className="py-20 bg-gradient-to-br from-primary/5 to-secondary/5">
-          <div className="container mx-auto px-4">
-            <div className="text-center max-w-2xl mx-auto">
-              <h2 className="text-3xl font-bold mb-6">Stay Updated</h2>
-              <p className="text-muted-foreground mb-8">
-                Subscribe to our newsletter to get the latest resources, insights, and updates delivered to your inbox.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-                <Input
-                  type="email"
-                  placeholder="Enter your email"
-                  className="flex-1"
-                />
-                <Button>
-                  Subscribe
-                  <Globe className="ml-2 h-4 w-4" />
-                </Button>
-              </div>
-            </div>
-          </div>
-        </section>
       </main>
 
       <Footer />
