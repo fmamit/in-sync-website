@@ -292,133 +292,123 @@ const KeyFeatures = () => {
   ];
 
   return (
-    <section className="py-20 bg-gradient-to-b from-slate-50/30 to-background">
+    <section className="py-20 bg-background">
       <div className="container mx-auto px-4">
         {/* Section Header */}
-        <div className="text-center mb-16 bg-gradient-to-r from-slate-50/40 via-transparent to-gray-50/30 py-12 rounded-2xl">
-          <div className="flex justify-center mb-4">
-            <Badge variant="outline" className="px-4 py-2 text-sm font-medium border-primary/30">
-              <Zap className="h-4 w-4 mr-2 text-primary" />
-              Key Differentiators
-            </Badge>
-          </div>
+        <div className="text-center mb-16">
+          <Badge variant="outline" className="px-4 py-2 text-sm font-medium border-primary/30 mb-4">
+            <Zap className="h-4 w-4 mr-2 text-primary" />
+            Key Differentiators
+          </Badge>
           <h2 className="text-3xl md:text-5xl font-bold mb-4">
             Why Choose{" "}
-            <span className="text-teal-600">
+            <span className="text-primary">
               In-Sync?
             </span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            Four revolutionary approaches that set us apart from traditional CRM solutions
+            Revolutionary features that set us apart from traditional CRM solutions
           </p>
         </div>
 
         {/* Key Features Grid */}
-        <div className="space-y-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
           {keyFeatures.map((feature, index) => (
-            <div 
+            <Card 
               key={feature.id}
               id={feature.id}
-              className={`bg-gradient-to-br ${feature.gradient} rounded-3xl p-8 md:p-12`}
+              className="group cursor-pointer transition-all duration-300 hover:shadow-xl hover:-translate-y-2 border-0 shadow-lg overflow-hidden"
             >
-              <div className={`grid grid-cols-1 lg:grid-cols-2 gap-8 items-center ${index % 2 === 1 ? 'lg:grid-flow-col-dense' : ''}`}>
-                {/* Content */}
-                <div className={index % 2 === 1 ? 'lg:col-start-2' : ''}>
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className={`p-3 bg-white/80 rounded-xl shadow-sm`}>
-                      {typeof feature.icon === 'function' ? (
-                        <div className="w-6 h-6">
-                          {React.createElement(feature.icon)}
-                        </div>
-                      ) : (
-                        React.createElement(feature.icon, { className: `h-6 w-6 ${feature.iconColor}` })
-                      )}
-                    </div>
-                    <Badge variant="secondary" className="text-xs">
-                      {feature.badge}
-                    </Badge>
+              <CardContent className="p-8">
+                <div className="flex items-start gap-4 mb-6">
+                  <div className="w-16 h-16 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                    {typeof feature.icon === 'function' ? (
+                      <div className="w-8 h-8">
+                        {React.createElement(feature.icon)}
+                      </div>
+                    ) : (
+                      React.createElement(feature.icon, { className: `h-8 w-8 text-primary` })
+                    )}
                   </div>
-                  
-                  <h3 className="text-2xl md:text-3xl font-bold mb-2">
-                    {feature.title}
-                  </h3>
-                  <p className="text-lg font-medium text-muted-foreground mb-4">
-                    {feature.subtitle}
-                  </p>
-                  <p className="text-muted-foreground mb-6 leading-relaxed">
-                    {feature.description}
-                  </p>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
-                    {feature.features.map((item, idx) => {
-                      const parts = item.split(' → ');
-                      const hasArrow = parts.length === 2;
-                      
-                      return (
-                        <div key={idx} className="flex items-center gap-2">
-                          <CheckCircle className={`h-4 w-4 ${feature.iconColor}`} />
-                          {hasArrow ? (
-                            <span className="text-sm">
-                              <span className="font-medium">{parts[0]}</span>
-                              <span className="text-muted-foreground"> → {parts[1]}</span>
-                            </span>
-                          ) : (
-                            <span className="text-sm font-medium">{item}</span>
-                          )}
-                        </div>
-                      );
-                    })}
-                  </div>
-
-                  <Button 
-                    variant="outline" 
-                    size="lg"
-                    className="group border-primary/30 hover:bg-primary/5"
-                  >
-                    Learn More
-                    <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                  </Button>
-                </div>
-
-                {/* Visual Element */}
-                <div className={`${index % 2 === 1 ? 'lg:col-start-1' : ''} flex justify-center`}>
-                  <div className="relative">
-                    <div className={`w-64 h-64 bg-gradient-to-br from-white/90 to-white/60 rounded-2xl shadow-xl flex items-center justify-center`}>
-                      {typeof feature.icon === 'function' ? (
-                        <div className="w-60 h-60">
-                          {React.createElement(feature.icon)}
-                        </div>
-                      ) : (
-                        React.createElement(feature.icon, { className: `h-60 w-60 ${feature.iconColor} opacity-80` })
-                      )}
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Badge variant="secondary" className="text-xs">
+                        {feature.badge}
+                      </Badge>
                     </div>
-                    {/* Decorative elements */}
-                    <div className={`absolute -top-4 -right-4 w-16 h-16 bg-gradient-to-br ${feature.gradient} rounded-full blur-sm opacity-60`}></div>
-                    <div className={`absolute -bottom-4 -left-4 w-12 h-12 bg-gradient-to-br ${feature.gradient} rounded-full blur-sm opacity-40`}></div>
+                    <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">
+                      {feature.title}
+                    </h3>
+                    <p className="text-sm font-medium text-muted-foreground mb-3">
+                      {feature.subtitle}
+                    </p>
                   </div>
                 </div>
-              </div>
-            </div>
+                
+                <p className="text-muted-foreground mb-6 leading-relaxed text-sm">
+                  {feature.description}
+                </p>
+
+                <div className="space-y-3 mb-6">
+                  {feature.features.slice(0, 3).map((item, idx) => {
+                    const parts = item.split(' → ');
+                    const hasArrow = parts.length === 2;
+                    
+                    return (
+                      <div key={idx} className="flex items-start gap-2">
+                        <CheckCircle className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
+                        {hasArrow ? (
+                          <span className="text-sm">
+                            <span className="font-medium">{parts[0]}</span>
+                            <span className="text-muted-foreground"> → {parts[1]}</span>
+                          </span>
+                        ) : (
+                          <span className="text-sm font-medium">{item}</span>
+                        )}
+                      </div>
+                    );
+                  })}
+                  {feature.features.length > 3 && (
+                    <div className="text-xs text-muted-foreground">
+                      +{feature.features.length - 3} more features
+                    </div>
+                  )}
+                </div>
+
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  className="group w-full border-primary/30 hover:bg-primary/5"
+                >
+                  Explore Feature
+                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                </Button>
+              </CardContent>
+            </Card>
           ))}
         </div>
 
         {/* CTA Section */}
-        <div className="text-center mt-16 bg-gradient-to-r from-primary/5 via-background to-secondary/5 py-12 rounded-2xl">
-          <h3 className="text-2xl md:text-3xl font-bold mb-4">
-            Ready to Experience the Difference?
-          </h3>
-          <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Join thousands of organizations who have transformed their operations with In-Sync
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
-              Start Free Trial
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
-            <Button size="lg" variant="outline">
-              Schedule Demo
-            </Button>
-          </div>
+        <div className="text-center">
+          <Card className="border-0 shadow-lg bg-gradient-to-r from-primary/5 to-secondary/5">
+            <CardContent className="p-12">
+              <h3 className="text-2xl md:text-3xl font-bold mb-4">
+                Ready to Experience the Difference?
+              </h3>
+              <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
+                Join thousands of organizations who have transformed their operations with In-Sync
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
+                  Start Free Trial
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+                <Button size="lg" variant="outline">
+                  Schedule Demo
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </section>
