@@ -1,10 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ArrowRight, Factory, TrendingUp, Shield, Users, CheckCircle } from "lucide-react";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 const Manufacturing = () => {
   return (
     <div className="min-h-screen bg-background">
+      <Header />
       {/* Breadcrumb */}
       <div className="bg-muted/30 py-4">
         <div className="container mx-auto px-4">
@@ -396,6 +399,7 @@ const Manufacturing = () => {
           </div>
         </div>
       </section>
+      <Footer />
     </div>
   );
 };

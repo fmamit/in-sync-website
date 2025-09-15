@@ -1,10 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Check, Shield, TrendingUp, Users, Building, FileText, BarChart, Lock } from "lucide-react";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 const FinancialServices = () => {
   return (
     <div className="min-h-screen bg-background">
+      <Header />
       {/* Breadcrumb */}
       <div className="bg-muted/50 py-3 px-4 text-sm text-muted-foreground">
         Home &gt; Industries &gt; Financial Services
@@ -516,6 +519,7 @@ const FinancialServices = () => {
           </div>
         </div>
       </section>
+      <Footer />
     </div>
   );
 };

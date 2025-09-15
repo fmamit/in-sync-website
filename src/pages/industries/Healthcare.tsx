@@ -1,10 +1,13 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Check, Shield, Users, Activity, DollarSign } from "lucide-react";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 const Healthcare = () => {
   return (
     <div className="min-h-screen bg-background">
+      <Header />
       {/* Breadcrumb */}
       <div className="bg-muted/50 py-3 px-4 text-sm text-muted-foreground">
         Home &gt; Industries &gt; Healthcare
@@ -560,6 +563,7 @@ const Healthcare = () => {
           </div>
         </div>
       </section>
+      <Footer />
     </div>
   );
 };
