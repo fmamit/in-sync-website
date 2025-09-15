@@ -17,6 +17,7 @@ import ProfessionalServices from "./pages/industries/ProfessionalServices";
 import Education from "./pages/industries/Education";
 import RetailEcommerce from "./pages/industries/RetailEcommerce";
 import Pricing from "./pages/Pricing";
+import Resources from "./pages/Resources";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -42,6 +43,7 @@ const App = () => (
           <Route path="/industries/education" element={<Education />} />
           <Route path="/industries/retail-ecommerce" element={<RetailEcommerce />} />
           <Route path="/pricing" element={<Pricing />} />
+          <Route path="/resources" element={<Resources />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
