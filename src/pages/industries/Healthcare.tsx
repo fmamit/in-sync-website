@@ -423,7 +423,7 @@ const Healthcare = () => {
             <Button size="lg" className="bg-white text-green-600 hover:bg-white/90 text-lg px-8 py-4">
               Schedule Healthcare Demo
             </Button>
-            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-green-600 text-lg px-8 py-4">
+            <Button size="lg" className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-green-600 text-lg px-8 py-4">
               Download Compliance Guide
             </Button>
           </div>
