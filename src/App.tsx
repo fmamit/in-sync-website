@@ -11,6 +11,7 @@ import FinancialServices from "./pages/industries/FinancialServices";
 import Manufacturing from "./pages/industries/Manufacturing";
 import RealEstate from "./pages/industries/RealEstate";
 import TechnologySaaS from "./pages/industries/TechnologySaaS";
+import ProfessionalServices from "./pages/industries/ProfessionalServices";
 import Pricing from "./pages/Pricing";
 import NotFound from "./pages/NotFound";
 
@@ -31,6 +32,7 @@ const App = () => (
           <Route path="/industries/manufacturing" element={<Manufacturing />} />
           <Route path="/industries/real-estate" element={<RealEstate />} />
           <Route path="/industries/technology-saas" element={<TechnologySaaS />} />
+          <Route path="/industries/professional-services" element={<ProfessionalServices />} />
           <Route path="/pricing" element={<Pricing />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
