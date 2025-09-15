@@ -12,6 +12,7 @@ import Manufacturing from "./pages/industries/Manufacturing";
 import RealEstate from "./pages/industries/RealEstate";
 import TechnologySaaS from "./pages/industries/TechnologySaaS";
 import ProfessionalServices from "./pages/industries/ProfessionalServices";
+import Education from "./pages/industries/Education";
 import Pricing from "./pages/Pricing";
 import NotFound from "./pages/NotFound";
 
@@ -33,6 +34,7 @@ const App = () => (
           <Route path="/industries/real-estate" element={<RealEstate />} />
           <Route path="/industries/technology-saas" element={<TechnologySaaS />} />
           <Route path="/industries/professional-services" element={<ProfessionalServices />} />
+          <Route path="/industries/education" element={<Education />} />
           <Route path="/pricing" element={<Pricing />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
