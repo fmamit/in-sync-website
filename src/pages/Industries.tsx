@@ -166,6 +166,8 @@ const Industries = () => {
                         window.location.href = '/industries/professional-services';
                       } else if (industry.id === 'education') {
                         window.location.href = '/industries/education';
+                      } else if (industry.id === 'retail') {
+                        window.location.href = '/industries/retail-ecommerce';
                       }
                     }}
                   >
