@@ -52,7 +52,7 @@ const FinancialServices = () => {
                 <Button size="lg" className="bg-white text-primary hover:bg-white/90">
                   See How Leading Banks Do It - Schedule Demo
                 </Button>
-                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary">
+                <Button size="lg" variant="secondary" className="bg-white/10 text-white border-white hover:bg-white hover:text-primary">
                   Calculate Your Revenue Impact
                 </Button>
               </div>
