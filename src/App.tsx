@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import Integrations from "./pages/Integrations";
 import Industries from "./pages/Industries";
 import Healthcare from "./pages/industries/Healthcare";
+import FinancialServices from "./pages/industries/FinancialServices";
 import Pricing from "./pages/Pricing";
 import NotFound from "./pages/NotFound";
 
@@ -23,6 +24,7 @@ const App = () => (
           <Route path="/integrations" element={<Integrations />} />
           <Route path="/industries" element={<Industries />} />
           <Route path="/industries/healthcare-life-sciences" element={<Healthcare />} />
+          <Route path="/industries/financial-services" element={<FinancialServices />} />
           <Route path="/pricing" element={<Pricing />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

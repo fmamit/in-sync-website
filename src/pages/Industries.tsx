@@ -151,6 +151,8 @@ const Industries = () => {
                     onClick={() => {
                       if (industry.id === 'healthcare') {
                         window.location.href = '/industries/healthcare-life-sciences';
+                      } else if (industry.id === 'financial') {
+                        window.location.href = '/industries/financial-services';
                       }
                     }}
                   >
