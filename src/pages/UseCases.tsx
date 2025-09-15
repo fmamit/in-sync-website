@@ -146,7 +146,7 @@ const UseCases = () => {
 
   const competitors = [
     {
-      name: "In-sync",
+      name: "In-Sync",
       features: {
         "Contact & Lead Management": "Unlimited",
         "Sales Pipeline Management": "Advanced", 
@@ -379,7 +379,7 @@ const UseCases = () => {
             <div className="text-center max-w-4xl mx-auto">
               <div className="flex items-center justify-center gap-2 mb-6">
                 <h1 className="text-5xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                  In-sync
+                  In-Sync
                 </h1>
               </div>
               <div className="flex flex-wrap justify-center gap-2 mb-6">
@@ -401,7 +401,7 @@ const UseCases = () => {
             <div className="text-center mb-16">
               <h2 className="text-4xl font-bold mb-4">One Platform, Every Industry</h2>
               <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-                See how In-sync's powerful features adapt to your specific industry needs across India's diverse business landscape
+                See how In-Sync's powerful features adapt to your specific industry needs across India's diverse business landscape
               </p>
             </div>
             
@@ -443,9 +443,9 @@ const UseCases = () => {
         <section className="py-20 bg-gradient-to-b from-slate-50/30 to-background">
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold mb-4">In-sync vs Competition</h2>
+              <h2 className="text-4xl font-bold mb-4">In-Sync vs Competition</h2>
               <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-                See how In-sync compares with leading CRM and business automation platforms in the Indian market
+                See how In-Sync compares with leading CRM and business automation platforms in the Indian market
               </p>
             </div>
 
@@ -475,7 +475,7 @@ const UseCases = () => {
             </div>
 
             <div className="mt-12 bg-primary/5 rounded-lg p-8">
-              <h3 className="text-2xl font-bold mb-6 text-center">In-sync's Unique Advantages</h3>
+              <h3 className="text-2xl font-bold mb-6 text-center">In-Sync's Unique Advantages</h3>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {[
                   { icon: Bot, title: "Gargi AI Agent", desc: "Only platform with autonomous calling AI" },
@@ -580,7 +580,7 @@ const UseCases = () => {
             <div className="text-center max-w-4xl mx-auto">
               <h2 className="text-4xl font-bold mb-4">Ready to Transform Your Business?</h2>
               <p className="text-xl mb-8 opacity-90">
-                Join thousands of Indian businesses already using In-sync to grow faster and serve customers better
+                Join thousands of Indian businesses already using In-Sync to grow faster and serve customers better
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
