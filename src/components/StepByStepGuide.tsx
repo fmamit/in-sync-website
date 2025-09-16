@@ -356,24 +356,26 @@ const StepByStepGuide = ({ className = "" }: { className?: string }) => {
               <CardTitle className="text-lg">Implementation Steps</CardTitle>
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Progress value={(currentPath.steps.findIndex(s => s.id === expandedStep) + 1) / currentPath.steps.length * 100} className="h-2" />
-                <span>{currentPath.steps.findIndex(s => s.id === expandedStep) + 1}/{currentPath.steps.length}</span>
+                <span className="whitespace-nowrap">{currentPath.steps.findIndex(s => s.id === expandedStep) + 1}/{currentPath.steps.length}</span>
               </div>
             </CardHeader>
-            <CardContent className="space-y-2">
+            <CardContent className="space-y-2 p-3">
               {currentPath.steps.map((step, index) => (
                 <Button
                   key={step.id}
                   variant={expandedStep === step.id ? "default" : "ghost"}
-                  className="w-full justify-start text-left h-auto py-3 px-3"
+                  className="w-full justify-start text-left h-auto py-2 px-2 min-h-[48px]"
                   onClick={() => setExpandedStep(step.id)}
                 >
-                  <div className="flex items-start gap-3 w-full">
-                    <div className={`w-6 h-6 min-w-[24px] rounded-full flex items-center justify-center text-xs font-semibold mt-0.5 ${
+                  <div className="flex items-start gap-2 w-full overflow-hidden">
+                    <div className={`w-6 h-6 min-w-[24px] rounded-full flex items-center justify-center text-xs font-semibold mt-0.5 flex-shrink-0 ${
                       expandedStep === step.id ? 'bg-primary-foreground text-primary' : 'bg-primary/10 text-primary'
                     }`}>
                       {index + 1}
                     </div>
-                    <span className="text-sm leading-relaxed break-words hyphens-auto flex-1">{step.title}</span>
+                    <span className="text-xs leading-tight break-words word-wrap overflow-wrap-anywhere flex-1 min-w-0">
+                      {step.title}
+                    </span>
                   </div>
                 </Button>
               ))}
