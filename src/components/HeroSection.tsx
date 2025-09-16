@@ -126,7 +126,7 @@ const HeroSection = () => {
                 </div>
               ))}
             </div>
-            <p className="text-xs text-muted-foreground mt-4">over 20000 daily active users across 100+ growing organizations</p>
+            <h3 className="text-sm font-medium text-muted-foreground mt-4">over 20000 daily active users across 100+ growing organizations</h3>
           </div>
         </div>
       </div>
