@@ -331,7 +331,7 @@ const Features = () => {
                 <PlayCircle className="h-5 w-5 mr-2" />
                 Interactive Demo
               </Button>
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary">
+              <Button size="lg" variant="hero">
                 <Calculator className="h-5 w-5 mr-2" />
                 Calculate Your Savings
               </Button>
@@ -698,7 +698,7 @@ const Features = () => {
             <Button size="lg" variant="secondary" className="bg-white text-primary hover:bg-slate-100">
               Start Free Trial
             </Button>
-            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary">
+            <Button size="lg" variant="hero">
               Request Demo
             </Button>
           </div>
