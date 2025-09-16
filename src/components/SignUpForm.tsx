@@ -6,6 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
+import jsPDF from "jspdf";
 
 export default function SignUpForm() {
   const { toast } = useToast();
@@ -27,84 +28,119 @@ export default function SignUpForm() {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
-  const generateAgreementContent = (data: typeof formData) => {
-    return `
-CLIENT AGREEMENT FOR IN-SYNC SAAS PLATFORM
-
-This Agreement is entered into on ${data.dateOfSigning} at ${data.placeOfSigning} between:
-
-PARTY A: ECR Technical Innovations Pvt Ltd
-Address: 042, C 4th Floor, Supermart, DLF Phase IV GURUGRAM Haryana 122002
-Contact: Amit Sengupta, a@-in-sync.co.in
-
-PARTY B: ${data.companyName}
-Address: ${data.registeredAddress}
-Authorized Signatory: ${data.signatoryName}
-Designation: ${data.signatoryDesignation}
-Email: ${data.email}
-Phone: ${data.phone}
-
-TERMS AND CONDITIONS:
-
-1. EFFECTIVE DATE
-   This agreement shall be effective from ${data.effectiveDate}.
-
-2. SERVICES PROVIDED
-   In-Sync shall provide access to its comprehensive SaaS platform including:
-   - CRM and Customer Management
-   - Multi-channel Marketing Tools
-   - Analytics and Reporting
-   - Integration Capabilities
-   - Technical Support
-
-3. CLIENT OBLIGATIONS
-   The Client agrees to:
-   - Provide accurate information for service setup
-   - Comply with platform usage guidelines
-   - Make timely payments as per agreed pricing
-   - Maintain confidentiality of login credentials
-
-4. PAYMENT TERMS
-   - Pricing as per selected plan
-   - Payment due within 30 days of invoice
-   - Late payment charges may apply
-
-5. DATA SECURITY
-   Both parties commit to maintaining data security and privacy standards.
-
-6. TERMINATION
-   Either party may terminate this agreement with 30 days written notice.
-
-7. GOVERNING LAW
-   This agreement shall be governed by the laws of India.
-
-IN WITNESS WHEREOF, the parties have executed this Agreement on the date first written above.
-
-For IN-SYNC SOLUTIONS:                For ${data.companyName}:
-
-_____________________              _____________________
-Authorized Signatory                ${data.signatoryName}
-                                   ${data.signatoryDesignation}
-
-Date: ${data.dateOfSigning}         Date: ${data.dateOfSigning}
-Place: ${data.placeOfSigning}       Place: ${data.placeOfSigning}
-
----
-Generated on: ${new Date().toLocaleString()}
-Agreement ID: ${Date.now().toString(36).toUpperCase()}
-    `;
-  };
-
-  const downloadAgreement = (content: string, filename: string) => {
-    const blob = new Blob([content], { type: 'text/plain' });
-    const url = window.URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = filename;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    window.URL.revokeObjectURL(url);
+  const downloadAgreement = (data: typeof formData) => {
+    const doc = new jsPDF();
+    
+    // Set font and margins
+    doc.setFont("helvetica");
+    doc.setFontSize(12);
+    
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const margin = 20;
+    const lineHeight = 7;
+    let yPosition = 30;
+    
+    // Helper function to add text with word wrapping
+    const addText = (text: string, fontSize: number = 12) => {
+      doc.setFontSize(fontSize);
+      const splitText = doc.splitTextToSize(text, pageWidth - (margin * 2));
+      doc.text(splitText, margin, yPosition);
+      yPosition += splitText.length * lineHeight;
+    };
+    
+    // Add title
+    doc.setFontSize(16);
+    doc.setFont("helvetica", "bold");
+    doc.text("CLIENT AGREEMENT FOR IN-SYNC SAAS PLATFORM", margin, yPosition);
+    yPosition += 15;
+    
+    // Reset font for body text
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(12);
+    
+    addText(`This Agreement is entered into on ${data.dateOfSigning} at ${data.placeOfSigning} between:`);
+    yPosition += 5;
+    
+    addText("PARTY A: ECR Technical Innovations Pvt Ltd");
+    addText("Address: 042, C 4th Floor, Supermart, DLF Phase IV GURUGRAM Haryana 122002");
+    addText("Contact: Amit Sengupta, a@-in-sync.co.in");
+    yPosition += 5;
+    
+    addText(`PARTY B: ${data.companyName}`);
+    addText(`Address: ${data.registeredAddress}`);
+    addText(`Authorized Signatory: ${data.signatoryName}`);
+    addText(`Designation: ${data.signatoryDesignation}`);
+    addText(`Email: ${data.email}`);
+    addText(`Phone: ${data.phone}`);
+    yPosition += 10;
+    
+    // Terms and Conditions
+    doc.setFont("helvetica", "bold");
+    addText("TERMS AND CONDITIONS:", 14);
+    doc.setFont("helvetica", "normal");
+    yPosition += 5;
+    
+    addText("1. EFFECTIVE DATE");
+    addText(`   This agreement shall be effective from ${data.effectiveDate}.`);
+    yPosition += 5;
+    
+    addText("2. SERVICES PROVIDED");
+    addText("   In-Sync shall provide access to its comprehensive SaaS platform including:");
+    addText("   - CRM and Customer Management");
+    addText("   - Multi-channel Marketing Tools");
+    addText("   - Analytics and Reporting");
+    addText("   - Integration Capabilities");
+    addText("   - Technical Support");
+    yPosition += 5;
+    
+    addText("3. CLIENT OBLIGATIONS");
+    addText("   The Client agrees to:");
+    addText("   - Provide accurate information for service setup");
+    addText("   - Comply with platform usage guidelines");
+    addText("   - Make timely payments as per agreed pricing");
+    addText("   - Maintain confidentiality of login credentials");
+    yPosition += 5;
+    
+    addText("4. PAYMENT TERMS");
+    addText("   - Pricing as per selected plan");
+    addText("   - Payment due within 30 days of invoice");
+    addText("   - Late payment charges may apply");
+    yPosition += 5;
+    
+    addText("5. DATA SECURITY");
+    addText("   Both parties commit to maintaining data security and privacy standards.");
+    yPosition += 5;
+    
+    addText("6. TERMINATION");
+    addText("   Either party may terminate this agreement with 30 days written notice.");
+    yPosition += 5;
+    
+    addText("7. GOVERNING LAW");
+    addText("   This agreement shall be governed by the laws of India.");
+    yPosition += 10;
+    
+    addText("IN WITNESS WHEREOF, the parties have executed this Agreement on the date first written above.");
+    yPosition += 15;
+    
+    addText("For IN-SYNC SOLUTIONS:                For " + data.companyName + ":");
+    yPosition += 15;
+    
+    addText("_____________________              _____________________");
+    addText(`Authorized Signatory                ${data.signatoryName}`);
+    addText(`                                   ${data.signatoryDesignation}`);
+    yPosition += 10;
+    
+    addText(`Date: ${data.dateOfSigning}         Date: ${data.dateOfSigning}`);
+    addText(`Place: ${data.placeOfSigning}       Place: ${data.placeOfSigning}`);
+    yPosition += 15;
+    
+    addText("---");
+    addText(`Generated on: ${new Date().toLocaleString()}`);
+    addText(`Agreement ID: ${Date.now().toString(36).toUpperCase()}`);
+    
+    // Create filename and save
+    const filename = `InSync_Client_Agreement_${data.companyName.replace(/[^a-zA-Z0-9]/g, '_')}_${data.dateOfSigning}.pdf`;
+    doc.save(filename);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -112,18 +148,12 @@ Agreement ID: ${Date.now().toString(36).toUpperCase()}
     setIsLoading(true);
 
     try {
-      // Generate agreement content
-      const agreementContent = generateAgreementContent(formData);
-      
-      // Create filename with company name and date
-      const filename = `InSync_Client_Agreement_${formData.companyName.replace(/[^a-zA-Z0-9]/g, '_')}_${formData.dateOfSigning}.txt`;
-      
-      // Download the agreement
-      downloadAgreement(agreementContent, filename);
+      // Generate and download the PDF agreement
+      downloadAgreement(formData);
       
       toast({
         title: "Agreement Generated Successfully!",
-        description: "Your client agreement has been downloaded. Please review and return the signed copy.",
+        description: "Your client agreement has been downloaded as PDF. Please review and return the signed copy.",
       });
 
       // Reset form
@@ -134,9 +164,9 @@ Agreement ID: ${Date.now().toString(36).toUpperCase()}
         signatoryDesignation: "",
         email: "",
         phone: "",
-        effectiveDate: "",
+        effectiveDate: todayDate,
         placeOfSigning: "",
-        dateOfSigning: ""
+        dateOfSigning: todayDate
       });
     } catch (error) {
       console.error("Error generating agreement:", error);
