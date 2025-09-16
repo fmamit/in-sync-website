@@ -9,6 +9,7 @@ import { useToast } from "@/hooks/use-toast";
 import jsPDF from "jspdf";
 import "@fontsource/nunito-sans/400.css";
 import "@fontsource/nunito-sans/700.css";
+import letterheadImage from "@/assets/insync-letterhead.png";
 
 export default function SignUpForm() {
   const { toast } = useToast();
@@ -48,6 +49,22 @@ export default function SignUpForm() {
       if (yPosition + (additionalLines * lineHeight) > pageHeight - margin) {
         doc.addPage();
         yPosition = margin;
+        // Add letterhead to new page
+        addLetterhead();
+      }
+    };
+    
+    // Helper function to add letterhead
+    const addLetterhead = () => {
+      try {
+        // Add letterhead image (scaled to fit width)
+        const imgWidth = pageWidth - (margin * 2);
+        const imgHeight = 60; // Adjust height as needed
+        doc.addImage(letterheadImage, 'PNG', margin, 10, imgWidth, imgHeight);
+        yPosition = 80; // Start content below letterhead
+      } catch (error) {
+        console.warn('Could not add letterhead image:', error);
+        yPosition = 30;
       }
     };
     
@@ -63,6 +80,9 @@ export default function SignUpForm() {
       yPosition += splitText.length * lineHeight;
     };
     
+    // Add letterhead to first page
+    addLetterhead();
+    
     // Add title
     doc.setFontSize(16);
     doc.setFont("helvetica", "bold");
@@ -77,8 +97,8 @@ export default function SignUpForm() {
     yPosition += 5;
     
     addText("PARTY A: ECR Technical Innovations Pvt Ltd");
-    addText("Address: 042, C 4th Floor, Supermart, DLF Phase IV GURUGRAM Haryana 122002");
-    addText("Contact: Amit Sengupta, a@-in-sync.co.in");
+    addText("Address: C024C, 4th Floor, Supermart 1, DLF Phase 4, Gurugram, HR, IND 122002");
+    addText("Contact: delight@in-sync.co.in | www.in-sync.co.in | +91 77389 19680");
     yPosition += 5;
     
     addText(`PARTY B: ${data.companyName}`);
