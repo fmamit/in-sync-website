@@ -1,4 +1,4 @@
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import SignUpForm from "./SignUpForm";
 
@@ -17,6 +17,10 @@ const ClientOnboardingModal = ({ trigger }: ClientOnboardingModalProps) => {
         )}
       </DialogTrigger>
       <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+        <DialogHeader className="sr-only">
+          <DialogTitle>Client Onboarding</DialogTitle>
+          <DialogDescription>Complete the form to get started with In-Sync</DialogDescription>
+        </DialogHeader>
         <SignUpForm />
       </DialogContent>
     </Dialog>

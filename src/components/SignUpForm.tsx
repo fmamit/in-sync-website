@@ -31,24 +31,30 @@ export default function SignUpForm() {
     setIsLoading(true);
 
     try {
-      // Generate agreement with collected data
-      const agreementResponse = await fetch('/functions/v1/generate-client-agreement', {
+      // Save contact information using existing function
+      const contactResponse = await fetch('/functions/v1/save-contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData)
+        body: JSON.stringify({
+          name: formData.signatoryName,
+          email: formData.email,
+          phone: formData.phone,
+          company: formData.companyName,
+          requirement: `Client Agreement Request - Company: ${formData.companyName}, Address: ${formData.registeredAddress}, Signatory: ${formData.signatoryName} (${formData.signatoryDesignation}), Effective Date: ${formData.effectiveDate}, Place: ${formData.placeOfSigning}, Date: ${formData.dateOfSigning}`
+        })
       });
 
-      if (!agreementResponse.ok) {
-        throw new Error('Failed to generate agreement');
+      if (!contactResponse.ok) {
+        throw new Error('Failed to save contact information');
       }
 
-      const agreementResult = await agreementResponse.json();
+      const result = await contactResponse.json();
       
       toast({
-        title: "Client Agreement Generated!",
-        description: "Your personalized agreement has been created. Check your email for the documents.",
+        title: "Registration Successful!",
+        description: "We've received your details and will contact you shortly with your personalized agreement.",
       });
 
       // Reset form
