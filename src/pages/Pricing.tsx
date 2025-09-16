@@ -25,7 +25,7 @@ import Footer from "@/components/Footer";
 
 const Pricing = () => {
   const [billingCycle, setBillingCycle] = useState<"monthly" | "annual">("monthly");
-  const [currency, setCurrency] = useState<"USD" | "INR">("USD");
+  const [currency, setCurrency] = useState<"USD" | "INR">("INR");
   const [showCalculator, setShowCalculator] = useState(false);
 
   const plans = [

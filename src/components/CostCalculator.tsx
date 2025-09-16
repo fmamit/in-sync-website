@@ -26,7 +26,7 @@ interface CostCalculatorProps {
 const CostCalculator = ({ className = "" }: CostCalculatorProps) => {
   const [selectedPlan, setSelectedPlan] = useState<"starter" | "growth" | "scale">("growth");
   const [billingCycle, setBillingCycle] = useState<"monthly" | "annual">("monthly");
-  const [currency, setCurrency] = useState<"USD" | "INR">("USD");
+  const [currency, setCurrency] = useState<"USD" | "INR">("INR");
   const [selectedModules, setSelectedModules] = useState<string[]>([]);
   const [messageVolume, setMessageVolume] = useState<number>(1000);
   const [callMinutes, setCallMinutes] = useState<number>(500);

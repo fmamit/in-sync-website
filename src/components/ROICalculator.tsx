@@ -30,7 +30,7 @@ const ROICalculator = ({ className = "" }: ROICalculatorProps) => {
   const [timeWastedHours, setTimeWastedHours] = useState<number>(10);
   const [missedDeals, setMissedDeals] = useState<number>(5);
   const [avgDealValue, setAvgDealValue] = useState<number>(10000);
-  const [currency, setCurrency] = useState<"USD" | "INR">("USD");
+  const [currency, setCurrency] = useState<"USD" | "INR">("INR");
 
   // ROI Calculations
   const hourlyWage = avgSalary / (52 * 40); // Assuming 40 hours/week, 52 weeks/year
