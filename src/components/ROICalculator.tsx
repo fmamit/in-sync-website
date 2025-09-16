@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
+import ClientOnboardingModal from "./ClientOnboardingModal";
 import { 
   TrendingUp, 
   DollarSign, 
@@ -336,10 +337,12 @@ const ROICalculator = ({ className = "" }: ROICalculatorProps) => {
 
               {/* CTA */}
               <div className="space-y-3 pt-4 border-t">
-                <Button className="w-full" size="lg">
-                  <CheckCircle2 className="w-4 h-4 mr-2" />
-                  Get Started Now
-                </Button>
+                <ClientOnboardingModal trigger={
+                  <Button className="w-full" size="lg">
+                    <CheckCircle2 className="w-4 h-4 mr-2" />
+                    Get Started Now
+                  </Button>
+                } />
                 <Button variant="outline" className="w-full">
                   Schedule ROI Discussion
                 </Button>

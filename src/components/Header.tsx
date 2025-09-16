@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import insyncLogo from "@/assets/insync-logo-color.png";
+import ClientOnboardingModal from "./ClientOnboardingModal";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -46,9 +47,11 @@ const Header = () => {
             <Button variant="ghost" size="sm">
               Login
             </Button>
-            <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90">
-              Get Started Now
-            </Button>
+            <ClientOnboardingModal trigger={
+              <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90">
+                Get Started Now
+              </Button>
+            } />
           </div>
 
           {/* Mobile Menu Button */}
@@ -79,9 +82,11 @@ const Header = () => {
                 <Button variant="ghost" size="sm">
                   Login
                 </Button>
-                <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90">
-                  Get Started Now
-                </Button>
+                <ClientOnboardingModal trigger={
+                  <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90">
+                    Get Started Now
+                  </Button>
+                } />
               </div>
             </nav>
           </div>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import KeyFeatures from "@/components/KeyFeatures";
+import ClientOnboardingModal from "@/components/ClientOnboardingModal";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -12,7 +13,7 @@ import {
   MessageSquare, 
   MapPin, 
   Brain, 
-  Wrench, 
+  Wrench,
   Shield,
   BarChart3,
   Users,
@@ -695,9 +696,11 @@ const Features = () => {
             Start your free trial today and discover how In-Sync can transform your business operations
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" variant="secondary" className="bg-white text-primary hover:bg-slate-100">
-              Get Started Now
-            </Button>
+            <ClientOnboardingModal trigger={
+              <Button size="lg" variant="secondary" className="bg-white text-primary hover:bg-slate-100">
+                Get Started Now
+              </Button>
+            } />
             <Button size="lg" variant="hero">
               Request Demo
             </Button>

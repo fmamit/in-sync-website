@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
+import ClientOnboardingModal from "./ClientOnboardingModal";
 import { 
   ClipboardCheck,
   Users,
@@ -308,10 +309,12 @@ const BusinessAssessment = ({ className = "" }: { className?: string }) => {
             {/* CTA */}
             <div className="text-center space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-md mx-auto">
-                <Button size="lg" className="w-full">
-                  <CheckCircle2 className="w-4 h-4 mr-2" />
-                  Get Started Now
-                </Button>
+                <ClientOnboardingModal trigger={
+                  <Button size="lg" className="w-full">
+                    <CheckCircle2 className="w-4 h-4 mr-2" />
+                    Get Started Now
+                  </Button>
+                } />
                 <Button variant="outline" size="lg" onClick={resetAssessment} className="w-full">
                   Retake Assessment
                 </Button>

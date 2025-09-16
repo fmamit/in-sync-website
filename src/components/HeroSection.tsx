@@ -1,6 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Play, CheckCircle } from "lucide-react";
 import insyncDiagram from "@/assets/insync-diagram.png";
+import ClientOnboardingModal from "./ClientOnboardingModal";
+// ... keep existing imports ...
 import growthvineLogo from "@/assets/growthvine-logo.jpeg";
 import audiLogo from "@/assets/audi-logo.png";
 import capitalIndiaLogo from "@/assets/capital-india-logo-new.png";
@@ -67,10 +69,12 @@ const HeroSection = () => {
                 Explore Full Platform
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
-              <Button size="lg" variant="outline" className="group border-primary/20 hover:bg-primary/5">
-                <Play className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
-                Get Started Now
-              </Button>
+              <ClientOnboardingModal trigger={
+                <Button size="lg" variant="outline" className="group border-primary/20 hover:bg-primary/5">
+                  <Play className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
+                  Get Started Now
+                </Button>
+              } />
             </div>
           </div>
 

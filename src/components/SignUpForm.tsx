@@ -11,15 +11,15 @@ export default function SignUpForm() {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
-    fullName: "",
+    companyName: "",
+    registeredAddress: "",
+    signatoryName: "",
+    signatoryDesignation: "",
     email: "",
     phone: "",
-    company: "",
-    jobTitle: "",
-    industry: "",
-    companySize: "",
-    requirements: "",
-    howDidYouHear: ""
+    effectiveDate: "",
+    placeOfSigning: "",
+    dateOfSigning: ""
   });
 
   const handleInputChange = (field: string, value: string) => {
@@ -31,57 +31,37 @@ export default function SignUpForm() {
     setIsLoading(true);
 
     try {
-      // Save to database first
-      const contactData = {
-        name: formData.fullName,
-        email: formData.email,
-        phone: formData.phone,
-        company: formData.company,
-        requirement: `Job Title: ${formData.jobTitle}\nIndustry: ${formData.industry}\nCompany Size: ${formData.companySize}\nRequirements: ${formData.requirements}\nHow they heard: ${formData.howDidYouHear}`
-      };
-
-      const response = await fetch('/functions/v1/save-contact', {
+      // Generate agreement with collected data
+      const agreementResponse = await fetch('/functions/v1/generate-client-agreement', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(contactData)
+        body: JSON.stringify(formData)
       });
 
-      if (!response.ok) {
-        throw new Error('Failed to save contact');
+      if (!agreementResponse.ok) {
+        throw new Error('Failed to generate agreement');
       }
 
-      const result = await response.json();
-      console.log("Contact saved with ID:", result.contactId);
-
-      // TODO: Add your API endpoint here to send email
-      // await fetch('YOUR_EMAIL_API_ENDPOINT', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify({
-      //     to: 'delight@in-sync.co.in',
-      //     subject: 'New Sign Up - ' + formData.company,
-      //     data: formData
-      //   })
-      // });
+      const agreementResult = await agreementResponse.json();
       
       toast({
-        title: "Sign up successful!",
-        description: "We've received your information and will contact you soon.",
+        title: "Client Agreement Generated!",
+        description: "Your personalized agreement has been created. Check your email for the documents.",
       });
 
       // Reset form
       setFormData({
-        fullName: "",
+        companyName: "",
+        registeredAddress: "",
+        signatoryName: "",
+        signatoryDesignation: "",
         email: "",
         phone: "",
-        company: "",
-        jobTitle: "",
-        industry: "",
-        companySize: "",
-        requirements: "",
-        howDidYouHear: ""
+        effectiveDate: "",
+        placeOfSigning: "",
+        dateOfSigning: ""
       });
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -98,129 +78,116 @@ export default function SignUpForm() {
   return (
     <Card className="w-full max-w-2xl mx-auto">
       <CardHeader>
-        <CardTitle className="text-2xl font-bold text-center">Get Started with In-Sync</CardTitle>
+        <CardTitle className="text-2xl font-bold text-center">Client Agreement Setup</CardTitle>
         <CardDescription className="text-center">
-          Fill out the form below to begin your digital transformation journey
+          Complete this form to generate your personalized SaaS agreement
         </CardDescription>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="space-y-2">
+            <Label htmlFor="companyName">Company Name *</Label>
+            <Input
+              id="companyName"
+              value={formData.companyName}
+              onChange={(e) => handleInputChange("companyName", e.target.value)}
+              required
+              placeholder="Enter your company name"
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="registeredAddress">Registered Address *</Label>
+            <Textarea
+              id="registeredAddress"
+              value={formData.registeredAddress}
+              onChange={(e) => handleInputChange("registeredAddress", e.target.value)}
+              required
+              placeholder="Enter complete registered address"
+              rows={3}
+            />
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="fullName">Full Name *</Label>
+              <Label htmlFor="signatoryName">Authorized Signatory Name *</Label>
               <Input
-                id="fullName"
-                value={formData.fullName}
-                onChange={(e) => handleInputChange("fullName", e.target.value)}
+                id="signatoryName"
+                value={formData.signatoryName}
+                onChange={(e) => handleInputChange("signatoryName", e.target.value)}
                 required
+                placeholder="Full name of authorized person"
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="email">Email Address *</Label>
+              <Label htmlFor="signatoryDesignation">Designation of Signatory *</Label>
+              <Input
+                id="signatoryDesignation"
+                value={formData.signatoryDesignation}
+                onChange={(e) => handleInputChange("signatoryDesignation", e.target.value)}
+                required
+                placeholder="e.g., CEO, Director, Manager"
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="email">Email ID *</Label>
               <Input
                 id="email"
                 type="email"
                 value={formData.email}
                 onChange={(e) => handleInputChange("email", e.target.value)}
                 required
+                placeholder="official@company.com"
               />
             </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="phone">Phone Number *</Label>
+              <Label htmlFor="phone">Contact Number *</Label>
               <Input
                 id="phone"
                 type="tel"
                 value={formData.phone}
                 onChange={(e) => handleInputChange("phone", e.target.value)}
                 required
+                placeholder="+91 XXXXX XXXXX"
               />
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="jobTitle">Job Title</Label>
-              <Input
-                id="jobTitle"
-                value={formData.jobTitle}
-                onChange={(e) => handleInputChange("jobTitle", e.target.value)}
-              />
-            </div>
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="company">Company Name *</Label>
-            <Input
-              id="company"
-              value={formData.company}
-              onChange={(e) => handleInputChange("company", e.target.value)}
-              required
-            />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="industry">Industry</Label>
-              <Select onValueChange={(value) => handleInputChange("industry", value)}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select your industry" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="financial-services">Financial Services</SelectItem>
-                  <SelectItem value="real-estate">Real Estate</SelectItem>
-                  <SelectItem value="healthcare">Healthcare</SelectItem>
-                  <SelectItem value="education">Education</SelectItem>
-                  <SelectItem value="retail">Retail & E-commerce</SelectItem>
-                  <SelectItem value="manufacturing">Manufacturing</SelectItem>
-                  <SelectItem value="technology">Technology</SelectItem>
-                  <SelectItem value="professional-services">Professional Services</SelectItem>
-                  <SelectItem value="other">Other</SelectItem>
-                </SelectContent>
-              </Select>
+              <Label htmlFor="effectiveDate">Effective Date of Agreement *</Label>
+              <Input
+                id="effectiveDate"
+                type="date"
+                value={formData.effectiveDate}
+                onChange={(e) => handleInputChange("effectiveDate", e.target.value)}
+                required
+              />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="companySize">Company Size</Label>
-              <Select onValueChange={(value) => handleInputChange("companySize", value)}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select company size" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="1-10">1-10 employees</SelectItem>
-                  <SelectItem value="11-50">11-50 employees</SelectItem>
-                  <SelectItem value="51-200">51-200 employees</SelectItem>
-                  <SelectItem value="201-500">201-500 employees</SelectItem>
-                  <SelectItem value="500+">500+ employees</SelectItem>
-                </SelectContent>
-              </Select>
+              <Label htmlFor="dateOfSigning">Date of Signing *</Label>
+              <Input
+                id="dateOfSigning"
+                type="date"
+                value={formData.dateOfSigning}
+                onChange={(e) => handleInputChange("dateOfSigning", e.target.value)}
+                required
+              />
             </div>
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="requirements">What are your main requirements?</Label>
-            <Textarea
-              id="requirements"
-              placeholder="Tell us about your business needs and what you're looking to achieve..."
-              value={formData.requirements}
-              onChange={(e) => handleInputChange("requirements", e.target.value)}
-              rows={4}
+            <Label htmlFor="placeOfSigning">Place of Signing *</Label>
+            <Input
+              id="placeOfSigning"
+              value={formData.placeOfSigning}
+              onChange={(e) => handleInputChange("placeOfSigning", e.target.value)}
+              required
+              placeholder="City, State"
             />
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="howDidYouHear">How did you hear about us?</Label>
-            <Select onValueChange={(value) => handleInputChange("howDidYouHear", value)}>
-              <SelectTrigger>
-                <SelectValue placeholder="Select an option" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="google-search">Google Search</SelectItem>
-                <SelectItem value="social-media">Social Media</SelectItem>
-                <SelectItem value="referral">Referral</SelectItem>
-                <SelectItem value="website">Company Website</SelectItem>
-                <SelectItem value="event">Event/Conference</SelectItem>
-                <SelectItem value="other">Other</SelectItem>
-              </SelectContent>
-            </Select>
           </div>
 
           <Button 
@@ -228,7 +195,7 @@ export default function SignUpForm() {
             className="w-full" 
             disabled={isLoading}
           >
-            {isLoading ? "Submitting..." : "Get Started"}
+            {isLoading ? "Generating Agreement..." : "Generate Client Agreement"}
           </Button>
         </form>
       </CardContent>
