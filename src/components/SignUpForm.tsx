@@ -22,6 +22,8 @@ export default function SignUpForm() {
     signatoryDesignation: "",
     email: "",
     phone: "",
+    panNumber: "",
+    aadhaarNumber: "",
     effectiveDate: todayDate,
     placeOfSigning: "",
     dateOfSigning: todayDate
@@ -97,6 +99,8 @@ export default function SignUpForm() {
     addText(`Designation: ${data.signatoryDesignation}`);
     addText(`Email: ${data.email}`);
     addText(`Phone: ${data.phone}`);
+    addText(`PAN: ${data.panNumber}`);
+    addText(`Aadhaar: ${data.aadhaarNumber}`);
     yPosition += 10;
     
     // Terms and Conditions
@@ -189,6 +193,8 @@ export default function SignUpForm() {
         signatoryDesignation: "",
         email: "",
         phone: "",
+        panNumber: "",
+        aadhaarNumber: "",
         effectiveDate: todayDate,
         placeOfSigning: "",
         dateOfSigning: todayDate
@@ -282,6 +288,31 @@ export default function SignUpForm() {
                 onChange={(e) => handleInputChange("phone", e.target.value)}
                 required
                 placeholder="+91 XXXXX XXXXX"
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="panNumber">PAN Number *</Label>
+              <Input
+                id="panNumber"
+                value={formData.panNumber}
+                onChange={(e) => handleInputChange("panNumber", e.target.value.toUpperCase())}
+                required
+                placeholder="ABCDE1234F"
+                maxLength={10}
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="aadhaarNumber">Aadhaar Number *</Label>
+              <Input
+                id="aadhaarNumber"
+                value={formData.aadhaarNumber}
+                onChange={(e) => handleInputChange("aadhaarNumber", e.target.value.replace(/\D/g, ''))}
+                required
+                placeholder="1234 5678 9012"
+                maxLength={12}
               />
             </div>
           </div>
