@@ -7,6 +7,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import jsPDF from "jspdf";
+import "@fontsource/nunito-sans/400.css";
+import "@fontsource/nunito-sans/700.css";
 
 export default function SignUpForm() {
   const { toast } = useToast();
@@ -31,8 +33,8 @@ export default function SignUpForm() {
   const downloadAgreement = (data: typeof formData) => {
     const doc = new jsPDF();
     
-    // Set font and margins
-    doc.setFont("helvetica");
+    // Set font and margins - using helvetica as closest to Nunito Sans
+    doc.setFont("helvetica", "normal");
     doc.setFontSize(12);
     
     const pageWidth = doc.internal.pageSize.getWidth();
