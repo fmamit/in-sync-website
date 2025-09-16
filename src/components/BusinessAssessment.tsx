@@ -310,7 +310,7 @@ const BusinessAssessment = ({ className = "" }: { className?: string }) => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-md mx-auto">
                 <Button size="lg" className="w-full">
                   <CheckCircle2 className="w-4 h-4 mr-2" />
-                  Start Free Trial
+                  Get Started Now
                 </Button>
                 <Button variant="outline" size="lg" onClick={resetAssessment} className="w-full">
                   Retake Assessment

@@ -338,7 +338,7 @@ const ROICalculator = ({ className = "" }: ROICalculatorProps) => {
               <div className="space-y-3 pt-4 border-t">
                 <Button className="w-full" size="lg">
                   <CheckCircle2 className="w-4 h-4 mr-2" />
-                  Start Free Trial
+                  Get Started Now
                 </Button>
                 <Button variant="outline" className="w-full">
                   Schedule ROI Discussion

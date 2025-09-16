@@ -218,7 +218,7 @@ const Industries = () => {
               Schedule Industry Demo
             </Button>
             <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary">
-              Start Free Trial
+              Get Started Now
             </Button>
           </div>
         </div>

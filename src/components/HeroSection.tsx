@@ -69,7 +69,7 @@ const HeroSection = () => {
               </Button>
               <Button size="lg" variant="outline" className="group border-primary/20 hover:bg-primary/5">
                 <Play className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
-                Start Free Trial
+                Get Started Now
               </Button>
             </div>
           </div>

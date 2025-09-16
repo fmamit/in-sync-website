@@ -696,7 +696,7 @@ const Features = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" variant="secondary" className="bg-white text-primary hover:bg-slate-100">
-              Start Free Trial
+              Get Started Now
             </Button>
             <Button size="lg" variant="hero">
               Request Demo

@@ -47,7 +47,7 @@ const Header = () => {
               Login
             </Button>
             <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90">
-              Start Free Trial
+              Get Started Now
             </Button>
           </div>
 
@@ -80,7 +80,7 @@ const Header = () => {
                   Login
                 </Button>
                 <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90">
-                  Start Free Trial
+                  Get Started Now
                 </Button>
               </div>
             </nav>
