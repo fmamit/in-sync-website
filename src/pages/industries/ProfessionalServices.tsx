@@ -2,13 +2,11 @@ import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
 const ProfessionalServices = () => {
   return (
     <div className="min-h-screen bg-background">
-      <Header />
       
       {/* Breadcrumb */}
       <div className="bg-muted/30 py-4 px-4">

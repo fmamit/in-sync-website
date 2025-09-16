@@ -2,13 +2,11 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Check, ArrowRight, Target, TrendingUp, Users, Shield } from "lucide-react";
-import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
 const RealEstate = () => {
   return (
     <div className="min-h-screen bg-background">
-      <Header />
       
       {/* Breadcrumb */}
       <div className="bg-muted/50 py-3 px-4 text-sm text-muted-foreground">

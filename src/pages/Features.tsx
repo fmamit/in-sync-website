@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import KeyFeatures from "@/components/KeyFeatures";
 import ClientOnboardingModal from "@/components/ClientOnboardingModal";
@@ -308,7 +307,6 @@ const Features = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Header />
       
       {/* Hero Section */}
       <section className="relative py-24 bg-gradient-to-br from-primary via-primary/90 to-teal-600 text-white overflow-hidden">
