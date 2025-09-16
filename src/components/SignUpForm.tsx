@@ -9,6 +9,7 @@ import { useToast } from "@/hooks/use-toast";
 import jsPDF from "jspdf";
 import "@fontsource/nunito-sans/400.css";
 import "@fontsource/nunito-sans/700.css";
+import letterheadImage from "@/assets/insync-letterhead-full.png";
 
 export default function SignUpForm() {
   const { toast } = useToast();
@@ -41,13 +42,22 @@ export default function SignUpForm() {
     const pageHeight = doc.internal.pageSize.getHeight();
     const margin = 20;
     const lineHeight = 7;
-    let yPosition = 30;
+    let yPosition = 80; // Start lower to accommodate letterhead
+    
+    // Helper function to add letterhead background to current page
+    const addLetterheadBackground = () => {
+      doc.addImage(letterheadImage, 'PNG', 0, 0, pageWidth, pageHeight);
+    };
+    
+    // Add letterhead to first page
+    addLetterheadBackground();
     
     // Helper function to check if we need a new page
     const checkPageBreak = (additionalLines: number = 1) => {
-      if (yPosition + (additionalLines * lineHeight) > pageHeight - margin) {
+      if (yPosition + (additionalLines * lineHeight) > pageHeight - 40) { // Leave margin at bottom
         doc.addPage();
-        yPosition = margin;
+        addLetterheadBackground(); // Add letterhead to new page
+        yPosition = 80; // Start below letterhead header
       }
     };
     
