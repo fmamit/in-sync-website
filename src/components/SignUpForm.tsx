@@ -31,18 +31,44 @@ export default function SignUpForm() {
     setIsLoading(true);
 
     try {
-      // TODO: Replace with your API endpoint
-      // await fetch('/api/signup', {
+      // Save to database first
+      const contactData = {
+        name: formData.fullName,
+        email: formData.email,
+        phone: formData.phone,
+        company: formData.company,
+        requirement: `Job Title: ${formData.jobTitle}\nIndustry: ${formData.industry}\nCompany Size: ${formData.companySize}\nRequirements: ${formData.requirements}\nHow they heard: ${formData.howDidYouHear}`
+      };
+
+      const response = await fetch('/functions/v1/save-contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(contactData)
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to save contact');
+      }
+
+      const result = await response.json();
+      console.log("Contact saved with ID:", result.contactId);
+
+      // TODO: Add your API endpoint here to send email
+      // await fetch('YOUR_EMAIL_API_ENDPOINT', {
       //   method: 'POST',
       //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify(formData)
+      //   body: JSON.stringify({
+      //     to: 'delight@in-sync.co.in',
+      //     subject: 'New Sign Up - ' + formData.company,
+      //     data: formData
+      //   })
       // });
-
-      console.log("Sign up data:", formData);
       
       toast({
         title: "Sign up successful!",
-        description: "We'll contact you soon with more information.",
+        description: "We've received your information and will contact you soon.",
       });
 
       // Reset form
@@ -58,6 +84,7 @@ export default function SignUpForm() {
         howDidYouHear: ""
       });
     } catch (error) {
+      console.error("Error submitting form:", error);
       toast({
         title: "Error",
         description: "Something went wrong. Please try again.",
