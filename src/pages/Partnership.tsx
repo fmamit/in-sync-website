@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import PartnershipEnrollment from "@/components/PartnershipEnrollment";
+import PartnershipShowcase from "@/components/PartnershipShowcase";
 import PartnershipDashboard from "@/components/PartnershipDashboard";
 
 export default function Partnership() {
@@ -14,7 +14,7 @@ export default function Partnership() {
       {partnershipId ? (
         <PartnershipDashboard partnershipId={partnershipId} />
       ) : (
-        <PartnershipEnrollment onSuccess={handleEnrollmentSuccess} />
+        <PartnershipShowcase onEnrollmentSuccess={handleEnrollmentSuccess} />
       )}
     </div>
   );
