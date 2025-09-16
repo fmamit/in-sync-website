@@ -24,7 +24,7 @@ const Header = () => {
           <a href="/" className="flex items-center space-x-2 group">
             <div className="relative">
               <div className="absolute -inset-2 bg-gradient-to-r from-primary/20 to-primary/10 rounded-lg blur-sm opacity-75 group-hover:opacity-100 transition-opacity"></div>
-              <img src={insyncLogo} alt="In-Sync" className="relative h-8 w-auto transform group-hover:scale-105 transition-transform" />
+              <img src={insyncLogo} alt="In-Sync" className="relative h-12 w-auto transform group-hover:scale-105 transition-transform" />
             </div>
           </a>
 
