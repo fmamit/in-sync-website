@@ -36,14 +36,27 @@ export default function SignUpForm() {
     doc.setFontSize(12);
     
     const pageWidth = doc.internal.pageSize.getWidth();
+    const pageHeight = doc.internal.pageSize.getHeight();
     const margin = 20;
     const lineHeight = 7;
     let yPosition = 30;
     
-    // Helper function to add text with word wrapping
+    // Helper function to check if we need a new page
+    const checkPageBreak = (additionalLines: number = 1) => {
+      if (yPosition + (additionalLines * lineHeight) > pageHeight - margin) {
+        doc.addPage();
+        yPosition = margin;
+      }
+    };
+    
+    // Helper function to add text with word wrapping and page breaks
     const addText = (text: string, fontSize: number = 12) => {
       doc.setFontSize(fontSize);
       const splitText = doc.splitTextToSize(text, pageWidth - (margin * 2));
+      
+      // Check if we need a page break before adding text
+      checkPageBreak(splitText.length);
+      
       doc.text(splitText, margin, yPosition);
       yPosition += splitText.length * lineHeight;
     };
