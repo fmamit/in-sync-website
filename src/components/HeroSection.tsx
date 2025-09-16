@@ -4,7 +4,7 @@ import insyncDiagram from "@/assets/insync-diagram.png";
 import ClientOnboardingModal from "./ClientOnboardingModal";
 // ... keep existing imports ...
 import growthvineLogo from "@/assets/growthvine-logo.jpeg";
-import audiLogo from "@/assets/audi-logo.png";
+import audiLogo from "@/assets/audi-logo-better.png";
 import capitalIndiaLogo from "@/assets/capital-india-logo-new.png";
 import carTrendsLogo from "@/assets/car-trends-logo.webp";
 import ezeepayLogo from "@/assets/ezeepay-logo.png";
@@ -26,8 +26,8 @@ const HeroSection = () => {
     { src: redefineLogo, alt: "Redefine" },
     { src: seedsLogo, alt: "Seeds" },
     { src: uhcLogo, alt: "United Health Care Staffing" },
-    { src: growthvineLogo, alt: "GrowthVine" },
     { src: audiLogo, alt: "Audi" },
+    { src: growthvineLogo, alt: "GrowthVine" },
     { src: capitalIndiaLogo, alt: "Capital India" },
     { src: carTrendsLogo, alt: "Car Trends" },
     { src: ezeepayLogo, alt: "Ezeepay" },
