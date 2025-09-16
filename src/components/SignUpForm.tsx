@@ -26,35 +26,103 @@ export default function SignUpForm() {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
+  const generateAgreementContent = (data: typeof formData) => {
+    return `
+CLIENT AGREEMENT FOR IN-SYNC SAAS PLATFORM
+
+This Agreement is entered into on ${data.dateOfSigning} at ${data.placeOfSigning} between:
+
+PARTY A: IN-SYNC SOLUTIONS
+Address: [Company Address]
+Contact: [Company Contact Details]
+
+PARTY B: ${data.companyName}
+Address: ${data.registeredAddress}
+Authorized Signatory: ${data.signatoryName}
+Designation: ${data.signatoryDesignation}
+Email: ${data.email}
+Phone: ${data.phone}
+
+TERMS AND CONDITIONS:
+
+1. EFFECTIVE DATE
+   This agreement shall be effective from ${data.effectiveDate}.
+
+2. SERVICES PROVIDED
+   In-Sync shall provide access to its comprehensive SaaS platform including:
+   - CRM and Customer Management
+   - Multi-channel Marketing Tools
+   - Analytics and Reporting
+   - Integration Capabilities
+   - Technical Support
+
+3. CLIENT OBLIGATIONS
+   The Client agrees to:
+   - Provide accurate information for service setup
+   - Comply with platform usage guidelines
+   - Make timely payments as per agreed pricing
+   - Maintain confidentiality of login credentials
+
+4. PAYMENT TERMS
+   - Pricing as per selected plan
+   - Payment due within 30 days of invoice
+   - Late payment charges may apply
+
+5. DATA SECURITY
+   Both parties commit to maintaining data security and privacy standards.
+
+6. TERMINATION
+   Either party may terminate this agreement with 30 days written notice.
+
+7. GOVERNING LAW
+   This agreement shall be governed by the laws of India.
+
+IN WITNESS WHEREOF, the parties have executed this Agreement on the date first written above.
+
+For IN-SYNC SOLUTIONS:                For ${data.companyName}:
+
+_____________________              _____________________
+Authorized Signatory                ${data.signatoryName}
+                                   ${data.signatoryDesignation}
+
+Date: ${data.dateOfSigning}         Date: ${data.dateOfSigning}
+Place: ${data.placeOfSigning}       Place: ${data.placeOfSigning}
+
+---
+Generated on: ${new Date().toLocaleString()}
+Agreement ID: ${Date.now().toString(36).toUpperCase()}
+    `;
+  };
+
+  const downloadAgreement = (content: string, filename: string) => {
+    const blob = new Blob([content], { type: 'text/plain' });
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    window.URL.revokeObjectURL(url);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
 
     try {
-      // Save contact information using existing function
-      const contactResponse = await fetch('/functions/v1/save-contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: formData.signatoryName,
-          email: formData.email,
-          phone: formData.phone,
-          company: formData.companyName,
-          requirement: `Client Agreement Request - Company: ${formData.companyName}, Address: ${formData.registeredAddress}, Signatory: ${formData.signatoryName} (${formData.signatoryDesignation}), Effective Date: ${formData.effectiveDate}, Place: ${formData.placeOfSigning}, Date: ${formData.dateOfSigning}`
-        })
-      });
-
-      if (!contactResponse.ok) {
-        throw new Error('Failed to save contact information');
-      }
-
-      const result = await contactResponse.json();
+      // Generate agreement content
+      const agreementContent = generateAgreementContent(formData);
+      
+      // Create filename with company name and date
+      const filename = `InSync_Client_Agreement_${formData.companyName.replace(/[^a-zA-Z0-9]/g, '_')}_${formData.dateOfSigning}.txt`;
+      
+      // Download the agreement
+      downloadAgreement(agreementContent, filename);
       
       toast({
-        title: "Registration Successful!",
-        description: "We've received your details and will contact you shortly with your personalized agreement.",
+        title: "Agreement Generated Successfully!",
+        description: "Your client agreement has been downloaded. Please review and return the signed copy.",
       });
 
       // Reset form
@@ -70,10 +138,10 @@ export default function SignUpForm() {
         dateOfSigning: ""
       });
     } catch (error) {
-      console.error("Error submitting form:", error);
+      console.error("Error generating agreement:", error);
       toast({
         title: "Error",
-        description: "Something went wrong. Please try again.",
+        description: "Failed to generate agreement. Please try again.",
         variant: "destructive",
       });
     } finally {
