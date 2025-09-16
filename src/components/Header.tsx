@@ -44,9 +44,6 @@ const Header = () => {
 
           {/* Desktop CTAs */}
           <div className="hidden md:flex items-center space-x-4">
-            <Button variant="ghost" size="sm">
-              Login
-            </Button>
             <ClientOnboardingModal trigger={
               <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90">
                 Get Started Now
@@ -79,9 +76,6 @@ const Header = () => {
                 </a>
               ))}
               <div className="flex flex-col space-y-2 pt-4">
-                <Button variant="ghost" size="sm">
-                  Login
-                </Button>
                 <ClientOnboardingModal trigger={
                   <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90">
                     Get Started Now
