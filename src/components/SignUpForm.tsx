@@ -23,7 +23,6 @@ export default function SignUpForm() {
     email: "",
     phone: "",
     panNumber: "",
-    aadhaarNumber: "",
     gstNumber: "",
     effectiveDate: todayDate,
     placeOfSigning: "",
@@ -101,7 +100,6 @@ export default function SignUpForm() {
     addText(`Email: ${data.email}`);
     addText(`Phone: ${data.phone}`);
     addText(`PAN: ${data.panNumber}`);
-    addText(`Aadhaar: ${data.aadhaarNumber}`);
     if (data.gstNumber) {
       addText(`GST: ${data.gstNumber}`);
     }
@@ -198,7 +196,6 @@ export default function SignUpForm() {
         email: "",
         phone: "",
         panNumber: "",
-        aadhaarNumber: "",
         gstNumber: "",
         effectiveDate: todayDate,
         placeOfSigning: "",
@@ -310,27 +307,15 @@ export default function SignUpForm() {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="aadhaarNumber">Aadhaar Number *</Label>
+              <Label htmlFor="gstNumber">GST Number (Optional)</Label>
               <Input
-                id="aadhaarNumber"
-                value={formData.aadhaarNumber}
-                onChange={(e) => handleInputChange("aadhaarNumber", e.target.value.replace(/\D/g, ''))}
-                required
-                placeholder="1234 5678 9012"
-                maxLength={12}
+                id="gstNumber"
+                value={formData.gstNumber}
+                onChange={(e) => handleInputChange("gstNumber", e.target.value.toUpperCase())}
+                placeholder="22AAAAA0000A1Z5"
+                maxLength={15}
               />
             </div>
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="gstNumber">GST Number (Optional)</Label>
-            <Input
-              id="gstNumber"
-              value={formData.gstNumber}
-              onChange={(e) => handleInputChange("gstNumber", e.target.value.toUpperCase())}
-              placeholder="22AAAAA0000A1Z5"
-              maxLength={15}
-            />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
