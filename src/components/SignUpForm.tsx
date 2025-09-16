@@ -10,6 +10,7 @@ import { useToast } from "@/hooks/use-toast";
 export default function SignUpForm() {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
+  const todayDate = new Date().toISOString().split('T')[0];
   const [formData, setFormData] = useState({
     companyName: "",
     registeredAddress: "",
@@ -17,9 +18,9 @@ export default function SignUpForm() {
     signatoryDesignation: "",
     email: "",
     phone: "",
-    effectiveDate: "",
+    effectiveDate: todayDate,
     placeOfSigning: "",
-    dateOfSigning: ""
+    dateOfSigning: todayDate
   });
 
   const handleInputChange = (field: string, value: string) => {
@@ -32,9 +33,9 @@ CLIENT AGREEMENT FOR IN-SYNC SAAS PLATFORM
 
 This Agreement is entered into on ${data.dateOfSigning} at ${data.placeOfSigning} between:
 
-PARTY A: IN-SYNC SOLUTIONS
-Address: [Company Address]
-Contact: [Company Contact Details]
+PARTY A: ECR Technical Innovations Pvt Ltd
+Address: 042, C 4th Floor, Supermart, DLF Phase IV GURUGRAM Haryana 122002
+Contact: Amit Sengupta, a@-in-sync.co.in
 
 PARTY B: ${data.companyName}
 Address: ${data.registeredAddress}
