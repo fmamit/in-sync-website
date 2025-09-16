@@ -114,7 +114,6 @@ const HeroSection = () => {
 
           {/* Client Logos */}
           <div>
-            <p className="text-xs text-muted-foreground mb-2">And 1240+ more organizations across 75 countries</p>
             <h3 className="text-lg font-semibold text-foreground mb-6">Trusted by leading brands worldwide</h3>
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 items-center opacity-70">
               {customerLogos.map((logo, i) => (
@@ -127,6 +126,7 @@ const HeroSection = () => {
                 </div>
               ))}
             </div>
+            <p className="text-xs text-muted-foreground mt-4">over 20000 daily active users across 100+ growing organizations</p>
           </div>
         </div>
       </div>
