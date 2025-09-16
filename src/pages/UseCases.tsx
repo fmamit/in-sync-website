@@ -1,17 +1,11 @@
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { 
   Building2, 
-  Plane, 
-  ShoppingCart, 
-  Heart, 
-  Home, 
-  GraduationCap, 
-  Factory, 
-  Smartphone,
+  Car, 
+  Users, 
+  Megaphone,
   Phone,
   MessageSquare,
   BarChart3,
@@ -20,502 +14,304 @@ import {
   Shield,
   Globe,
   CheckCircle,
-  X,
-  AlertTriangle,
-  Target,
-  Users,
+  ArrowRight,
+  Zap,
   Clock,
-  Zap
+  Target
 } from "lucide-react";
+import Footer from "@/components/Footer";
 
 const UseCases = () => {
-  const industries = [
+  const realCaseStudies = [
     {
-      id: "banking",
-      title: "Banking & Financial Services",
-      icon: Building2,
+      id: "tata-electra",
+      company: "Tata Electra EV",
+      industry: "Electric Vehicle Services",
+      icon: Car,
       color: "bg-blue-500",
-      features: [
-        "Customer onboarding & KYC management",
-        "Loan processing & follow-ups", 
-        "Insurance claim tracking",
-        "Branch performance monitoring",
-        "Regulatory compliance reporting",
-        "Customer service desk automation"
+      challenge: "Manual roadside assistance tracking across 60+ cities in India, causing inefficiencies and delayed responses.",
+      solution: [
+        "WhatsApp conversational bot for service requests",
+        "Automated ticketing system with timestamps & location",
+        "Predefined approval workflows for SLA compliance",
+        "Automated engineer dispatch with GPS tracking",
+        "Real-time route optimization and transparency",
+        "Post-service WhatsApp satisfaction surveys"
+      ],
+      results: [
+        "Centralized operations across 60 cities",
+        "Faster response and resolution times",
+        "AI-powered customer interaction without agents",
+        "Real-time field tracking and automation"
+      ],
+      workflow: [
+        "Customer requests help via WhatsApp bot",
+        "System creates ticket with location data",
+        "Approval workflow ensures SLA compliance", 
+        "Nearest engineer auto-assigned and dispatched",
+        "Live GPS tracking for transparency",
+        "Automated post-service survey collection"
       ]
     },
     {
-      id: "travel",
-      title: "Travel & Tourism", 
-      icon: Plane,
+      id: "cartrends",
+      company: "CarTrends",
+      industry: "Automobile Components Distribution",
+      icon: Building2,
       color: "bg-green-500",
-      features: [
-        "Booking management & confirmations",
-        "Customer itinerary tracking",
-        "Travel agent performance",
-        "Seasonal campaign automation",
-        "Customer feedback & reviews",
-        "Multi-language support"
+      challenge: "Managing 2,500+ clients with manual processes, lacking real-time inventory visibility and scalable customer outreach.",
+      solution: [
+        "Unified CRM system integrated with Tez ERP",
+        "Real-time sales order synchronization",
+        "Mobile field force app with route tracking",
+        "Order creation, collections, and meeting logs",
+        "Email & WhatsApp marketing automation",
+        "Dedicated customer app for digital engagement"
+      ],
+      results: [
+        "Enhanced operational efficiency and sales visibility",
+        "Digitized field force with improved tracking",
+        "Faster and accurate order processing",
+        "Wider customer outreach via marketing automation",
+        "Reduced manual effort and workforce efficiency"
+      ],
+      workflow: [
+        "Sales orders created in In-Sync CRM",
+        "Instant sync with Tez ERP system",
+        "Field agents use mobile app for tracking",
+        "Automated marketing campaigns to 2,500+ customers",
+        "Real-time inventory and customer data access"
       ]
     },
     {
-      id: "ecommerce",
-      title: "E-commerce & Retail",
-      icon: ShoppingCart, 
+      id: "uhc-staffing",
+      company: "UHC Staffing",
+      industry: "Recruitment Services (US-based)",
+      icon: Users,
       color: "bg-purple-500",
-      features: [
-        "Order management & tracking",
-        "Customer acquisition campaigns",
-        "Inventory management alerts", 
-        "Return & refund processing",
-        "Seller onboarding & management",
-        "Delivery optimization"
+      challenge: "Needed centralized recruitment hub with automated marketing and real-time ATS synchronization for efficiency.",
+      solution: [
+        "Central marketing and recruitment hub via In-Sync",
+        "Master database for jobs and candidates",
+        "Multi-channel campaigns via Elastic Email & SMS",
+        "AI-powered web and voice bots for engagement",
+        "Real-time ExcelHire ATS synchronization",
+        "Automated lead capture and data feeding"
+      ],
+      results: [
+        "Streamlined marketing and lead generation",
+        "Real-time updates from multiple touchpoints",
+        "AI automation reducing manual effort",
+        "Perfect data synchronization with ATS",
+        "Improved recruiter productivity"
+      ],
+      workflow: [
+        "AI bots engage candidates on website",
+        "Data automatically fed into In-Sync",
+        "Real-time sync with ExcelHire ATS",
+        "Automated email/SMS campaigns for jobs",
+        "Master database consolidates all data"
       ]
     },
     {
-      id: "healthcare",
-      title: "Healthcare & Pharmaceuticals",
-      icon: Heart,
-      color: "bg-red-500", 
-      features: [
-        "Patient appointment scheduling",
-        "Medical representative tracking",
-        "Prescription follow-ups",
-        "Hospital admin management",
-        "Insurance claim processing",
-        "Patient satisfaction surveys"
-      ]
-    },
-    {
-      id: "realestate", 
-      title: "Real Estate",
-      icon: Home,
+      id: "rmpl",
+      company: "RMPL (Redefine Marcom)",
+      industry: "Marketing & Experiential Events",
+      icon: Megaphone,
       color: "bg-orange-500",
-      features: [
-        "Property listing management",
-        "Client requirement matching",
-        "Site visit scheduling",
-        "Deal pipeline tracking",
-        "Document management", 
-        "Customer relationship nurturing"
-      ]
-    },
-    {
-      id: "education",
-      title: "Education & EdTech",
-      icon: GraduationCap,
-      color: "bg-indigo-500",
-      features: [
-        "Student admission management",
-        "Parent-teacher communication",
-        "Course enrollment tracking",
-        "Fee collection automation",
-        "Student performance monitoring",
-        "Placement drive coordination"
-      ]
-    },
-    {
-      id: "manufacturing",
-      title: "Manufacturing", 
-      icon: Factory,
-      color: "bg-yellow-500",
-      features: [
-        "Supplier relationship management",
-        "Quality control tracking",
-        "Sales team performance",
-        "Customer order processing", 
-        "Field service management",
-        "Distributor network management"
-      ]
-    },
-    {
-      id: "technology",
-      title: "Technology & IT Services",
-      icon: Smartphone,
-      color: "bg-cyan-500", 
-      features: [
-        "Client project management",
-        "Support ticket resolution",
-        "Resource allocation tracking",
-        "Client satisfaction monitoring",
-        "Sales lead qualification",
-        "Service delivery optimization"
+      challenge: "Cross-departmental operational challenges requiring centralized control for streamlined workflows and collaboration.",
+      solution: [
+        "In-Sync Business Platform for unified control",
+        "Cross-departmental workflow automation",
+        "Centralized marketing operations management",
+        "Integrated demand generation tools",
+        "Event and campaign coordination system",
+        "Real-time collaboration features"
+      ],
+      results: [
+        "Improved operational efficiency",
+        "Better cross-departmental collaboration",
+        "Streamlined marketing processes",
+        "Unified control across all operations",
+        "Enhanced coordination and control"
+      ],
+      workflow: [
+        "Centralized platform for all departments",
+        "Unified workflow management",
+        "Real-time collaboration tools",
+        "Integrated marketing operations",
+        "Streamlined event coordination"
       ]
     }
   ];
 
-  const competitors = [
+  const commonFeatures = [
     {
-      name: "In-Sync",
-      features: {
-        "Contact & Lead Management": "Unlimited",
-        "Sales Pipeline Management": "Advanced", 
-        "WhatsApp Business API": "Native",
-        "Click-to-Call & Auto Dialer": "Built-in",
-        "Field Force Automation": "Complete",
-        "GPS Tracking & Geofencing": "Advanced",
-        "AI Voice Agent (Gargi)": "Advanced",
-        "Multi-language Support": "15+ Languages",
-        "Marketing Automation": "Complete",
-        "Offline Mobile Access": "Full Offline",
-        "Indian Payment Gateway": "All Major",
-        "Predictive Analytics": "AI-Powered",
-        "Cost": "₹1,500-3,000",
-        "Setup Time": "1-2 days",
-        "Support": "24/7 Hindi/English"
-      },
-      isInsync: true
-    },
-    {
-      name: "Salesforce",
-      features: {
-        "Contact & Lead Management": "Limited",
-        "Sales Pipeline Management": "Advanced",
-        "WhatsApp Business API": "Limited", 
-        "Click-to-Call & Auto Dialer": "Add-on",
-        "Field Force Automation": "Add-on",
-        "GPS Tracking & Geofencing": "No",
-        "AI Voice Agent (Gargi)": "No",
-        "Multi-language Support": "Limited",
-        "Marketing Automation": "Advanced",
-        "Offline Mobile Access": "Limited", 
-        "Indian Payment Gateway": "Limited",
-        "Predictive Analytics": "Advanced",
-        "Cost": "₹6,000-15,000",
-        "Setup Time": "2-8 weeks",
-        "Support": "Business Hours"
-      }
-    },
-    {
-      name: "Zoho CRM", 
-      features: {
-        "Contact & Lead Management": "Good",
-        "Sales Pipeline Management": "Good",
-        "WhatsApp Business API": "Add-on",
-        "Click-to-Call & Auto Dialer": "Add-on", 
-        "Field Force Automation": "Limited",
-        "GPS Tracking & Geofencing": "Limited",
-        "AI Voice Agent (Gargi)": "No",
-        "Multi-language Support": "Good",
-        "Marketing Automation": "Good",
-        "Offline Mobile Access": "Basic",
-        "Indian Payment Gateway": "Good",
-        "Predictive Analytics": "Good", 
-        "Cost": "₹1,200-2,500",
-        "Setup Time": "1 week",
-        "Support": "Good"
-      }
-    },
-    {
-      name: "HubSpot",
-      features: {
-        "Contact & Lead Management": "Good",
-        "Sales Pipeline Management": "Good", 
-        "WhatsApp Business API": "Third-party",
-        "Click-to-Call & Auto Dialer": "Add-on",
-        "Field Force Automation": "No",
-        "GPS Tracking & Geofencing": "No",
-        "AI Voice Agent (Gargi)": "No", 
-        "Multi-language Support": "Limited",
-        "Marketing Automation": "Excellent",
-        "Offline Mobile Access": "Limited",
-        "Indian Payment Gateway": "Limited",
-        "Predictive Analytics": "Good",
-        "Cost": "₹3,000-8,000",
-        "Setup Time": "3-5 days", 
-        "Support": "US Hours"
-      }
-    }
-  ];
-
-  const coreFeatures = [
-    {
-      category: "Core CRM Features",
-      icon: Target,
-      features: [
-        {
-          name: "Contact & Lead Management",
-          description: "Unlimited contacts, custom fields, lead scoring, duplicate detection"
-        },
-        {
-          name: "Sales Pipeline Management", 
-          description: "Visual pipeline builder, custom stages, probability tracking"
-        },
-        {
-          name: "Task & Activity Management",
-          description: "Task automation, calendar integration, meeting scheduling"
-        },
-        {
-          name: "Customer Service Management",
-          description: "Ticket management, case resolution, satisfaction tracking"
-        }
-      ]
-    },
-    {
-      category: "Communication Suite",
-      icon: MessageSquare,
-      features: [
-        {
-          name: "Calling Functions",
-          description: "Click-to-call, auto dialer, IVR system, call recording"
-        },
-        {
-          name: "WhatsApp Business Automation",
-          description: "WhatsApp automation, SMS campaigns, email sequences"
-        },
-        {
-          name: "Marketing Automation", 
-          description: "Drip campaigns, behavioral triggers, lead nurturing"
-        },
-        {
-          name: "Delivery Tracking",
-          description: "Message delivery status, open rates, click tracking"
-        }
-      ]
-    },
-    {
-      category: "Field Force Automation",
-      icon: MapPin,
-      features: [
-        {
-          name: "Location & Tracking",
-          description: "GPS attendance, live tracking, route optimization"
-        },
-        {
-          name: "Mobile Operations",
-          description: "Mobile CRM access, offline functionality, photo capture"
-        },
-        {
-          name: "Performance Management",
-          description: "Activity monitoring, performance metrics, target tracking"
-        },
-        {
-          name: "Customer Interaction",
-          description: "On-site check-ins, customer feedback, service completion"
-        }
-      ]
-    },
-    {
-      category: "AI & Automation",
+      category: "Core Automation Features",
       icon: Bot,
       features: [
-        {
-          name: "Gargi AI Agent",
-          description: "Autonomous calling, survey automation, multi-language support"
-        },
-        {
-          name: "Predictive Analytics",
-          description: "Lead scoring, churn prediction, revenue forecasting"
-        },
-        {
-          name: "Workflow Automation", 
-          description: "Process automation, approval workflows, task assignment"
-        },
-        {
-          name: "Intelligence Features",
-          description: "Sentiment analysis, pattern recognition, recommendation engine"
-        }
+        "WhatsApp Business API Integration",
+        "Automated Ticketing & Workflow Systems", 
+        "AI-Powered Conversational Bots",
+        "Real-time Data Synchronization",
+        "GPS Tracking & Field Force Management",
+        "Multi-channel Marketing Automation"
+      ]
+    },
+    {
+      category: "Integration Capabilities",
+      icon: Globe,
+      features: [
+        "ERP System Integration (Tez ERP)",
+        "ATS Integration (ExcelHire)",
+        "Email Automation (Elastic Email)",
+        "SMS Integration (Twilio)",
+        "Third-party API Connections",
+        "Custom Workflow Builder"
+      ]
+    },
+    {
+      category: "Business Impact",
+      icon: BarChart3,
+      features: [
+        "Centralized Operations Management",
+        "Real-time Visibility & Transparency",
+        "Reduced Manual Effort & Costs",
+        "Improved Response Times",
+        "Enhanced Customer Satisfaction",
+        "Scalable Business Processes"
       ]
     }
   ];
-
-  const indianFeatures = [
-    {
-      title: "Language & Localization",
-      items: [
-        "Support for 15+ Indian languages",
-        "Regional calendar integration", 
-        "Local currency and taxation support",
-        "Regional number formatting"
-      ]
-    },
-    {
-      title: "Compliance & Regulations",
-      items: [
-        "GST integration and reporting",
-        "SEBI compliance for financial services",
-        "RERA compliance for real estate", 
-        "Data localization as per Indian regulations"
-      ]
-    },
-    {
-      title: "Payment Integration",
-      items: [
-        "Support for all major Indian payment gateways",
-        "UPI integration for instant payments",
-        "Digital wallet support (Paytm, PhonePe, Google Pay)",
-        "Net banking integration with all major Indian banks"
-      ]
-    },
-    {
-      title: "Communication Preferences", 
-      items: [
-        "WhatsApp Business API integration",
-        "SMS with DLT compliance",
-        "Voice calls in regional languages",
-        "Email templates in local languages"
-      ]
-    }
-  ];
-
-  const getStatusIcon = (status: string) => {
-    if (status === "No" || status === "Limited" || status.includes("weeks")) {
-      return <X className="h-4 w-4 text-red-500" />;
-    } else if (status === "Add-on" || status === "Third-party" || status === "Basic") {
-      return <AlertTriangle className="h-4 w-4 text-yellow-500" />;
-    } else {
-      return <CheckCircle className="h-4 w-4 text-green-500" />;
-    }
-  };
 
   return (
-    <div className="min-h-screen bg-background">
-      <Header />
-      
+    <div className="min-h-screen bg-background">      
       <main>
         {/* Hero Section */}
         <section className="py-20 bg-gradient-to-br from-primary/5 via-background to-secondary/5">
           <div className="container mx-auto px-4">
             <div className="text-center max-w-4xl mx-auto">
-              <div className="flex items-center justify-center gap-2 mb-6">
-                <h1 className="text-5xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                  In-Sync
-                </h1>
-              </div>
+              <h1 className="text-5xl font-bold mb-6 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                Real Customer Success Stories
+              </h1>
               <div className="flex flex-wrap justify-center gap-2 mb-6">
-                <Badge variant="outline" className="text-sm">Universal Business Platform</Badge>
-                <Badge variant="outline" className="text-sm">Every Industry</Badge>
-                <Badge variant="outline" className="text-sm">Every Business Size</Badge>
-                <Badge variant="outline" className="text-sm">Made in India</Badge>
+                <Badge variant="outline" className="text-sm">Proven Results</Badge>
+                <Badge variant="outline" className="text-sm">Real Businesses</Badge>
+                <Badge variant="outline" className="text-sm">Measurable Impact</Badge>
+                <Badge variant="outline" className="text-sm">Across Industries</Badge>
               </div>
               <p className="text-xl text-muted-foreground">
-                Transform Any Business with AI-Powered CRM, Communication & Field Force Automation
+                See how leading companies transformed their operations with In-Sync's AI-powered business automation platform
               </p>
             </div>
           </div>
         </section>
 
-        {/* Industry Showcase */}
+        {/* Case Studies */}
         <section className="py-20">
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold mb-4">One Platform, Every Industry</h2>
+              <h2 className="text-4xl font-bold mb-4">Transforming Businesses Across Industries</h2>
               <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-                See how In-Sync's powerful features adapt to your specific industry needs across India's diverse business landscape
+                From EV services to recruitment, see how In-Sync delivers real results for companies of all sizes
               </p>
             </div>
             
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {industries.map((industry) => {
-                const IconComponent = industry.icon;
+            <div className="space-y-16">
+              {realCaseStudies.map((study, index) => {
+                const IconComponent = study.icon;
                 return (
-                  <Card key={industry.id} className="group hover:shadow-lg transition-shadow">
-                    <CardHeader className="text-center">
-                      <div className={`w-12 h-12 ${industry.color} rounded-lg flex items-center justify-center mx-auto mb-4`}>
-                        <IconComponent className="h-6 w-6 text-white" />
+                  <Card key={study.id} className="overflow-hidden">
+                    <div className="grid lg:grid-cols-2 gap-8 p-8">
+                      {/* Company Info */}
+                      <div className="space-y-6">
+                        <div className="flex items-start gap-4">
+                          <div className={`w-16 h-16 ${study.color} rounded-lg flex items-center justify-center flex-shrink-0`}>
+                            <IconComponent className="h-8 w-8 text-white" />
+                          </div>
+                          <div>
+                            <h3 className="text-2xl font-bold mb-2">{study.company}</h3>
+                            <Badge variant="secondary" className="mb-4">{study.industry}</Badge>
+                            <p className="text-muted-foreground">{study.challenge}</p>
+                          </div>
+                        </div>
+                        
+                        {/* Results */}
+                        <div>
+                          <h4 className="font-semibold text-lg mb-3 flex items-center gap-2">
+                            <Target className="h-5 w-5 text-primary" />
+                            Key Results Achieved
+                          </h4>
+                          <div className="space-y-2">
+                            {study.results.map((result, rIndex) => (
+                              <div key={rIndex} className="flex items-start gap-2">
+                                <CheckCircle className="h-4 w-4 text-green-500 mt-1 flex-shrink-0" />
+                                <span className="text-sm">{result}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
                       </div>
-                      <CardTitle className="text-lg">{industry.title}</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <ul className="space-y-2">
-                        {industry.features.map((feature, index) => (
-                          <li key={index} className="text-sm text-muted-foreground flex items-start gap-2">
-                            <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
-                            {feature}
-                          </li>
-                        ))}
-                      </ul>
-                    </CardContent>
+                      
+                      {/* Solution & Workflow */}
+                      <div className="space-y-6">
+                        {/* Solution */}
+                        <div>
+                          <h4 className="font-semibold text-lg mb-3 flex items-center gap-2">
+                            <Zap className="h-5 w-5 text-primary" />
+                            In-Sync Solution
+                          </h4>
+                          <div className="grid gap-2">
+                            {study.solution.map((item, sIndex) => (
+                              <div key={sIndex} className="flex items-start gap-2">
+                                <ArrowRight className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
+                                <span className="text-sm">{item}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                        
+                        {/* Workflow */}
+                        <div>
+                          <h4 className="font-semibold text-lg mb-3 flex items-center gap-2">
+                            <Clock className="h-5 w-5 text-primary" />
+                            Automated Workflow
+                          </h4>
+                          <div className="space-y-3">
+                            {study.workflow.map((step, wIndex) => (
+                              <div key={wIndex} className="flex items-start gap-3">
+                                <div className="w-6 h-6 bg-primary/10 text-primary rounded-full flex items-center justify-center text-xs font-semibold">
+                                  {wIndex + 1}
+                                </div>
+                                <span className="text-sm">{step}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </Card>
                 );
               })}
             </div>
-            
-            <div className="text-center mt-12">
-              <Badge variant="secondary" className="text-base px-6 py-2">
-                💡 Pro Tip: All industries benefit from the same core features - only the application changes!
-              </Badge>
-            </div>
           </div>
         </section>
 
-        {/* Competitive Comparison */}
+        {/* Common Features Across All Cases */}
         <section className="py-20 bg-gradient-to-b from-slate-50/30 to-background">
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold mb-4">In-Sync vs Competition</h2>
+              <h2 className="text-4xl font-bold mb-4">Common Success Factors</h2>
               <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-                See how In-Sync compares with leading CRM and business automation platforms in the Indian market
+                The powerful features that drive success across all our case studies
               </p>
             </div>
 
-            <div className="overflow-x-auto">
-              <div className="min-w-[800px]">
-                <div className="grid grid-cols-5 gap-4 mb-8">
-                  <div className="font-semibold text-lg">Features</div>
-                  {competitors.map((competitor, index) => (
-                    <div key={index} className={`text-center p-4 rounded-lg ${competitor.isInsync ? 'bg-primary text-primary-foreground' : 'bg-muted'}`}>
-                      <h3 className="font-semibold">{competitor.name}</h3>
-                    </div>
-                  ))}
-                </div>
-
-                {Object.keys(competitors[0].features).map((feature) => (
-                  <div key={feature} className="grid grid-cols-5 gap-4 py-3 border-b border-border">
-                    <div className="font-medium text-sm">{feature}</div>
-                    {competitors.map((competitor, index) => (
-                      <div key={index} className="text-center flex items-center justify-center gap-2">
-                        {getStatusIcon(competitor.features[feature])}
-                        <span className="text-sm">{competitor.features[feature]}</span>
-                      </div>
-                    ))}
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="mt-12 bg-primary/5 rounded-lg p-8">
-              <h3 className="text-2xl font-bold mb-6 text-center">In-Sync's Unique Advantages</h3>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {[
-                  { icon: Bot, title: "Gargi AI Agent", desc: "Only platform with autonomous calling AI" },
-                  { icon: MessageSquare, title: "WhatsApp Native", desc: "Built-in WhatsApp Business API integration" },
-                  { icon: MapPin, title: "Complete Field Force", desc: "GPS tracking, geofencing, offline access" },
-                  { icon: Globe, title: "India-First Design", desc: "15+ Indian languages, local compliance" },
-                  { icon: BarChart3, title: "Best Value", desc: "Most features at competitive pricing" },
-                  { icon: Zap, title: "Quick Setup", desc: "Go live in 1-2 days vs weeks" }
-                ].map((advantage, index) => {
-                  const IconComponent = advantage.icon;
-                  return (
-                    <div key={index} className="flex items-start gap-3">
-                      <IconComponent className="h-6 w-6 text-primary mt-1" />
-                      <div>
-                        <h4 className="font-semibold mb-1">{advantage.title}</h4>
-                        <p className="text-sm text-muted-foreground">{advantage.desc}</p>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Feature Breakdown */}
-        <section className="py-20">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold mb-4">Complete Feature Breakdown</h2>
-              <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-                Every feature explained with real industry applications across the Indian market
-              </p>
-            </div>
-
-            <div className="grid lg:grid-cols-2 gap-8">
-              {coreFeatures.map((category, index) => {
+            <div className="grid md:grid-cols-3 gap-8">
+              {commonFeatures.map((category, index) => {
                 const IconComponent = category.icon;
                 return (
-                  <Card key={index} className="h-fit">
+                  <Card key={index} className="h-full">
                     <CardHeader>
                       <div className="flex items-center gap-3">
                         <IconComponent className="h-8 w-8 text-primary" />
@@ -523,11 +319,11 @@ const UseCases = () => {
                       </div>
                     </CardHeader>
                     <CardContent>
-                      <div className="space-y-4">
+                      <div className="space-y-3">
                         {category.features.map((feature, fIndex) => (
-                          <div key={fIndex} className="border-l-2 border-primary/20 pl-4">
-                            <h4 className="font-semibold mb-2">{feature.name}</h4>
-                            <p className="text-sm text-muted-foreground">{feature.description}</p>
+                          <div key={fIndex} className="flex items-start gap-2">
+                            <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
+                            <span className="text-sm">{feature}</span>
                           </div>
                         ))}
                       </div>
@@ -539,66 +335,66 @@ const UseCases = () => {
           </div>
         </section>
 
-        {/* Indian Market Features */}
-        <section className="py-20 bg-gradient-to-b from-background to-slate-50/30">
+        {/* Success Metrics */}
+        <section className="py-20 bg-primary text-primary-foreground">
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold mb-4">Built for India 🇮🇳</h2>
-              <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-                Features specifically designed for the Indian business ecosystem and cultural preferences
+              <h2 className="text-4xl font-bold mb-4">Proven Results Across Industries</h2>
+              <p className="text-xl mb-12 opacity-90">
+                Join the growing list of businesses transforming their operations with In-Sync
               </p>
             </div>
-
-            <div className="grid md:grid-cols-2 gap-8">
-              {indianFeatures.map((category, index) => (
-                <Card key={index}>
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <Shield className="h-6 w-6 text-primary" />
-                      {category.title}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <ul className="space-y-3">
-                      {category.items.map((item, iIndex) => (
-                        <li key={iIndex} className="flex items-start gap-2">
-                          <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
-                          <span className="text-sm">{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </CardContent>
-                </Card>
-              ))}
+            
+            <div className="grid md:grid-cols-4 gap-8 text-center">
+              <div>
+                <div className="text-4xl font-bold mb-2">60+</div>
+                <div className="opacity-90">Cities Served</div>
+                <div className="text-sm opacity-75">Tata Electra EV</div>
+              </div>
+              <div>
+                <div className="text-4xl font-bold mb-2">2,500+</div>
+                <div className="opacity-90">Clients Managed</div>
+                <div className="text-sm opacity-75">CarTrends</div>
+              </div>
+              <div>
+                <div className="text-4xl font-bold mb-2">100%</div>
+                <div className="opacity-90">Real-time Sync</div>
+                <div className="text-sm opacity-75">UHC Staffing</div>
+              </div>
+              <div>
+                <div className="text-4xl font-bold mb-2">24/7</div>
+                <div className="opacity-90">Automation</div>
+                <div className="text-sm opacity-75">All Clients</div>
+              </div>
             </div>
           </div>
         </section>
 
         {/* Call-to-Action */}
-        <section className="py-20 bg-primary text-primary-foreground">
+        <section className="py-20">
           <div className="container mx-auto px-4">
             <div className="text-center max-w-4xl mx-auto">
-              <h2 className="text-4xl font-bold mb-4">Ready to Transform Your Business?</h2>
-              <p className="text-xl mb-8 opacity-90">
-                Join thousands of Indian businesses already using In-Sync to grow faster and serve customers better
+              <h2 className="text-4xl font-bold mb-4">Ready to Join Our Success Stories?</h2>
+              <p className="text-xl text-muted-foreground mb-8">
+                Transform your business operations like these industry leaders. Start your In-Sync journey today.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" variant="secondary" className="text-lg px-8">
+                <Button size="lg" className="text-lg px-8">
                   <Users className="h-5 w-5 mr-2" />
                   Start Free Trial
                 </Button>
-                <Button size="lg" variant="outline" className="text-lg px-8 border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary">
+                <Button size="lg" variant="outline" className="text-lg px-8">
                   <Clock className="h-5 w-5 mr-2" />
                   Schedule Demo
                 </Button>
-                <Button size="lg" variant="outline" className="text-lg px-8 border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary">
+                <Button size="lg" variant="outline" className="text-lg px-8">
                   <Phone className="h-5 w-5 mr-2" />
                   Contact Sales
                 </Button>
               </div>
               
-              <p className="text-sm mt-6 opacity-75">
+              <p className="text-sm text-muted-foreground mt-6">
                 30-day free trial • No credit card required • Setup in 1-2 days
               </p>
             </div>
