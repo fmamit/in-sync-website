@@ -21,16 +21,16 @@ import evcoLogo from "@/assets/evco-logo-transparent.png";
 
 const HeroSection = () => {
   const customerLogos = [
-    { src: growthvineLogo, alt: "GrowthVine" },
-    { src: audiLogo, alt: "Audi" },
-    { src: capitalIndiaLogo, alt: "Capital India" },
-    { src: carTrendsLogo, alt: "Car Trends" },
-    { src: ezeepayLogo, alt: "Ezeepay" },
     { src: hiranandaniLogo, alt: "Hiranandani" },
     { src: quessLogo, alt: "Quess" },
     { src: redefineLogo, alt: "Redefine" },
     { src: seedsLogo, alt: "Seeds" },
     { src: uhcLogo, alt: "United Health Care Staffing" },
+    { src: growthvineLogo, alt: "GrowthVine" },
+    { src: audiLogo, alt: "Audi" },
+    { src: capitalIndiaLogo, alt: "Capital India" },
+    { src: carTrendsLogo, alt: "Car Trends" },
+    { src: ezeepayLogo, alt: "Ezeepay" },
     { src: incredLogo, alt: "InCred" },
     { src: ecofyLogo, alt: "Ecofy" },
     { src: mothersonLogo, alt: "Motherson" },
