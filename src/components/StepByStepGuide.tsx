@@ -364,16 +364,16 @@ const StepByStepGuide = ({ className = "" }: { className?: string }) => {
                 <Button
                   key={step.id}
                   variant={expandedStep === step.id ? "default" : "ghost"}
-                  className="w-full justify-start text-left"
+                  className="w-full justify-start text-left h-auto py-3 px-3"
                   onClick={() => setExpandedStep(step.id)}
                 >
-                  <div className="flex items-center gap-3">
-                    <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-semibold ${
+                  <div className="flex items-start gap-3 w-full">
+                    <div className={`w-6 h-6 min-w-[24px] rounded-full flex items-center justify-center text-xs font-semibold mt-0.5 ${
                       expandedStep === step.id ? 'bg-primary-foreground text-primary' : 'bg-primary/10 text-primary'
                     }`}>
                       {index + 1}
                     </div>
-                    <span className="text-sm">{step.title}</span>
+                    <span className="text-sm leading-relaxed break-words hyphens-auto flex-1">{step.title}</span>
                   </div>
                 </Button>
               ))}
