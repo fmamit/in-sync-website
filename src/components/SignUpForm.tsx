@@ -147,12 +147,12 @@ export default function SignUpForm() {
     addText("IN WITNESS WHEREOF, the parties have executed this Agreement on the date first written above.");
     yPosition += 15;
     
-    addText("For IN-SYNC SOLUTIONS:                For " + data.companyName + ":");
+    addText("For IN-SYNC SOLUTIONS:                    For " + data.companyName + ":");
     yPosition += 15;
     
-    addText("_____________________              _____________________");
-    addText(`Authorized Signatory                ${data.signatoryName}`);
-    addText(`                                   ${data.signatoryDesignation}`);
+    addText("_____________________                  _____________________");
+    addText(`Amit Sengupta                          ${data.signatoryName}`);
+    addText(`Director                               ${data.signatoryDesignation}`);
     yPosition += 10;
     
     addText(`Date: ${data.dateOfSigning}         Date: ${data.dateOfSigning}`);
