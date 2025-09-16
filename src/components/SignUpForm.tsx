@@ -24,6 +24,7 @@ export default function SignUpForm() {
     phone: "",
     panNumber: "",
     aadhaarNumber: "",
+    gstNumber: "",
     effectiveDate: todayDate,
     placeOfSigning: "",
     dateOfSigning: todayDate
@@ -101,6 +102,9 @@ export default function SignUpForm() {
     addText(`Phone: ${data.phone}`);
     addText(`PAN: ${data.panNumber}`);
     addText(`Aadhaar: ${data.aadhaarNumber}`);
+    if (data.gstNumber) {
+      addText(`GST: ${data.gstNumber}`);
+    }
     yPosition += 10;
     
     // Terms and Conditions
@@ -195,6 +199,7 @@ export default function SignUpForm() {
         phone: "",
         panNumber: "",
         aadhaarNumber: "",
+        gstNumber: "",
         effectiveDate: todayDate,
         placeOfSigning: "",
         dateOfSigning: todayDate
@@ -315,6 +320,17 @@ export default function SignUpForm() {
                 maxLength={12}
               />
             </div>
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="gstNumber">GST Number (Optional)</Label>
+            <Input
+              id="gstNumber"
+              value={formData.gstNumber}
+              onChange={(e) => handleInputChange("gstNumber", e.target.value.toUpperCase())}
+              placeholder="22AAAAA0000A1Z5"
+              maxLength={15}
+            />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
