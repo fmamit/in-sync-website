@@ -179,11 +179,59 @@ const OnboardingForm = () => {
   const totalSections = 9;
   const progressPercentage = (currentSection / totalSections) * 100;
 
+  // Email validation function
+  const validateEmail = (email: string): boolean => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  // Phone number validation function (supports various international formats)
+  const validatePhone = (phone: string): boolean => {
+    const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
+    const cleanPhone = phone.replace(/[\s\-\(\)]/g, "");
+    return phoneRegex.test(cleanPhone) && cleanPhone.length >= 10;
+  };
+
+  // Enhanced validation function
+  const validateField = (field: string, value: string, fieldType?: string): boolean => {
+    if (!value || value.trim() === "") return false;
+    
+    if (fieldType === "email") {
+      return validateEmail(value);
+    }
+    
+    if (fieldType === "phone") {
+      return validatePhone(value);
+    }
+    
+    return value.trim().length > 0;
+  };
+
   const updateFormData = (field: keyof OnboardingData, value: any) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
   const updateUserDetail = (index: number, field: keyof UserRow, value: string) => {
+    // Validate email fields in user details
+    if (field === "email" && value && !validateEmail(value)) {
+      toast({
+        title: "Invalid Email Format",
+        description: `Please enter a valid email address for user ${index + 1}.`,
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    // Validate mobile fields in user details
+    if (field === "mobile" && value && !validatePhone(value)) {
+      toast({
+        title: "Invalid Phone Format", 
+        description: `Please enter a valid phone number for user ${index + 1}.`,
+        variant: "destructive",
+      });
+      return;
+    }
+    
     const updatedUsers = [...formData.userDetails];
     updatedUsers[index] = { ...updatedUsers[index], [field]: value };
     updateFormData("userDetails", updatedUsers);
@@ -213,8 +261,63 @@ const OnboardingForm = () => {
   const validateSection = (section: number): boolean => {
     switch (section) {
       case 1:
-        return !!(formData.companyName && formData.companyAddress && formData.industryType && 
-                 formData.contactPersonName && formData.contactPersonEmail && formData.contactPersonMobile);
+        // Validate company information with proper email and phone validation
+        if (!validateField(formData.companyName, formData.companyName)) {
+          toast({
+            title: "Company Name Required",
+            description: "Please enter your company name.",
+            variant: "destructive",
+          });
+          return false;
+        }
+        
+        if (!validateField(formData.companyAddress, formData.companyAddress)) {
+          toast({
+            title: "Company Address Required", 
+            description: "Please enter your company address.",
+            variant: "destructive",
+          });
+          return false;
+        }
+        
+        if (!validateField(formData.industryType, formData.industryType)) {
+          toast({
+            title: "Industry Type Required",
+            description: "Please specify your industry type.",
+            variant: "destructive",
+          });
+          return false;
+        }
+        
+        if (!validateField(formData.contactPersonName, formData.contactPersonName)) {
+          toast({
+            title: "Contact Person Name Required",
+            description: "Please enter the contact person's full name.",
+            variant: "destructive",
+          });
+          return false;
+        }
+        
+        if (!validateField(formData.contactPersonEmail, formData.contactPersonEmail, "email")) {
+          toast({
+            title: "Invalid Email Address",
+            description: "Please enter a valid email address (e.g., user@company.com).",
+            variant: "destructive",
+          });
+          return false;
+        }
+        
+        if (!validateField(formData.contactPersonMobile, formData.contactPersonMobile, "phone")) {
+          toast({
+            title: "Invalid Phone Number",
+            description: "Please enter a valid phone number (at least 10 digits, can include country code).",
+            variant: "destructive",
+          });
+          return false;
+        }
+        
+        return true;
+        
       default:
         return true; // Other sections are optional
     }
