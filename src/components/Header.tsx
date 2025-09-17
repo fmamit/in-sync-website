@@ -3,6 +3,7 @@ import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import insyncLogo from "@/assets/insync-logo-color.png";
 import ClientOnboardingModal from "./ClientOnboardingModal";
+import OnboardingModal from "./OnboardingModal";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -44,6 +45,11 @@ const Header = () => {
 
           {/* Desktop CTAs */}
           <div className="hidden md:flex items-center space-x-4">
+            <OnboardingModal trigger={
+              <Button variant="outline" size="sm">
+                Onboarding Form
+              </Button>
+            } />
             <ClientOnboardingModal trigger={
               <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90">
                 Get Started Now
@@ -76,8 +82,13 @@ const Header = () => {
                 </a>
               ))}
               <div className="flex flex-col space-y-2 pt-4">
+                <OnboardingModal trigger={
+                  <Button variant="outline" size="sm" className="w-full">
+                    Onboarding Form
+                  </Button>
+                } />
                 <ClientOnboardingModal trigger={
-                  <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90">
+                  <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90 w-full">
                     Get Started Now
                   </Button>
                 } />
