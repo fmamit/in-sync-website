@@ -65,6 +65,7 @@ interface OnboardingData {
   // Section 5: System Configuration
   masterData: string[];
   masterDataDetails: string;
+  masterDataOther: string;
   inventoryModule: boolean;
   inventoryFeatures: string[];
   inventoryOther: string;
@@ -98,6 +99,13 @@ interface OnboardingData {
   signatoryName: string;
   signatoryDesignation: string;
   signatureDate: string;
+
+  // For Internal Use Only
+  applicationId: string;
+  assignedAccountManager: string;
+  estimatedSetupTime: string;
+  priorityLevel: string;
+  status: string;
 }
 
 const OnboardingForm = () => {
@@ -133,6 +141,7 @@ const OnboardingForm = () => {
     smsOther: "",
     masterData: [],
     masterDataDetails: "",
+    masterDataOther: "",
     inventoryModule: false,
     inventoryFeatures: [],
     inventoryOther: "",
@@ -158,11 +167,16 @@ const OnboardingForm = () => {
     signatoryName: "",
     signatoryDesignation: "",
     signatureDate: "",
+    applicationId: "",
+    assignedAccountManager: "",
+    estimatedSetupTime: "",
+    priorityLevel: "",
+    status: "",
   });
 
   const { toast } = useToast();
 
-  const totalSections = 8;
+  const totalSections = 9;
   const progressPercentage = (currentSection / totalSections) * 100;
 
   const updateFormData = (field: keyof OnboardingData, value: any) => {
@@ -226,6 +240,8 @@ const OnboardingForm = () => {
     const doc = new jsPDF();
     const pageHeight = doc.internal.pageSize.height;
     let yPosition = 20;
+    const lineHeight = 6;
+    const sectionSpacing = 10;
 
     // Helper function to add text with automatic page break
     const addText = (text: string, x: number, fontSize: number = 10, isBold: boolean = false) => {
@@ -235,68 +251,203 @@ const OnboardingForm = () => {
       }
       doc.setFontSize(fontSize);
       doc.setFont("helvetica", isBold ? "bold" : "normal");
-      doc.text(text, x, yPosition);
-      yPosition += (fontSize as number) * 0.6;
+      
+      // Handle long text by splitting into multiple lines
+      const maxWidth = 170;
+      const lines = doc.splitTextToSize(text, maxWidth);
+      
+      if (Array.isArray(lines)) {
+        lines.forEach((line: string) => {
+          if (yPosition > pageHeight - 20) {
+            doc.addPage();
+            yPosition = 20;
+          }
+          doc.text(line, x, yPosition);
+          yPosition += lineHeight;
+        });
+      } else {
+        doc.text(lines, x, yPosition);
+        yPosition += lineHeight;
+      }
     };
 
-    // Title
+    const addSection = (title: string) => {
+      yPosition += sectionSpacing;
+      addText(title, 20, 14, true);
+      yPosition += 5;
+    };
+
+    // Title and Header
     addText("IN-SYNC PLATFORM ONBOARDING FORM", 20, 16, true);
+    addText("Font: Nunito Sans", 20, 10);
     yPosition += 10;
 
     // Section 1: Company Information
-    addText("SECTION 1: COMPANY INFORMATION", 20, 14, true);
+    addSection("SECTION 1: COMPANY INFORMATION");
+    addText("Company Details", 20, 12, true);
     addText(`Company Name: ${formData.companyName}`, 20);
     addText(`Company Address: ${formData.companyAddress}`, 20);
     addText(`Industry Type: ${formData.industryType}`, 20);
     addText(`Contact Person Name: ${formData.contactPersonName}`, 20);
     addText(`Contact Person Email: ${formData.contactPersonEmail}`, 20);
     addText(`Contact Person Mobile: ${formData.contactPersonMobile}`, 20);
-    yPosition += 10;
 
     // Section 2: User Management
-    addText("SECTION 2: USER MANAGEMENT", 20, 14, true);
-    addText(`Total Number of Users: ${formData.totalUsers}`, 20);
-    addText("User Details:", 20, 12, true);
+    addSection("SECTION 2: USER MANAGEMENT");
+    addText("Total Number of Users", 20, 12, true);
+    addText(`How many users will be using the platform? ${formData.totalUsers}`, 20);
+    yPosition += 5;
+    
+    addText("User Details", 20, 12, true);
+    addText("S.No | Full Name | Email Address | Mobile Number | Role/Position", 20, 10, true);
     formData.userDetails.forEach((user, index) => {
       if (user.fullName || user.email || user.mobile || user.role) {
-        addText(`${index + 1}. ${user.fullName} | ${user.email} | ${user.mobile} | ${user.role}`, 25);
+        addText(`${index + 1} | ${user.fullName} | ${user.email} | ${user.mobile} | ${user.role}`, 20);
       }
     });
-    yPosition += 10;
 
     // Section 3: Organizational Structure
-    addText("SECTION 3: ORGANIZATIONAL STRUCTURE", 20, 14, true);
-    addText("Departments:", 20, 12, true);
+    addSection("SECTION 3: ORGANIZATIONAL STRUCTURE");
+    addText("Departments", 20, 12, true);
     formData.departments.forEach((dept, index) => {
-      if (dept) addText(`${index + 1}. ${dept}`, 25);
+      if (dept) addText(`${index + 1}. ${dept}`, 20);
     });
     yPosition += 5;
+    
+    addText("Designations & Reporting Hierarchy", 20, 12, true);
+    addText("Department | Position/Designation | Reports To", 20, 10, true);
+    formData.organizationalStructure.forEach((row) => {
+      if (row.department || row.position || row.reportsTo) {
+        addText(`${row.department} | ${row.position} | ${row.reportsTo}`, 20);
+      }
+    });
 
-    // Add remaining sections...
-    addText("SECTION 4: COMMUNICATION SERVICES", 20, 14, true);
-    addText(`Calling Service: ${formData.callingService ? "Yes" : "No"}`, 20);
+    // Section 4: Communication Services
+    addSection("SECTION 4: COMMUNICATION SERVICES");
+    
+    addText("4.1 Calling Service", 20, 12, true);
+    addText(`Do you need calling functionality? ${formData.callingService ? "Yes" : "No"}`, 20);
     if (formData.callingService) {
-      addText(`Calling Users: ${formData.callingUsers}`, 25);
-      addText(`Calling Channels: ${formData.callingChannels}`, 25);
-      addText(`Calling Features: ${formData.callingFeatures.join(", ")}`, 25);
+      addText(`Number of users requiring calling access: ${formData.callingUsers}`, 30);
+      addText(`Number of channels needed: ${formData.callingChannels}`, 30);
+      addText(`Preferred calling features: ${formData.callingFeatures.join(", ")}`, 30);
     }
     
-    addText(`Email Service: ${formData.emailService ? "Yes" : "No"}`, 20);
+    addText("4.2 Email Service", 20, 12, true);
+    addText(`Do you need email service? ${formData.emailService ? "Yes" : "No"}`, 20);
     if (formData.emailService) {
-      addText(`Email Domain: ${formData.emailDomain}`, 25);
-      addText(`Outbound Email: ${formData.outboundEmail}`, 25);
-      addText(`Inbound Email: ${formData.inboundEmail}`, 25);
+      addText(`Email Domain: ${formData.emailDomain}`, 30);
+      addText(`Outbound Email ID: ${formData.outboundEmail}`, 30);
+      addText(`Inbound Email ID: ${formData.inboundEmail}`, 30);
+      addText(`Additional email requirements: ${formData.emailRequirements}`, 30);
     }
 
-    addText(`WhatsApp Service: ${formData.whatsappService ? "Yes" : "No"}`, 20);
-    addText(`SMS Service: ${formData.smsService ? "Yes" : "No"}`, 20);
-    yPosition += 10;
+    addText("4.3 WhatsApp Business Service", 20, 12, true);
+    addText(`Do you need WhatsApp Business integration? ${formData.whatsappService ? "Yes" : "No"}`, 20);
+    if (formData.whatsappService) {
+      addText(`Meta Business Manager ID: ${formData.metaBusinessId}`, 30);
+      addText(`WhatsApp Business Account Number: ${formData.whatsappNumber}`, 30);
+      addText(`Intended use: ${formData.whatsappUse.join(", ")}`, 30);
+      if (formData.whatsappOther) addText(`Other: ${formData.whatsappOther}`, 30);
+    }
 
-    // Declaration
-    addText("DECLARATION & SIGNATURE", 20, 14, true);
-    addText(`Signatory Name: ${formData.signatoryName}`, 20);
+    addText("4.4 SMS Service", 20, 12, true);
+    addText(`Do you need SMS service? ${formData.smsService ? "Yes" : "No"}`, 20);
+    if (formData.smsService) {
+      addText(`Expected monthly SMS volume: ${formData.smsVolume}`, 30);
+      addText(`SMS use cases: ${formData.smsUseCases.join(", ")}`, 30);
+      if (formData.smsOther) addText(`Other: ${formData.smsOther}`, 30);
+    }
+
+    // Section 5: System Configuration
+    addSection("SECTION 5: SYSTEM CONFIGURATION");
+    
+    addText("5.1 Master Data Requirements", 20, 12, true);
+    addText("What master data do you need to configure?", 20);
+    const allMasterData = [...formData.masterData];
+    if (formData.masterDataOther) allMasterData.push(`Other: ${formData.masterDataOther}`);
+    allMasterData.forEach(master => {
+      if (master) addText(`☐ ${master}`, 30);
+    });
+    if (formData.masterDataDetails) {
+      addText("Please specify details for each selected master:", 20);
+      addText(formData.masterDataDetails, 30);
+    }
+
+    addText("5.2 Inventory Module", 20, 12, true);
+    addText(`Do you need inventory management? ${formData.inventoryModule ? "Yes" : "No"}`, 20);
+    if (formData.inventoryModule) {
+      addText("If Yes, select required features:", 20);
+      formData.inventoryFeatures.forEach(feature => {
+        addText(`☐ ${feature}`, 30);
+      });
+      if (formData.inventoryOther) addText(`☐ Other requirements: ${formData.inventoryOther}`, 30);
+    }
+
+    // Section 6: Branding & Customization
+    addSection("SECTION 6: BRANDING & CUSTOMIZATION");
+    
+    addText("6.1 Logo Upload", 20, 12, true);
+    addText(`Company Logo: ${formData.logoPath || "(Attach file or provide file path)"}`, 20);
+    addText(`Logo specifications: ${formData.logoSpecs}`, 20);
+    addText("Brand Colors:", 20, 12, true);
+    addText(`Primary Color: ${formData.primaryColor}`, 30);
+    addText(`Secondary Color: ${formData.secondaryColor}`, 30);
+    addText(`Accent Color: ${formData.accentColor}`, 30);
+
+    addText("6.2 Additional Customization", 20, 12, true);
+    addText(`Custom theme requirements: ${formData.customTheme}`, 20);
+    addText(`Specific branding guidelines: ${formData.brandingGuidelines}`, 20);
+
+    // Section 7: Technical Requirements
+    addSection("SECTION 7: TECHNICAL REQUIREMENTS");
+    
+    addText("7.1 Integration Needs", 20, 12, true);
+    addText(`Existing systems to integrate: ${formData.existingSystems}`, 20);
+    addText(`APIs required: ${formData.apisRequired}`, 20);
+    addText(`Data migration needed? ${formData.dataMigration ? "Yes" : "No"}`, 20);
+    if (formData.dataMigration && formData.migrationSystem) {
+      addText(`If yes, from which system: ${formData.migrationSystem}`, 30);
+    }
+
+    addText("7.2 Security & Compliance", 20, 12, true);
+    addText(`Industry compliance requirements: ${formData.complianceRequirements}`, 20);
+    addText(`Data backup preferences: ${formData.backupPreferences}`, 20);
+    addText(`User access control level: ${formData.accessControlLevel}`, 20);
+
+    // Section 8: Timeline & Support
+    addSection("SECTION 8: TIMELINE & SUPPORT");
+    
+    addText("8.1 Implementation Timeline", 20, 12, true);
+    addText(`Preferred go-live date: ${formData.goLiveDate}`, 20);
+    addText(`Training requirements: ${formData.trainingRequirements}`, 20);
+    addText(`Support level needed: ${formData.supportLevel}`, 20);
+
+    addText("8.2 Additional Requirements", 20, 12, true);
+    addText(`Any specific feature requests: ${formData.featureRequests}`, 20);
+    addText(`Special requirements or considerations: ${formData.specialRequirements}`, 20);
+
+    // Declaration & Signature
+    addSection("DECLARATION & SIGNATURE");
+    addText("Declaration:", 20, 12, true);
+    addText("I confirm that all information provided above is accurate and complete to the best of my knowledge.", 20);
+    yPosition += 5;
+    addText("Authorized Signatory:", 20, 12, true);
+    addText(`Name: ${formData.signatoryName}`, 20);
     addText(`Designation: ${formData.signatoryDesignation}`, 20);
     addText(`Date: ${formData.signatureDate}`, 20);
+    addText("Signature: _________________________________", 20);
+
+    // For Internal Use Only
+    addSection("FOR INTERNAL USE ONLY");
+    addText(`Application ID: ${formData.applicationId}`, 20);
+    addText(`Assigned Account Manager: ${formData.assignedAccountManager}`, 20);
+    addText(`Estimated Setup Time: ${formData.estimatedSetupTime}`, 20);
+    addText(`Priority Level: ${formData.priorityLevel}`, 20);
+    addText(`Status: ${formData.status}`, 20);
+
+    yPosition += 10;
+    addText("This form should be printed/exported using Nunito Sans font family for optimal readability and professional appearance.", 20, 8);
 
     // Save the PDF
     const filename = `InSync_Onboarding_${formData.companyName.replace(/\s+/g, "_")}_${new Date().toISOString().split("T")[0]}.pdf`;
@@ -304,7 +455,7 @@ const OnboardingForm = () => {
 
     toast({
       title: "PDF Generated Successfully",
-      description: `Onboarding form has been downloaded as ${filename}`,
+      description: `Complete onboarding form has been downloaded as ${filename}`,
     });
   };
 
@@ -727,23 +878,39 @@ const OnboardingForm = () => {
               <div className="space-y-2">
                 <Label>What master data do you need to configure?</Label>
                 <div className="grid grid-cols-2 gap-2">
-                  {[
-                    "Customer Master",
-                    "Vendor/Supplier Master", 
-                    "Product/Service Master",
-                    "Location Master",
-                    "Category Master",
-                    "User Role Master"
-                  ].map((master) => (
-                    <div key={master} className="flex items-center space-x-2">
-                      <Checkbox
-                        id={master}
-                        checked={formData.masterData.includes(master)}
-                        onCheckedChange={(checked) => handleCheckboxChange("masterData", master, checked as boolean)}
-                      />
-                      <Label htmlFor={master}>{master}</Label>
-                    </div>
-                  ))}
+                   {[
+                     "Customer Master",
+                     "Vendor/Supplier Master", 
+                     "Product/Service Master",
+                     "Location Master",
+                     "Category Master",
+                     "User Role Master"
+                   ].map((master) => (
+                     <div key={master} className="flex items-center space-x-2">
+                       <Checkbox
+                         id={master}
+                         checked={formData.masterData.includes(master)}
+                         onCheckedChange={(checked) => handleCheckboxChange("masterData", master, checked as boolean)}
+                       />
+                       <Label htmlFor={master}>{master}</Label>
+                     </div>
+                   ))}
+                   <div className="flex items-center space-x-2">
+                     <Checkbox
+                       id="masterDataOther"
+                       checked={!!formData.masterDataOther}
+                       onCheckedChange={(checked) => {
+                         if (!checked) updateFormData("masterDataOther", "");
+                       }}
+                     />
+                     <Label htmlFor="masterDataOther">Other:</Label>
+                     <Input
+                       value={formData.masterDataOther}
+                       onChange={(e) => updateFormData("masterDataOther", e.target.value)}
+                       placeholder="Specify other master data"
+                       className="flex-1"
+                     />
+                   </div>
                 </div>
                 <div className="space-y-2">
                   <Label>Please specify details for each selected master</Label>
@@ -813,12 +980,24 @@ const OnboardingForm = () => {
               <h4 className="font-medium">6.1 Logo Upload</h4>
               <div className="space-y-4">
                 <div className="space-y-2">
-                  <Label>Company Logo (file path or description)</Label>
-                  <Input
-                    value={formData.logoPath}
-                    onChange={(e) => updateFormData("logoPath", e.target.value)}
-                    placeholder="Attach file or provide file path"
-                  />
+                  <Label>Company Logo</Label>
+                  <div className="space-y-2">
+                    <Input
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        if (file) {
+                          updateFormData("logoPath", file.name);
+                        }
+                      }}
+                      className="file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-primary-foreground hover:file:bg-primary/90"
+                    />
+                    <p className="text-xs text-muted-foreground">Attach file (JPG, PNG, SVG supported)</p>
+                    {formData.logoPath && (
+                      <p className="text-sm text-green-600">Selected: {formData.logoPath}</p>
+                    )}
+                  </div>
                 </div>
                 <div className="space-y-2">
                   <Label>Logo specifications</Label>
@@ -1065,15 +1244,91 @@ const OnboardingForm = () => {
           </div>
         );
 
+      case 9:
+        return (
+          <div className="space-y-6">
+            <h3 className="text-lg font-semibold text-primary">For Internal Use Only</h3>
+            
+            <div className="space-y-4 p-4 border rounded-lg bg-muted/20">
+              <p className="text-sm text-muted-foreground font-medium">This section is for internal processing only</p>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label>Application ID</Label>
+                  <Input
+                    value={formData.applicationId}
+                    onChange={(e) => updateFormData("applicationId", e.target.value)}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label>Assigned Account Manager</Label>
+                  <Input
+                    value={formData.assignedAccountManager}
+                    onChange={(e) => updateFormData("assignedAccountManager", e.target.value)}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label>Estimated Setup Time</Label>
+                  <Input
+                    value={formData.estimatedSetupTime}
+                    onChange={(e) => updateFormData("estimatedSetupTime", e.target.value)}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label>Priority Level</Label>
+                  <RadioGroup
+                    value={formData.priorityLevel}
+                    onValueChange={(value) => updateFormData("priorityLevel", value)}
+                  >
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="High" id="priority-high" />
+                      <Label htmlFor="priority-high">High</Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="Medium" id="priority-medium" />
+                      <Label htmlFor="priority-medium">Medium</Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="Low" id="priority-low" />
+                      <Label htmlFor="priority-low">Low</Label>
+                    </div>
+                  </RadioGroup>
+                </div>
+                <div className="space-y-2">
+                  <Label>Status</Label>
+                  <RadioGroup
+                    value={formData.status}
+                    onValueChange={(value) => updateFormData("status", value)}
+                  >
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="Received" id="status-received" />
+                      <Label htmlFor="status-received">Received</Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="In Progress" id="status-progress" />
+                      <Label htmlFor="status-progress">In Progress</Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="Completed" id="status-completed" />
+                      <Label htmlFor="status-completed">Completed</Label>
+                    </div>
+                  </RadioGroup>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+
       default:
         return null;
     }
   };
 
   return (
-    <Card className="w-full max-w-6xl mx-auto">
+    <Card className="w-full max-w-6xl mx-auto font-nunito">
       <CardHeader className="text-center pb-4">
         <CardTitle className="text-2xl font-bold text-primary">In-Sync Platform Onboarding Form</CardTitle>
+        <p className="text-sm text-muted-foreground italic">Font: Nunito Sans</p>
         <div className="space-y-2">
           <Progress value={progressPercentage} className="w-full" />
           <p className="text-sm text-muted-foreground">
