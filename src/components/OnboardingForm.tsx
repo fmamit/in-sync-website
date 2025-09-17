@@ -193,7 +193,7 @@ const OnboardingForm = () => {
   };
 
   // Enhanced validation function
-  const validateField = (field: string, value: string, fieldType?: string): boolean => {
+  const validateField = (value: string, fieldType?: string): boolean => {
     if (!value || value.trim() === "") return false;
     
     if (fieldType === "email") {
@@ -204,7 +204,45 @@ const OnboardingForm = () => {
       return validatePhone(value);
     }
     
+    if (fieldType === "number") {
+      return validateNumber(value);
+    }
+    
+    if (fieldType === "positiveNumber") {
+      return validateNumber(value) && parseFloat(value) > 0;
+    }
+    
     return value.trim().length > 0;
+  };
+
+  // Number validation function
+  const validateNumber = (value: string): boolean => {
+    if (!value || value.trim() === "") return false;
+    const number = parseFloat(value.trim());
+    return !isNaN(number) && isFinite(number);
+  };
+
+  // Real-time field validation with visual feedback
+  const getFieldValidationState = (value: string, fieldType?: string, required: boolean = false): "valid" | "invalid" | "neutral" => {
+    if (!required && (!value || value.trim() === "")) return "neutral";
+    if (required && (!value || value.trim() === "")) return "invalid";
+    
+    if (fieldType && !validateField(value, fieldType)) return "invalid";
+    return "valid";
+  };
+
+  const getInputClassName = (value: string, fieldType?: string, required: boolean = false): string => {
+    const baseClass = "transition-colors duration-200";
+    const state = getFieldValidationState(value, fieldType, required);
+    
+    switch (state) {
+      case "valid":
+        return `${baseClass} border-green-500 focus:border-green-600 focus:ring-green-200`;
+      case "invalid":
+        return `${baseClass} border-red-500 focus:border-red-600 focus:ring-red-200`;
+      default:
+        return baseClass;
+    }
   };
 
   const updateFormData = (field: keyof OnboardingData, value: any) => {
@@ -212,29 +250,29 @@ const OnboardingForm = () => {
   };
 
   const updateUserDetail = (index: number, field: keyof UserRow, value: string) => {
-    // Validate email fields in user details
-    if (field === "email" && value && !validateEmail(value)) {
-      toast({
-        title: "Invalid Email Format",
-        description: `Please enter a valid email address for user ${index + 1}.`,
-        variant: "destructive",
-      });
-      return;
-    }
-    
-    // Validate mobile fields in user details
-    if (field === "mobile" && value && !validatePhone(value)) {
-      toast({
-        title: "Invalid Phone Format", 
-        description: `Please enter a valid phone number for user ${index + 1}.`,
-        variant: "destructive",
-      });
-      return;
-    }
-    
+    // Real-time validation for email and phone fields
     const updatedUsers = [...formData.userDetails];
     updatedUsers[index] = { ...updatedUsers[index], [field]: value };
     updateFormData("userDetails", updatedUsers);
+
+    // Show validation toast only for completed fields that are invalid
+    if (value && value.trim() !== "") {
+      if (field === "email" && !validateEmail(value)) {
+        toast({
+          title: "Invalid Email Format",
+          description: `Please enter a valid email address for user ${index + 1}.`,
+          variant: "destructive",
+        });
+      }
+      
+      if (field === "mobile" && !validatePhone(value)) {
+        toast({
+          title: "Invalid Phone Format", 
+          description: `Please enter a valid phone number for user ${index + 1}.`,
+          variant: "destructive",
+        });
+      }
+    }
   };
 
   const updateDepartment = (index: number, value: string) => {
@@ -261,8 +299,8 @@ const OnboardingForm = () => {
   const validateSection = (section: number): boolean => {
     switch (section) {
       case 1:
-        // Validate company information with proper email and phone validation
-        if (!validateField(formData.companyName, formData.companyName)) {
+        // Validate company information with proper validation
+        if (!validateField(formData.companyName)) {
           toast({
             title: "Company Name Required",
             description: "Please enter your company name.",
@@ -271,7 +309,7 @@ const OnboardingForm = () => {
           return false;
         }
         
-        if (!validateField(formData.companyAddress, formData.companyAddress)) {
+        if (!validateField(formData.companyAddress)) {
           toast({
             title: "Company Address Required", 
             description: "Please enter your company address.",
@@ -280,7 +318,7 @@ const OnboardingForm = () => {
           return false;
         }
         
-        if (!validateField(formData.industryType, formData.industryType)) {
+        if (!validateField(formData.industryType)) {
           toast({
             title: "Industry Type Required",
             description: "Please specify your industry type.",
@@ -289,7 +327,7 @@ const OnboardingForm = () => {
           return false;
         }
         
-        if (!validateField(formData.contactPersonName, formData.contactPersonName)) {
+        if (!validateField(formData.contactPersonName)) {
           toast({
             title: "Contact Person Name Required",
             description: "Please enter the contact person's full name.",
@@ -298,7 +336,7 @@ const OnboardingForm = () => {
           return false;
         }
         
-        if (!validateField(formData.contactPersonEmail, formData.contactPersonEmail, "email")) {
+        if (!validateField(formData.contactPersonEmail, "email")) {
           toast({
             title: "Invalid Email Address",
             description: "Please enter a valid email address (e.g., user@company.com).",
@@ -307,7 +345,7 @@ const OnboardingForm = () => {
           return false;
         }
         
-        if (!validateField(formData.contactPersonMobile, formData.contactPersonMobile, "phone")) {
+        if (!validateField(formData.contactPersonMobile, "phone")) {
           toast({
             title: "Invalid Phone Number",
             description: "Please enter a valid phone number (at least 10 digits, can include country code).",
@@ -316,6 +354,18 @@ const OnboardingForm = () => {
           return false;
         }
         
+        return true;
+        
+      case 2:
+        // Validate total users if provided
+        if (formData.totalUsers && !validateField(formData.totalUsers, "positiveNumber")) {
+          toast({
+            title: "Invalid User Count",
+            description: "Please enter a valid positive number for total users.",
+            variant: "destructive",
+          });
+          return false;
+        }
         return true;
         
       default:
@@ -340,6 +390,61 @@ const OnboardingForm = () => {
   };
 
   const generatePDF = () => {
+    // Comprehensive validation before PDF generation
+    const validationErrors: string[] = [];
+    
+    // Validate required fields
+    if (!formData.companyName) validationErrors.push("Company Name is required");
+    if (!formData.companyAddress) validationErrors.push("Company Address is required");
+    if (!formData.industryType) validationErrors.push("Industry Type is required");
+    if (!formData.contactPersonName) validationErrors.push("Contact Person Name is required");
+    if (!formData.contactPersonEmail) validationErrors.push("Contact Person Email is required");
+    else if (!validateEmail(formData.contactPersonEmail)) validationErrors.push("Contact Person Email is invalid");
+    if (!formData.contactPersonMobile) validationErrors.push("Contact Person Mobile is required");
+    else if (!validatePhone(formData.contactPersonMobile)) validationErrors.push("Contact Person Mobile is invalid");
+    
+    // Validate numeric fields
+    if (formData.totalUsers && !validateField(formData.totalUsers, "positiveNumber")) {
+      validationErrors.push("Total Users must be a valid positive number");
+    }
+    if (formData.callingUsers && !validateField(formData.callingUsers, "positiveNumber")) {
+      validationErrors.push("Calling Users must be a valid positive number");
+    }
+    if (formData.callingChannels && !validateField(formData.callingChannels, "positiveNumber")) {
+      validationErrors.push("Calling Channels must be a valid positive number");
+    }
+    if (formData.smsVolume && !validateField(formData.smsVolume, "positiveNumber")) {
+      validationErrors.push("SMS Volume must be a valid positive number");
+    }
+    
+    // Validate email fields
+    if (formData.outboundEmail && !validateEmail(formData.outboundEmail)) {
+      validationErrors.push("Outbound Email ID is invalid");
+    }
+    if (formData.inboundEmail && !validateEmail(formData.inboundEmail)) {
+      validationErrors.push("Inbound Email ID is invalid");
+    }
+    
+    // Validate user details
+    formData.userDetails.forEach((user, index) => {
+      if (user.email && !validateEmail(user.email)) {
+        validationErrors.push(`User ${index + 1} email is invalid`);
+      }
+      if (user.mobile && !validatePhone(user.mobile)) {
+        validationErrors.push(`User ${index + 1} mobile number is invalid`);
+      }
+    });
+    
+    // Show validation errors if any
+    if (validationErrors.length > 0) {
+      toast({
+        title: "Validation Errors Found",
+        description: `Please fix the following issues:\n• ${validationErrors.slice(0, 3).join('\n• ')}${validationErrors.length > 3 ? `\n• ...and ${validationErrors.length - 3} more` : ''}`,
+        variant: "destructive",
+      });
+      return;
+    }
+
     const doc = new jsPDF();
     const pageHeight = doc.internal.pageSize.height;
     let yPosition = 20;
@@ -570,58 +675,96 @@ const OnboardingForm = () => {
             <h3 className="text-lg font-semibold text-primary">Company Information</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="companyName">Company Name *</Label>
+                <Label htmlFor="companyName" className="flex items-center gap-1">
+                  Company Name <span className="text-red-500">*</span>
+                  {getFieldValidationState(formData.companyName, undefined, true) === "valid" && (
+                    <span className="text-green-500 text-sm">✓</span>
+                  )}
+                </Label>
                 <Input
                   id="companyName"
                   value={formData.companyName}
                   onChange={(e) => updateFormData("companyName", e.target.value)}
+                  className={getInputClassName(formData.companyName, undefined, true)}
                   required
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="industryType">Industry Type *</Label>
+                <Label htmlFor="industryType" className="flex items-center gap-1">
+                  Industry Type <span className="text-red-500">*</span>
+                  {getFieldValidationState(formData.industryType, undefined, true) === "valid" && (
+                    <span className="text-green-500 text-sm">✓</span>
+                  )}
+                </Label>
                 <Input
                   id="industryType"
                   value={formData.industryType}
                   onChange={(e) => updateFormData("industryType", e.target.value)}
+                  className={getInputClassName(formData.industryType, undefined, true)}
                   required
                 />
               </div>
               <div className="space-y-2 md:col-span-2">
-                <Label htmlFor="companyAddress">Company Address *</Label>
+                <Label htmlFor="companyAddress" className="flex items-center gap-1">
+                  Company Address <span className="text-red-500">*</span>
+                  {getFieldValidationState(formData.companyAddress, undefined, true) === "valid" && (
+                    <span className="text-green-500 text-sm">✓</span>
+                  )}
+                </Label>
                 <Textarea
                   id="companyAddress"
                   value={formData.companyAddress}
                   onChange={(e) => updateFormData("companyAddress", e.target.value)}
+                  className={getInputClassName(formData.companyAddress, undefined, true)}
                   required
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="contactPersonName">Contact Person Name *</Label>
+                <Label htmlFor="contactPersonName" className="flex items-center gap-1">
+                  Contact Person Name <span className="text-red-500">*</span>
+                  {getFieldValidationState(formData.contactPersonName, undefined, true) === "valid" && (
+                    <span className="text-green-500 text-sm">✓</span>
+                  )}
+                </Label>
                 <Input
                   id="contactPersonName"
                   value={formData.contactPersonName}
                   onChange={(e) => updateFormData("contactPersonName", e.target.value)}
+                  className={getInputClassName(formData.contactPersonName, undefined, true)}
                   required
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="contactPersonEmail">Contact Person Email *</Label>
+                <Label htmlFor="contactPersonEmail" className="flex items-center gap-1">
+                  Contact Person Email <span className="text-red-500">*</span>
+                  {getFieldValidationState(formData.contactPersonEmail, "email", true) === "valid" && (
+                    <span className="text-green-500 text-sm">✓</span>
+                  )}
+                </Label>
                 <Input
                   id="contactPersonEmail"
                   type="email"
                   value={formData.contactPersonEmail}
                   onChange={(e) => updateFormData("contactPersonEmail", e.target.value)}
+                  className={getInputClassName(formData.contactPersonEmail, "email", true)}
+                  placeholder="user@company.com"
                   required
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="contactPersonMobile">Contact Person Mobile *</Label>
+                <Label htmlFor="contactPersonMobile" className="flex items-center gap-1">
+                  Contact Person Mobile <span className="text-red-500">*</span>
+                  {getFieldValidationState(formData.contactPersonMobile, "phone", true) === "valid" && (
+                    <span className="text-green-500 text-sm">✓</span>
+                  )}
+                </Label>
                 <Input
                   id="contactPersonMobile"
                   type="tel"
                   value={formData.contactPersonMobile}
                   onChange={(e) => updateFormData("contactPersonMobile", e.target.value)}
+                  className={getInputClassName(formData.contactPersonMobile, "phone", true)}
+                  placeholder="+1234567890"
                   required
                 />
               </div>
@@ -635,13 +778,27 @@ const OnboardingForm = () => {
             <h3 className="text-lg font-semibold text-primary">User Management</h3>
             <div className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="totalUsers">Total Number of Users</Label>
+                <Label htmlFor="totalUsers" className="flex items-center gap-1">
+                  Total Number of Users
+                  {getFieldValidationState(formData.totalUsers, "positiveNumber") === "valid" && (
+                    <span className="text-green-500 text-sm">✓</span>
+                  )}
+                  {getFieldValidationState(formData.totalUsers, "positiveNumber") === "invalid" && (
+                    <span className="text-red-500 text-sm">✗</span>
+                  )}
+                </Label>
                 <Input
                   id="totalUsers"
                   type="number"
+                  min="1"
                   value={formData.totalUsers}
                   onChange={(e) => updateFormData("totalUsers", e.target.value)}
+                  className={getInputClassName(formData.totalUsers, "positiveNumber")}
+                  placeholder="Enter number of users"
                 />
+                {formData.totalUsers && !validateField(formData.totalUsers, "positiveNumber") && (
+                  <p className="text-sm text-red-500">Please enter a valid positive number</p>
+                )}
               </div>
               
               <div className="space-y-4">
@@ -672,14 +829,24 @@ const OnboardingForm = () => {
                               type="email"
                               value={user.email}
                               onChange={(e) => updateUserDetail(index, "email", e.target.value)}
+                              className={getInputClassName(user.email, "email")}
+                              placeholder="user@company.com"
                             />
+                            {user.email && !validateEmail(user.email) && (
+                              <p className="text-xs text-red-500 mt-1">Invalid email format</p>
+                            )}
                           </td>
                           <td className="border border-border p-2">
                             <Input
                               type="tel"
                               value={user.mobile}
                               onChange={(e) => updateUserDetail(index, "mobile", e.target.value)}
+                              className={getInputClassName(user.mobile, "phone")}
+                              placeholder="+1234567890"
                             />
+                            {user.mobile && !validatePhone(user.mobile) && (
+                              <p className="text-xs text-red-500 mt-1">Invalid phone format</p>
+                            )}
                           </td>
                           <td className="border border-border p-2">
                             <Input
@@ -781,18 +948,42 @@ const OnboardingForm = () => {
                 <div className="space-y-4 ml-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label>Number of users requiring calling access</Label>
+                      <Label className="flex items-center gap-1">
+                        Number of users requiring calling access
+                        {getFieldValidationState(formData.callingUsers, "positiveNumber") === "valid" && (
+                          <span className="text-green-500 text-sm">✓</span>
+                        )}
+                      </Label>
                       <Input
+                        type="number"
+                        min="1"
                         value={formData.callingUsers}
                         onChange={(e) => updateFormData("callingUsers", e.target.value)}
+                        className={getInputClassName(formData.callingUsers, "positiveNumber")}
+                        placeholder="e.g., 10"
                       />
+                      {formData.callingUsers && !validateField(formData.callingUsers, "positiveNumber") && (
+                        <p className="text-xs text-red-500">Please enter a valid positive number</p>
+                      )}
                     </div>
                     <div className="space-y-2">
-                      <Label>Number of channels needed</Label>
+                      <Label className="flex items-center gap-1">
+                        Number of channels needed
+                        {getFieldValidationState(formData.callingChannels, "positiveNumber") === "valid" && (
+                          <span className="text-green-500 text-sm">✓</span>
+                        )}
+                      </Label>
                       <Input
+                        type="number"
+                        min="1"
                         value={formData.callingChannels}
                         onChange={(e) => updateFormData("callingChannels", e.target.value)}
+                        className={getInputClassName(formData.callingChannels, "positiveNumber")}
+                        placeholder="e.g., 5"
                       />
+                      {formData.callingChannels && !validateField(formData.callingChannels, "positiveNumber") && (
+                        <p className="text-xs text-red-500">Please enter a valid positive number</p>
+                      )}
                     </div>
                   </div>
                   
@@ -835,21 +1026,44 @@ const OnboardingForm = () => {
                       <Input
                         value={formData.emailDomain}
                         onChange={(e) => updateFormData("emailDomain", e.target.value)}
+                        placeholder="company.com"
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label>Outbound Email ID</Label>
+                      <Label className="flex items-center gap-1">
+                        Outbound Email ID
+                        {getFieldValidationState(formData.outboundEmail, "email") === "valid" && (
+                          <span className="text-green-500 text-sm">✓</span>
+                        )}
+                      </Label>
                       <Input
+                        type="email"
                         value={formData.outboundEmail}
                         onChange={(e) => updateFormData("outboundEmail", e.target.value)}
+                        className={getInputClassName(formData.outboundEmail, "email")}
+                        placeholder="noreply@company.com"
                       />
+                      {formData.outboundEmail && !validateEmail(formData.outboundEmail) && (
+                        <p className="text-xs text-red-500">Please enter a valid email address</p>
+                      )}
                     </div>
                     <div className="space-y-2">
-                      <Label>Inbound Email ID</Label>
+                      <Label className="flex items-center gap-1">
+                        Inbound Email ID
+                        {getFieldValidationState(formData.inboundEmail, "email") === "valid" && (
+                          <span className="text-green-500 text-sm">✓</span>
+                        )}
+                      </Label>
                       <Input
+                        type="email"
                         value={formData.inboundEmail}
                         onChange={(e) => updateFormData("inboundEmail", e.target.value)}
+                        className={getInputClassName(formData.inboundEmail, "email")}
+                        placeholder="support@company.com"
                       />
+                      {formData.inboundEmail && !validateEmail(formData.inboundEmail) && (
+                        <p className="text-xs text-red-500">Please enter a valid email address</p>
+                      )}
                     </div>
                   </div>
                   <div className="space-y-2">
@@ -935,11 +1149,23 @@ const OnboardingForm = () => {
               {formData.smsService && (
                 <div className="space-y-4 ml-6">
                   <div className="space-y-2">
-                    <Label>Expected monthly SMS volume</Label>
+                    <Label className="flex items-center gap-1">
+                      Expected monthly SMS volume
+                      {getFieldValidationState(formData.smsVolume, "positiveNumber") === "valid" && (
+                        <span className="text-green-500 text-sm">✓</span>
+                      )}
+                    </Label>
                     <Input
+                      type="number"
+                      min="1"
                       value={formData.smsVolume}
                       onChange={(e) => updateFormData("smsVolume", e.target.value)}
+                      className={getInputClassName(formData.smsVolume, "positiveNumber")}
+                      placeholder="e.g., 1000"
                     />
+                    {formData.smsVolume && !validateField(formData.smsVolume, "positiveNumber") && (
+                      <p className="text-xs text-red-500">Please enter a valid positive number</p>
+                    )}
                   </div>
                   
                   <div className="space-y-2">
