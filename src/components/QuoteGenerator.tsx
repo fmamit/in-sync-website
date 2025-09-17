@@ -22,13 +22,16 @@ import insyncLogo from "@/assets/insync-logo-color.png";
 interface QuoteData {
   selectedPlan: string;
   planPrice: number;
-  currency: "USD" | "INR";
   billingCycle: "monthly" | "annual";
   selectedModules: string[];
   modulePrice: number;
-  messageVolume: number;
-  messagingCost: number;
-  callMinutes: number;
+  smsVolume: number;
+  smsCost: number;
+  whatsappVolume: number;
+  whatsappCost: number;
+  emailVolume: number;
+  emailCost: number;
+  callingChannels: number;
   callingCost: number;
   subtotal: number;
   discount: number;
@@ -51,8 +54,7 @@ const QuoteGenerator = ({ quoteData, className = "" }: QuoteGeneratorProps) => {
   const { toast } = useToast();
 
   const formatCurrency = (amount: number) => {
-    const symbol = quoteData.currency === "USD" ? "$" : "₹";
-    return `${symbol}${amount.toLocaleString()}`;
+    return `₹${amount.toLocaleString()}`;
   };
 
   const generateQuoteHTML = () => {
@@ -177,21 +179,28 @@ const QuoteGenerator = ({ quoteData, className = "" }: QuoteGeneratorProps) => {
                 <span>${formatCurrency(quoteData.modulePrice)}</span>
             </div>` : ''}
 
-            ${quoteData.messageVolume > 0 ? `
+            ${(quoteData.smsVolume > 0 || quoteData.whatsappVolume > 0 || quoteData.emailVolume > 0) ? `
             <div class="cost-item">
-                <span>Messaging Services<br><small>${quoteData.messageVolume.toLocaleString()} messages ${quoteData.billingCycle === 'annual' ? '× 12 months' : 'per month'}</small></span>
-                <span>${formatCurrency(quoteData.messagingCost)}</span>
+                <div>
+                    <strong>Communication Services</strong>
+                    <div class="modules-list">
+                        ${quoteData.smsVolume > 0 ? `• SMS: ${quoteData.smsVolume.toLocaleString()} messages` : ''}
+                        ${quoteData.whatsappVolume > 0 ? `• WhatsApp: ${quoteData.whatsappVolume.toLocaleString()} messages` : ''}
+                        ${quoteData.emailVolume > 0 ? `• Email: ${quoteData.emailVolume.toLocaleString()} messages` : ''}
+                    </div>
+                </div>
+                <span>${formatCurrency(quoteData.smsCost + quoteData.whatsappCost + quoteData.emailCost)}</span>
             </div>` : ''}
 
-            ${quoteData.callMinutes > 0 ? `
+            ${quoteData.callingChannels > 0 ? `
             <div class="cost-item">
-                <span>Voice Calling<br><small>${quoteData.callMinutes.toLocaleString()} minutes ${quoteData.billingCycle === 'annual' ? '× 12 months' : 'per month'}</small></span>
+                <span>Voice Calling<br><small>${quoteData.callingChannels} channels ${quoteData.billingCycle === 'annual' ? '× 12 months' : 'per month'}</small></span>
                 <span>${formatCurrency(quoteData.callingCost)}</span>
             </div>` : ''}
 
             ${quoteData.discount > 0 ? `
             <div class="cost-item" style="color: #059669;">
-                <span><strong>Annual Discount (20%)</strong></span>
+                <span><strong>Annual Discount (4%)</strong></span>
                 <span>-${formatCurrency(quoteData.discount)}</span>
             </div>` : ''}
 

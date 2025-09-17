@@ -24,65 +24,75 @@ interface CostCalculatorProps {
 }
 
 const CostCalculator = ({ className = "" }: CostCalculatorProps) => {
-  const [selectedPlan, setSelectedPlan] = useState<"starter" | "growth" | "scale">("growth");
+  const [selectedPlan, setSelectedPlan] = useState<"starter" | "growth" | "scale" | "enterprise">("growth");
   const [billingCycle, setBillingCycle] = useState<"monthly" | "annual">("monthly");
-  const [currency, setCurrency] = useState<"USD" | "INR">("INR");
   const [selectedModules, setSelectedModules] = useState<string[]>([]);
-  const [messageVolume, setMessageVolume] = useState<number>(1000);
-  const [callMinutes, setCallMinutes] = useState<number>(500);
+  const [smsVolume, setSmsVolume] = useState<number>(1000);
+  const [whatsappVolume, setWhatsappVolume] = useState<number>(500);
+  const [emailVolume, setEmailVolume] = useState<number>(2000);
+  const [callingChannels, setCallingChannels] = useState<number>(1);
   const [teamSize, setTeamSize] = useState<number>(10);
 
   const plans = {
     starter: {
       name: "Starter",
-      price: { USD: { monthly: 0, annual: 0 }, INR: { monthly: 0, annual: 0 } },
-      records: "1,000"
+      price: { monthly: 0, annual: 0 },
+      records: "Up to 1,000"
     },
     growth: {
       name: "Growth", 
-      price: { USD: { monthly: 199, annual: 1590 }, INR: { monthly: 14999, annual: 119992 } },
-      records: "100,000"
+      price: { monthly: 12999, annual: 124790 },
+      records: "10K - 1L"
     },
     scale: {
       name: "Scale",
-      price: { USD: { monthly: 999, annual: 7992 }, INR: { monthly: 74999, annual: 599992 } },
-      records: "Unlimited"
+      price: { monthly: 37999, annual: 364790 },
+      records: "1L - 5L"
+    },
+    enterprise: {
+      name: "Enterprise",
+      price: { monthly: 75000, annual: 720000 },
+      records: "5L+"
     }
   };
 
   const addOnModules = [
-    { id: "analytics", name: "Advanced Analytics", price: { USD: 99, INR: 7499 }, icon: TrendingUp },
-    { id: "workflow", name: "Custom Workflow Builder", price: { USD: 99, INR: 7499 }, icon: Zap },
-    { id: "api", name: "API Access & Webhooks", price: { USD: 99, INR: 7499 }, icon: Zap },
-    { id: "branding", name: "White-label Branding", price: { USD: 99, INR: 7499 }, icon: Zap },
-    { id: "security", name: "Advanced Security", price: { USD: 99, INR: 7499 }, icon: Zap },
-    { id: "integrations", name: "Custom Integrations", price: { USD: 99, INR: 7499 }, icon: Zap }
+    { id: "analytics", name: "Advanced Analytics", price: 1000, icon: TrendingUp },
+    { id: "workflow", name: "Custom Workflow Builder", price: 1000, icon: Zap },
+    { id: "api", name: "API Access & Webhooks", price: 1000, icon: Zap },
+    { id: "branding", name: "White-label Branding", price: 1000, icon: Zap },
+    { id: "security", name: "Advanced Security", price: 1000, icon: Zap },
+    { id: "fieldforce", name: "Field Force Management", price: 1000, icon: Users }
   ];
 
   // Pricing calculations
-  const basePlanCost = plans[selectedPlan].price[currency][billingCycle];
-  const modulesCost = selectedModules.length * addOnModules[0].price[currency] * (billingCycle === "annual" ? 12 : 1);
-  const messagingCost = messageVolume * (currency === "USD" ? 0.01 : 0.75) * (billingCycle === "annual" ? 12 : 1);
+  const basePlanCost = plans[selectedPlan].price[billingCycle];
+  const modulesCost = selectedModules.length * addOnModules[0].price * (billingCycle === "annual" ? 12 : 1);
   
-  // Call pricing (estimated rates)
-  const callRate = currency === "USD" ? 0.05 : 2.5; // per minute
-  const callingCost = callMinutes * callRate * (billingCycle === "annual" ? 12 : 1);
+  // Communication costs
+  const smsCost = smsVolume * 0.12 * (billingCycle === "annual" ? 12 : 1);
+  const whatsappCost = whatsappVolume * 0.05 * (billingCycle === "annual" ? 12 : 1);
+  const emailCost = emailVolume * 0.05 * (billingCycle === "annual" ? 12 : 1);
+  const callingCost = callingChannels * 1500 * (billingCycle === "annual" ? 12 : 1);
 
-  const subtotal = basePlanCost + modulesCost + messagingCost + callingCost;
-  const annualDiscount = billingCycle === "annual" && subtotal > 0 ? subtotal * 0.2 : 0;
+  const subtotal = basePlanCost + modulesCost + smsCost + whatsappCost + emailCost + callingCost;
+  const annualDiscount = billingCycle === "annual" && subtotal > 0 ? subtotal * 0.04 : 0; // 4% annual discount
   const totalCost = subtotal - annualDiscount;
 
   // Prepare quote data for generation
   const quoteData = {
     selectedPlan: plans[selectedPlan].name,
     planPrice: basePlanCost,
-    currency,
     billingCycle,
     selectedModules: selectedModules.map(id => addOnModules.find(m => m.id === id)?.name || id),
     modulePrice: modulesCost,
-    messageVolume,
-    messagingCost,
-    callMinutes,
+    smsVolume,
+    smsCost,
+    whatsappVolume,
+    whatsappCost,
+    emailVolume,
+    emailCost,
+    callingChannels,
     callingCost,
     subtotal,
     discount: annualDiscount,
@@ -91,8 +101,7 @@ const CostCalculator = ({ className = "" }: CostCalculatorProps) => {
   };
 
   const formatCurrency = (amount: number) => {
-    const symbol = currency === "USD" ? "$" : "₹";
-    return `${symbol}${amount.toLocaleString()}`;
+    return `₹${amount.toLocaleString()}`;
   };
 
   const handleModuleToggle = (moduleId: string) => {
@@ -128,28 +137,17 @@ const CostCalculator = ({ className = "" }: CostCalculatorProps) => {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label>Currency</Label>
-                  <Tabs value={currency} onValueChange={(value) => setCurrency(value as "USD" | "INR")}>
-                    <TabsList className="grid w-full grid-cols-2">
-                      <TabsTrigger value="USD">USD ($)</TabsTrigger>
-                      <TabsTrigger value="INR">INR (₹)</TabsTrigger>
-                    </TabsList>
-                  </Tabs>
-                </div>
-                <div className="space-y-2">
-                  <Label>Billing Cycle</Label>
-                  <Tabs value={billingCycle} onValueChange={(value) => setBillingCycle(value as "monthly" | "annual")}>
-                    <TabsList className="grid w-full grid-cols-2">
-                      <TabsTrigger value="monthly">Monthly</TabsTrigger>
-                      <TabsTrigger value="annual">
-                        Annual
-                        <Badge variant="secondary" className="ml-2 text-xs">-20%</Badge>
-                      </TabsTrigger>
-                    </TabsList>
-                  </Tabs>
-                </div>
+              <div className="space-y-2">
+                <Label>Billing Cycle</Label>
+                <Tabs value={billingCycle} onValueChange={(value) => setBillingCycle(value as "monthly" | "annual")}>
+                  <TabsList className="grid w-full grid-cols-2">
+                    <TabsTrigger value="monthly">Monthly</TabsTrigger>
+                    <TabsTrigger value="annual">
+                      Annual
+                      <Badge variant="secondary" className="ml-2 text-xs">-4%</Badge>
+                    </TabsTrigger>
+                  </TabsList>
+                </Tabs>
               </div>
             </CardContent>
           </Card>
@@ -163,7 +161,7 @@ const CostCalculator = ({ className = "" }: CostCalculatorProps) => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 {Object.entries(plans).map(([key, plan]) => (
                   <div
                     key={key}
@@ -174,8 +172,8 @@ const CostCalculator = ({ className = "" }: CostCalculatorProps) => {
                   >
                     <div className="text-center">
                       <h3 className="font-semibold mb-2">{plan.name}</h3>
-                      <div className="text-2xl font-bold text-primary mb-1">
-                        {formatCurrency(plan.price[currency][billingCycle])}
+                      <div className="text-xl font-bold text-primary mb-1">
+                        {formatCurrency(plan.price[billingCycle])}
                       </div>
                       <div className="text-sm text-muted-foreground">
                         {billingCycle === 'monthly' ? '/month' : '/year'}
@@ -242,7 +240,7 @@ const CostCalculator = ({ className = "" }: CostCalculatorProps) => {
                         {module.name}
                       </Label>
                       <div className="text-sm text-muted-foreground">
-                        {formatCurrency(module.price[currency])}/month
+                        {formatCurrency(module.price)}/month
                       </div>
                     </div>
                   </div>
@@ -256,40 +254,68 @@ const CostCalculator = ({ className = "" }: CostCalculatorProps) => {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <MessageSquare className="w-5 h-5" />
-                Usage Estimates
+                Communication Usage
               </CardTitle>
               <CardDescription>
-                Estimate your monthly usage for additional services
+                Estimate your monthly communication usage for cost calculation
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="messages">Messages per month</Label>
+                  <Label htmlFor="sms">SMS messages per month</Label>
                   <Input
-                    id="messages"
+                    id="sms"
                     type="number"
-                    value={messageVolume}
-                    onChange={(e) => setMessageVolume(Number(e.target.value) || 0)}
+                    value={smsVolume}
+                    onChange={(e) => setSmsVolume(Number(e.target.value) || 0)}
                     min="0"
                     placeholder="1000"
                   />
                   <div className="text-xs text-muted-foreground">
-                    SMS, WhatsApp, Email messages
+                    ₹0.12 per SMS message
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="calls">Call minutes per month</Label>
+                  <Label htmlFor="whatsapp">WhatsApp messages per month</Label>
                   <Input
-                    id="calls"
+                    id="whatsapp"
                     type="number"
-                    value={callMinutes}
-                    onChange={(e) => setCallMinutes(Number(e.target.value) || 0)}
+                    value={whatsappVolume}
+                    onChange={(e) => setWhatsappVolume(Number(e.target.value) || 0)}
                     min="0"
                     placeholder="500"
                   />
                   <div className="text-xs text-muted-foreground">
-                    Estimated calling minutes
+                    ₹0.05 above Meta's rate per message
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="email">Email messages per month</Label>
+                  <Input
+                    id="email"
+                    type="number"
+                    value={emailVolume}
+                    onChange={(e) => setEmailVolume(Number(e.target.value) || 0)}
+                    min="0"
+                    placeholder="2000"
+                  />
+                  <div className="text-xs text-muted-foreground">
+                    ₹0.05 per email sent
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="calling">Calling channels</Label>
+                  <Input
+                    id="calling"
+                    type="number"
+                    value={callingChannels}
+                    onChange={(e) => setCallingChannels(Number(e.target.value) || 0)}
+                    min="0"
+                    placeholder="1"
+                  />
+                  <div className="text-xs text-muted-foreground">
+                    ₹1,500 per channel per month
                   </div>
                 </div>
               </div>
@@ -331,7 +357,7 @@ const CostCalculator = ({ className = "" }: CostCalculatorProps) => {
                       return (
                         <div key={moduleId} className="flex justify-between text-sm">
                           <span>{module?.name}</span>
-                          <span>{formatCurrency(module!.price[currency] * (billingCycle === "annual" ? 12 : 1))}</span>
+                          <span>{formatCurrency(module!.price * (billingCycle === "annual" ? 12 : 1))}</span>
                         </div>
                       );
                     })}
@@ -339,38 +365,36 @@ const CostCalculator = ({ className = "" }: CostCalculatorProps) => {
                 </>
               )}
 
-              {/* Messaging */}
-              {messageVolume > 0 && (
+              {/* Communication Services */}
+              {(smsVolume > 0 || whatsappVolume > 0 || emailVolume > 0 || callingChannels > 0) && (
                 <>
                   <Separator />
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <div className="font-medium">Messaging</div>
-                      <div className="text-sm text-muted-foreground">
-                        {messageVolume.toLocaleString()} messages × {billingCycle === "annual" ? "12 months" : "1 month"}
+                  <div className="space-y-2">
+                    <div className="font-medium">Communication Services</div>
+                    {smsVolume > 0 && (
+                      <div className="flex justify-between text-sm">
+                        <span>SMS ({smsVolume.toLocaleString()}/mo)</span>
+                        <span>{formatCurrency(smsCost)}</span>
                       </div>
-                    </div>
-                    <div className="text-right">
-                      <div className="font-semibold">{formatCurrency(messagingCost)}</div>
-                    </div>
-                  </div>
-                </>
-              )}
-
-              {/* Calling */}
-              {callMinutes > 0 && (
-                <>
-                  <Separator />
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <div className="font-medium">Voice Calling</div>
-                      <div className="text-sm text-muted-foreground">
-                        {callMinutes.toLocaleString()} minutes × {billingCycle === "annual" ? "12 months" : "1 month"}
+                    )}
+                    {whatsappVolume > 0 && (
+                      <div className="flex justify-between text-sm">
+                        <span>WhatsApp ({whatsappVolume.toLocaleString()}/mo)</span>
+                        <span>{formatCurrency(whatsappCost)}</span>
                       </div>
-                    </div>
-                    <div className="text-right">
-                      <div className="font-semibold">{formatCurrency(callingCost)}</div>
-                    </div>
+                    )}
+                    {emailVolume > 0 && (
+                      <div className="flex justify-between text-sm">
+                        <span>Email ({emailVolume.toLocaleString()}/mo)</span>
+                        <span>{formatCurrency(emailCost)}</span>
+                      </div>
+                    )}
+                    {callingChannels > 0 && (
+                      <div className="flex justify-between text-sm">
+                        <span>Calling ({callingChannels} channels)</span>
+                        <span>{formatCurrency(callingCost)}</span>
+                      </div>
+                    )}
                   </div>
                 </>
               )}
@@ -380,7 +404,7 @@ const CostCalculator = ({ className = "" }: CostCalculatorProps) => {
               {/* Annual Discount */}
               {billingCycle === "annual" && annualDiscount > 0 && (
                 <div className="flex items-center justify-between text-green-600">
-                  <div className="font-medium">Annual Discount (20%)</div>
+                  <div className="font-medium">Annual Discount (4%)</div>
                   <div className="font-semibold">-{formatCurrency(annualDiscount)}</div>
                 </div>
               )}

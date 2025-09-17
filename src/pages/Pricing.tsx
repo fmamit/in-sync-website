@@ -25,25 +25,22 @@ import Footer from "@/components/Footer";
 
 const Pricing = () => {
   const [billingCycle, setBillingCycle] = useState<"monthly" | "annual">("monthly");
-  const [currency, setCurrency] = useState<"USD" | "INR">("INR");
   const [showCalculator, setShowCalculator] = useState(false);
 
   const plans = [
     {
       name: "Starter",
-      price: { 
-        USD: { monthly: 0, annual: 0 },
-        INR: { monthly: 0, annual: 0 }
-      },
+      price: { monthly: 0, annual: 0 },
       originalPrice: null,
       description: "Perfect for small teams getting started",
       badge: "Free Forever",
       badgeColor: "bg-green-500",
+      records: "Up to 1,000 records",
       features: [
         "Basic CRM & Contact Management",
         "Task Reminders & Notifications", 
         "Lead Status Tracking",
-        "Up to 1,000 records",
+        "Up to 1,000 active records",
         "Unlimited users",
         "Email support",
         "Basic reporting",
@@ -54,17 +51,12 @@ const Pricing = () => {
     },
     {
       name: "Growth", 
-      price: { 
-        USD: { monthly: 199, annual: 1590 },
-        INR: { monthly: 14999, annual: 119992 } // ₹14,999/month, ₹1,19,992/year (20% discount)
-      },
-      originalPrice: { 
-        USD: { monthly: null, annual: 2388 },
-        INR: { monthly: null, annual: 179988 }
-      },
-      description: "For growing businesses that need automation",
+      price: { monthly: 12999, annual: 124790 }, // ₹12,999/month, 4% annual discount
+      originalPrice: { monthly: null, annual: 155988 },
+      description: "For growing businesses with moderate data volume",
       badge: "Most Popular",
       badgeColor: "bg-primary",
+      records: "10,000 to 1,00,000 records",
       features: [
         "Everything in Starter",
         "Campaign Automation & Marketing",
@@ -72,7 +64,7 @@ const Pricing = () => {
         "Support Ticket Management", 
         "Workflow Journeys & Automation",
         "Mobile app with offline sync",
-        "Up to 100,000 records",
+        "10,000 to 1,00,000 active records",
         "Priority support",
         "Advanced analytics",
         "Custom fields & forms"
@@ -82,17 +74,12 @@ const Pricing = () => {
     },
     {
       name: "Scale",
-      price: { 
-        USD: { monthly: 999, annual: 7992 },
-        INR: { monthly: 74999, annual: 599992 } // ₹74,999/month, ₹5,99,992/year (20% discount)
-      },
-      originalPrice: { 
-        USD: { monthly: null, annual: 11988 },
-        INR: { monthly: null, annual: 899988 }
-      },
-      description: "Enterprise-grade solution for scaling businesses",
-      badge: "Enterprise",
-      badgeColor: "bg-purple-500",
+      price: { monthly: 37999, annual: 364790 }, // ₹37,999/month, 4% annual discount
+      originalPrice: { monthly: null, annual: 455988 },
+      description: "For large organizations with extensive data needs",
+      badge: "Advanced",
+      badgeColor: "bg-blue-500",
+      records: "1,00,001 to 5,00,000 records",
       features: [
         "Everything in Growth",
         "Custom BI Dashboards & Reports",
@@ -100,11 +87,33 @@ const Pricing = () => {
         "Inventory & Order Management",
         "Calling & IVR capabilities", 
         "Advanced workflow builder",
-        "Unlimited records",
+        "1,00,001 to 5,00,000 active records",
         "24/7 premium support",
         "Custom integrations",
-        "Dedicated account manager",
-        "SLA guarantees"
+        "Dedicated account manager"
+      ],
+      cta: "Start Scale Plan",
+      popular: false
+    },
+    {
+      name: "Enterprise",
+      price: { monthly: 75000, annual: 720000 }, // ₹75,000/month, 4% annual discount
+      originalPrice: { monthly: null, annual: 900000 },
+      description: "Enterprise solution for unlimited scale",
+      badge: "Enterprise",
+      badgeColor: "bg-purple-500",
+      records: "Above 5,00,000 records",
+      features: [
+        "Everything in Scale",
+        "Unlimited active records",
+        "White-label solutions",
+        "Custom development",
+        "On-premise deployment options",
+        "Advanced security & compliance",
+        "SLA guarantees",
+        "24/7 dedicated support",
+        "Custom training & onboarding",
+        "Multi-tenant architecture"
       ],
       cta: "Contact Sales",
       popular: false
@@ -115,8 +124,8 @@ const Pricing = () => {
     {
       name: "Voice Calling",
       description: "High-quality voice calls with advanced features",
-      pricing: currency === "USD" ? "Pulse-based pricing" : "Usage-based pricing",
-      detail: "Rates vary by geography and usage",
+      pricing: "₹1,500",
+      detail: "Per calling channel per month",
       icon: Phone,
       features: [
         "HD voice quality",
@@ -127,28 +136,63 @@ const Pricing = () => {
       ]
     },
     {
-      name: "Messaging Services",
-      description: "SMS, WhatsApp, and multi-channel messaging",
-      pricing: currency === "USD" ? "$0.01" : "₹0.75",
-      detail: "Per message sent",
+      name: "SMS Services",
+      description: "SMS messaging with delivery tracking",
+      pricing: "₹0.12",
+      detail: "Per SMS message",
       icon: MessageSquare,
       features: [
-        "SMS delivery", 
+        "Bulk SMS delivery", 
+        "Delivery reports",
+        "Template management",
+        "Scheduled messaging",
+        "Two-way messaging"
+      ]
+    },
+    {
+      name: "WhatsApp Business",
+      description: "WhatsApp Business API integration",
+      pricing: "₹0.05",
+      detail: "Above Meta's published rate per message",
+      icon: MessageSquare,
+      features: [
         "WhatsApp Business API",
-        "Bulk messaging",
-        "Delivery tracking",
-        "Template management"
+        "Rich media support",
+        "Template messages",
+        "Interactive buttons",
+        "Delivery tracking"
+      ]
+    },
+    {
+      name: "Email Services",
+      description: "Professional email marketing and automation",
+      pricing: "₹0.05",
+      detail: "Per email sent",
+      icon: MessageSquare,
+      features: [
+        "Email campaigns",
+        "Automated sequences",
+        "A/B testing",
+        "Analytics & reporting",
+        "Template library"
       ]
     }
   ];
 
   const addOnModules = [
-    { name: "Advanced Analytics", price: { USD: 99, INR: 7499 } },
-    { name: "Custom Workflow Builder", price: { USD: 99, INR: 7499 } },
-    { name: "API Access & Webhooks", price: { USD: 99, INR: 7499 } },
-    { name: "White-label Branding", price: { USD: 99, INR: 7499 } },
-    { name: "Advanced Security & Compliance", price: { USD: 99, INR: 7499 } },
-    { name: "Custom Integrations", price: { USD: 99, INR: 7499 } }
+    { name: "Advanced Analytics", price: 1000, description: "Enhanced reporting and BI dashboards" },
+    { name: "Custom Workflow Builder", price: 1000, description: "Advanced automation capabilities" },
+    { name: "API Access & Webhooks", price: 1000, description: "Full API access and integrations" },
+    { name: "White-label Branding", price: 1000, description: "Customize with your brand" },
+    { name: "Advanced Security & Compliance", price: 1000, description: "Enhanced security features" },
+    { name: "Field Force Management", price: 1000, description: "Track and manage field teams" }
+  ];
+
+  const oneTimeServices = [
+    { name: "Custom Report Development", price: 5000, description: "Tailored reports for your business needs" },
+    { name: "API Integration Setup", price: 10000, description: "Professional integration with third-party systems" },
+    { name: "Data Migration", price: 15000, description: "Migrate data from existing systems" },
+    { name: "Custom Training", price: 8000, description: "Personalized team training sessions" }
   ];
 
   return (
@@ -172,23 +216,14 @@ const Pricing = () => {
             No hidden fees. Add only what you need. Start free and scale as you grow.
           </p>
           
-          {/* Currency and Billing Toggles */}
-          <div className="flex items-center justify-center gap-6 mb-8">
-            {/* Currency Toggle */}
-            <Tabs value={currency} onValueChange={(value) => setCurrency(value as "USD" | "INR")} className="w-auto">
-              <TabsList className="grid w-fit grid-cols-2 bg-muted">
-                <TabsTrigger value="USD">USD ($)</TabsTrigger>
-                <TabsTrigger value="INR">INR (₹)</TabsTrigger>
-              </TabsList>
-            </Tabs>
-            
-            {/* Billing Toggle */}
+          {/* Billing Toggle */}
+          <div className="flex items-center justify-center mb-8">
             <Tabs value={billingCycle} onValueChange={(value) => setBillingCycle(value as "monthly" | "annual")} className="w-auto">
               <TabsList className="grid w-fit grid-cols-2 bg-muted">
                 <TabsTrigger value="monthly">Monthly</TabsTrigger>
                 <TabsTrigger value="annual" className="relative">
                   Annual
-                  <Badge variant="secondary" className="ml-2 text-xs">Save 20%</Badge>
+                  <Badge variant="secondary" className="ml-2 text-xs">Save 4%</Badge>
                 </TabsTrigger>
               </TabsList>
             </Tabs>
@@ -221,7 +256,7 @@ const Pricing = () => {
       {/* Main Pricing Plans */}
       <section className="py-16 px-4">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
             {plans.map((plan, index) => (
               <Card key={plan.name} className={`relative ${plan.popular ? 'ring-2 ring-primary shadow-xl scale-105' : ''} hover:shadow-lg transition-all duration-300`}>
                 {plan.popular && (
@@ -239,26 +274,27 @@ const Pricing = () => {
                       {plan.badge}
                     </Badge>
                   )}
-                  <CardTitle className="text-2xl font-bold">{plan.name}</CardTitle>
-                  <CardDescription className="text-base">{plan.description}</CardDescription>
+                  <CardTitle className="text-xl font-bold">{plan.name}</CardTitle>
+                  <CardDescription className="text-sm mb-2">{plan.description}</CardDescription>
+                  <div className="text-xs text-muted-foreground font-medium">{plan.records}</div>
                   
                   <div className="mt-4">
                     <div className="flex items-baseline justify-center gap-1">
-                      <span className="text-4xl font-bold text-foreground">
-                        {currency === "USD" ? "$" : "₹"}{plan.price[currency][billingCycle].toLocaleString()}
+                      <span className="text-3xl font-bold text-foreground">
+                        ₹{plan.price[billingCycle].toLocaleString()}
                       </span>
-                      {plan.price[currency][billingCycle] > 0 && (
-                        <span className="text-muted-foreground">
+                      {plan.price[billingCycle] > 0 && (
+                        <span className="text-muted-foreground text-sm">
                           /{billingCycle === 'monthly' ? 'mo' : 'yr'}
                         </span>
                       )}
                     </div>
-                    {billingCycle === 'annual' && plan.originalPrice?.[currency]?.annual && (
-                      <div className="text-sm text-muted-foreground mt-1">
+                    {billingCycle === 'annual' && plan.originalPrice?.annual && (
+                      <div className="text-xs text-muted-foreground mt-1">
                         <span className="line-through">
-                          {currency === "USD" ? "$" : "₹"}{plan.originalPrice[currency].annual.toLocaleString()}
+                          ₹{plan.originalPrice.annual.toLocaleString()}
                         </span>
-                        <span className="ml-2 text-primary font-semibold">Save 20%</span>
+                        <span className="ml-2 text-primary font-semibold">Save 4%</span>
                       </div>
                     )}
                   </div>
@@ -303,7 +339,7 @@ const Pricing = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
             {additionalServices.map((service, index) => (
               <Card key={index} className="hover:shadow-lg transition-all duration-300">
                 <CardHeader>
@@ -337,10 +373,11 @@ const Pricing = () => {
         </div>
       </section>
 
-      {/* Add-on Modules */}
+      {/* Add-on Modules & One-time Services */}
       <section className="py-16 px-4">
-        <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
+        <div className="max-w-6xl mx-auto">
+          {/* Add-on Modules */}
+          <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-foreground mb-4">
               Additional Modules
             </h2>
@@ -350,24 +387,58 @@ const Pricing = () => {
             </p>
             <div className="flex items-center justify-center gap-4">
               <Badge variant="secondary" className="text-lg px-4 py-2">
-                {currency === "USD" ? "$99" : "₹7,499"} per module per month
+                ₹1,000 per module per month
               </Badge>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
             {addOnModules.map((module, index) => (
               <Card key={index} className="hover:shadow-md transition-all duration-200">
                 <CardContent className="p-6">
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-start justify-between mb-3">
                     <div className="flex items-center gap-3">
-                      <div className="w-2 h-2 bg-primary rounded-full"></div>
-                      <span className="font-medium">{module.name}</span>
+                      <div className="w-2 h-2 bg-primary rounded-full mt-2"></div>
+                      <div>
+                        <div className="font-medium">{module.name}</div>
+                        <div className="text-sm text-muted-foreground">{module.description}</div>
+                      </div>
                     </div>
-                    <Badge variant="outline">
-                      {currency === "USD" ? "$" : "₹"}{module.price[currency]}/mo
-                    </Badge>
                   </div>
+                  <Badge variant="outline" className="w-full justify-center">
+                    ₹{module.price.toLocaleString()}/month
+                  </Badge>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          {/* One-time Services */}
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-foreground mb-4">
+              One-time Services
+            </h2>
+            <p className="text-muted-foreground">
+              Professional services to get you up and running quickly with custom solutions.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {oneTimeServices.map((service, index) => (
+              <Card key={index} className="hover:shadow-md transition-all duration-200">
+                <CardContent className="p-6">
+                  <div className="flex items-start justify-between mb-3">
+                    <div className="flex items-center gap-3">
+                      <div className="w-2 h-2 bg-secondary rounded-full mt-2"></div>
+                      <div>
+                        <div className="font-medium">{service.name}</div>
+                        <div className="text-sm text-muted-foreground">{service.description}</div>
+                      </div>
+                    </div>
+                  </div>
+                  <Badge variant="secondary" className="w-full justify-center">
+                    ₹{service.price.toLocaleString()} one-time
+                  </Badge>
                 </CardContent>
               </Card>
             ))}
