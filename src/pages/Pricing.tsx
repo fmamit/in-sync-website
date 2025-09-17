@@ -190,9 +190,7 @@ const Pricing = () => {
 
   const oneTimeServices = [
     { name: "Custom Report Development", price: 5000, description: "Tailored reports for your business needs" },
-    { name: "API Integration Setup", price: 10000, description: "Professional integration with third-party systems" },
-    { name: "Data Migration", price: 15000, description: "Migrate data from existing systems" },
-    { name: "Custom Training", price: 8000, description: "Personalized team training sessions" }
+    { name: "API Integration Setup", price: 10000, description: "Professional integration with third-party systems" }
   ];
 
   return (
