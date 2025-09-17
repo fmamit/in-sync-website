@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Play, CheckCircle } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import insyncDiagram from "@/assets/insync-diagram.png";
 import ClientOnboardingModal from "./ClientOnboardingModal";
 // ... keep existing imports ...
@@ -20,6 +21,8 @@ import rupeeBossLogo from "@/assets/rupee-boss-logo.webp";
 import evcoLogo from "@/assets/evco-logo-transparent.png";
 
 const HeroSection = () => {
+  const navigate = useNavigate();
+  
   const customerLogos = [
     { src: hiranandaniLogo, alt: "Hiranandani" },
     { src: quessLogo, alt: "Quess" },
@@ -65,10 +68,14 @@ const HeroSection = () => {
 
             {/* CTAs */}
             <div className="flex flex-col sm:flex-row gap-4 mb-8">
-              <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 transform hover:scale-105 transition-all">
-                Explore Full Platform
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
+            <Button 
+              size="lg" 
+              className="bg-primary text-primary-foreground hover:bg-primary/90 transform hover:scale-105 transition-all"
+              onClick={() => navigate('/features')}
+            >
+              Explore Full Platform
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Button>
               <ClientOnboardingModal trigger={
                 <Button size="lg" variant="outline" className="group border-primary/20 hover:bg-primary/5">
                   <Play className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
