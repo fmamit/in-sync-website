@@ -36,6 +36,7 @@ import clientLogo8 from "@/assets/client-logo-8.jpg";
 import zovleLogo from "@/assets/zovle-logo.png";
 import zopperLogo from "@/assets/zopper-logo.png";
 import legitquestLogo from "@/assets/legitquest-logo.png";
+import seedsFincapLogo from "@/assets/seeds-fincap-logo.png";
 
 const HeroSection = () => {
   const navigate = useNavigate();
@@ -52,6 +53,7 @@ const HeroSection = () => {
     { src: collegedekhoLogo, alt: "CollegeDekho" },
     { src: zopperLogo, alt: "Zopper" },
     { src: legitquestLogo, alt: "Legitquest" },
+    { src: seedsFincapLogo, alt: "Seeds Fincap" },
     { src: clientLogo3, alt: "Increa" },
     { src: clientLogo5, alt: "Information Insight Intelligence" },
     { src: clientLogo6, alt: "LIDO" },
