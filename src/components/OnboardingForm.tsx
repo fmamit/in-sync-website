@@ -20,12 +20,6 @@ interface UserRow {
   reportingTo: string;
 }
 
-interface DepartmentRow {
-  department: string;
-  position: string;
-  reportsTo: string;
-}
-
 interface OnboardingData {
   // Section 1: Company Information
   companyName: string;
@@ -39,11 +33,7 @@ interface OnboardingData {
   totalUsers: string;
   userDetails: UserRow[];
 
-  // Section 3: Organizational Structure
-  departments: string[];
-  organizationalStructure: DepartmentRow[];
-
-  // Section 4: Communication Services
+  // Section 3: Communication Services
   callingService: boolean;
   callingUsers: string;
   callingChannels: string;
@@ -63,7 +53,7 @@ interface OnboardingData {
   smsUseCases: string[];
   smsOther: string;
 
-  // Section 5: System Configuration
+  // Section 4: System Configuration
   masterData: string[];
   masterDataDetails: string;
   masterDataOther: string;
@@ -71,7 +61,7 @@ interface OnboardingData {
   inventoryFeatures: string[];
   inventoryOther: string;
 
-  // Section 6: Branding & Customization
+  // Section 5: Branding & Customization
   logoPath: string;
   logoSpecs: string;
   primaryColor: string;
@@ -80,7 +70,7 @@ interface OnboardingData {
   customTheme: string;
   brandingGuidelines: string;
 
-  // Section 7: Technical Requirements
+  // Section 6: Technical Requirements
   existingSystems: string;
   apisRequired: string;
   dataMigration: boolean;
@@ -89,7 +79,7 @@ interface OnboardingData {
   backupPreferences: string;
   accessControlLevel: string;
 
-  // Section 8: Timeline & Support
+  // Section 7: Timeline & Support
   goLiveDate: string;
   trainingRequirements: string;
   supportLevel: string;
@@ -120,8 +110,6 @@ const OnboardingForm = () => {
     contactPersonMobile: "",
     totalUsers: "",
     userDetails: Array(20).fill(null).map(() => ({ fullName: "", email: "", mobile: "", role: "", reportingTo: "" })),
-    departments: Array(6).fill(""),
-    organizationalStructure: Array(8).fill(null).map(() => ({ department: "", position: "", reportsTo: "" })),
     callingService: false,
     callingUsers: "",
     callingChannels: "",
@@ -177,7 +165,7 @@ const OnboardingForm = () => {
 
   const { toast } = useToast();
 
-  const totalSections = 9;
+  const totalSections = 8;
   const progressPercentage = (currentSection / totalSections) * 100;
 
   // Email validation function
@@ -276,17 +264,6 @@ const OnboardingForm = () => {
     }
   };
 
-  const updateDepartment = (index: number, value: string) => {
-    const updatedDepts = [...formData.departments];
-    updatedDepts[index] = value;
-    updateFormData("departments", updatedDepts);
-  };
-
-  const updateOrgStructure = (index: number, field: keyof DepartmentRow, value: string) => {
-    const updatedStruct = [...formData.organizationalStructure];
-    updatedStruct[index] = { ...updatedStruct[index], [field]: value };
-    updateFormData("organizationalStructure", updatedStruct);
-  };
 
   const handleCheckboxChange = (field: keyof OnboardingData, value: string, checked: boolean) => {
     const currentArray = formData[field] as string[];
@@ -515,26 +492,10 @@ const OnboardingForm = () => {
       }
     });
 
-    // Section 3: Organizational Structure
-    addSection("SECTION 3: ORGANIZATIONAL STRUCTURE");
-    addText("Departments", 20, 12, true);
-    formData.departments.forEach((dept, index) => {
-      if (dept) addText(`${index + 1}. ${dept}`, 20);
-    });
-    yPosition += 5;
+    // Section 3: Communication Services
+    addSection("SECTION 3: COMMUNICATION SERVICES");
     
-    addText("Designations & Reporting Hierarchy", 20, 12, true);
-    addText("Department | Position/Designation | Reports To", 20, 10, true);
-    formData.organizationalStructure.forEach((row) => {
-      if (row.department || row.position || row.reportsTo) {
-        addText(`${row.department} | ${row.position} | ${row.reportsTo}`, 20);
-      }
-    });
-
-    // Section 4: Communication Services
-    addSection("SECTION 4: COMMUNICATION SERVICES");
-    
-    addText("4.1 Calling Service", 20, 12, true);
+    addText("3.1 Calling Service", 20, 12, true);
     addText(`Do you need calling functionality? ${formData.callingService ? "Yes" : "No"}`, 20);
     if (formData.callingService) {
       addText(`Number of users requiring calling access: ${formData.callingUsers}`, 30);
@@ -542,7 +503,7 @@ const OnboardingForm = () => {
       addText(`Preferred calling features: ${formData.callingFeatures.join(", ")}`, 30);
     }
     
-    addText("4.2 Email Service", 20, 12, true);
+    addText("3.2 Email Service", 20, 12, true);
     addText(`Do you need email service? ${formData.emailService ? "Yes" : "No"}`, 20);
     if (formData.emailService) {
       addText(`Email Domain: ${formData.emailDomain}`, 30);
@@ -551,7 +512,7 @@ const OnboardingForm = () => {
       addText(`Additional email requirements: ${formData.emailRequirements}`, 30);
     }
 
-    addText("4.3 WhatsApp Business Service", 20, 12, true);
+    addText("3.3 WhatsApp Business Service", 20, 12, true);
     addText(`Do you need WhatsApp Business integration? ${formData.whatsappService ? "Yes" : "No"}`, 20);
     if (formData.whatsappService) {
       addText(`Meta Business Manager ID: ${formData.metaBusinessId}`, 30);
@@ -560,7 +521,7 @@ const OnboardingForm = () => {
       if (formData.whatsappOther) addText(`Other: ${formData.whatsappOther}`, 30);
     }
 
-    addText("4.4 SMS Service", 20, 12, true);
+    addText("3.4 SMS Service", 20, 12, true);
     addText(`Do you need SMS service? ${formData.smsService ? "Yes" : "No"}`, 20);
     if (formData.smsService) {
       addText(`Expected monthly SMS volume: ${formData.smsVolume}`, 30);
@@ -568,10 +529,10 @@ const OnboardingForm = () => {
       if (formData.smsOther) addText(`Other: ${formData.smsOther}`, 30);
     }
 
-    // Section 5: System Configuration
-    addSection("SECTION 5: SYSTEM CONFIGURATION");
+    // Section 4: System Configuration
+    addSection("SECTION 4: SYSTEM CONFIGURATION");
     
-    addText("5.1 Master Data Requirements", 20, 12, true);
+    addText("4.1 Master Data Requirements", 20, 12, true);
     addText("What master data do you need to configure?", 20);
     const allMasterData = [...formData.masterData];
     if (formData.masterDataOther) allMasterData.push(`Other: ${formData.masterDataOther}`);
@@ -583,7 +544,7 @@ const OnboardingForm = () => {
       addText(formData.masterDataDetails, 30);
     }
 
-    addText("5.2 Inventory Module", 20, 12, true);
+    addText("4.2 Inventory Module", 20, 12, true);
     addText(`Do you need inventory management? ${formData.inventoryModule ? "Yes" : "No"}`, 20);
     if (formData.inventoryModule) {
       addText("If Yes, select required features:", 20);
@@ -593,10 +554,10 @@ const OnboardingForm = () => {
       if (formData.inventoryOther) addText(`☐ Other requirements: ${formData.inventoryOther}`, 30);
     }
 
-    // Section 6: Branding & Customization
-    addSection("SECTION 6: BRANDING & CUSTOMIZATION");
+    // Section 5: Branding & Customization
+    addSection("SECTION 5: BRANDING & CUSTOMIZATION");
     
-    addText("6.1 Logo Upload", 20, 12, true);
+    addText("5.1 Logo Upload", 20, 12, true);
     addText(`Company Logo: ${formData.logoPath || "(Attach file or provide file path)"}`, 20);
     addText(`Logo specifications: ${formData.logoSpecs}`, 20);
     addText("Brand Colors:", 20, 12, true);
@@ -604,14 +565,14 @@ const OnboardingForm = () => {
     addText(`Secondary Color: ${formData.secondaryColor}`, 30);
     addText(`Accent Color: ${formData.accentColor}`, 30);
 
-    addText("6.2 Additional Customization", 20, 12, true);
+    addText("5.2 Additional Customization", 20, 12, true);
     addText(`Custom theme requirements: ${formData.customTheme}`, 20);
     addText(`Specific branding guidelines: ${formData.brandingGuidelines}`, 20);
 
-    // Section 7: Technical Requirements
-    addSection("SECTION 7: TECHNICAL REQUIREMENTS");
+    // Section 6: Technical Requirements
+    addSection("SECTION 6: TECHNICAL REQUIREMENTS");
     
-    addText("7.1 Integration Needs", 20, 12, true);
+    addText("6.1 Integration Needs", 20, 12, true);
     addText(`Existing systems to integrate: ${formData.existingSystems}`, 20);
     addText(`APIs required: ${formData.apisRequired}`, 20);
     addText(`Data migration needed? ${formData.dataMigration ? "Yes" : "No"}`, 20);
@@ -619,20 +580,20 @@ const OnboardingForm = () => {
       addText(`If yes, from which system: ${formData.migrationSystem}`, 30);
     }
 
-    addText("7.2 Security & Compliance", 20, 12, true);
+    addText("6.2 Security & Compliance", 20, 12, true);
     addText(`Industry compliance requirements: ${formData.complianceRequirements}`, 20);
     addText(`Data backup preferences: ${formData.backupPreferences}`, 20);
     addText(`User access control level: ${formData.accessControlLevel}`, 20);
 
-    // Section 8: Timeline & Support
-    addSection("SECTION 8: TIMELINE & SUPPORT");
+    // Section 7: Timeline & Support
+    addSection("SECTION 7: TIMELINE & SUPPORT");
     
-    addText("8.1 Implementation Timeline", 20, 12, true);
+    addText("7.1 Implementation Timeline", 20, 12, true);
     addText(`Preferred go-live date: ${formData.goLiveDate}`, 20);
     addText(`Training requirements: ${formData.trainingRequirements}`, 20);
     addText(`Support level needed: ${formData.supportLevel}`, 20);
 
-    addText("8.2 Additional Requirements", 20, 12, true);
+    addText("7.2 Additional Requirements", 20, 12, true);
     addText(`Any specific feature requests: ${formData.featureRequests}`, 20);
     addText(`Special requirements or considerations: ${formData.specialRequirements}`, 20);
 
@@ -875,74 +836,11 @@ const OnboardingForm = () => {
       case 3:
         return (
           <div className="space-y-6">
-            <h3 className="text-lg font-semibold text-primary">Organizational Structure</h3>
-            <div className="space-y-6">
-              <div className="space-y-4">
-                <h4 className="font-medium">Departments</h4>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {formData.departments.map((dept, index) => (
-                    <div key={index} className="space-y-2">
-                      <Label htmlFor={`dept-${index}`}>Department {index + 1}</Label>
-                      <Input
-                        id={`dept-${index}`}
-                        value={dept}
-                        onChange={(e) => updateDepartment(index, e.target.value)}
-                      />
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="space-y-4">
-                <h4 className="font-medium">Designations & Reporting Hierarchy</h4>
-                <div className="overflow-x-auto">
-                  <table className="w-full border-collapse border border-border">
-                    <thead>
-                      <tr className="bg-muted">
-                        <th className="border border-border p-2 text-left">Department</th>
-                        <th className="border border-border p-2 text-left">Position/Designation</th>
-                        <th className="border border-border p-2 text-left">Reports To</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {formData.organizationalStructure.map((row, index) => (
-                        <tr key={index}>
-                          <td className="border border-border p-2">
-                            <Input
-                              value={row.department}
-                              onChange={(e) => updateOrgStructure(index, "department", e.target.value)}
-                            />
-                          </td>
-                          <td className="border border-border p-2">
-                            <Input
-                              value={row.position}
-                              onChange={(e) => updateOrgStructure(index, "position", e.target.value)}
-                            />
-                          </td>
-                          <td className="border border-border p-2">
-                            <Input
-                              value={row.reportsTo}
-                              onChange={(e) => updateOrgStructure(index, "reportsTo", e.target.value)}
-                            />
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-        );
-
-      case 4:
-        return (
-          <div className="space-y-6">
             <h3 className="text-lg font-semibold text-primary">Communication Services</h3>
             
             {/* Calling Service */}
             <div className="space-y-4 p-4 border rounded-lg">
-              <h4 className="font-medium">4.1 Calling Service</h4>
+              <h4 className="font-medium">3.1 Calling Service</h4>
               <div className="flex items-center space-x-2">
                 <Checkbox
                   id="callingService"
@@ -1016,7 +914,7 @@ const OnboardingForm = () => {
 
             {/* Email Service */}
             <div className="space-y-4 p-4 border rounded-lg">
-              <h4 className="font-medium">4.2 Email Service</h4>
+              <h4 className="font-medium">3.2 Email Service</h4>
               <div className="flex items-center space-x-2">
                 <Checkbox
                   id="emailService"
@@ -1087,7 +985,7 @@ const OnboardingForm = () => {
 
             {/* WhatsApp Service */}
             <div className="space-y-4 p-4 border rounded-lg">
-              <h4 className="font-medium">4.3 WhatsApp Business Service</h4>
+              <h4 className="font-medium">3.3 WhatsApp Business Service</h4>
               <div className="flex items-center space-x-2">
                 <Checkbox
                   id="whatsappService"
@@ -1144,7 +1042,7 @@ const OnboardingForm = () => {
 
             {/* SMS Service */}
             <div className="space-y-4 p-4 border rounded-lg">
-              <h4 className="font-medium">4.4 SMS Service</h4>
+              <h4 className="font-medium">3.4 SMS Service</h4>
               <div className="flex items-center space-x-2">
                 <Checkbox
                   id="smsService"
@@ -1204,14 +1102,14 @@ const OnboardingForm = () => {
           </div>
         );
 
-      case 5:
+      case 4:
         return (
           <div className="space-y-6">
             <h3 className="text-lg font-semibold text-primary">System Configuration</h3>
             
             {/* Master Data Requirements */}
             <div className="space-y-4 p-4 border rounded-lg">
-              <h4 className="font-medium">5.1 Master Data Requirements</h4>
+              <h4 className="font-medium">4.1 Master Data Requirements</h4>
               <div className="space-y-2">
                 <Label>What master data do you need to configure?</Label>
                 <div className="grid grid-cols-2 gap-2">
@@ -1261,7 +1159,7 @@ const OnboardingForm = () => {
 
             {/* Inventory Module */}
             <div className="space-y-4 p-4 border rounded-lg">
-              <h4 className="font-medium">5.2 Inventory Module</h4>
+              <h4 className="font-medium">4.2 Inventory Module</h4>
               <div className="flex items-center space-x-2">
                 <Checkbox
                   id="inventoryModule"
@@ -1308,13 +1206,13 @@ const OnboardingForm = () => {
           </div>
         );
 
-      case 6:
+      case 5:
         return (
           <div className="space-y-6">
             <h3 className="text-lg font-semibold text-primary">Branding & Customization</h3>
             
             <div className="space-y-4 p-4 border rounded-lg">
-              <h4 className="font-medium">6.1 Logo Upload</h4>
+              <h4 className="font-medium">5.1 Logo Upload</h4>
               <div className="space-y-4">
                 <div className="space-y-2">
                   <Label>Company Logo</Label>
@@ -1374,7 +1272,7 @@ const OnboardingForm = () => {
             </div>
 
             <div className="space-y-4 p-4 border rounded-lg">
-              <h4 className="font-medium">6.2 Additional Customization</h4>
+              <h4 className="font-medium">5.2 Additional Customization</h4>
               <div className="space-y-4">
                 <div className="space-y-2">
                   <Label>Custom theme requirements</Label>
@@ -1395,13 +1293,13 @@ const OnboardingForm = () => {
           </div>
         );
 
-      case 7:
+      case 6:
         return (
           <div className="space-y-6">
             <h3 className="text-lg font-semibold text-primary">Technical Requirements</h3>
             
             <div className="space-y-4 p-4 border rounded-lg">
-              <h4 className="font-medium">7.1 Integration Needs</h4>
+              <h4 className="font-medium">6.1 Integration Needs</h4>
               <div className="space-y-4">
                 <div className="space-y-2">
                   <Label>Existing systems to integrate</Label>
@@ -1438,7 +1336,7 @@ const OnboardingForm = () => {
             </div>
 
             <div className="space-y-4 p-4 border rounded-lg">
-              <h4 className="font-medium">7.2 Security & Compliance</h4>
+              <h4 className="font-medium">6.2 Security & Compliance</h4>
               <div className="space-y-4">
                 <div className="space-y-2">
                   <Label>Industry compliance requirements</Label>
@@ -1479,13 +1377,13 @@ const OnboardingForm = () => {
           </div>
         );
 
-      case 8:
+      case 7:
         return (
           <div className="space-y-6">
             <h3 className="text-lg font-semibold text-primary">Timeline & Support</h3>
             
             <div className="space-y-4 p-4 border rounded-lg">
-              <h4 className="font-medium">8.1 Implementation Timeline</h4>
+              <h4 className="font-medium">7.1 Implementation Timeline</h4>
               <div className="space-y-4">
                 <div className="space-y-2">
                   <Label>Preferred go-live date</Label>
@@ -1526,7 +1424,7 @@ const OnboardingForm = () => {
             </div>
 
             <div className="space-y-4 p-4 border rounded-lg">
-              <h4 className="font-medium">8.2 Additional Requirements</h4>
+              <h4 className="font-medium">7.2 Additional Requirements</h4>
               <div className="space-y-4">
                 <div className="space-y-2">
                   <Label>Any specific feature requests</Label>
@@ -1581,7 +1479,7 @@ const OnboardingForm = () => {
           </div>
         );
 
-      case 9:
+      case 8:
         return (
           <div className="space-y-6">
             <h3 className="text-lg font-semibold text-primary">For Internal Use Only</h3>
