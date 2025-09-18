@@ -32,6 +32,10 @@ import clientLogo5 from "@/assets/client-logo-5.jpg";
 import clientLogo6 from "@/assets/client-logo-6.jpg";
 import clientLogo7 from "@/assets/client-logo-7.jpg";
 import clientLogo8 from "@/assets/client-logo-8.jpg";
+// Additional partner logos
+import zovleLogo from "@/assets/zovle-logo.png";
+import zopperLogo from "@/assets/zopper-logo.png";
+import legitquestLogo from "@/assets/legitquest-logo.png";
 
 const HeroSection = () => {
   const navigate = useNavigate();
@@ -41,7 +45,7 @@ const HeroSection = () => {
     { src: ecofyNewLogo, alt: "Ecofy" },
     { src: bimaLeapLogo, alt: "BIMA LEAP (Motherson Group)" },
     { src: aliceblueLogo, alt: "AliceBlue" },
-    { src: rupeeBossLogo, alt: "RupeeBoss" },
+    { src: zovleLogo, alt: "Zovle" },
     { src: carportalLogo, alt: "Carportal" },
     { src: hiranandaniLogo, alt: "Hiranandani" },
     { src: quessLogo, alt: "Quess" },
@@ -49,8 +53,9 @@ const HeroSection = () => {
     { src: mothersonLogo, alt: "Motherson" },
     { src: collegedekhoLogo, alt: "CollegeDekho" },
     { src: edmingleLogo, alt: "Edmingle" },
+    { src: zopperLogo, alt: "Zopper" },
+    { src: legitquestLogo, alt: "Legitquest" },
     { src: clientLogo3, alt: "Increa" },
-    { src: clientLogo4, alt: "Legitquest" },
     { src: clientLogo5, alt: "Information Insight Intelligence" },
     { src: clientLogo6, alt: "LIDO" },
     { src: clientLogo7, alt: "Policy Planner" },
