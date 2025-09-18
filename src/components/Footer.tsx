@@ -17,8 +17,8 @@ const Footer = () => {
       { name: "Features", href: "/features" },
       { name: "Integrations", href: "/integrations" },
       { name: "Pricing", href: "/pricing" },
-      { name: "Security", href: "/security" },
-      { name: "API Documentation", href: "/docs" }
+      { name: "Use Cases", href: "/use-cases" },
+      { name: "FAQ", href: "/faq" }
     ],
     solutions: [
       { name: "Financial Services", href: "/industries/financial-services" },
@@ -31,17 +31,16 @@ const Footer = () => {
       { name: "Education", href: "/industries/education" }
     ],
     resources: [
-      { name: "Case Studies", href: "/case-studies" },
+      { name: "Use Cases", href: "/use-cases" },
       { name: "White Papers", href: "/resources" },
-      { name: "Events", href: "/events" },
-      { name: "Help Center", href: "/help" }
+      { name: "FAQ", href: "/faq" },
+      { name: "Industries", href: "/industries" }
     ],
     company: [
-      { name: "About Us", href: "/about" },
-      { name: "Careers", href: "/careers" },
-      { name: "Press", href: "/press" },
-      { name: "Partners", href: "/partners" },
-      { name: "Contact", href: "/contact" }
+      { name: "Partnership", href: "/partnership" },
+      { name: "Features", href: "/features" },
+      { name: "Resources", href: "/resources" },
+      { name: "Contact", href: "#contact" }
     ]
   };
 
@@ -60,7 +59,7 @@ const Footer = () => {
             </p>
             
             {/* Contact Info */}
-            <div className="space-y-3 mb-6">
+            <div id="contact" className="space-y-3 mb-6">
               <div className="flex items-center gap-3 text-sm">
                 <Phone className="h-4 w-4 text-primary" />
                 <span>+91 92288 24668</span>
