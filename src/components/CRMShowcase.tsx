@@ -139,20 +139,6 @@ const CRMShowcase = () => {
     setCurrentStep(prev => (prev - 1 + tourSteps.length) % tourSteps.length);
   };
 
-  const testimonials = [
-    {
-      text: "In-Sync CRM increased our lead conversion by 300% in just 3 months. The AI voice assistant is a game-changer!",
-      author: "Sarah Johnson",
-      company: "TechFlow Solutions",
-      rating: 5
-    },
-    {
-      text: "Finally, a CRM that actually helps us sell more. The automation saves us 15 hours per week.",
-      author: "Michael Chen",
-      company: "GrowthVine",
-      rating: 5
-    }
-  ];
 
   return (
     <section className="py-20 bg-gradient-to-br from-background via-secondary/5 to-primary/5 relative overflow-hidden">
@@ -418,37 +404,6 @@ const CRMShowcase = () => {
           </div>
         </div>
 
-        {/* Social Proof Section */}
-        <div className="mt-16 text-center">
-          <div className="inline-flex items-center gap-2 mb-6">
-            <div className="flex">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-              ))}
-            </div>
-            <span className="text-sm text-muted-foreground">4.9/5 from 2,000+ reviews</span>
-          </div>
-          
-          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-            {testimonials.map((testimonial, index) => (
-              <div key={index} className="bg-card rounded-xl p-6 border shadow-sm">
-                <Quote className="w-8 h-8 text-primary/20 mb-4" />
-                <p className="text-muted-foreground mb-4 italic">"{testimonial.text}"</p>
-                <div className="flex items-center justify-between">
-                  <div>
-                    <div className="font-semibold">{testimonial.author}</div>
-                    <div className="text-sm text-muted-foreground">{testimonial.company}</div>
-                  </div>
-                  <div className="flex">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                    ))}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
 
         {/* Final CTA */}
         <div className="mt-16 text-center">
