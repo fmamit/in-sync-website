@@ -26,7 +26,7 @@ interface CostCalculatorProps {
 const CostCalculator = ({ className = "" }: CostCalculatorProps) => {
   const [selectedPlan, setSelectedPlan] = useState<"starter" | "growth" | "scale" | "enterprise">("growth");
   const [billingCycle, setBillingCycle] = useState<"monthly" | "annual">("monthly");
-  const [selectedModules, setSelectedModules] = useState<string[]>([]);
+  const [moduleQuantities, setModuleQuantities] = useState<Record<string, number>>({});
   const [smsVolume, setSmsVolume] = useState<number>(1000);
   const [whatsappVolume, setWhatsappVolume] = useState<number>(500);
   const [emailVolume, setEmailVolume] = useState<number>(2000);
@@ -67,7 +67,10 @@ const CostCalculator = ({ className = "" }: CostCalculatorProps) => {
 
   // Pricing calculations
   const basePlanCost = plans[selectedPlan].price[billingCycle];
-  const modulesCost = selectedModules.length * addOnModules[0].price * (billingCycle === "annual" ? 12 : 1);
+  const modulesCost = Object.entries(moduleQuantities).reduce((total, [moduleId, quantity]) => {
+    const module = addOnModules.find(m => m.id === moduleId);
+    return total + (module ? module.price * quantity * (billingCycle === "annual" ? 12 : 1) : 0);
+  }, 0);
   
   // Communication costs
   const smsCost = smsVolume * 0.12 * (billingCycle === "annual" ? 12 : 1);
@@ -84,7 +87,10 @@ const CostCalculator = ({ className = "" }: CostCalculatorProps) => {
     selectedPlan: plans[selectedPlan].name,
     planPrice: basePlanCost,
     billingCycle,
-    selectedModules: selectedModules.map(id => addOnModules.find(m => m.id === id)?.name || id),
+    selectedModules: Object.entries(moduleQuantities).filter(([_, qty]) => qty > 0).map(([id, qty]) => ({
+      name: addOnModules.find(m => m.id === id)?.name || id,
+      quantity: qty
+    })),
     modulePrice: modulesCost,
     smsVolume,
     smsCost,
@@ -104,12 +110,11 @@ const CostCalculator = ({ className = "" }: CostCalculatorProps) => {
     return `₹${amount.toLocaleString()}`;
   };
 
-  const handleModuleToggle = (moduleId: string) => {
-    setSelectedModules(prev => 
-      prev.includes(moduleId) 
-        ? prev.filter(id => id !== moduleId)
-        : [...prev, moduleId]
-    );
+  const handleModuleQuantityChange = (moduleId: string, quantity: number) => {
+    setModuleQuantities(prev => ({
+      ...prev,
+      [moduleId]: Math.max(0, quantity)
+    }));
   };
 
   return (
@@ -230,17 +235,25 @@ const CostCalculator = ({ className = "" }: CostCalculatorProps) => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {addOnModules.map((module) => (
                   <div key={module.id} className="flex items-center space-x-3 p-3 border rounded-lg">
-                    <Checkbox
-                      id={module.id}
-                      checked={selectedModules.includes(module.id)}
-                      onCheckedChange={() => handleModuleToggle(module.id)}
-                    />
                     <div className="flex-1">
-                      <Label htmlFor={module.id} className="font-medium cursor-pointer">
+                      <Label htmlFor={module.id} className="font-medium">
                         {module.name}
                       </Label>
-                      <div className="text-sm text-muted-foreground">
-                        {formatCurrency(module.price)}/month
+                      <div className="text-sm text-muted-foreground mb-2">
+                        {formatCurrency(module.price)}/month per unit
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Label htmlFor={`${module.id}-qty`} className="text-sm">Quantity:</Label>
+                        <Input
+                          id={`${module.id}-qty`}
+                          type="number"
+                          min="0"
+                          max="100"
+                          value={moduleQuantities[module.id] || 0}
+                          onChange={(e) => handleModuleQuantityChange(module.id, parseInt(e.target.value) || 0)}
+                          className="w-20"
+                          placeholder="0"
+                        />
                       </div>
                     </div>
                   </div>
@@ -347,17 +360,18 @@ const CostCalculator = ({ className = "" }: CostCalculatorProps) => {
               </div>
 
               {/* Modules */}
-              {selectedModules.length > 0 && (
+              {Object.keys(moduleQuantities).some(key => moduleQuantities[key] > 0) && (
                 <>
                   <Separator />
                   <div className="space-y-2">
-                    <div className="font-medium">Add-on Modules ({selectedModules.length})</div>
-                    {selectedModules.map(moduleId => {
+                    <div className="font-medium">Add-on Modules</div>
+                    {Object.entries(moduleQuantities).filter(([_, qty]) => qty > 0).map(([moduleId, qty]) => {
                       const module = addOnModules.find(m => m.id === moduleId);
+                      const cost = module ? module.price * qty * (billingCycle === "annual" ? 12 : 1) : 0;
                       return (
                         <div key={moduleId} className="flex justify-between text-sm">
-                          <span>{module?.name}</span>
-                          <span>{formatCurrency(module!.price * (billingCycle === "annual" ? 12 : 1))}</span>
+                          <span>{module?.name} (x{qty})</span>
+                          <span>{formatCurrency(cost)}</span>
                         </div>
                       );
                     })}

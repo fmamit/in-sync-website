@@ -23,7 +23,7 @@ interface QuoteData {
   selectedPlan: string;
   planPrice: number;
   billingCycle: "monthly" | "annual";
-  selectedModules: string[];
+  selectedModules: { name: string; quantity: number }[];
   modulePrice: number;
   smsVolume: number;
   smsCost: number;
@@ -173,7 +173,7 @@ const QuoteGenerator = ({ quoteData, className = "" }: QuoteGeneratorProps) => {
                 <div>
                     <strong>Add-on Modules (${quoteData.selectedModules.length})</strong>
                     <div class="modules-list">
-                        ${quoteData.selectedModules.map(module => `• ${module}`).join('<br>')}
+                        ${quoteData.selectedModules.map(module => `• ${module.name} (Quantity: ${module.quantity})`).join('<br>')}
                     </div>
                 </div>
                 <span>${formatCurrency(quoteData.modulePrice)}</span>

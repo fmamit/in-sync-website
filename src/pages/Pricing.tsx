@@ -356,7 +356,7 @@ const Pricing = () => {
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <ul className="space-y-2">
+                  <ul className="space-y-2 mb-4">
                     {service.features.map((feature, idx) => (
                       <li key={idx} className="flex items-center gap-2">
                         <Check className="w-4 h-4 text-primary" />
@@ -364,6 +364,17 @@ const Pricing = () => {
                       </li>
                     ))}
                   </ul>
+                  <div className="flex items-center gap-2 pt-2 border-t">
+                    <label className="text-sm font-medium">Quantity:</label>
+                    <input 
+                      type="number" 
+                      min="0" 
+                      max="10000" 
+                      defaultValue="0"
+                      className="w-20 px-2 py-1 border border-input rounded-md text-sm" 
+                      placeholder="0"
+                    />
+                  </div>
                 </CardContent>
               </Card>
             ))}
@@ -403,9 +414,22 @@ const Pricing = () => {
                       </div>
                     </div>
                   </div>
-                  <Badge variant="outline" className="w-full justify-center">
-                    ₹{module.price.toLocaleString()}/month
-                  </Badge>
+                  <div className="space-y-3">
+                    <Badge variant="outline" className="w-full justify-center">
+                      ₹{module.price.toLocaleString()}/month per unit
+                    </Badge>
+                    <div className="flex items-center gap-2">
+                      <label className="text-sm font-medium">Quantity:</label>
+                      <input 
+                        type="number" 
+                        min="0" 
+                        max="100" 
+                        defaultValue="0"
+                        className="w-20 px-2 py-1 border border-input rounded-md text-sm" 
+                        placeholder="0"
+                      />
+                    </div>
+                  </div>
                 </CardContent>
               </Card>
             ))}
