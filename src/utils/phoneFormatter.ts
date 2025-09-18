@@ -5,7 +5,7 @@
 
 export const formatPhoneNumber = (value: string): string => {
   // Remove all non-digit characters except +
-  const cleaned = value.replace(/[^\\d+]/g, '');
+  const cleaned = value.replace(/[^\d+]/g, '');
   
   // Handle international format starting with +
   if (cleaned.startsWith('+')) {
@@ -45,7 +45,7 @@ export const validateEmail = (email: string): boolean => {
 };
 
 export const validatePhoneNumber = (phone: string): { isValid: boolean; message?: string; format?: string } => {
-  const cleaned = phone.replace(/[^\\d+]/g, '');
+  const cleaned = phone.replace(/[^\d+]/g, '');
   
   if (!cleaned) {
     return { isValid: false, message: "Phone number is required" };
@@ -107,7 +107,7 @@ export const getPhoneNumberPlaceholder = (format?: string): string => {
 };
 
 export const extractDigitsOnly = (phone: string): string => {
-  return phone.replace(/[^\\d]/g, '');
+  return phone.replace(/[^\d]/g, '');
 };
 
 export const validatePhone = (phone: string): { isValid: boolean; message?: string } => {
@@ -115,7 +115,7 @@ export const validatePhone = (phone: string): { isValid: boolean; message?: stri
 };
 
 export const detectPhoneFormat = (phone: string): 'us' | 'international' | 'unknown' => {
-  const cleaned = phone.replace(/[^\\d+]/g, '');
+  const cleaned = phone.replace(/[^\d+]/g, '');
   
   if (cleaned.startsWith('+')) {
     return 'international';
