@@ -15,17 +15,17 @@ const Index = () => {
         
         <FeaturesOverview />
         
-        {/* Business Assessment Quiz */}
+        {/* ROI Calculator */}
         <section className="py-20 bg-gradient-to-b from-slate-50/30 to-background">
           <div className="container mx-auto px-4">
-            <BusinessAssessment />
+            <ROICalculator />
           </div>
         </section>
         
-        {/* ROI Calculator */}
+        {/* Business Assessment Quiz */}
         <section className="py-20 bg-gradient-to-b from-background to-slate-50/30">
           <div className="container mx-auto px-4">
-            <ROICalculator />
+            <BusinessAssessment />
           </div>
         </section>
         
