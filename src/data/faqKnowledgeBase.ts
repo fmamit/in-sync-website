@@ -7,6 +7,10 @@ export interface FAQItem {
   relatedQuestions?: string[];
 }
 
+interface ScoredFAQItem extends FAQItem {
+  score: number;
+}
+
 export const faqKnowledgeBase: FAQItem[] = [
   // General Platform Questions
   {
@@ -493,7 +497,7 @@ export const faqKnowledgeBase: FAQItem[] = [
 
 export const findMatchingFAQs = (userQuery: string): FAQItem[] => {
   const query = userQuery.toLowerCase();
-  const scoredFAQs = faqKnowledgeBase.map(faq => {
+  const scoredFAQs: ScoredFAQItem[] = faqKnowledgeBase.map(faq => {
     let score = 0;
     
     // Higher score for exact question matches
@@ -527,12 +531,12 @@ export const findMatchingFAQs = (userQuery: string): FAQItem[] => {
       score += 3;
     }
     
-    return { ...faq, score } as FAQItem & { score: number };
+    return { ...faq, score };
   });
   
   return scoredFAQs
-    .filter(faq => (faq as any).score > 0)
-    .sort((a, b) => (b as any).score - (a as any).score)
+    .filter(faq => faq.score > 0)
+    .sort((a, b) => b.score - a.score)
     .slice(0, 5)
     .map(({ score, ...faq }) => faq);
 };
@@ -544,21 +548,13 @@ export const getResponseForQuery = (userQuery: string): string => {
     return "I couldn't find specific information about your question in our FAQ database. Please contact our support team for personalized assistance, or try browsing our FAQ categories to find related topics.";
   }
   
-  if (matchingFAQs.length === 1 && matchingFAQs[0].score >= 10) {
+  if (matchingFAQs.length === 1) {
     return matchingFAQs[0].answer;
   }
   
   if (matchingFAQs.length > 0) {
     const topFAQ = matchingFAQs[0];
-    if (topFAQ.score >= 8) {
-      return topFAQ.answer;
-    }
-    
-    return `I understand you're asking about "${userQuery}". While I don't have a specific answer for that exact question, I found some related information that might help:
-
-${matchingFAQs.map(faq => `**${faq.question}**\n${faq.answer}`).join('\n\n')}
-
-For more specific assistance, please contact our support team.`;
+    return topFAQ.answer;
   }
 
   return "I couldn't find specific information about your question in our FAQ database. Please contact our support team for personalized assistance, or try browsing our FAQ categories to find related topics.";
