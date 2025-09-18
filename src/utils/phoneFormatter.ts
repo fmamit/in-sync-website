@@ -110,25 +110,12 @@ export const extractDigitsOnly = (phone: string): string => {
   return phone.replace(/[^\\d]/g, '');
 };
 
-export const validatePhone = (phone: string): boolean => {
-  return validatePhoneNumber(phone).isValid;
+export const validatePhone = (phone: string): { isValid: boolean; message?: string } => {
+  return validatePhoneNumber(phone);
 };
-  const cleaned = phone.replace(/[^\\d+]/g, '');
-  
-  if (cleaned.startsWith('+')) {
-    return 'international';
-  }
-  
-  if (cleaned.length === 10 || (cleaned.length === 11 && cleaned.startsWith('1'))) {
-    return 'us';
-  }
-  
-  if (cleaned.length >= 7 && cleaned.length <= 15) {
-    return 'international';
-  }
-  
+
 export const detectPhoneFormat = (phone: string): 'us' | 'international' | 'unknown' => {
-  const cleaned = phone.replace(/[^\d+]/g, '');
+  const cleaned = phone.replace(/[^\\d+]/g, '');
   
   if (cleaned.startsWith('+')) {
     return 'international';
