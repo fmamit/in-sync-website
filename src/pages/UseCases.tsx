@@ -31,232 +31,161 @@ import Footer from "@/components/Footer";
 
 const UseCases = () => {
   const realCaseStudies = [
-    // Original case studies from existing testimonials
+    // Case Studies from Business Transformation PDF
     {
-      id: "mumbai-fashion",
-      company: "Mumbai Fashion Boutique",
-      industry: "Retail & Fashion",
-      icon: Building2,
-      color: "bg-gradient-to-br from-purple-600 to-pink-700",
-      challenge: "Small fashion boutique struggled with customer retention and scaling operations. Needed better communication systems to compete with larger retailers and build customer loyalty.",
+      id: "tata-electra",
+      company: "Tata Electra EV",
+      industry: "Electric Vehicle Services - Tata Group",
+      icon: Car,
+      color: "bg-gradient-to-br from-blue-600 to-teal-700",
+      challenge: "Tata Electra EV, with EVs deployed across 60+ cities, faced challenges with manual roadside assistance tracking, siloed operations without real-time monitoring, and lack of standardized issue resolution processes.",
       solution: [
-        "Customer relationship management system",
-        "Automated customer follow-up campaigns",
-        "Personalized communication workflows", 
-        "Order tracking and notifications",
-        "Customer feedback management",
-        "Loyalty program integration"
+        "WhatsApp conversational bot for assistance requests",
+        "Automated ticketing with timestamps and location data",
+        "Internal approval workflow with SLA compliance",
+        "Automated engineer dispatch with field force management",
+        "Live GPS tracking and route optimization",
+        "Post-service WhatsApp customer satisfaction surveys"
       ],
       results: [
-        "400% revenue growth achieved",
-        "70% repeat customer rate",
-        "₹45K annual customer value",
-        "Complete operational transformation",
-        "Strong community reputation built"
+        "Centralized operations across 60 cities",
+        "Faster response and resolution times",
+        "Agentless customer interaction with AI",
+        "Real-time field tracking and automation",
+        "Complete operational transparency achieved"
       ],
       workflow: [
-        "Customer data capture and segmentation",
-        "Automated personalized communications",
-        "Order management and tracking",
-        "Follow-up and feedback collection",
-        "Loyalty program management"
+        "Customer requests help via WhatsApp bot",
+        "Automated ticket creation with location data",
+        "Internal approval process for SLA compliance",
+        "Nearest engineer automatically dispatched",
+        "Live GPS tracking for transparency",
+        "Automated post-service satisfaction survey"
       ],
-      metrics: { revenueGrowth: "400%", repeatCustomers: "70%", customerValue: "₹45K" },
+      metrics: { citiesCovered: "60+", responseTime: "Faster", automation: "100%" },
       testimonial: {
-        name: "Priya Sharma",
-        role: "Founder & CEO",
-        quote: "We went from parents leaving us for 'better' schools to having a waiting list of families who specifically choose us because of our communication and organization. It's completely transformed our reputation in the community."
+        name: "Operations Team",
+        role: "Tata Electra EV",
+        quote: "In-Sync transformed our roadside assistance from manual tracking to complete automation across 60+ cities with real-time visibility and faster customer response."
       }
     },
     {
-      id: "delhi-school",
-      company: "Delhi CBSE School", 
-      industry: "Education",
-      icon: Users,
-      color: "bg-gradient-to-br from-blue-600 to-indigo-700",
-      challenge: "School faced declining enrollment and poor parent communication. Parents felt disconnected from their child's education journey and were considering other schools.",
-      solution: [
-        "Parent communication management system",
-        "Student progress tracking and reporting",
-        "Automated notification systems",
-        "Event management and coordination",
-        "Fee management and reminders",
-        "Digital report card system"
-      ],
-      results: [
-        "250% enrollment growth",
-        "95% parent satisfaction rate",
-        "₹1.5 Crore additional revenue",
-        "Waiting lists established",
-        "Complete digital transformation"
-      ],
-      workflow: [
-        "Student enrollment and data management",
-        "Automated parent communications",
-        "Progress tracking and reporting",
-        "Event coordination and updates",
-        "Fee collection and management"
-      ],
-      metrics: { enrollmentGrowth: "250%", parentSatisfaction: "95%", additionalRevenue: "₹1.5Cr" },
-      testimonial: {
-        name: "Dr. Rajesh Kumar",
-        role: "Principal", 
-        quote: "In-sync transformed our parent communication completely. We went from 500 students to 1,250 with waiting lists. Parents now feel valued and informed about their child's education journey."
-      }
-    },
-    {
-      id: "wellness-clinic",
-      company: "Wellness Care Clinic",
-      industry: "Healthcare",
-      icon: Building2,
-      color: "bg-gradient-to-br from-green-600 to-teal-700",
-      challenge: "Patient follow-up was the biggest challenge. Manual appointment reminders, treatment tracking, and patient engagement were inefficient and led to poor retention.",
-      solution: [
-        "Patient management system",
-        "Automated appointment reminders",
-        "Treatment tracking and follow-up",
-        "Patient satisfaction surveys",
-        "Digital health record management",
-        "Prescription and medicine reminders"
-      ],
-      results: [
-        "85% patient retention rate",
-        "60% increase in appointment shows",
-        "40% staff time savings",
-        "Dramatically improved patient care",
-        "Enhanced operational efficiency"
-      ],
-      workflow: [
-        "Patient registration and record management",
-        "Automated appointment scheduling",
-        "Treatment tracking and reminders",
-        "Follow-up care coordination",
-        "Patient feedback collection"
-      ],
-      metrics: { patientRetention: "85%", appointmentShows: "+60%", timeSaved: "40%" },
-      testimonial: {
-        name: "Dr. Anita Patel",
-        role: "Medical Director",
-        quote: "Patient follow-up used to be our biggest challenge. Now we have automated appointment reminders, treatment tracking, and patient satisfaction surveys. Our patient retention improved dramatically."
-      }
-    },
-    {
-      id: "precision-engineering",
-      company: "Precision Engineering Ltd",
-      industry: "Manufacturing",
-      icon: Building2,
+      id: "cartrends",
+      company: "CarTrends", 
+      industry: "Automobile Components Distribution",
+      icon: Car,
       color: "bg-gradient-to-br from-orange-600 to-red-700",
-      challenge: "Field force management was chaotic with 80+ field engineers. Route optimization, expense claim verification, and productivity tracking were major pain points.",
+      challenge: "CarTrends, serving over 2,500 clients, needed digital transformation for sales, field operations, and customer engagement with real-time inventory visibility and scalable outreach beyond manual field visits.",
       solution: [
-        "Real-time field force tracking system",
-        "Route optimization algorithms",
-        "Digital expense claim management",
-        "Performance monitoring dashboard",
-        "Customer visit verification",
-        "Automated reporting system"
+        "Unified CRM system with ERP integration",
+        "Real-time sales order processing with Tez ERP sync",
+        "Mobile field force app with route tracking",
+        "Automated order creation and collections",
+        "Email & WhatsApp marketing campaigns",
+        "Dedicated customer app for digital empowerment"
       ],
       results: [
-        "30% field productivity increase",
-        "45% reduction in expense claims",
-        "92% customer satisfaction",
-        "Complete field force visibility",
-        "Optimized operational efficiency"
+        "Enhanced operational efficiency and sales visibility",
+        "Digitized field force with improved tracking",
+        "Faster and accurate order processing",
+        "Wider customer outreach via marketing automation",
+        "2,500+ customers digitally empowered"
       ],
       workflow: [
-        "Real-time field engineer tracking",
-        "Automated route optimization",
-        "Digital expense claim processing",
-        "Customer visit verification",
-        "Performance analytics and reporting"
+        "Customer data unified with real-time inventory",
+        "Sales orders created and synced with ERP",
+        "Mobile field agents track routes and visits",
+        "Automated marketing campaigns deployed",
+        "Customer app enables self-service capabilities"
       ],
-      metrics: { productivityIncrease: "30%", expenseReduction: "45%", customerSat: "92%" },
+      metrics: { clients: "2,500+", digitalTransformation: "Complete", efficiency: "Enhanced" },
       testimonial: {
-        name: "Vikram Singh",
-        role: "Operations Manager",
-        quote: "Field force management was chaotic before In-sync. Now we track our 80+ field engineers in real-time, optimize routes, and eliminated fake expense claims. Productivity is up 30%."
+        name: "Sales Team",
+        role: "CarTrends",
+        quote: "In-Sync's integration with our ERP system transformed our entire sales process, giving us real-time visibility and empowering our 2,500+ customers digitally."
       }
     },
     {
-      id: "capital-finance",
-      company: "Capital Finance Solutions",
-      industry: "Financial Services", 
-      icon: Building2,
-      color: "bg-gradient-to-br from-blue-600 to-cyan-700",
-      challenge: "Loan processing took weeks with manual follow-ups. Customer journey from application to disbursement was inefficient and led to high customer complaints and delays.",
+      id: "uhc-staffing",
+      company: "UHC Staffing",
+      industry: "Recruitment Services - US Operations", 
+      icon: Users,
+      color: "bg-gradient-to-br from-purple-600 to-indigo-700",
+      challenge: "US-based UHC Staffing needed to centralize job and candidate data, automate lead capture from website and bots, while integrating with ExcelHire ATS for real-time updates and AI-driven engagement.",
       solution: [
-        "Automated loan processing system",
-        "Customer journey automation",
-        "Document verification workflows",
-        "Real-time status tracking",
-        "Automated follow-up communications",
-        "Digital disbursement management"
+        "In-Sync as central marketing and recruitment hub",
+        "Unified master database for jobs and candidates",
+        "Multi-channel automated campaigns via Elastic Email",
+        "Real-time ATS synchronization with ExcelHire",
+        "AI-powered web and voice bots for engagement",
+        "Automated data synchronization for recruiter access"
       ],
       results: [
-        "80% faster processing time",
-        "90% reduction in customer complaints",
-        "65% increase in loan approvals",
-        "3-day processing vs 15 days before",
-        "Complete process transformation"
+        "Streamlined marketing and lead generation",
+        "Real-time updates from multiple touchpoints",
+        "AI automation reducing manual effort",
+        "Perfect data synchronization maintained",
+        "Enhanced recruiter productivity and engagement"
       ],
       workflow: [
-        "Digital loan application processing",
-        "Automated document verification",
-        "Real-time status communications",
-        "Approval workflow management",
-        "Digital disbursement processing"
+        "Unified marketing outreach and lead capture",
+        "Master database consolidates all recruitment data",
+        "Automated campaigns via email and SMS",
+        "AI bots engage candidates contextually",
+        "Real-time sync with ExcelHire ATS"
       ],
-      metrics: { processingSpeed: "80% faster", complaintsReduced: "90%", approvalsUp: "65%" },
+      metrics: { automation: "AI-Driven", integration: "Real-time", efficiency: "Enhanced" },
       testimonial: {
-        name: "Neha Gupta", 
-        role: "Branch Manager",
-        quote: "Loan processing used to take weeks with manual follow-ups. In-sync automated our entire customer journey from application to disbursement. Processing time reduced from 15 days to 3 days."
+        name: "Recruitment Team",
+        role: "UHC Staffing",
+        quote: "In-Sync created a seamless connection between our marketing efforts and ExcelHire ATS, with AI bots handling candidate engagement and real-time data synchronization."
       }
     },
     {
-      id: "premium-properties",
-      company: "Premium Properties",
-      industry: "Real Estate",
-      icon: Building2,
-      color: "bg-gradient-to-br from-indigo-600 to-purple-700",
-      challenge: "Lead management was the biggest pain point. Prospects would slip through cracks, follow-ups were inconsistent, and conversion rates were poor due to lack of systematic approach.",
+      id: "rmpl",
+      company: "RMPL (Redefine Marcom Pvt Ltd)",
+      industry: "Demand Generation & Experiential Marketing",
+      icon: Megaphone,
+      color: "bg-gradient-to-br from-green-600 to-teal-700",
+      challenge: "RMPL, specializing in integrated marketing across events and campaigns, needed centralized control to streamline workflows and improve collaboration across multiple teams and departments.",
       solution: [
-        "Complete lead management system",
-        "Automated follow-up workflows",
-        "Lead scoring and qualification",
-        "Customer relationship tracking",
-        "Property matching algorithms",
-        "Sales pipeline management"
+        "Project & workflow automation across teams",
+        "Integrated call center with smart dialing",
+        "Centralized data management system",
+        "Real-time dashboards for leadership",
+        "Cross-departmental coordination tools",
+        "Unified control for efficient execution"
       ],
       results: [
-        "100% increase in lead conversion",
-        "95% follow-up consistency",
-        "40% shorter sales cycle",
-        "Complete visibility in lead pipeline",
-        "Doubled conversion rates in 6 months"
+        "Significant reduction in task turnaround time",
+        "Enhanced productivity with mobile-display outbound calls",
+        "Eliminated operational silos completely",
+        "Live dashboard visibility for operations",
+        "Better coordination and streamlined processes"
       ],
       workflow: [
-        "Lead capture and qualification",
-        "Automated nurturing sequences",
-        "Property matching and recommendations",
-        "Follow-up scheduling and tracking",
-        "Sales pipeline optimization"
+        "Automated project workflows across departments",
+        "Smart dialing system for call center operations",
+        "Centralized data access for all teams",
+        "Real-time performance monitoring",
+        "Leadership dashboards for strategic decisions"
       ],
-      metrics: { conversionIncrease: "100%", followUpConsistency: "95%", salesCycleReduction: "40%" },
+      metrics: { turnaroundTime: "Reduced", productivity: "Enhanced", silos: "Eliminated" },
       testimonial: {
-        name: "Amit Khanna",
-        role: "Managing Director",
-        quote: "Lead management was our biggest pain point. Prospects would slip through cracks, follow-ups were inconsistent. In-sync gave us complete visibility - our conversion rate doubled in 6 months."
+        name: "Operations Team",
+        role: "RMPL",
+        quote: "In-Sync provided the centralized control we needed, eliminating silos and giving us real-time visibility across all our marketing operations and campaigns."
       }
     },
-
-    // New case studies from PDF
+    
+    // Case Studies from Recent Success Stories PDF
     {
       id: "ecofy",
       company: "Ecofy",
       industry: "RBI Approved NBFC - Green Energy Lending",
       icon: Building2,
       color: "bg-gradient-to-br from-green-600 to-emerald-700",
-      challenge: "Ecofy needed multi-channel communications on one platform that is simple to use and gives the kind of price advantage and versatile access to various channels.",
+      challenge: "Ecofy needed multi-channel communications on one platform that is simple to use and gives the kind of price advantage and versatile access to various channels for their green energy lending operations across 8 states.",
       solution: [
         "In-Sync multi-channel platform for communication",
         "WhatsApp, SMS and email integration",
@@ -292,7 +221,7 @@ const UseCases = () => {
       industry: "IRDA Approved Insurance Broker (Motherson Group)",
       icon: Shield,
       color: "bg-gradient-to-br from-blue-600 to-blue-700",
-      challenge: "BimaLeap needed to streamline their business process of client acquisition through digital campaigns, call center operations and business visibility.",
+      challenge: "BimaLeap needed to streamline their business process of client acquisition through digital campaigns, call center operations and business visibility for strategic decision making.",
       solution: [
         "Multi-service integration system",
         "WhatsApp and email marketing automation",
@@ -324,11 +253,11 @@ const UseCases = () => {
     },
     {
       id: "aliceblue",
-      company: "AliceBlue (Growth Inevitable)",
+      company: "AliceBlue",
       industry: "SEBI Approved Stockbrokers",
       icon: TrendingUp,
       color: "bg-gradient-to-br from-purple-600 to-indigo-700",
-      challenge: "AliceBlue needed to have an efficient and easy to use call center for their remotely located teams.",
+      challenge: "AliceBlue needed to have an efficient and easy to use call center for their remotely located teams across several states, with complete WFH operations management.",
       solution: [
         "Complete WFH call center infrastructure",
         "Follow me, auto-dialer, call recording features",
@@ -364,7 +293,7 @@ const UseCases = () => {
       industry: "RBI Approved NBFC - 12 States Operations",
       icon: Building2,
       color: "bg-gradient-to-br from-orange-600 to-red-700",
-      challenge: "RB had a homegrown CRM system developed over last 3 years that needed to be constantly upgraded to match up to the expansion.",
+      challenge: "RupeeBoss had a homegrown CRM system developed over 3 years that needed constant upgrades to match their expansion across 12 states, creating build vs buy decision challenges.",
       solution: [
         "Complete CRM system replacement",
         "Custom build for sales team requirements",
@@ -400,7 +329,7 @@ const UseCases = () => {
       industry: "Digital Platform - Automobile Lead Generation",
       icon: Car,
       color: "bg-gradient-to-br from-green-600 to-blue-700",
-      challenge: "Carportal generates verified leads for automobile companies and dealers. Generating leads, call based verifications and lead sharing were the key processes that they needed a complete solution for.",
+      challenge: "Carportal generates verified leads for automobile companies and dealers. They needed a complete solution for lead generation, call-based verifications, and lead sharing processes.",
       solution: [
         "Zapier-based integrations with FB/Insta/Google/LinkedIn Ads",
         "Central system for real-time lead management",
