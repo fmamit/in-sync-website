@@ -54,8 +54,7 @@ const Footer = () => {
               <img src={insyncLogo} alt="In-Sync" className="h-8 w-auto" />
             </div>
             <p className="text-muted-foreground mb-6 leading-relaxed">
-              Digitally transforming modern organizations with AI-powered CRM solutions. 
-              Serving 1250+ organizations across 75 countries since 1991.
+              Digitally transforming modern organizations with AI-powered CRM solutions.
             </p>
             
             {/* Contact Info */}
