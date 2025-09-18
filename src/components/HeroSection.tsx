@@ -155,11 +155,11 @@ const HeroSection = () => {
               <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-card/80 to-transparent rounded-r-3xl z-10"></div>
               
               {/* Logo Grid */}
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8 items-center">
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-10 items-center">
                 {customerLogos.map((logo, i) => (
                   <div 
                     key={i} 
-                    className="group relative h-24 flex items-center justify-center p-6 rounded-xl bg-background/50 border border-border/30 hover:border-primary/40 hover:bg-background/80 transition-all duration-500 hover:scale-110 hover:-translate-y-1"
+                    className="group relative h-36 flex items-center justify-center p-8 rounded-xl bg-background/50 border border-border/30 hover:border-primary/40 hover:bg-background/80 transition-all duration-500 hover:scale-110 hover:-translate-y-1"
                     style={{ animationDelay: `${i * 0.1}s` }}
                   >
                     {/* Subtle glow effect */}
@@ -168,7 +168,7 @@ const HeroSection = () => {
                     <img 
                       src={logo.src} 
                       alt={logo.alt}
-                      className="relative z-10 max-h-16 max-w-full object-contain filter grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:brightness-110"
+                      className="relative z-10 max-h-24 max-w-full object-contain filter grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:brightness-110"
                     />
                     
                     {/* Tooltip on hover */}
