@@ -34,93 +34,93 @@ const TestimonialsShowcase = ({ className = "" }: { className?: string }) => {
 
   const testimonials: Testimonial[] = [
     {
-      id: "mumbai-fashion",
-      name: "Priya Sharma",
-      title: "Founder & CEO",
-      company: "Mumbai Fashion Boutique",
-      industry: "Retail & Fashion",
-      companySize: "25 employees",
-      quote: "We went from parents leaving us for 'better' schools to having a waiting list of families who specifically choose us because of our communication and organization. It's completely transformed our reputation in the community.",
-      rating: 5,
-      results: [
-        { metric: "Revenue Growth", improvement: "400%", icon: TrendingUp },
-        { metric: "Repeat Customers", improvement: "70%", icon: Users },
-        { metric: "Customer Value", improvement: "₹45K annual", icon: Building2 }
-      ]
-    },
-    {
-      id: "delhi-school",
-      name: "Dr. Rajesh Kumar",
-      title: "Principal",
-      company: "Delhi CBSE School",
-      industry: "Education",
-      companySize: "150 staff members",
-      quote: "In-sync transformed our parent communication completely. We went from 500 students to 1,250 with waiting lists. Parents now feel valued and informed about their child's education journey.",
-      rating: 5,
-      results: [
-        { metric: "Enrollment Growth", improvement: "250%", icon: TrendingUp },
-        { metric: "Parent Satisfaction", improvement: "95%", icon: Users },
-        { metric: "Additional Revenue", improvement: "₹1.5 Crore", icon: Building2 }
-      ]
-    },
-    {
-      id: "healthcare-clinic",
-      name: "Dr. Anita Patel",
-      title: "Medical Director",
-      company: "Wellness Care Clinic",
-      industry: "Healthcare",
-      companySize: "40 staff members",
-      quote: "Patient follow-up used to be our biggest challenge. Now we have automated appointment reminders, treatment tracking, and patient satisfaction surveys. Our patient retention improved dramatically.",
-      rating: 5,
-      results: [
-        { metric: "Patient Retention", improvement: "85%", icon: Users },
-        { metric: "Appointment Shows", improvement: "60% increase", icon: TrendingUp },
-        { metric: "Staff Efficiency", improvement: "40% time saved", icon: Building2 }
-      ]
-    },
-    {
-      id: "manufacturing-company",
-      name: "Vikram Singh",
-      title: "Operations Manager",
-      company: "Precision Engineering Ltd",
-      industry: "Manufacturing",
-      companySize: "200 employees",
-      quote: "Field force management was chaotic before In-sync. Now we track our 80+ field engineers in real-time, optimize routes, and eliminated fake expense claims. Productivity is up 30%.",
-      rating: 5,
-      results: [
-        { metric: "Field Productivity", improvement: "30%", icon: TrendingUp },
-        { metric: "Expense Claims", improvement: "45% reduction", icon: Building2 },
-        { metric: "Customer Satisfaction", improvement: "92%", icon: Users }
-      ]
-    },
-    {
-      id: "financial-services",
-      name: "Neha Gupta",
-      title: "Branch Manager",
-      company: "Capital Finance Solutions",
+      id: "ecofy",
+      name: "Shraboni Fernandes",
+      title: "CMO",
+      company: "Ecofy",
       industry: "Financial Services",
-      companySize: "60 employees",
-      quote: "Loan processing used to take weeks with manual follow-ups. In-sync automated our entire customer journey from application to disbursement. Processing time reduced from 15 days to 3 days.",
+      companySize: "NBFC with 8 state operations",
+      quote: "In-Sync is an easy-to-use solution that has made our communication scaling simple. Their service team and standards are exceptional.",
       rating: 5,
       results: [
-        { metric: "Processing Time", improvement: "80% faster", icon: TrendingUp },
-        { metric: "Customer Complaints", improvement: "90% reduction", icon: Users },
-        { metric: "Loan Approvals", improvement: "65% increase", icon: Building2 }
+        { metric: "Communication Volume", improvement: "317%", icon: TrendingUp },
+        { metric: "Message Response Rates", improvement: "6X", icon: Users },
+        { metric: "Monthly Messages", improvement: "30K+", icon: Building2 }
       ]
     },
     {
-      id: "real-estate",
-      name: "Amit Khanna",
-      title: "Managing Director",
-      company: "Premium Properties",
-      industry: "Real Estate",
-      companySize: "35 employees",
-      quote: "Lead management was our biggest pain point. Prospects would slip through cracks, follow-ups were inconsistent. In-sync gave us complete visibility - our conversion rate doubled in 6 months.",
+      id: "bima-leap",
+      name: "Vivek Gaur",
+      title: "Head of Business Operations",
+      company: "BIMA LEAP",
+      industry: "Insurance Brokerage",
+      companySize: "Motherson Group subsidiary",
+      quote: "In-Sync has simplified the business processes for us. I am able to measure agent performance on a day-to-day basis with agile reporting system.",
       rating: 5,
       results: [
-        { metric: "Lead Conversion", improvement: "100% increase", icon: TrendingUp },
-        { metric: "Follow-up Consistency", improvement: "95%", icon: Users },
-        { metric: "Sales Cycle", improvement: "40% shorter", icon: Building2 }
+        { metric: "Call Utilization", improvement: "53X", icon: TrendingUp },
+        { metric: "Agent Productivity", improvement: "3X", icon: Users },
+        { metric: "Monthly Communications", improvement: "200K+", icon: Building2 }
+      ]
+    },
+    {
+      id: "aliceblue",
+      name: "Vijayalakshmi R",
+      title: "Head of Business Operations",
+      company: "AliceBlue",
+      industry: "Stock Brokerage",
+      companySize: "SEBI approved stockbroker",
+      quote: "In-Sync is unique, simple to use and effective. It made a very difficult business problem of managing productivity of WFH teams easy. Thanks In-Sync team!",
+      rating: 5,
+      results: [
+        { metric: "Call Volume", improvement: "133%", icon: TrendingUp },
+        { metric: "Outbound Cost Reduction", improvement: "42%", icon: Building2 },
+        { metric: "Monthly Communications", improvement: "200K+", icon: Users }
+      ]
+    },
+    {
+      id: "rupeeboss",
+      name: "Ilika Bhattacharya",
+      title: "Project Lead",
+      company: "RupeeBoss",
+      industry: "Financial Services",
+      companySize: "NBFC with 12 state operations",
+      quote: "In-Sync is a capable and versatile system. The product team took good care to understand and map our processes well so that there has been minimal training issues during the transition. Well done.",
+      rating: 5,
+      results: [
+        { metric: "System Cost", improvement: "<60%", icon: Building2 },
+        { metric: "Implementation Time", improvement: "1 month", icon: TrendingUp },
+        { metric: "Training Issues", improvement: "Minimal", icon: Users }
+      ]
+    },
+    {
+      id: "carportal",
+      name: "Shikeb Ahmed",
+      title: "Founder",
+      company: "Carportal",
+      industry: "Automotive Tech",
+      companySize: "Digital lead generation platform",
+      quote: "In-Sync has converted our business process online and we are benefitted with it. The team is very supportive.",
+      rating: 5,
+      results: [
+        { metric: "Inbound Leads Handled", improvement: "900", icon: Users },
+        { metric: "Agent Productivity", improvement: "3X", icon: TrendingUp },
+        { metric: "Lead Verification Time", improvement: "<3.4 mins", icon: Building2 }
+      ]
+    },
+    {
+      id: "audi-kolkata",
+      name: "Kashif Shaikh",
+      title: "CEO",
+      company: "Audi Kolkata",
+      industry: "Automotive Services",
+      companySize: "Authorized Audi dealership",
+      quote: "EchoApp has made our use of multi-channel engagement better.",
+      rating: 5,
+      results: [
+        { metric: "Service Scheduling", improvement: "15%", icon: Building2 },
+        { metric: "Brand Engagement", improvement: "3X", icon: TrendingUp },
+        { metric: "Monthly Communications", improvement: "200K+", icon: Users }
       ]
     }
   ];
