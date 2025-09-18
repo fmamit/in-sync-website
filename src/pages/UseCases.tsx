@@ -31,6 +31,225 @@ import Footer from "@/components/Footer";
 
 const UseCases = () => {
   const realCaseStudies = [
+    // Original case studies from existing testimonials
+    {
+      id: "mumbai-fashion",
+      company: "Mumbai Fashion Boutique",
+      industry: "Retail & Fashion",
+      icon: Building2,
+      color: "bg-gradient-to-br from-purple-600 to-pink-700",
+      challenge: "Small fashion boutique struggled with customer retention and scaling operations. Needed better communication systems to compete with larger retailers and build customer loyalty.",
+      solution: [
+        "Customer relationship management system",
+        "Automated customer follow-up campaigns",
+        "Personalized communication workflows", 
+        "Order tracking and notifications",
+        "Customer feedback management",
+        "Loyalty program integration"
+      ],
+      results: [
+        "400% revenue growth achieved",
+        "70% repeat customer rate",
+        "₹45K annual customer value",
+        "Complete operational transformation",
+        "Strong community reputation built"
+      ],
+      workflow: [
+        "Customer data capture and segmentation",
+        "Automated personalized communications",
+        "Order management and tracking",
+        "Follow-up and feedback collection",
+        "Loyalty program management"
+      ],
+      metrics: { revenueGrowth: "400%", repeatCustomers: "70%", customerValue: "₹45K" },
+      testimonial: {
+        name: "Priya Sharma",
+        role: "Founder & CEO",
+        quote: "We went from parents leaving us for 'better' schools to having a waiting list of families who specifically choose us because of our communication and organization. It's completely transformed our reputation in the community."
+      }
+    },
+    {
+      id: "delhi-school",
+      company: "Delhi CBSE School", 
+      industry: "Education",
+      icon: Users,
+      color: "bg-gradient-to-br from-blue-600 to-indigo-700",
+      challenge: "School faced declining enrollment and poor parent communication. Parents felt disconnected from their child's education journey and were considering other schools.",
+      solution: [
+        "Parent communication management system",
+        "Student progress tracking and reporting",
+        "Automated notification systems",
+        "Event management and coordination",
+        "Fee management and reminders",
+        "Digital report card system"
+      ],
+      results: [
+        "250% enrollment growth",
+        "95% parent satisfaction rate",
+        "₹1.5 Crore additional revenue",
+        "Waiting lists established",
+        "Complete digital transformation"
+      ],
+      workflow: [
+        "Student enrollment and data management",
+        "Automated parent communications",
+        "Progress tracking and reporting",
+        "Event coordination and updates",
+        "Fee collection and management"
+      ],
+      metrics: { enrollmentGrowth: "250%", parentSatisfaction: "95%", additionalRevenue: "₹1.5Cr" },
+      testimonial: {
+        name: "Dr. Rajesh Kumar",
+        role: "Principal", 
+        quote: "In-sync transformed our parent communication completely. We went from 500 students to 1,250 with waiting lists. Parents now feel valued and informed about their child's education journey."
+      }
+    },
+    {
+      id: "wellness-clinic",
+      company: "Wellness Care Clinic",
+      industry: "Healthcare",
+      icon: Building2,
+      color: "bg-gradient-to-br from-green-600 to-teal-700",
+      challenge: "Patient follow-up was the biggest challenge. Manual appointment reminders, treatment tracking, and patient engagement were inefficient and led to poor retention.",
+      solution: [
+        "Patient management system",
+        "Automated appointment reminders",
+        "Treatment tracking and follow-up",
+        "Patient satisfaction surveys",
+        "Digital health record management",
+        "Prescription and medicine reminders"
+      ],
+      results: [
+        "85% patient retention rate",
+        "60% increase in appointment shows",
+        "40% staff time savings",
+        "Dramatically improved patient care",
+        "Enhanced operational efficiency"
+      ],
+      workflow: [
+        "Patient registration and record management",
+        "Automated appointment scheduling",
+        "Treatment tracking and reminders",
+        "Follow-up care coordination",
+        "Patient feedback collection"
+      ],
+      metrics: { patientRetention: "85%", appointmentShows: "+60%", timeSaved: "40%" },
+      testimonial: {
+        name: "Dr. Anita Patel",
+        role: "Medical Director",
+        quote: "Patient follow-up used to be our biggest challenge. Now we have automated appointment reminders, treatment tracking, and patient satisfaction surveys. Our patient retention improved dramatically."
+      }
+    },
+    {
+      id: "precision-engineering",
+      company: "Precision Engineering Ltd",
+      industry: "Manufacturing",
+      icon: Building2,
+      color: "bg-gradient-to-br from-orange-600 to-red-700",
+      challenge: "Field force management was chaotic with 80+ field engineers. Route optimization, expense claim verification, and productivity tracking were major pain points.",
+      solution: [
+        "Real-time field force tracking system",
+        "Route optimization algorithms",
+        "Digital expense claim management",
+        "Performance monitoring dashboard",
+        "Customer visit verification",
+        "Automated reporting system"
+      ],
+      results: [
+        "30% field productivity increase",
+        "45% reduction in expense claims",
+        "92% customer satisfaction",
+        "Complete field force visibility",
+        "Optimized operational efficiency"
+      ],
+      workflow: [
+        "Real-time field engineer tracking",
+        "Automated route optimization",
+        "Digital expense claim processing",
+        "Customer visit verification",
+        "Performance analytics and reporting"
+      ],
+      metrics: { productivityIncrease: "30%", expenseReduction: "45%", customerSat: "92%" },
+      testimonial: {
+        name: "Vikram Singh",
+        role: "Operations Manager",
+        quote: "Field force management was chaotic before In-sync. Now we track our 80+ field engineers in real-time, optimize routes, and eliminated fake expense claims. Productivity is up 30%."
+      }
+    },
+    {
+      id: "capital-finance",
+      company: "Capital Finance Solutions",
+      industry: "Financial Services", 
+      icon: Building2,
+      color: "bg-gradient-to-br from-blue-600 to-cyan-700",
+      challenge: "Loan processing took weeks with manual follow-ups. Customer journey from application to disbursement was inefficient and led to high customer complaints and delays.",
+      solution: [
+        "Automated loan processing system",
+        "Customer journey automation",
+        "Document verification workflows",
+        "Real-time status tracking",
+        "Automated follow-up communications",
+        "Digital disbursement management"
+      ],
+      results: [
+        "80% faster processing time",
+        "90% reduction in customer complaints",
+        "65% increase in loan approvals",
+        "3-day processing vs 15 days before",
+        "Complete process transformation"
+      ],
+      workflow: [
+        "Digital loan application processing",
+        "Automated document verification",
+        "Real-time status communications",
+        "Approval workflow management",
+        "Digital disbursement processing"
+      ],
+      metrics: { processingSpeed: "80% faster", complaintsReduced: "90%", approvalsUp: "65%" },
+      testimonial: {
+        name: "Neha Gupta", 
+        role: "Branch Manager",
+        quote: "Loan processing used to take weeks with manual follow-ups. In-sync automated our entire customer journey from application to disbursement. Processing time reduced from 15 days to 3 days."
+      }
+    },
+    {
+      id: "premium-properties",
+      company: "Premium Properties",
+      industry: "Real Estate",
+      icon: Building2,
+      color: "bg-gradient-to-br from-indigo-600 to-purple-700",
+      challenge: "Lead management was the biggest pain point. Prospects would slip through cracks, follow-ups were inconsistent, and conversion rates were poor due to lack of systematic approach.",
+      solution: [
+        "Complete lead management system",
+        "Automated follow-up workflows",
+        "Lead scoring and qualification",
+        "Customer relationship tracking",
+        "Property matching algorithms",
+        "Sales pipeline management"
+      ],
+      results: [
+        "100% increase in lead conversion",
+        "95% follow-up consistency",
+        "40% shorter sales cycle",
+        "Complete visibility in lead pipeline",
+        "Doubled conversion rates in 6 months"
+      ],
+      workflow: [
+        "Lead capture and qualification",
+        "Automated nurturing sequences",
+        "Property matching and recommendations",
+        "Follow-up scheduling and tracking",
+        "Sales pipeline optimization"
+      ],
+      metrics: { conversionIncrease: "100%", followUpConsistency: "95%", salesCycleReduction: "40%" },
+      testimonial: {
+        name: "Amit Khanna",
+        role: "Managing Director",
+        quote: "Lead management was our biggest pain point. Prospects would slip through cracks, follow-ups were inconsistent. In-sync gave us complete visibility - our conversion rate doubled in 6 months."
+      }
+    },
+
+    // New case studies from PDF
     {
       id: "ecofy",
       company: "Ecofy",
