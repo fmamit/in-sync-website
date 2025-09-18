@@ -465,7 +465,6 @@ const OnboardingForm = () => {
 
     // Title and Header
     addText("IN-SYNC PLATFORM ONBOARDING FORM", 20, 16, true);
-    addText("Font: Nunito Sans", 20, 10);
     yPosition += 10;
 
     // Section 1: Company Information
@@ -1563,7 +1562,6 @@ const OnboardingForm = () => {
     <Card className="w-full max-w-6xl mx-auto font-nunito">
       <CardHeader className="text-center pb-4">
         <CardTitle className="text-2xl font-bold text-primary">In-Sync Platform Onboarding Form</CardTitle>
-        <p className="text-sm text-muted-foreground italic">Font: Nunito Sans</p>
         <div className="space-y-2">
           <Progress value={progressPercentage} className="w-full" />
           <p className="text-sm text-muted-foreground">
