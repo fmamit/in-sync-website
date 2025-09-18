@@ -47,6 +47,13 @@ All colors MUST be HSL.
     --gradient-hero: linear-gradient(135deg, hsl(var(--primary) / 0.1), hsl(var(--accent) / 0.05));
     --gradient-accent: linear-gradient(90deg, hsl(var(--accent)), hsl(var(--primary) / 0.3));
 
+    /* Chart Colors */
+    --chart-1: 0 84% 60%; /* Red */
+    --chart-2: 142 76% 36%; /* Green */
+    --chart-3: 262 83% 58%; /* Purple */
+    --chart-4: 271 81% 56%; /* Violet */
+    --chart-5: 217 91% 60%; /* Blue */
+
     --radius: 0.5rem;
 
     --sidebar-background: 0 0% 98%;
@@ -112,5 +119,18 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  /* Dynamic Progress Bar Colors */
+  .progress-indicator {
+    background-color: var(--progress-color, hsl(var(--primary)));
+    transition: background-color 0.3s ease;
+  }
+
+  /* Progress component custom styling */
+  .progress[style*="--progress-color"] .progress-indicator {
+    background-color: var(--progress-color);
   }
 }

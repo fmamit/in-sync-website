@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -6,6 +6,7 @@ import { Progress } from "@/components/ui/progress";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import ClientOnboardingModal from "./ClientOnboardingModal";
+import jsPDF from "jspdf";
 import { 
   ClipboardCheck,
   Users,
@@ -16,7 +17,8 @@ import {
   ArrowRight,
   BarChart3,
   Target,
-  Zap
+  Zap,
+  Download
 } from "lucide-react";
 
 interface Question {
@@ -39,6 +41,20 @@ const BusinessAssessment = ({ className = "" }: { className?: string }) => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<Record<string, number>>({});
   const [showResults, setShowResults] = useState(false);
+
+  // Load previous results on component mount
+  useEffect(() => {
+    const savedResults = localStorage.getItem('insync-assessment-results');
+    if (savedResults) {
+      try {
+        const data = JSON.parse(savedResults);
+        // Optionally pre-load previous answers
+        // setAnswers(data.answers);
+      } catch (error) {
+        console.error('Failed to load saved assessment results:', error);
+      }
+    }
+  }, []);
 
   const questions: Question[] = [
     {
@@ -131,13 +147,109 @@ const BusinessAssessment = ({ className = "" }: { className?: string }) => {
     }
   ];
 
+  // Calculate color based on score percentage (red -> yellow -> green)
+  const getScoreColor = (percentage: number) => {
+    if (percentage >= 80) return "hsl(var(--chart-2))"; // Green
+    if (percentage >= 70) return "hsl(142, 76%, 45%)"; // Light green
+    if (percentage >= 60) return "hsl(60, 100%, 45%)"; // Yellow-green
+    if (percentage >= 50) return "hsl(45, 100%, 50%)"; // Yellow
+    if (percentage >= 40) return "hsl(30, 100%, 55%)"; // Orange
+    if (percentage >= 30) return "hsl(15, 100%, 60%)"; // Orange-red
+    return "hsl(var(--chart-1))"; // Red
+  };
+
+  const getScoreColorClass = (percentage: number) => {
+    if (percentage >= 80) return "text-green-600";
+    if (percentage >= 70) return "text-green-500";
+    if (percentage >= 60) return "text-yellow-500";
+    if (percentage >= 50) return "text-yellow-600";
+    if (percentage >= 40) return "text-orange-500";
+    if (percentage >= 30) return "text-orange-600";
+    return "text-red-600";
+  };
+
+  // Save assessment results to localStorage
+  const saveAssessmentResults = (results: AssessmentResult, answers: Record<string, number>) => {
+    const assessmentData = {
+      results,
+      answers,
+      timestamp: new Date().toISOString(),
+      questions: questions
+    };
+    localStorage.setItem('insync-assessment-results', JSON.stringify(assessmentData));
+  };
+
+  // Export results as PDF
+  const exportToPDF = (results: AssessmentResult, answers: Record<string, number>) => {
+    const doc = new jsPDF();
+    
+    // Header
+    doc.setFontSize(20);
+    doc.text('In-Sync Business Assessment Results', 20, 20);
+    
+    // Date
+    doc.setFontSize(12);
+    doc.text(`Assessment Date: ${new Date().toLocaleDateString()}`, 20, 35);
+    
+    // Overall Score
+    doc.setFontSize(16);
+    doc.text(`Overall Score: ${Math.round(results.score)}%`, 20, 55);
+    doc.text(`Level: ${results.title}`, 20, 70);
+    
+    // Description
+    doc.setFontSize(12);
+    const splitDescription = doc.splitTextToSize(results.description, 170);
+    doc.text(splitDescription, 20, 85);
+    
+    // Category Breakdown
+    let yPos = 110;
+    doc.setFontSize(14);
+    doc.text('Performance by Category:', 20, yPos);
+    yPos += 15;
+    
+    Object.entries({
+      operations: "Operations",
+      sales: "Sales Process", 
+      communication: "Communication",
+      growth: "Growth & Analytics"
+    }).forEach(([category, label]) => {
+      const categoryQuestions = questions.filter(q => q.category === category);
+      const categoryAnswers = categoryQuestions.map(q => answers[q.id] || 0);
+      const categoryScore = categoryAnswers.reduce((sum, score) => sum + score, 0);
+      const categoryMax = categoryQuestions.length * 4;
+      const categoryPercentage = (categoryScore / categoryMax) * 100;
+      
+      doc.setFontSize(12);
+      doc.text(`${label}: ${Math.round(categoryPercentage)}%`, 25, yPos);
+      yPos += 12;
+    });
+    
+    // Recommendations
+    yPos += 10;
+    doc.setFontSize(14);
+    doc.text('Recommendations:', 20, yPos);
+    yPos += 15;
+    
+    results.recommendations.forEach((rec, index) => {
+      doc.setFontSize(12);
+      const splitRec = doc.splitTextToSize(`${index + 1}. ${rec}`, 170);
+      doc.text(splitRec, 25, yPos);
+      yPos += splitRec.length * 6 + 5;
+    });
+    
+    // Save the PDF
+    doc.save('insync-business-assessment-results.pdf');
+  };
+
   const calculateResults = (): AssessmentResult => {
     const totalScore = Object.values(answers).reduce((sum, score) => sum + score, 0);
     const maxScore = questions.length * 4;
     const percentage = (totalScore / maxScore) * 100;
 
+    let result: AssessmentResult;
+
     if (percentage >= 85) {
-      return {
+      result = {
         score: percentage,
         level: "excellent",
         title: "Business Excellence",
@@ -148,10 +260,10 @@ const BusinessAssessment = ({ className = "" }: { className?: string }) => {
           "Implement predictive analytics for market trends",
           "Focus on scaling your proven systems"
         ],
-        color: "text-green-600"
+        color: getScoreColorClass(percentage)
       };
     } else if (percentage >= 65) {
-      return {
+      result = {
         score: percentage,
         level: "good",
         title: "Strong Foundation",
@@ -162,10 +274,10 @@ const BusinessAssessment = ({ className = "" }: { className?: string }) => {
           "Implement advanced analytics for better insights",
           "Enhance customer communication channels"
         ],
-        color: "text-blue-600"
+        color: getScoreColorClass(percentage)
       };
     } else if (percentage >= 45) {
-      return {
+      result = {
         score: percentage,
         level: "needs-improvement",
         title: "Improvement Opportunities",
@@ -176,23 +288,28 @@ const BusinessAssessment = ({ className = "" }: { className?: string }) => {
           "Establish structured sales and communication processes",
           "Invest in team collaboration tools"
         ],
-        color: "text-orange-600"
+        color: getScoreColorClass(percentage)
       };
     } else {
-      return {
+      result = {
         score: percentage,
         level: "critical",
         title: "Critical Action Needed",
-        description: "Your business is facing significant operational challenges. Immediate action is needed to prevent further inefficiencies and missed opportunities.",
+        description: "Your business is facing significant operational challenges. Immediate action is needed to prevent inefficiencies and missed opportunities.",
         recommendations: [
           "Start with basic CRM and communication tools",
           "Eliminate manual processes that waste time",
           "Implement customer tracking and follow-up systems",
           "Establish basic reporting and analytics"
         ],
-        color: "text-red-600"
+        color: getScoreColorClass(percentage)
       };
     }
+
+    // Save results to localStorage
+    saveAssessmentResults(result, answers);
+    
+    return result;
   };
 
   const currentQ = questions[currentQuestion];
@@ -252,7 +369,24 @@ const BusinessAssessment = ({ className = "" }: { className?: string }) => {
                     {results.description}
                   </p>
                 </div>
-                <Progress value={results.score} className="h-3 max-w-md mx-auto mt-4" />
+                <div className="mt-4 space-y-3">
+                  <Progress 
+                    value={results.score} 
+                    className="h-3 max-w-md mx-auto"
+                    style={{ 
+                      '--progress-color': getScoreColor(results.score)
+                    } as React.CSSProperties}
+                  />
+                  <Button
+                    onClick={() => exportToPDF(results, answers)}
+                    variant="outline"
+                    size="sm"
+                    className="mt-4"
+                  >
+                    <Download className="w-4 h-4 mr-2" />
+                    Export PDF Report
+                  </Button>
+                </div>
               </CardContent>
             </Card>
 
@@ -279,7 +413,9 @@ const BusinessAssessment = ({ className = "" }: { className?: string }) => {
                     return (
                       <div key={category} className="text-center p-4 border rounded-lg">
                         <Icon className="w-8 h-8 text-primary mx-auto mb-2" />
-                        <div className="text-2xl font-bold mb-1">
+                        <div 
+                          className={`text-2xl font-bold mb-1 ${getScoreColorClass(categoryPercentage)}`}
+                        >
                           {Math.round(categoryPercentage)}%
                         </div>
                         <div className="text-sm text-muted-foreground">
