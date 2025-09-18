@@ -50,7 +50,6 @@ const HeroSection = () => {
     { src: hiranandaniLogo, alt: "Hiranandani" },
     { src: redefineLogo, alt: "Redefine" },
     { src: mothersonLogo, alt: "Motherson" },
-    { src: collegedekhoLogo, alt: "CollegeDekho" },
     { src: zopperLogo, alt: "Zopper" },
     { src: legitquestLogo, alt: "Legitquest" },
     { src: seedsFincapLogo, alt: "Seeds Fincap" },
