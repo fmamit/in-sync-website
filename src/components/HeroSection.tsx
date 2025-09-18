@@ -48,7 +48,6 @@ const HeroSection = () => {
     { src: zovleLogo, alt: "Zovle" },
     { src: carportalLogo, alt: "Carportal" },
     { src: hiranandaniLogo, alt: "Hiranandani" },
-    { src: quessLogo, alt: "Quess" },
     { src: redefineLogo, alt: "Redefine" },
     { src: mothersonLogo, alt: "Motherson" },
     { src: collegedekhoLogo, alt: "CollegeDekho" },
