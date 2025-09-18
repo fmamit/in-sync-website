@@ -31,10 +31,11 @@ const Footer = () => {
       { name: "Education", href: "/industries/education" }
     ],
     resources: [
-      { name: "Use Cases", href: "/use-cases" },
-      { name: "White Papers", href: "/resources" },
-      { name: "FAQ", href: "/faq" },
-      { name: "Industries", href: "/industries" }
+      { name: "Blogs", href: "/resources" },
+      { name: "Whitepapers", href: "/resources?tab=whitepapers" },
+      { name: "Events", href: "/resources?tab=events" },
+      { name: "Tutorials", href: "/resources?tab=tutorials" },
+      { name: "FAQs", href: "/resources?tab=faqs" }
     ],
     company: [
       { name: "Partnership", href: "/partnership" },

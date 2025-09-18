@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -220,6 +220,15 @@ const Resources = () => {
   const [faqQuery, setFaqQuery] = useState("");
   const [faqResponse, setFaqResponse] = useState("");
   const { toast } = useToast();
+
+  // Handle URL query parameters for tab switching
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const tabParam = urlParams.get('tab');
+    if (tabParam && ['blogs', 'whitepapers', 'events', 'tutorials', 'faqs'].includes(tabParam)) {
+      setActiveTab(tabParam);
+    }
+  }, []);
 
   // Add new resource form state
   const [newResource, setNewResource] = useState({
