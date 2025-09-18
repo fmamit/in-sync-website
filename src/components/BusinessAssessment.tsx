@@ -226,68 +226,80 @@ const BusinessAssessment = ({ className = "" }: { className?: string }) => {
 
   if (showResults && results) {
     return (
-      <div className={`max-w-4xl mx-auto ${className}`}>
-        <Card>
-          <CardHeader className="text-center">
-            <div className="flex items-center justify-center gap-2 mb-4">
-              <BarChart3 className="w-8 h-8 text-primary" />
-              <h2 className="text-3xl font-bold">Assessment Results</h2>
-            </div>
-          </CardHeader>
-          <CardContent className="space-y-8">
+      <div className={`w-full max-w-6xl mx-auto ${className}`}>
+        {/* Header Section */}
+        <div className="text-center mb-8">
+          <div className="flex items-center justify-center gap-2 mb-4">
+            <BarChart3 className="w-8 h-8 text-primary" />
+            <h2 className="text-3xl font-bold">Assessment Results</h2>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Main Results - Takes up 2 columns */}
+          <div className="lg:col-span-2 space-y-6">
             {/* Score Display */}
-            <div className="text-center space-y-4">
-              <div className="text-6xl font-bold text-primary">
-                {Math.round(results.score)}%
-              </div>
-              <div className="space-y-2">
-                <h3 className={`text-2xl font-bold ${results.color}`}>
-                  {results.title}
-                </h3>
-                <p className="text-muted-foreground max-w-2xl mx-auto">
-                  {results.description}
-                </p>
-              </div>
-              <Progress value={results.score} className="h-3 max-w-md mx-auto" />
-            </div>
+            <Card>
+              <CardContent className="text-center p-8">
+                <div className="text-6xl font-bold text-primary mb-4">
+                  {Math.round(results.score)}%
+                </div>
+                <div className="space-y-2">
+                  <h3 className={`text-2xl font-bold ${results.color}`}>
+                    {results.title}
+                  </h3>
+                  <p className="text-muted-foreground">
+                    {results.description}
+                  </p>
+                </div>
+                <Progress value={results.score} className="h-3 max-w-md mx-auto mt-4" />
+              </CardContent>
+            </Card>
 
             {/* Category Breakdown */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {Object.entries({
-                operations: "Operations",
-                sales: "Sales Process", 
-                communication: "Communication",
-                growth: "Growth & Analytics"
-              }).map(([category, label]) => {
-                const categoryQuestions = questions.filter(q => q.category === category);
-                const categoryAnswers = categoryQuestions.map(q => answers[q.id] || 0);
-                const categoryScore = categoryAnswers.reduce((sum, score) => sum + score, 0);
-                const categoryMax = categoryQuestions.length * 4;
-                const categoryPercentage = (categoryScore / categoryMax) * 100;
-                const Icon = categoryIcons[category as keyof typeof categoryIcons];
+            <Card>
+              <CardHeader>
+                <CardTitle>Performance by Category</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-2 gap-4">
+                  {Object.entries({
+                    operations: "Operations",
+                    sales: "Sales Process", 
+                    communication: "Communication",
+                    growth: "Growth & Analytics"
+                  }).map(([category, label]) => {
+                    const categoryQuestions = questions.filter(q => q.category === category);
+                    const categoryAnswers = categoryQuestions.map(q => answers[q.id] || 0);
+                    const categoryScore = categoryAnswers.reduce((sum, score) => sum + score, 0);
+                    const categoryMax = categoryQuestions.length * 4;
+                    const categoryPercentage = (categoryScore / categoryMax) * 100;
+                    const Icon = categoryIcons[category as keyof typeof categoryIcons];
 
-                return (
-                  <Card key={category} className="text-center">
-                    <CardContent className="p-4">
-                      <Icon className="w-8 h-8 text-primary mx-auto mb-2" />
-                      <div className="text-2xl font-bold mb-1">
-                        {Math.round(categoryPercentage)}%
+                    return (
+                      <div key={category} className="text-center p-4 border rounded-lg">
+                        <Icon className="w-8 h-8 text-primary mx-auto mb-2" />
+                        <div className="text-2xl font-bold mb-1">
+                          {Math.round(categoryPercentage)}%
+                        </div>
+                        <div className="text-sm text-muted-foreground">
+                          {label}
+                        </div>
                       </div>
-                      <div className="text-sm text-muted-foreground">
-                        {label}
-                      </div>
-                    </CardContent>
-                  </Card>
-                );
-              })}
-            </div>
+                    );
+                  })}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
 
-            {/* Recommendations */}
+          {/* Recommendations Sidebar */}
+          <div className="lg:col-span-1 space-y-6">
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Target className="w-5 h-5" />
-                  Recommended Actions
+                  Next Steps
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -306,31 +318,34 @@ const BusinessAssessment = ({ className = "" }: { className?: string }) => {
               </CardContent>
             </Card>
 
-            {/* CTA */}
-            <div className="text-center space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-md mx-auto">
-                <ClientOnboardingModal trigger={
-                  <Button size="lg" className="w-full">
-                    <CheckCircle2 className="w-4 h-4 mr-2" />
-                    Get Started Now
+            {/* CTA Card */}
+            <Card>
+              <CardContent className="p-6 text-center space-y-4">
+                <h3 className="font-semibold">Ready to Transform?</h3>
+                <div className="space-y-3">
+                  <ClientOnboardingModal trigger={
+                    <Button size="lg" className="w-full">
+                      <CheckCircle2 className="w-4 h-4 mr-2" />
+                      Get Started Now
+                    </Button>
+                  } />
+                  <Button variant="outline" size="lg" onClick={resetAssessment} className="w-full">
+                    Retake Assessment
                   </Button>
-                } />
-                <Button variant="outline" size="lg" onClick={resetAssessment} className="w-full">
-                  Retake Assessment
-                </Button>
-              </div>
-              <p className="text-sm text-muted-foreground">
-                Get a personalized demo based on your assessment results
-              </p>
-            </div>
-          </CardContent>
-        </Card>
+                </div>
+                <p className="text-xs text-muted-foreground">
+                  Get a personalized demo based on your assessment results
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className={`max-w-2xl mx-auto ${className}`}>
+    <div className={`w-full max-w-4xl mx-auto ${className}`}>
       <div className="text-center mb-8">
         <div className="flex items-center justify-center gap-2 mb-4">
           <ClipboardCheck className="w-8 h-8 text-primary" />

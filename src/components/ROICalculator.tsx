@@ -100,21 +100,21 @@ const ROICalculator = ({ className = "" }: ROICalculatorProps) => {
   ];
 
   return (
-    <div className={`max-w-6xl mx-auto ${className}`}>
+    <div className={`w-full max-w-7xl mx-auto ${className}`}>
       <div className="text-center mb-8">
         <div className="flex items-center justify-center gap-2 mb-4">
           <TrendingUp className="w-8 h-8 text-primary" />
           <h2 className="text-3xl font-bold text-foreground">ROI Calculator</h2>
         </div>
-        <p className="text-muted-foreground max-w-2xl mx-auto">
+        <p className="text-muted-foreground max-w-3xl mx-auto">
           Discover your potential return on investment with In-Sync. Calculate real savings from productivity gains, 
           tool consolidation, and increased deal conversion rates.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 xl:grid-cols-5 gap-8">
         {/* Input Panel */}
-        <div className="lg:col-span-2 space-y-6">
+        <div className="xl:col-span-3 space-y-6">
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
@@ -264,8 +264,9 @@ const ROICalculator = ({ className = "" }: ROICalculatorProps) => {
         </div>
 
         {/* Results Panel */}
-        <div className="lg:col-span-1">
-          <Card className="sticky top-4">
+        <div className="xl:col-span-2">
+          <div className="sticky top-4 space-y-6">
+            <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <TrendingUp className="w-5 h-5" />
@@ -351,21 +352,27 @@ const ROICalculator = ({ className = "" }: ROICalculatorProps) => {
                 </div>
               </div>
 
-              {/* Current Cost Analysis */}
-              <div className="bg-red-50 p-4 rounded-lg border border-red-200">
-                <h4 className="font-semibold text-red-800 mb-2 flex items-center gap-2">
-                  <AlertCircle className="w-4 h-4" />
+            </CardContent>
+            </Card>
+
+            {/* Current Cost Analysis */}
+            <Card className="border-destructive/20">
+              <CardContent className="p-6">
+                <h4 className="font-semibold text-destructive mb-4 flex items-center gap-2">
+                  <AlertCircle className="w-5 h-5" />
                   Current Annual Waste
                 </h4>
-                <div className="text-2xl font-bold text-red-600 mb-1">
-                  {formatCurrency(totalCurrentCosts)}
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-destructive mb-2">
+                    {formatCurrency(totalCurrentCosts)}
+                  </div>
+                  <div className="text-sm text-muted-foreground">
+                    Lost productivity + Tool costs + Missed revenue
+                  </div>
                 </div>
-                <div className="text-xs text-red-700">
-                  Lost productivity + Tool costs + Missed revenue
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
+          </div>
         </div>
       </div>
     </div>
