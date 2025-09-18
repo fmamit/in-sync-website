@@ -10,6 +10,7 @@ import {
   ArrowRight
 } from "lucide-react";
 import insyncLogo from "@/assets/insync-logo-color.png";
+import ClientOnboardingModal from "./ClientOnboardingModal";
 
 const Footer = () => {
   const footerLinks = {
@@ -73,6 +74,18 @@ const Footer = () => {
                 <MapPin className="h-4 w-4 text-primary mt-0.5" />
                 <span>Gurgaon, Haryana, India - 122002</span>
               </div>
+            </div>
+
+            {/* Get Started CTA */}
+            <div className="mb-6">
+              <ClientOnboardingModal
+                trigger={
+                  <Button size="sm" className="bg-primary hover:bg-primary/90 text-primary-foreground">
+                    Get Started Now
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                }
+              />
             </div>
 
             {/* Social Links */}
