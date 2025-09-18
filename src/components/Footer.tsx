@@ -22,10 +22,13 @@ const Footer = () => {
     ],
     solutions: [
       { name: "Financial Services", href: "/industries/financial-services" },
-      { name: "Automotive", href: "/industries/automotive" },
-      { name: "Retail & Fashion", href: "/industries/retail" },
+      { name: "Healthcare", href: "/industries/healthcare" },
       { name: "Manufacturing", href: "/industries/manufacturing" },
-      { name: "Real Estate", href: "/industries/real-estate" }
+      { name: "Real Estate", href: "/industries/real-estate" },
+      { name: "Retail & E-commerce", href: "/industries/retail-ecommerce" },
+      { name: "Technology & SaaS", href: "/industries/technology-saas" },
+      { name: "Professional Services", href: "/industries/professional-services" },
+      { name: "Education", href: "/industries/education" }
     ],
     resources: [
       { name: "Case Studies", href: "/case-studies" },
