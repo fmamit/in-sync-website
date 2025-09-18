@@ -19,26 +19,44 @@ import ecofyLogo from "@/assets/ecofy-logo.svg";
 import mothersonLogo from "@/assets/motherson-logo.jpg";
 import rupeeBossLogo from "@/assets/rupee-boss-logo.webp";
 import evcoLogo from "@/assets/evco-logo-transparent.png";
+// New client logos from success stories
+import ecofyNewLogo from "@/assets/ecofy-new-logo.jpg";
+import bimaLeapLogo from "@/assets/bima-leap-logo.jpg";
+import aliceblueLogo from "@/assets/aliceblue-logo.jpg";
+import carportalLogo from "@/assets/carportal-logo.jpg";
+import clientLogo1 from "@/assets/client-logo-1.jpg";
+import clientLogo2 from "@/assets/client-logo-2.jpg";
+import clientLogo3 from "@/assets/client-logo-3.jpg";
+import clientLogo4 from "@/assets/client-logo-4.jpg";
+import clientLogo5 from "@/assets/client-logo-5.jpg";
+import clientLogo6 from "@/assets/client-logo-6.jpg";
+import clientLogo7 from "@/assets/client-logo-7.jpg";
+import clientLogo8 from "@/assets/client-logo-8.jpg";
 
 const HeroSection = () => {
   const navigate = useNavigate();
   
   const customerLogos = [
+    { src: audiLogo, alt: "Audi" },
+    { src: ecofyNewLogo, alt: "Ecofy" },
+    { src: bimaLeapLogo, alt: "BIMA LEAP (Motherson Group)" },
+    { src: aliceblueLogo, alt: "AliceBlue" },
+    { src: rupeeBossLogo, alt: "RupeeBoss" },
+    { src: carportalLogo, alt: "Carportal" },
     { src: hiranandaniLogo, alt: "Hiranandani" },
     { src: quessLogo, alt: "Quess" },
     { src: redefineLogo, alt: "Redefine" },
-    { src: seedsLogo, alt: "Seeds" },
-    { src: uhcLogo, alt: "United Health Care Staffing" },
-    { src: audiLogo, alt: "Audi" },
-    { src: growthvineLogo, alt: "GrowthVine" },
-    { src: capitalIndiaLogo, alt: "Capital India" },
-    { src: carTrendsLogo, alt: "Car Trends" },
-    { src: ezeepayLogo, alt: "Ezeepay" },
-    { src: incredLogo, alt: "InCred" },
-    { src: ecofyLogo, alt: "Ecofy" },
     { src: mothersonLogo, alt: "Motherson" },
-    { src: rupeeBossLogo, alt: "Rupee Boss" },
-    { src: evcoLogo, alt: "EV-CO" }
+    { src: clientLogo1, alt: "CollegeDekho" },
+    { src: clientLogo2, alt: "Edmingle" },
+    { src: clientLogo3, alt: "Increa" },
+    { src: clientLogo4, alt: "Legitquest" },
+    { src: clientLogo5, alt: "Information Insight Intelligence" },
+    { src: clientLogo6, alt: "LIDO" },
+    { src: clientLogo7, alt: "Policy Planner" },
+    { src: clientLogo8, alt: "SEEDS" },
+    { src: uhcLogo, alt: "United Health Care Staffing" },
+    { src: carTrendsLogo, alt: "Car Trends" }
   ];
 
   return (

@@ -32,128 +32,220 @@ import Footer from "@/components/Footer";
 const UseCases = () => {
   const realCaseStudies = [
     {
-      id: "tata-electra",
-      company: "Tata Electra EV",
-      industry: "Electric Vehicle Services",
-      icon: Car,
-      color: "bg-gradient-to-br from-blue-600 to-blue-700",
-      challenge: "Manual roadside assistance tracking across 60+ cities in India, causing inefficiencies and delayed responses to customer needs.",
-      solution: [
-        "WhatsApp conversational bot for service requests",
-        "Automated ticketing with timestamps & GPS location",
-        "Predefined approval workflows for SLA compliance",
-        "Automated engineer dispatch with live tracking",
-        "Real-time route optimization and transparency",
-        "Post-service WhatsApp satisfaction surveys"
-      ],
-      results: [
-        "Centralized operations across 60+ cities",
-        "75% faster response times achieved",
-        "100% agentless customer interaction",
-        "Real-time field tracking & automation"
-      ],
-      workflow: [
-        "Customer requests help via WhatsApp bot",
-        "System creates ticket with location data",
-        "Approval workflow ensures SLA compliance", 
-        "Nearest engineer auto-assigned",
-        "Live GPS tracking for transparency",
-        "Automated satisfaction survey"
-      ],
-      metrics: { cities: "60+", responseImprovement: "75%", automation: "100%" }
-    },
-    {
-      id: "cartrends",
-      company: "CarTrends",
-      industry: "Automobile Components Distribution",
+      id: "ecofy",
+      company: "Ecofy",
+      industry: "RBI Approved NBFC - Green Energy Lending",
       icon: Building2,
       color: "bg-gradient-to-br from-green-600 to-emerald-700",
-      challenge: "Managing 2,500+ clients with manual processes, lacking real-time inventory visibility and scalable customer outreach beyond traditional field visits.",
+      challenge: "Ecofy needed multi-channel communications on one platform that is simple to use and gives the kind of price advantage and versatile access to various channels.",
       solution: [
-        "Unified CRM system integrated with Tez ERP",
-        "Real-time sales order synchronization",
-        "Mobile field force app with route tracking",
-        "Order creation, collections & meeting logs",
-        "Email & WhatsApp marketing automation",
-        "Dedicated customer app for digital engagement"
+        "In-Sync multi-channel platform for communication",
+        "WhatsApp, SMS and email integration",
+        "Unified messaging platform for scaling",
+        "Response capture and tracking system",
+        "Versatile messaging capabilities",
+        "Simple-to-use communication interface"
       ],
       results: [
-        "Enhanced operational efficiency & sales visibility",
-        "Digitized field force with improved tracking",
-        "Faster & accurate order processing",
-        "Wider customer outreach via automation",
-        "Reduced manual effort & boosted efficiency"
+        "317% increase in communication volume",
+        "6X message response rates",
+        "30K+ messages sent monthly",
+        "Complete communication scaling",
+        "Streamlined multi-channel operations"
       ],
       workflow: [
-        "Sales orders created in In-Sync CRM",
-        "Instant sync with Tez ERP system",
-        "Field agents use mobile tracking app",
-        "Automated campaigns to 2,500+ customers",
-        "Real-time inventory & customer data"
+        "Multi-channel campaigns launched via In-Sync",
+        "Messages sent across WhatsApp, SMS, email",
+        "Real-time response tracking and capture",
+        "Automated follow-up sequences",
+        "Performance analytics and reporting"
       ],
-      metrics: { clients: "2,500+", efficiency: "80%", automation: "90%" }
+      metrics: { volumeIncrease: "317%", responseRate: "6X", monthlyMessages: "30K+" },
+      testimonial: {
+        name: "Shraboni Fernandes",
+        role: "CMO",
+        quote: "In-Sync is an easy-to-use solution that has made our communication scaling simple. Their service team and standards are exceptional."
+      }
     },
     {
-      id: "uhc-staffing",
-      company: "UHC Staffing",
-      industry: "Recruitment Services (US-based)",
-      icon: Users,
+      id: "bima-leap",
+      company: "BIMA LEAP",
+      industry: "IRDA Approved Insurance Broker (Motherson Group)",
+      icon: Shield,
+      color: "bg-gradient-to-br from-blue-600 to-blue-700",
+      challenge: "BimaLeap needed to streamline their business process of client acquisition through digital campaigns, call center operations and business visibility.",
+      solution: [
+        "Multi-service integration system",
+        "WhatsApp and email marketing automation",
+        "Integrated CRM and call center solution",
+        "Business visibility dashboard for management",
+        "Strategic decision-making tools",
+        "Backbone of business operations"
+      ],
+      results: [
+        ">53X increase in call utilization",
+        "3X agent productivity increase",
+        "200K+ calls/messages sent monthly",
+        "Complete business process streamlining",
+        "Enhanced strategic decision making"
+      ],
+      workflow: [
+        "Digital campaigns drive client acquisition",
+        "Integrated call center operations",
+        "Real-time business visibility tracking",
+        "Automated workflow management",
+        "Performance monitoring and optimization"
+      ],
+      metrics: { callUtilization: ">53X", productivity: "3X", monthlyVolume: "200K+" },
+      testimonial: {
+        name: "Vivek Gaur",
+        role: "Head, Business Operations",
+        quote: "In-Sync has simplified the business processes for us. I am able to measure agent performance on a day-to-day basis with agile reporting system."
+      }
+    },
+    {
+      id: "aliceblue",
+      company: "AliceBlue (Growth Inevitable)",
+      industry: "SEBI Approved Stockbrokers",
+      icon: TrendingUp,
       color: "bg-gradient-to-br from-purple-600 to-indigo-700",
-      challenge: "Needed centralized recruitment hub with automated marketing campaigns and real-time ATS synchronization to improve efficiency and reduce manual intervention.",
+      challenge: "AliceBlue needed to have an efficient and easy to use call center for their remotely located teams.",
       solution: [
-        "Central marketing & recruitment hub via In-Sync",
-        "Master database for jobs and candidates",
-        "Multi-channel campaigns via Elastic Email & SMS",
-        "AI-powered web and voice bots for engagement",
-        "Real-time ExcelHire ATS synchronization",
-        "Automated lead capture and data feeding"
+        "Complete WFH call center infrastructure",
+        "Follow me, auto-dialer, call recording features",
+        "Number masking and Truecaller verification",
+        "Call logs and agent productivity analysis",
+        "Blended WhatsApp services integration",
+        "Multi-state call center operations support"
       ],
       results: [
-        "Streamlined marketing & lead generation",
-        "Real-time updates from multiple touchpoints",
-        "AI automation reducing manual effort by 70%",
-        "Perfect data synchronization with ATS",
-        "Improved recruiter productivity significantly"
+        ">133% increase in call volume",
+        "<42% cost for outbound calling",
+        "200K+ calls/messages monthly",
+        "Complete WFH operationalization",
+        "Significant response rate improvement"
       ],
       workflow: [
-        "AI bots engage candidates on website",
-        "Data automatically fed into In-Sync",
-        "Real-time sync with ExcelHire ATS",
-        "Automated email/SMS campaigns for jobs",
-        "Master database consolidates all data"
+        "Remote teams access centralized call center",
+        "Automated dialing and call management",
+        "Real-time productivity tracking",
+        "WhatsApp integration for better response",
+        "Cross-state coordination and management"
       ],
-      metrics: { automation: "70%", sync: "100%", efficiency: "85%" }
+      metrics: { callVolumeIncrease: ">133%", costReduction: "<42%", monthlyVolume: "200K+" },
+      testimonial: {
+        name: "Vijayalakshmi R",
+        role: "Head, Business Operations",
+        quote: "In-Sync is unique, simple to use and effective. It made a very difficult business problem of managing productivity of WFH teams easy. Thanks In-Sync team!"
+      }
     },
     {
-      id: "rmpl",
-      company: "RMPL (Redefine Marcom)",
-      industry: "Marketing & Experiential Events",
-      icon: Megaphone,
+      id: "rupeeboss",
+      company: "RupeeBoss",
+      industry: "RBI Approved NBFC - 12 States Operations",
+      icon: Building2,
       color: "bg-gradient-to-br from-orange-600 to-red-700",
-      challenge: "Cross-departmental operational challenges requiring centralized control for streamlined workflows and improved collaboration across multiple teams.",
+      challenge: "RB had a homegrown CRM system developed over last 3 years that needed to be constantly upgraded to match up to the expansion.",
       solution: [
-        "In-Sync Business Platform for unified control",
-        "Cross-departmental workflow automation",
-        "Centralized marketing operations management",
-        "Integrated demand generation tools",
-        "Event and campaign coordination system",
-        "Real-time collaboration features"
+        "Complete CRM system replacement",
+        "Custom build for sales team requirements",
+        "Broker setup with custom configurations",
+        "Custom MIS implementation",
+        "Easy-to-use interface design",
+        "Rapid deployment within a month"
       ],
       results: [
-        "Improved operational efficiency by 60%",
-        "Better cross-departmental collaboration",
-        "Streamlined marketing processes",
-        "Unified control across all operations",
-        "Enhanced coordination and control"
+        "<60% current cost reduction",
+        "Enhanced system capabilities",
+        "Minimal training issues during transition",
+        "Complete process mapping success",
+        "Scalable solution for expansion"
       ],
       workflow: [
-        "Centralized platform for all departments",
-        "Unified workflow management",
-        "Real-time collaboration tools",
-        "Integrated marketing operations",
-        "Streamlined event coordination"
+        "Process mapping and requirement capture",
+        "Custom CRM system development",
+        "Sales team and broker configuration",
+        "Custom MIS dashboard implementation",
+        "Seamless transition from homegrown system"
       ],
-      metrics: { efficiency: "60%", collaboration: "95%", control: "100%" }
+      metrics: { costReduction: "<60%", deploymentTime: "1 month", trainingIssues: "Minimal" },
+      testimonial: {
+        name: "Ilika Bhattacharya",
+        role: "Project Lead",
+        quote: "In-Sync is a capable and versatile system. The product team took good care to understand and map our processes well so that there has been minimal training issues during the transition. Well done."
+      }
+    },
+    {
+      id: "carportal",
+      company: "Carportal",
+      industry: "Digital Platform - Automobile Lead Generation",
+      icon: Car,
+      color: "bg-gradient-to-br from-green-600 to-blue-700",
+      challenge: "Carportal generates verified leads for automobile companies and dealers. Generating leads, call based verifications and lead sharing were the key processes that they needed a complete solution for.",
+      solution: [
+        "Zapier-based integrations with FB/Insta/Google/LinkedIn Ads",
+        "Central system for real-time lead management",
+        "Agent-based lead verification system",
+        "Automated lead sharing with dealers",
+        "Complete visibility of lead progression",
+        "Process optimization tools"
+      ],
+      results: [
+        "900 inbound leads handled",
+        "3X agent productivity increase",
+        "<3.4 mins average lead verification time",
+        "Complete business process digitization",
+        "Enhanced lead sharing visibility"
+      ],
+      workflow: [
+        "Multi-platform ad integration via Zapier",
+        "Real-time lead capture in central system",
+        "Agent verification and qualification",
+        "Automated dealer lead distribution",
+        "Progress tracking and analytics"
+      ],
+      metrics: { leadsHandled: "900", productivityIncrease: "3X", verificationTime: "<3.4 mins" },
+      testimonial: {
+        name: "Shikeb Ahmed",
+        role: "Founder",
+        quote: "In-Sync has converted our business process online and we are benefitted with it. The team is very supportive."
+      }
+    },
+    {
+      id: "audi-kolkata",
+      company: "Audi Kolkata",
+      industry: "Authorized Audi Dealership - East",
+      icon: Car,
+      color: "bg-gradient-to-br from-red-600 to-gray-700",
+      challenge: "With car servicing being at the heart of its success, Audi Kolkata was facing issues with streamlining automatic triggers for multi-channel service-related messaging.",
+      solution: [
+        "Automated logic-based messaging process",
+        "Multi-channel service communication",
+        "WhatsApp, SMS, Email and Voice integration",
+        "Automatic messaging triggers",
+        "Ad-hoc messaging capabilities",
+        "Service department communication enhancement"
+      ],
+      results: [
+        "15% betterment of service scheduling",
+        "3X increase in brand engagement messaging",
+        "200K+ calls/messages sent monthly",
+        "Streamlined service communications",
+        "Improved customer engagement"
+      ],
+      workflow: [
+        "Automatic service trigger activation",
+        "Multi-channel message deployment",
+        "Service scheduling optimization",
+        "Brand engagement campaigns",
+        "Customer communication tracking"
+      ],
+      metrics: { serviceImprovement: "15%", engagementIncrease: "3X", monthlyVolume: "200K+" },
+      testimonial: {
+        name: "Kashif Shaikh",
+        role: "CEO",
+        quote: "EchoApp has made our use of multi-channel engagement better."
+      }
     }
   ];
 
