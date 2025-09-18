@@ -9,6 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import Footer from "@/components/Footer";
+import { getResponseForQuery, findMatchingFAQs } from "@/data/faqKnowledgeBase";
 import {
   Calendar,
   Clock,
@@ -24,7 +25,8 @@ import {
   Video,
   BookOpen,
   Users,
-  Globe
+  Globe,
+  MessageCircleQuestion
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
@@ -215,6 +217,8 @@ const Resources = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [credentials, setCredentials] = useState({ username: "", password: "" });
   const [activeTab, setActiveTab] = useState("blogs");
+  const [faqQuery, setFaqQuery] = useState("");
+  const [faqResponse, setFaqResponse] = useState("");
   const { toast } = useToast();
 
   // Add new resource form state
@@ -333,6 +337,15 @@ const Resources = () => {
       setIsAddDialogOpen(true);
     } else {
       setIsAuthDialogOpen(true);
+    }
+  };
+
+  const handleFAQQuery = () => {
+    if (faqQuery.trim()) {
+      const response = getResponseForQuery(faqQuery.trim());
+      setFaqResponse(response);
+    } else {
+      setFaqResponse("");
     }
   };
 
@@ -554,7 +567,7 @@ const Resources = () => {
           <div className="container mx-auto px-4">
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
               <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-8">
-                <TabsList className="grid w-full lg:w-auto grid-cols-4 mb-4 lg:mb-0">
+                <TabsList className="grid w-full lg:w-auto grid-cols-5 mb-4 lg:mb-0">
                   <TabsTrigger value="blogs" className="flex items-center gap-2">
                     <BookOpen className="h-4 w-4" />
                     Blogs
@@ -570,6 +583,10 @@ const Resources = () => {
                   <TabsTrigger value="tutorials" className="flex items-center gap-2">
                     <Video className="h-4 w-4" />
                     Tutorials
+                  </TabsTrigger>
+                  <TabsTrigger value="faqs" className="flex items-center gap-2">
+                    <MessageCircleQuestion className="h-4 w-4" />
+                    FAQs
                   </TabsTrigger>
                 </TabsList>
 
@@ -781,6 +798,77 @@ const Resources = () => {
                       <TutorialCard key={tutorial.id} tutorial={tutorial} />
                     ))
                   }
+                </div>
+              </TabsContent>
+
+              {/* FAQs Tab */}
+              <TabsContent value="faqs" className="space-y-8">
+                <div className="max-w-4xl mx-auto">
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2">
+                        <MessageCircleQuestion className="h-5 w-5" />
+                        Frequently Asked Questions
+                      </CardTitle>
+                      <p className="text-muted-foreground">
+                        Ask any question about In-Sync platform and get instant answers from our knowledge base.
+                      </p>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="space-y-6">
+                        <div className="flex flex-col sm:flex-row gap-3">
+                          <Input
+                            placeholder="Ask a question about In-Sync..."
+                            value={faqQuery}
+                            onChange={(e) => setFaqQuery(e.target.value)}
+                            onKeyPress={(e) => e.key === 'Enter' && handleFAQQuery()}
+                            className="flex-1"
+                          />
+                          <Button onClick={handleFAQQuery}>
+                            <Search className="h-4 w-4 mr-2" />
+                            Ask Question
+                          </Button>
+                        </div>
+                        
+                        {faqResponse && (
+                          <Card className="bg-muted/50">
+                            <CardContent className="pt-6">
+                              <div className="prose prose-sm max-w-none">
+                                <div className="whitespace-pre-wrap">{faqResponse}</div>
+                              </div>
+                            </CardContent>
+                          </Card>
+                        )}
+                        
+                        <div className="space-y-4">
+                          <h3 className="text-lg font-semibold">Popular Questions</h3>
+                          <div className="grid gap-3">
+                            {[
+                              "What is In-Sync?",
+                              "How does the Gargi AI Agent work?",
+                              "What integrations are available?",
+                              "How does WhatsApp automation work?",
+                              "What security measures does In-Sync provide?"
+                            ].map((question, index) => (
+                              <Button
+                                key={index}
+                                variant="outline"
+                                className="justify-start h-auto p-3 text-left"
+                                onClick={() => {
+                                  setFaqQuery(question);
+                                  const response = getResponseForQuery(question);
+                                  setFaqResponse(response);
+                                }}
+                              >
+                                <MessageCircleQuestion className="h-4 w-4 mr-2 flex-shrink-0" />
+                                <span>{question}</span>
+                              </Button>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
                 </div>
               </TabsContent>
             </Tabs>
