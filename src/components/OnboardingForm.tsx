@@ -427,7 +427,7 @@ const OnboardingForm = () => {
     }
     
     // Validate user details
-    formData.userDetails.forEach((user, index) => {
+    formData.userDetails.slice(0, parseInt(formData.totalUsers) || 0).forEach((user, index) => {
       if (user.email && !validateEmail(user.email)) {
         validationErrors.push(`User ${index + 1} email is invalid`);
       }
@@ -508,10 +508,10 @@ const OnboardingForm = () => {
     yPosition += 5;
     
     addText("User Details", 20, 12, true);
-    addText("S.No | Full Name | Email Address | Mobile Number | Role/Position", 20, 10, true);
-    formData.userDetails.forEach((user, index) => {
-      if (user.fullName || user.email || user.mobile || user.role) {
-        addText(`${index + 1} | ${user.fullName} | ${user.email} | ${user.mobile} | ${user.role}`, 20);
+    addText("S.No | Full Name | Email Address | Mobile Number | Role/Position | Reporting To", 20, 10, true);
+    formData.userDetails.slice(0, parseInt(formData.totalUsers) || 0).forEach((user, index) => {
+      if (user.fullName || user.email || user.mobile || user.role || user.reportingTo) {
+        addText(`${index + 1} | ${user.fullName} | ${user.email} | ${user.mobile} | ${user.role} | ${user.reportingTo}`, 20);
       }
     });
 
