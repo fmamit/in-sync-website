@@ -373,9 +373,7 @@ const BusinessAssessment = ({ className = "" }: { className?: string }) => {
                   <Progress 
                     value={results.score} 
                     className="h-3 max-w-md mx-auto"
-                    style={{ 
-                      '--progress-color': getScoreColor(results.score)
-                    } as React.CSSProperties}
+                    indicatorColor={getScoreColor(results.score)}
                   />
                   <Button
                     onClick={() => exportToPDF(results, answers)}
@@ -491,7 +489,11 @@ const BusinessAssessment = ({ className = "" }: { className?: string }) => {
           Answer 8 quick questions to discover how In-Sync can transform your business operations
         </p>
         <div className="mt-4">
-          <Progress value={progress} className="h-2" />
+          <Progress 
+            value={progress} 
+            className="h-2"
+            indicatorColor="hsl(var(--primary))"
+          />
           <p className="text-sm text-muted-foreground mt-2">
             Question {currentQuestion + 1} of {questions.length}
           </p>

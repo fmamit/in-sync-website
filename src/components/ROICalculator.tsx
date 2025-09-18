@@ -32,6 +32,17 @@ const ROICalculator = ({ className = "" }: ROICalculatorProps) => {
   const [avgDealValue, setAvgDealValue] = useState<number>(10000);
   const [currency, setCurrency] = useState<"USD" | "INR">("INR");
 
+  // Calculate color based on ROI percentage (red -> yellow -> green)
+  const getROIColor = (percentage: number) => {
+    if (percentage >= 300) return "hsl(var(--chart-2))"; // Green
+    if (percentage >= 250) return "hsl(142, 76%, 45%)"; // Light green
+    if (percentage >= 200) return "hsl(60, 100%, 45%)"; // Yellow-green
+    if (percentage >= 150) return "hsl(45, 100%, 50%)"; // Yellow
+    if (percentage >= 100) return "hsl(30, 100%, 55%)"; // Orange
+    if (percentage >= 50) return "hsl(15, 100%, 60%)"; // Orange-red
+    return "hsl(var(--chart-1))"; // Red
+  };
+
   // ROI Calculations
   const hourlyWage = avgSalary / (52 * 40); // Assuming 40 hours/week, 52 weeks/year
   const weeklyProductivityLoss = currentEmployees * timeWastedHours * hourlyWage;
@@ -281,7 +292,11 @@ const ROICalculator = ({ className = "" }: ROICalculatorProps) => {
                 </div>
                 <div className="text-sm text-muted-foreground">Expected ROI</div>
                 <div className="mt-2">
-                  <Progress value={Math.min(roiPercentage, 500) / 5} className="h-2" />
+                  <Progress 
+                    value={Math.min(roiPercentage, 500) / 5} 
+                    className="h-2"
+                    indicatorColor={getROIColor(roiPercentage)}
+                  />
                 </div>
               </div>
 
