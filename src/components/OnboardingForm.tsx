@@ -17,6 +17,7 @@ interface UserRow {
   email: string;
   mobile: string;
   role: string;
+  reportingTo: string;
 }
 
 interface DepartmentRow {
@@ -118,7 +119,7 @@ const OnboardingForm = () => {
     contactPersonEmail: "",
     contactPersonMobile: "",
     totalUsers: "",
-    userDetails: Array(10).fill(null).map(() => ({ fullName: "", email: "", mobile: "", role: "" })),
+    userDetails: Array(20).fill(null).map(() => ({ fullName: "", email: "", mobile: "", role: "", reportingTo: "" })),
     departments: Array(6).fill(""),
     organizationalStructure: Array(8).fill(null).map(() => ({ department: "", position: "", reportsTo: "" })),
     callingService: false,
@@ -812,10 +813,11 @@ const OnboardingForm = () => {
                         <th className="border border-border p-2 text-left">Email Address</th>
                         <th className="border border-border p-2 text-left">Mobile Number</th>
                         <th className="border border-border p-2 text-left">Role/Position</th>
+                        <th className="border border-border p-2 text-left">Reporting to</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {formData.userDetails.map((user, index) => (
+                      {formData.userDetails.slice(0, parseInt(formData.totalUsers) || 0).map((user, index) => (
                         <tr key={index}>
                           <td className="border border-border p-2">{index + 1}</td>
                           <td className="border border-border p-2">
@@ -852,6 +854,12 @@ const OnboardingForm = () => {
                             <Input
                               value={user.role}
                               onChange={(e) => updateUserDetail(index, "role", e.target.value)}
+                            />
+                          </td>
+                          <td className="border border-border p-2">
+                            <Input
+                              value={user.reportingTo}
+                              onChange={(e) => updateUserDetail(index, "reportingTo", e.target.value)}
                             />
                           </td>
                         </tr>
