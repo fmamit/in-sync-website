@@ -138,20 +138,54 @@ const HeroSection = () => {
           </div>
 
           {/* Client Logos */}
-          <div>
-            <h3 className="text-lg font-semibold text-foreground mb-6">Trusted by leading brands worldwide</h3>
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 items-center opacity-70">
-              {customerLogos.map((logo, i) => (
-                <div key={i} className="h-16 flex items-center justify-center p-2 rounded-lg hover:opacity-100 transition-opacity duration-300 grayscale hover:grayscale-0">
-                  <img 
-                    src={logo.src} 
-                    alt={logo.alt}
-                    className="max-h-12 max-w-full object-contain"
-                  />
-                </div>
-              ))}
+          <div className="relative">
+            {/* Section Header */}
+            <div className="text-center mb-8">
+              <p className="text-sm uppercase tracking-wider text-muted-foreground mb-2">Trusted by</p>
+              <h3 className="text-xl font-bold text-foreground">Leading brands worldwide</h3>
             </div>
-            <h3 className="text-sm font-medium text-muted-foreground mt-4">over 20000 daily active users across 100+ growing organizations</h3>
+            
+            {/* Logos Container with Enhanced Styling */}
+            <div className="relative bg-card/50 backdrop-blur-sm border border-border/50 rounded-3xl p-8 shadow-xl">
+              {/* Gradient Overlays for Fade Effect */}
+              <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-card/80 to-transparent rounded-l-3xl z-10"></div>
+              <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-card/80 to-transparent rounded-r-3xl z-10"></div>
+              
+              {/* Logo Grid */}
+              <div className="grid grid-cols-3 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-8 gap-6 items-center">
+                {customerLogos.map((logo, i) => (
+                  <div 
+                    key={i} 
+                    className="group relative h-20 flex items-center justify-center p-4 rounded-xl bg-background/50 border border-border/30 hover:border-primary/40 hover:bg-background/80 transition-all duration-500 hover:scale-110 hover:-translate-y-1"
+                    style={{ animationDelay: `${i * 0.1}s` }}
+                  >
+                    {/* Subtle glow effect */}
+                    <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-primary/5 to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    
+                    <img 
+                      src={logo.src} 
+                      alt={logo.alt}
+                      className="relative z-10 max-h-10 max-w-full object-contain filter grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:brightness-110"
+                    />
+                    
+                    {/* Tooltip on hover */}
+                    <div className="absolute -top-12 left-1/2 transform -translate-x-1/2 px-3 py-1 bg-foreground text-background text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap pointer-events-none">
+                      {logo.alt}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            
+            {/* Stats Below Logos */}
+            <div className="mt-8 text-center">
+              <div className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-full border border-primary/20">
+                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                <span className="text-sm font-medium text-foreground">
+                  20,000+ daily active users across 100+ growing organizations
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
