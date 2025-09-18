@@ -8,7 +8,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, FileText, Users, CreditCard } from "lucide-react";
+import { Loader2, FileText, Users, CreditCard, Download } from "lucide-react";
+import jsPDF from "jspdf";
 
 const partnershipSchema = z.object({
   // Personal/Company Information
@@ -46,30 +47,105 @@ export default function PartnershipEnrollment({ onSuccess }: PartnershipEnrollme
     },
   });
 
+  const generatePartnershipPDF = (data: PartnershipFormData, partnershipId: string) => {
+    const doc = new jsPDF();
+    const currentDate = new Date().toLocaleDateString('en-GB');
+    
+    // Set font
+    doc.setFont("helvetica");
+    
+    // Title
+    doc.setFontSize(16);
+    doc.text("CHANNEL PARTNERSHIP AGREEMENT", 20, 20);
+    
+    // Date and parties
+    doc.setFontSize(12);
+    doc.text(`This Agreement is made on ${currentDate} between:`, 20, 40);
+    
+    // Partner details
+    doc.text("Partner:", 20, 55);
+    doc.text(`Name: ${data.fullName}`, 20, 65);
+    doc.text(`Company: ${data.companyName || 'N/A'}`, 20, 75);
+    doc.text(`Contact: ${data.contactNumber}`, 20, 85);
+    doc.text(`Email: ${data.email}`, 20, 95);
+    doc.text(`PAN: ${data.panNumber}`, 20, 105);
+    doc.text(`GST: ${data.gstNumber || 'N/A'}`, 20, 115);
+    doc.text(`Address: ${data.address}`, 20, 125);
+    
+    // In-Sync details
+    doc.text("and", 20, 145);
+    doc.text("In-Sync: ECR Technical Innovations Pvt Ltd", 20, 155);
+    doc.text("Address: C042C, 4th Floor, DLF Phase 4, Gurugram, Haryana 122002", 20, 165);
+    
+    // Agreement sections
+    doc.setFontSize(14);
+    doc.text("1. Appointment", 20, 185);
+    doc.setFontSize(11);
+    doc.text("In-Sync appoints Partner as a non-exclusive channel partner to promote", 20, 195);
+    doc.text("and sell the In-Sync platform.", 20, 205);
+    
+    doc.setFontSize(14);
+    doc.text("2. Revenue Sharing", 20, 220);
+    doc.setFontSize(11);
+    doc.text("Partner will earn commissions as per the standard rates:", 20, 230);
+    doc.text("• 40% on setup fees", 25, 240);
+    doc.text("• 30% on recurring revenue", 25, 250);
+    doc.text("• Monthly settlements", 25, 260);
+    
+    // Add new page for commercial details
+    doc.addPage();
+    
+    doc.setFontSize(14);
+    doc.text("Commercial Information", 20, 20);
+    doc.setFontSize(11);
+    doc.text(`Proposed Territory: ${data.proposedTerritory}`, 20, 35);
+    doc.text(`Account Holder: ${data.accountHolderName}`, 20, 45);
+    doc.text(`Bank Name: ${data.bankName}`, 20, 55);
+    doc.text(`Account Number: ${data.accountNumber}`, 20, 65);
+    doc.text(`IFSC Code: ${data.ifscCode}`, 20, 75);
+    doc.text(`Special Terms: ${data.specialTerms || 'None'}`, 20, 85);
+    
+    // Signatures section
+    doc.text("Signatures", 20, 110);
+    doc.text(`Partner: ${data.fullName}`, 20, 125);
+    doc.text(`Date: ${currentDate}`, 20, 135);
+    doc.text("ECR Technical Innovations Pvt Ltd (In-Sync)", 20, 155);
+    doc.text("By: Amit Sengupta, Director", 20, 165);
+    doc.text(`Date: ${currentDate}`, 20, 175);
+    
+    // Save PDF
+    doc.save(`Partnership_Agreement_${partnershipId}.pdf`);
+  };
+
   const onSubmit = async (data: PartnershipFormData) => {
     setIsSubmitting(true);
     
     try {
-      const response = await fetch('/functions/v1/partnership-enroll', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to submit partnership application');
-      }
-
-      const result = await response.json();
+      // Generate unique partnership ID
+      const partnershipId = `PRTN-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+      
+      // Store data locally
+      const partnershipData = {
+        ...data,
+        partnershipId,
+        submittedAt: new Date().toISOString(),
+        status: 'pending_review'
+      };
+      
+      // Save to localStorage
+      const existingApplications = JSON.parse(localStorage.getItem('partnershipApplications') || '[]');
+      existingApplications.push(partnershipData);
+      localStorage.setItem('partnershipApplications', JSON.stringify(existingApplications));
+      
+      // Generate and download PDF
+      generatePartnershipPDF(data, partnershipId);
       
       toast({
         title: "Partnership Application Submitted",
-        description: "We'll review your application and send the agreement for signature.",
+        description: "Your partnership agreement PDF has been downloaded. We'll review your application soon.",
       });
 
-      onSuccess?.(result);
+      onSuccess?.({ partnershipId });
       form.reset();
       
     } catch (error) {
@@ -366,12 +442,12 @@ export default function PartnershipEnrollment({ onSuccess }: PartnershipEnrollme
                   {isSubmitting ? (
                     <>
                       <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                      Submitting...
+                      Generating PDF...
                     </>
                   ) : (
                     <>
-                      <FileText className="h-4 w-4 mr-2" />
-                      Submit Application
+                      <Download className="h-4 w-4 mr-2" />
+                      Submit & Download Agreement
                     </>
                   )}
                 </Button>
