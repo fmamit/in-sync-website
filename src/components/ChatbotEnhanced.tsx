@@ -295,26 +295,12 @@ const ChatbotEnhanced = () => {
     return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   };
 
-  if (!shouldLoad) {
+  if (!shouldLoad || !isOpen) {
     return (
       <div ref={elementRef as React.RefObject<HTMLDivElement>} className="fixed bottom-6 right-6 z-50">
         <Button
           onClick={() => setIsOpen(true)}
-          className="rounded-full w-14 h-14 bg-primary hover:bg-primary/90 shadow-lg"
-          size="lg"
-        >
-          <MessageCircle className="h-6 w-6" />
-        </Button>
-      </div>
-    );
-  }
-
-  if (!isOpen) {
-    return (
-      <div className="fixed bottom-6 right-6 z-50">
-        <Button
-          onClick={() => setIsOpen(true)}
-          className="rounded-full w-14 h-14 bg-primary hover:bg-primary/90 shadow-lg animate-bounce"
+          className={`rounded-full w-14 h-14 bg-primary hover:bg-primary/90 shadow-lg ${shouldLoad && !isOpen ? 'animate-bounce' : ''}`}
           size="lg"
         >
           <MessageCircle className="h-6 w-6" />
