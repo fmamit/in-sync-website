@@ -358,7 +358,10 @@ const BusinessAssessment = ({ className = "" }: { className?: string }) => {
             {/* Score Display */}
             <Card>
               <CardContent className="text-center p-8">
-                <div className="text-6xl font-bold text-primary mb-4">
+                <div 
+                  className="text-6xl font-bold mb-4"
+                  style={{ color: getScoreColor(results.score) }}
+                >
                   {Math.round(results.score)}%
                 </div>
                 <div className="space-y-2">
