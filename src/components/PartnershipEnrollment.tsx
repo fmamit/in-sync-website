@@ -50,7 +50,7 @@ export default function PartnershipEnrollment({ onSuccess }: PartnershipEnrollme
     setIsSubmitting(true);
     
     try {
-      const response = await fetch('/api/partnerships/enroll', {
+      const response = await fetch('/functions/v1/partnership-enroll', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
