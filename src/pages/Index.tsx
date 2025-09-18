@@ -1,5 +1,4 @@
 import HeroSection from "@/components/HeroSection";
-import InteractiveShowcase from "@/components/InteractiveShowcase";
 import FeaturesOverview from "@/components/FeaturesOverview";
 import BusinessAssessment from "@/components/BusinessAssessment";
 import ROICalculator from "@/components/ROICalculator";
@@ -13,13 +12,6 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <main>
         <HeroSection />
-        
-        {/* Interactive Transformation Demo */}
-        <section className="py-20 bg-gradient-to-b from-background to-slate-50/30">
-          <div className="container mx-auto px-4">
-            <InteractiveShowcase />
-          </div>
-        </section>
         
         <FeaturesOverview />
         
