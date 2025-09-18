@@ -22,10 +22,10 @@ import evcoLogo from "@/assets/evco-logo-transparent.png";
 // New client logos from success stories
 import ecofyNewLogo from "@/assets/ecofy-new-logo.jpg";
 import bimaLeapLogo from "@/assets/bima-leap-logo.jpg";
-import aliceblueLogo from "@/assets/aliceblue-logo.jpg";
+import aliceblueLogo from "@/assets/aliceblue-logo-new.png";
 import carportalLogo from "@/assets/carportal-logo.jpg";
-import clientLogo1 from "@/assets/client-logo-1.jpg";
-import clientLogo2 from "@/assets/client-logo-2.jpg";
+import collegedekhoLogo from "@/assets/collegedekho-logo-new.png";
+import edmingleLogo from "@/assets/edmingle-logo.jpg";
 import clientLogo3 from "@/assets/client-logo-3.jpg";
 import clientLogo4 from "@/assets/client-logo-4.jpg";
 import clientLogo5 from "@/assets/client-logo-5.jpg";
@@ -47,8 +47,8 @@ const HeroSection = () => {
     { src: quessLogo, alt: "Quess" },
     { src: redefineLogo, alt: "Redefine" },
     { src: mothersonLogo, alt: "Motherson" },
-    { src: clientLogo1, alt: "CollegeDekho" },
-    { src: clientLogo2, alt: "Edmingle" },
+    { src: collegedekhoLogo, alt: "CollegeDekho" },
+    { src: edmingleLogo, alt: "Edmingle" },
     { src: clientLogo3, alt: "Increa" },
     { src: clientLogo4, alt: "Legitquest" },
     { src: clientLogo5, alt: "Information Insight Intelligence" },
