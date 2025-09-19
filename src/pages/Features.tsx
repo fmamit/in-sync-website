@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import Footer from "@/components/Footer";
 import KeyFeatures from "@/components/KeyFeatures";
 import ClientOnboardingModal from "@/components/ClientOnboardingModal";
@@ -29,10 +30,13 @@ import {
   Clock,
   Star,
   ArrowRight,
-  Calculator
+  Calculator,
+  ArrowLeft
 } from "lucide-react";
 
 const Features = () => {
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [activeTab, setActiveTab] = useState("overview");
   const [selectedFeature, setSelectedFeature] = useState(0);
   const [calculatorValues, setCalculatorValues] = useState({
@@ -40,6 +44,39 @@ const Features = () => {
     callsPerDay: 100,
     currentCost: 5000
   });
+
+  // Map feature IDs to corresponding sections
+  const featureMapping = {
+    "crm-sales": "crm-sales",
+    "ai-first": "ai-first", 
+    "ccaas": "ccaas",
+    "multi-channel-marketing": "multi-channel-marketing",
+    "field-force": "field-force",
+    "custom-analytics": "custom-analytics",
+    "no-code": "no-code",
+    "integrations": "integrations"
+  };
+
+  useEffect(() => {
+    const section = searchParams.get('section');
+    if (section && featureMapping[section as keyof typeof featureMapping]) {
+      // Small delay to ensure page is rendered
+      setTimeout(() => {
+        const element = document.getElementById(section);
+        if (element) {
+          element.scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'start',
+            inline: 'nearest'
+          });
+        }
+      }, 100);
+    }
+  }, [searchParams]);
+
+  const handleBackToHome = () => {
+    navigate('/?scrollTo=features-overview');
+  };
 
   const featureCategories = [
     {
@@ -308,6 +345,18 @@ const Features = () => {
   return (
     <div className="min-h-screen bg-background">
       
+      {/* Back Button */}
+      <div className="container mx-auto px-4 pt-8">
+        <Button 
+          variant="ghost" 
+          onClick={handleBackToHome}
+          className="mb-4 hover:bg-primary/10"
+        >
+          <ArrowLeft className="h-4 w-4 mr-2" />
+          Back to Overview
+        </Button>
+      </div>
+
       {/* Hero Section */}
       <section className="relative py-24 bg-gradient-to-br from-primary via-primary/90 to-teal-600 text-white overflow-hidden">
         <div className="absolute inset-0 bg-grid-white/[0.1] bg-[size:16px_16px]" />
@@ -370,7 +419,7 @@ const Features = () => {
             </TabsList>
             
             <TabsContent value="overview" className="space-y-8">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="features-grid">
                 {featureCategories.map((category, index) => {
                   const IconComponent = category.icon;
                   return (
@@ -403,9 +452,9 @@ const Features = () => {
               </div>
             </TabsContent>
             
-            {/* Detailed feature tabs would go here */}
+            {/* Detailed feature tabs */}
             <TabsContent value="crm" className="space-y-6">
-              <Card>
+              <Card id="crm-sales">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-3">
                     <Database className="h-6 w-6 text-primary" />
@@ -424,8 +473,187 @@ const Features = () => {
                 </CardContent>
               </Card>
             </TabsContent>
-            
-            {/* Add other tab contents similarly */}
+
+            <TabsContent value="communication" className="space-y-6">
+              <Card id="ccaas">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-3">
+                    <MessageSquare className="h-6 w-6 text-primary" />
+                    Communication Suite & CCaaS
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {detailedFeatures[1].items.map((item, index) => (
+                      <div key={index} className="bg-slate-50/50 rounded-lg p-6 border-l-4 border-teal-500">
+                        <h4 className="font-semibold text-lg mb-2">{item.title}</h4>
+                        <p className="text-muted-foreground text-sm leading-relaxed">{item.description}</p>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+              
+              <Card id="multi-channel-marketing">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-3">
+                    <Zap className="h-6 w-6 text-primary" />
+                    Multi-channel Marketing
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="bg-slate-50/50 rounded-lg p-6 border-l-4 border-purple-500">
+                      <h4 className="font-semibold text-lg mb-2">CRM-Integrated Campaigns</h4>
+                      <p className="text-muted-foreground text-sm leading-relaxed">Launch targeted campaigns directly from your CRM with personalized messaging across all channels</p>
+                    </div>
+                    <div className="bg-slate-50/50 rounded-lg p-6 border-l-4 border-purple-500">
+                      <h4 className="font-semibold text-lg mb-2">Event-Based Notifications</h4>
+                      <p className="text-muted-foreground text-sm leading-relaxed">Trigger automated messages based on customer behavior, pipeline changes, and business events</p>
+                    </div>
+                    <div className="bg-slate-50/50 rounded-lg p-6 border-l-4 border-purple-500">
+                      <h4 className="font-semibold text-lg mb-2">Drip Marketing</h4>
+                      <p className="text-muted-foreground text-sm leading-relaxed">Create sophisticated drip campaigns with multiple touchpoints and conditional logic</p>
+                    </div>
+                    <div className="bg-slate-50/50 rounded-lg p-6 border-l-4 border-purple-500">
+                      <h4 className="font-semibold text-lg mb-2">Campaign Analytics</h4>
+                      <p className="text-muted-foreground text-sm leading-relaxed">Track performance with detailed analytics on open rates, click-through rates, and conversions</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            <TabsContent value="field-force" className="space-y-6">
+              <Card id="field-force">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-3">
+                    <MapPin className="h-6 w-6 text-primary" />
+                    Smart Field Operations
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {detailedFeatures[2].items.map((item, index) => (
+                      <div key={index} className="bg-slate-50/50 rounded-lg p-6 border-l-4 border-green-500">
+                        <h4 className="font-semibold text-lg mb-2">{item.title}</h4>
+                        <p className="text-muted-foreground text-sm leading-relaxed">{item.description}</p>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            <TabsContent value="ai" className="space-y-6">
+              <Card id="ai-first">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-3">
+                    <Brain className="h-6 w-6 text-primary" />
+                    AI That Actually Works
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {detailedFeatures[3].items.map((item, index) => (
+                      <div key={index} className="bg-slate-50/50 rounded-lg p-6 border-l-4 border-purple-500">
+                        <h4 className="font-semibold text-lg mb-2">{item.title}</h4>
+                        <p className="text-muted-foreground text-sm leading-relaxed">{item.description}</p>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            <TabsContent value="no-code" className="space-y-6">
+              <Card id="no-code">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-3">
+                    <Wrench className="h-6 w-6 text-primary" />
+                    True No-Code Platform
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="bg-slate-50/50 rounded-lg p-6 border-l-4 border-pink-500">
+                      <h4 className="font-semibold text-lg mb-2">Visual Workflow Builder</h4>
+                      <p className="text-muted-foreground text-sm leading-relaxed">Create complex business processes with drag-and-drop simplicity</p>
+                    </div>
+                    <div className="bg-slate-50/50 rounded-lg p-6 border-l-4 border-pink-500">
+                      <h4 className="font-semibold text-lg mb-2">Custom Form Designer</h4>
+                      <p className="text-muted-foreground text-sm leading-relaxed">Build custom forms with conditional logic and validation rules</p>
+                    </div>
+                    <div className="bg-slate-50/50 rounded-lg p-6 border-l-4 border-pink-500">
+                      <h4 className="font-semibold text-lg mb-2">Approval Matrix Builder</h4>
+                      <p className="text-muted-foreground text-sm leading-relaxed">Design multi-level approval workflows with automatic routing</p>
+                    </div>
+                    <div className="bg-slate-50/50 rounded-lg p-6 border-l-4 border-pink-500">
+                      <h4 className="font-semibold text-lg mb-2">Instant Module Generation</h4>
+                      <p className="text-muted-foreground text-sm leading-relaxed">Generate complete modules instantly based on your requirements</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card id="custom-analytics">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-3">
+                    <BarChart3 className="h-6 w-6 text-primary" />
+                    Adaptive Business Intelligence
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="bg-slate-50/50 rounded-lg p-6 border-l-4 border-indigo-500">
+                      <h4 className="font-semibold text-lg mb-2">Custom KPI Dashboards</h4>
+                      <p className="text-muted-foreground text-sm leading-relaxed">Build personalized dashboards with drag-and-drop widgets and real-time data</p>
+                    </div>
+                    <div className="bg-slate-50/50 rounded-lg p-6 border-l-4 border-indigo-500">
+                      <h4 className="font-semibold text-lg mb-2">Real-time Reporting</h4>
+                      <p className="text-muted-foreground text-sm leading-relaxed">Generate dynamic reports with live data updates and interactive visualizations</p>
+                    </div>
+                    <div className="bg-slate-50/50 rounded-lg p-6 border-l-4 border-indigo-500">
+                      <h4 className="font-semibold text-lg mb-2">Data Visualization</h4>
+                      <p className="text-muted-foreground text-sm leading-relaxed">Create stunning charts, graphs, and visual representations of your business data</p>
+                    </div>
+                    <div className="bg-slate-50/50 rounded-lg p-6 border-l-4 border-indigo-500">
+                      <h4 className="font-semibold text-lg mb-2">Performance Metrics</h4>
+                      <p className="text-muted-foreground text-sm leading-relaxed">Track team performance, conversion rates, and business KPIs with automated alerts</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card id="integrations">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-3">
+                    <Shield className="h-6 w-6 text-primary" />
+                    Proven Integrations
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="bg-slate-50/50 rounded-lg p-6 border-l-4 border-orange-500">
+                      <h4 className="font-semibold text-lg mb-2">Enterprise Communication</h4>
+                      <p className="text-muted-foreground text-sm leading-relaxed">Connect with Teams, Slack, email systems, and communication platforms</p>
+                    </div>
+                    <div className="bg-slate-50/50 rounded-lg p-6 border-l-4 border-orange-500">
+                      <h4 className="font-semibold text-lg mb-2">Analytics Pipeline</h4>
+                      <p className="text-muted-foreground text-sm leading-relaxed">Native PowerBI, Tableau, and Excel integration for advanced analytics</p>
+                    </div>
+                    <div className="bg-slate-50/50 rounded-lg p-6 border-l-4 border-orange-500">
+                      <h4 className="font-semibold text-lg mb-2">Lead Generation Ecosystem</h4>
+                      <p className="text-muted-foreground text-sm leading-relaxed">Integrate with marketing platforms, social media, and lead sources</p>
+                    </div>
+                    <div className="bg-slate-50/50 rounded-lg p-6 border-l-4 border-orange-500">
+                      <h4 className="font-semibold text-lg mb-2">Business Operations Hub</h4>
+                      <p className="text-muted-foreground text-sm leading-relaxed">Connect with ERP, accounting systems, and business management tools</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
           </Tabs>
         </div>
       </section>

@@ -1,3 +1,5 @@
+import React, { useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import HeroSection from "@/components/HeroSection";
 import FeaturesOverview from "@/components/FeaturesOverview";
 import BusinessAssessment from "@/components/BusinessAssessment";
@@ -8,6 +10,24 @@ import StepByStepGuide from "@/components/StepByStepGuide";
 import Footer from "@/components/Footer";
 
 const Index = () => {
+  const [searchParams] = useSearchParams();
+
+  useEffect(() => {
+    const scrollTo = searchParams.get('scrollTo');
+    if (scrollTo === 'features-overview') {
+      // Small delay to ensure page is rendered
+      setTimeout(() => {
+        const element = document.getElementById('features-overview');
+        if (element) {
+          element.scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'start',
+            inline: 'nearest'
+          });
+        }
+      }, 100);
+    }
+  }, [searchParams]);
   return (
     <div className="min-h-screen bg-background">
       <main>
@@ -16,7 +36,7 @@ const Index = () => {
         <FeaturesOverview />
         
         {/* ROI Calculator */}
-        <section className="py-20 bg-gradient-to-b from-slate-50/30 to-background">
+        <section className="py-20 bg-gradient-to-b from-slate-50/30 to-background" id="features-overview">
           <div className="container mx-auto px-4">
             <ROICalculator />
           </div>

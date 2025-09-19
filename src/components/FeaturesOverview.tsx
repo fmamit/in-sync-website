@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { 
@@ -13,6 +14,8 @@ import {
 } from "lucide-react";
 
 const FeaturesOverview = () => {
+  const navigate = useNavigate();
+  
   const features = [
     {
       id: "crm-sales",
@@ -121,13 +124,7 @@ const FeaturesOverview = () => {
   ];
 
   const handleFeatureClick = (featureId: string) => {
-    const element = document.getElementById(featureId);
-    if (element) {
-      element.scrollIntoView({ 
-        behavior: 'smooth', 
-        block: 'start' 
-      });
-    }
+    navigate(`/features?section=${featureId}`);
   };
 
   return (
