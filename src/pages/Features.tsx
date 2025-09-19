@@ -346,11 +346,11 @@ const Features = () => {
     <div className="min-h-screen bg-background">
       
       {/* Back Button */}
-      <div className="container mx-auto px-4 pt-8">
+      <div className="container mx-auto px-4 pt-20 pb-4">
         <Button 
-          variant="ghost" 
+          variant="outline" 
           onClick={handleBackToHome}
-          className="mb-4 hover:bg-primary/10"
+          className="mb-4 hover:bg-primary/10 bg-background border-primary/20"
         >
           <ArrowLeft className="h-4 w-4 mr-2" />
           Back to Overview
