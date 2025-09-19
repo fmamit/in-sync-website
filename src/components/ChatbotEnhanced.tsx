@@ -187,43 +187,43 @@ const ChatbotEnhanced = () => {
 
       {/* Chat Window */}
       {isOpen && (
-        <Card className="fixed bottom-6 right-6 w-96 h-[500px] shadow-xl z-50 flex flex-col">
-          <CardHeader className="flex flex-row items-center justify-between p-4 pb-2">
-            <CardTitle className="text-lg font-semibold">In-Sync Assistant</CardTitle>
+        <Card className="fixed bottom-6 right-6 w-96 h-[500px] shadow-xl z-[100] flex flex-col bg-background border">
+          <CardHeader className="flex flex-row items-center justify-between p-4 pb-2 border-b">
+            <CardTitle className="text-lg font-semibold text-foreground">In-Sync Assistant</CardTitle>
             <Button
               variant="ghost"
               size="icon"
               onClick={() => setIsOpen(false)}
-              className="h-8 w-8"
+              className="h-8 w-8 hover:bg-muted"
             >
               <X className="h-4 w-4" />
             </Button>
           </CardHeader>
           
-          <CardContent className="flex-1 flex flex-col p-4 pt-0">
-            <ScrollArea className="flex-1 pr-4">
-              <div className="space-y-4">
+          <CardContent className="flex-1 flex flex-col p-0">
+            <ScrollArea className="flex-1 px-4 pt-4">
+              <div className="space-y-4 pb-4">
                 {messages.map((message) => (
                   <div
                     key={message.id}
-                    className={`flex gap-3 ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
+                    className={`flex gap-2 items-end ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
                   >
                     {message.type === 'bot' && (
-                      <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                      <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mb-1">
                         <Bot className="h-4 w-4 text-primary" />
                       </div>
                     )}
                     <div
-                      className={`max-w-[280px] p-3 rounded-lg whitespace-pre-line ${
+                      className={`max-w-[250px] p-3 rounded-lg whitespace-pre-line text-sm leading-relaxed ${
                         message.type === 'user'
-                          ? 'bg-primary text-primary-foreground ml-auto'
-                          : 'bg-muted'
+                          ? 'bg-primary text-primary-foreground rounded-br-sm'
+                          : 'bg-muted text-muted-foreground rounded-bl-sm'
                       }`}
                     >
                       {message.content}
                     </div>
                     {message.type === 'user' && (
-                      <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                      <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mb-1">
                         <User className="h-4 w-4 text-primary" />
                       </div>
                     )}
@@ -231,11 +231,11 @@ const ChatbotEnhanced = () => {
                 ))}
                 
                 {isTyping && (
-                  <div className="flex gap-3 justify-start">
-                    <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                  <div className="flex gap-2 items-end justify-start">
+                    <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mb-1">
                       <Bot className="h-4 w-4 text-primary" />
                     </div>
-                    <div className="bg-muted p-3 rounded-lg">
+                    <div className="bg-muted p-3 rounded-lg rounded-bl-sm">
                       <div className="flex space-x-1">
                         <div className="w-2 h-2 bg-primary/60 rounded-full animate-bounce"></div>
                         <div className="w-2 h-2 bg-primary/60 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
@@ -248,7 +248,7 @@ const ChatbotEnhanced = () => {
               </div>
             </ScrollArea>
 
-            <div className="flex gap-2 pt-4 border-t">
+            <div className="flex gap-2 p-4 border-t bg-background">
               <Input
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
