@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { HelmetProvider } from 'react-helmet-async';
+import ChatbotEnhanced from "@/components/ChatbotEnhanced";
 import Header from "@/components/Header";
 import Index from "./pages/Index";
 import Features from "./pages/Features";
@@ -32,6 +33,7 @@ const App = () => (
       <TooltipProvider>
         <Toaster />
         <Sonner />
+        <ChatbotEnhanced />
         <BrowserRouter>
         <Header />
         <Routes>
