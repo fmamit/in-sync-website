@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Play, CheckCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import heroBanner from "@/assets/hero-banner-main.png";
+import heroBannerAlt from "@/assets/hero-banner-alt.jpg";
 import ClientOnboardingModal from "./ClientOnboardingModal";
 // ... keep existing imports ...
 import growthvineLogo from "@/assets/growthvine-logo.jpeg";
@@ -68,12 +69,19 @@ const HeroSection = () => {
       <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
       
       <div className="container mx-auto px-4 relative z-10">
-        <div className="flex justify-center items-center max-w-4xl mx-auto">
+        <div className="flex justify-center items-center max-w-6xl mx-auto">
           <div className="relative w-full">
+            {/* Desktop/Web Banner - Horizontal Layout */}
+            <img 
+              src={heroBannerAlt}
+              alt="Finally, a CRM that fits - In-Sync intelligent platform"
+              className="hidden md:block w-full h-auto object-contain"
+            />
+            {/* Mobile Banner - Vertical Layout */}
             <img 
               src={heroBanner}
               alt="Finally, a CRM that fits - In-Sync intelligent platform"
-              className="w-full h-auto object-contain"
+              className="block md:hidden w-full h-auto object-contain"
             />
           </div>
         </div>
