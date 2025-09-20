@@ -460,12 +460,6 @@ const BusinessAssessment = ({ className = "" }: { className?: string }) => {
               <CardContent className="p-6 text-center space-y-4">
                 <h3 className="font-semibold">Ready to Transform?</h3>
                 <div className="space-y-3">
-                  <OnboardingModal trigger={
-                    <Button size="lg" className="w-full">
-                      <CheckCircle2 className="w-4 h-4 mr-2" />
-                      Get Started Now
-                    </Button>
-                  } />
                   <Button variant="outline" size="lg" onClick={resetAssessment} className="w-full">
                     Retake Assessment
                   </Button>

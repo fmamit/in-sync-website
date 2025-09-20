@@ -78,14 +78,9 @@ const Footer = () => {
 
             {/* Get Started CTA */}
             <div className="mb-6">
-              <OnboardingModal
-                trigger={
-                  <Button size="sm" className="bg-primary hover:bg-primary/90 text-primary-foreground">
-                    Get Started Now
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                }
-              />
+              <p className="text-sm text-muted-foreground mb-4">
+                Ready to transform your business? Contact us to get started.
+              </p>
             </div>
 
             {/* Social Links */}

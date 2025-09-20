@@ -353,12 +353,6 @@ const ROICalculator = ({ className = "" }: ROICalculatorProps) => {
 
               {/* CTA */}
               <div className="space-y-3 pt-4 border-t">
-                <OnboardingModal trigger={
-                  <Button className="w-full" size="lg">
-                    <CheckCircle2 className="w-4 h-4 mr-2" />
-                    Get Started Now
-                  </Button>
-                } />
                 <Button variant="outline" className="w-full">
                   Schedule ROI Discussion
                 </Button>

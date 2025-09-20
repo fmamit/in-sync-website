@@ -922,11 +922,6 @@ const Features = () => {
             Start your free trial today and discover how In-Sync can transform your business operations
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <OnboardingModal trigger={
-              <Button size="lg" variant="secondary" className="bg-white text-primary hover:bg-slate-100">
-                Get Started Now
-              </Button>
-            } />
             <Button size="lg" variant="hero">
               Request Demo
             </Button>

@@ -249,11 +249,6 @@ const Industries = () => {
             <Button size="lg" variant="secondary" className="bg-white text-primary hover:bg-white/90">
               Schedule Industry Demo
             </Button>
-            <OnboardingModal trigger={
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary">
-                Get Started Now
-              </Button>
-            } />
           </div>
         </div>
       </section>

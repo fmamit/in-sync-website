@@ -50,11 +50,6 @@ const Header = () => {
                 Onboarding Form
               </Button>
             } />
-            <OnboardingModal trigger={
-              <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90">
-                Get Started Now
-              </Button>
-            } />
           </div>
 
           {/* Mobile Menu Button */}
@@ -85,11 +80,6 @@ const Header = () => {
                 <OnboardingModal trigger={
                   <Button variant="outline" size="sm" className="w-full">
                     Onboarding Form
-                  </Button>
-                } />
-                <OnboardingModal trigger={
-                  <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90 w-full">
-                    Get Started Now
                   </Button>
                 } />
               </div>

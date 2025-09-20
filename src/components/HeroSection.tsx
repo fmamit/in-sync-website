@@ -96,12 +96,6 @@ const HeroSection = () => {
             Explore Full Platform
             <ArrowRight className="ml-2 h-5 w-5" />
           </Button>
-          <OnboardingModal trigger={
-            <Button size="lg" variant="outline" className="group border-primary/20 hover:bg-primary/5 text-lg px-8 py-4">
-              <Play className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
-              Get Started Now
-            </Button>
-          } />
         </div>
 
         {/* Bottom Stats Section */}
