@@ -57,25 +57,17 @@ const Footer = () => {
               Digitally transforming modern organizations with AI-powered CRM solutions.
             </p>
 
-            {/* Get Started CTA */}
-            <div className="mb-6">
-              <p className="text-sm text-muted-foreground mb-4">
-                Ready to transform your business?
+            {/* Contact Information */}
+            <div className="mb-6 space-y-2">
+              <p className="text-sm text-muted-foreground">
+                <strong>Phone:</strong> +91 98300 15881
               </p>
-              <div className="flex flex-col gap-3">
-                <DemoRequestModal trigger={
-                  <Button size="sm" className="w-full justify-start">
-                    Request Demo
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                } />
-                <OnboardingModal trigger={
-                  <Button variant="outline" size="sm" className="w-full justify-start">
-                    Get Started
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                } />
-              </div>
+              <p className="text-sm text-muted-foreground">
+                <strong>Email:</strong> info@insynccrm.in
+              </p>
+              <p className="text-sm text-muted-foreground">
+                <strong>Address:</strong> 27A, Shakespeare Sarani, Kolkata - 700017
+              </p>
             </div>
 
             {/* Social Links */}
