@@ -64,6 +64,7 @@ const timeSlots = [
 const DemoRequestModal = ({ trigger }: DemoRequestModalProps) => {
   const [selectedProblems, setSelectedProblems] = useState<string[]>([]);
   const [isOpen, setIsOpen] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const form = useForm<DemoRequestFormData>({
     resolver: zodResolver(demoRequestSchema),
@@ -96,13 +97,7 @@ const DemoRequestModal = ({ trigger }: DemoRequestModalProps) => {
     try {
       // For now, just show success message - user needs Supabase integration for actual submission
       console.log("Demo request data:", data);
-      toast({
-        title: "Demo Request Submitted!",
-        description: "Thank you for your interest. Our team will contact you soon.",
-      });
-      setIsOpen(false);
-      form.reset();
-      setSelectedProblems([]);
+      setIsSubmitted(true);
     } catch (error) {
       toast({
         title: "Error",
@@ -112,8 +107,18 @@ const DemoRequestModal = ({ trigger }: DemoRequestModalProps) => {
     }
   };
 
+  const handleModalClose = (open: boolean) => {
+    setIsOpen(open);
+    if (!open) {
+      // Reset form and states when modal is closed
+      setIsSubmitted(false);
+      form.reset();
+      setSelectedProblems([]);
+    }
+  };
+
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+    <Dialog open={isOpen} onOpenChange={handleModalClose}>
       <DialogTrigger asChild>
         {trigger || (
           <Button variant="default" size="lg">
@@ -122,176 +127,197 @@ const DemoRequestModal = ({ trigger }: DemoRequestModalProps) => {
         )}
       </DialogTrigger>
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
-        <DialogHeader>
-          <DialogTitle>Request a Demo</DialogTitle>
-          <DialogDescription>
-            Fill out the form below and our team will contact you to schedule a personalized demo
-          </DialogDescription>
-        </DialogHeader>
-
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Your Name *</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Enter your full name" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="phone"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Best Number to Connect *</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Enter your phone number" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+        {isSubmitted ? (
+          <div className="text-center py-8">
+            <div className="mb-6">
+              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <h2 className="text-2xl font-semibold text-foreground mb-2">Thank You!</h2>
+              <p className="text-lg text-muted-foreground">
+                We are delighted. One of our solutions expert will get in touch shortly.
+              </p>
             </div>
+            <Button onClick={() => handleModalClose(false)} className="mt-4">
+              Close
+            </Button>
+          </div>
+        ) : (
+          <>
+            <DialogHeader>
+              <DialogTitle>Request a Demo</DialogTitle>
+              <DialogDescription>
+                Fill out the form below and our team will contact you to schedule a personalized demo
+              </DialogDescription>
+            </DialogHeader>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Your Email *</FormLabel>
-                    <FormControl>
-                      <Input type="email" placeholder="Enter your email" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <FormField
+                    control={form.control}
+                    name="name"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Your Name *</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Enter your full name" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
 
-              <FormField
-                control={form.control}
-                name="bestTimeToContact"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Best Time to Contact *</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select preferred time" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        {timeSlots.map((time) => (
-                          <SelectItem key={time} value={time}>
-                            {time}
-                          </SelectItem>
+                  <FormField
+                    control={form.control}
+                    name="phone"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Best Number to Connect *</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Enter your phone number" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Your Email *</FormLabel>
+                        <FormControl>
+                          <Input type="email" placeholder="Enter your email" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="bestTimeToContact"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Best Time to Contact *</FormLabel>
+                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                          <FormControl>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Select preferred time" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            {timeSlots.map((time) => (
+                              <SelectItem key={time} value={time}>
+                                {time}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <FormField
+                    control={form.control}
+                    name="company"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Your Company *</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Enter your company name" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="industry"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Industry *</FormLabel>
+                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                          <FormControl>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Select your industry" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            {industries.map((industry) => (
+                              <SelectItem key={industry} value={industry}>
+                                {industry}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
+                <FormField
+                  control={form.control}
+                  name="problemDescription"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Problem You're Trying to Solve *</FormLabel>
+                      <FormDescription>
+                        Select from common areas below or describe your specific challenges
+                      </FormDescription>
+                      
+                      {/* Clickable Problem Options */}
+                      <div className="flex flex-wrap gap-2 mb-3">
+                        {problemOptions.map((problem) => (
+                          <Badge
+                            key={problem}
+                            variant={selectedProblems.includes(problem) ? "default" : "outline"}
+                            className="cursor-pointer hover:bg-primary/20 transition-colors"
+                            onClick={() => handleProblemToggle(problem)}
+                          >
+                            {problem}
+                            {selectedProblems.includes(problem) && (
+                              <X className="ml-1 h-3 w-3" />
+                            )}
+                          </Badge>
                         ))}
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
+                      </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <FormField
-                control={form.control}
-                name="company"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Your Company *</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Enter your company name" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="industry"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Industry *</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
                       <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select your industry" />
-                        </SelectTrigger>
+                        <Textarea
+                          placeholder="Describe the specific challenges you're facing or what you're looking to improve..."
+                          className="min-h-[100px]"
+                          {...field}
+                        />
                       </FormControl>
-                      <SelectContent>
-                        {industries.map((industry) => (
-                          <SelectItem key={industry} value={industry}>
-                            {industry}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
-            <FormField
-              control={form.control}
-              name="problemDescription"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Problem You're Trying to Solve *</FormLabel>
-                  <FormDescription>
-                    Select from common areas below or describe your specific challenges
-                  </FormDescription>
-                  
-                  {/* Clickable Problem Options */}
-                  <div className="flex flex-wrap gap-2 mb-3">
-                    {problemOptions.map((problem) => (
-                      <Badge
-                        key={problem}
-                        variant={selectedProblems.includes(problem) ? "default" : "outline"}
-                        className="cursor-pointer hover:bg-primary/20 transition-colors"
-                        onClick={() => handleProblemToggle(problem)}
-                      >
-                        {problem}
-                        {selectedProblems.includes(problem) && (
-                          <X className="ml-1 h-3 w-3" />
-                        )}
-                      </Badge>
-                    ))}
-                  </div>
-
-                  <FormControl>
-                    <Textarea
-                      placeholder="Describe the specific challenges you're facing or what you're looking to improve..."
-                      className="min-h-[100px]"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <div className="flex justify-end space-x-4 pt-4">
-              <Button type="button" variant="outline" onClick={() => setIsOpen(false)}>
-                Cancel
-              </Button>
-              <Button type="submit">
-                Submit Demo Request
-              </Button>
-            </div>
-          </form>
-        </Form>
+                <div className="flex justify-end space-x-4 pt-4">
+                  <Button type="button" variant="outline" onClick={() => handleModalClose(false)}>
+                    Cancel
+                  </Button>
+                  <Button type="submit">
+                    Submit Demo Request
+                  </Button>
+                </div>
+              </form>
+            </Form>
+          </>
+        )}
       </DialogContent>
     </Dialog>
   );
