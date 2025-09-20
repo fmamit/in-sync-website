@@ -39,8 +39,7 @@ const Footer = () => {
     company: [
       { name: "Partnership", href: "/partnership" },
       { name: "Features", href: "/features" },
-      { name: "Resources", href: "/resources" },
-      { name: "Contact", href: "#contact" }
+      { name: "Resources", href: "/resources" }
     ]
   };
 
@@ -150,7 +149,7 @@ const Footer = () => {
             <div>
               <h4 className="font-semibold mb-4">Company</h4>
               <ul className="space-y-2">
-                {footerLinks.company.slice(0, -1).map((link, index) => (
+                {footerLinks.company.map((link, index) => (
                   <li key={index}>
                     <a
                       href={link.href}
@@ -160,15 +159,6 @@ const Footer = () => {
                     </a>
                   </li>
                 ))}
-                <li>
-                  <OnboardingModal
-                    trigger={
-                      <button className="text-sm text-muted-foreground hover:text-primary transition-colors text-left">
-                        Contact
-                      </button>
-                    }
-                  />
-                </li>
               </ul>
             </div>
           </div>
