@@ -68,6 +68,54 @@ const initialBlogs = [
     readTime: "10 min read",
     tags: ["Field Force", "GPS", "Mobile CRM", "Management"],
     imageUrl: "/api/placeholder/400/250"
+  },
+  {
+    id: 4,
+    title: "Sales Automation Strategies for Small Businesses",
+    excerpt: "Discover effective sales automation techniques that can help small businesses increase revenue and improve efficiency.",
+    content: "Full blog content here...",
+    author: "Sunita Negi",
+    date: "2024-01-01",
+    category: "Sales",
+    readTime: "7 min read",
+    tags: ["Sales", "Automation", "Small Business", "Efficiency"],
+    imageUrl: "/api/placeholder/400/250"
+  },
+  {
+    id: 5,
+    title: "Customer Data Analytics: Unlocking Business Insights",
+    excerpt: "Learn how to leverage customer data analytics to gain valuable insights and make data-driven business decisions.",
+    content: "Full blog content here...",
+    author: "Rajesh Gupta",
+    date: "2023-12-28",
+    category: "Analytics",
+    readTime: "9 min read",
+    tags: ["Analytics", "Data", "Insights", "Business Intelligence"],
+    imageUrl: "/api/placeholder/400/250"
+  },
+  {
+    id: 6,
+    title: "Mobile CRM: Empowering Field Sales Teams",
+    excerpt: "Explore how mobile CRM solutions are empowering field sales teams to work more efficiently and close deals faster.",
+    content: "Full blog content here...",
+    author: "Kavya Singh",
+    date: "2023-12-25",
+    category: "Mobile CRM",
+    readTime: "8 min read",
+    tags: ["Mobile", "CRM", "Sales", "Field Teams"],
+    imageUrl: "/api/placeholder/400/250"
+  },
+  {
+    id: 7,
+    title: "Integration Strategies for Modern Business Systems",
+    excerpt: "A comprehensive guide to integrating various business systems for seamless operations and improved productivity.",
+    content: "Full blog content here...",
+    author: "Arjun Mehta",
+    date: "2023-12-20",
+    category: "Integration",
+    readTime: "11 min read",
+    tags: ["Integration", "Systems", "Productivity", "API"],
+    imageUrl: "/api/placeholder/400/250"
   }
 ];
 
@@ -104,6 +152,39 @@ const initialWhitepapers = [
     publishDate: "2023-12-01",
     tags: ["AI", "Customer Service", "Trends", "Predictions"],
     fileUrl: "/downloads/ai-customer-service-trends.pdf"
+  },
+  {
+    id: 4,
+    title: "Digital Transformation Roadmap for Enterprises",
+    description: "Strategic framework for enterprise digital transformation including technology adoption, change management, and success metrics.",
+    category: "Strategy",
+    pages: 38,
+    downloadCount: 1540,
+    publishDate: "2023-11-20",
+    tags: ["Digital Transformation", "Strategy", "Enterprise", "Roadmap"],
+    fileUrl: "/downloads/digital-transformation-roadmap.pdf"
+  },
+  {
+    id: 5,
+    title: "Sales Process Optimization Through Technology",
+    description: "Comprehensive analysis of sales process optimization using modern technology stack and automation tools.",
+    category: "Sales Optimization",
+    pages: 33,
+    downloadCount: 980,
+    publishDate: "2023-11-10",
+    tags: ["Sales", "Process", "Optimization", "Technology"],
+    fileUrl: "/downloads/sales-process-optimization.pdf"
+  },
+  {
+    id: 6,
+    title: "Customer Retention Strategies in the Digital Era",
+    description: "Evidence-based strategies for customer retention using digital tools, personalization, and data analytics.",
+    category: "Customer Success",
+    pages: 41,
+    downloadCount: 1320,
+    publishDate: "2023-10-25",
+    tags: ["Customer Retention", "Digital", "Analytics", "Personalization"],
+    fileUrl: "/downloads/customer-retention-strategies.pdf"
   }
 ];
 
@@ -152,6 +233,51 @@ const initialEvents = [
     currentAttendees: 75,
     speakers: ["API Specialists"],
     tags: ["WhatsApp", "API", "Workshop", "Hands-on"]
+  },
+  {
+    id: 4,
+    title: "Sales Automation Bootcamp",
+    description: "Intensive training session on implementing sales automation workflows and maximizing team productivity.",
+    type: "Training",
+    date: "2024-03-05",
+    time: "10:00 AM IST",
+    duration: "4 hours",
+    location: "Mumbai Training Center",
+    registrationUrl: "#",
+    maxAttendees: 50,
+    currentAttendees: 32,
+    speakers: ["Sales Experts"],
+    tags: ["Sales", "Automation", "Training", "Productivity"]
+  },
+  {
+    id: 5,
+    title: "Customer Success Strategies Seminar",
+    description: "Learn proven strategies for customer success, retention, and growth in the modern business environment.",
+    type: "Seminar",
+    date: "2024-03-12",
+    time: "2:30 PM IST",
+    duration: "2.5 hours",
+    location: "Online",
+    registrationUrl: "#",
+    maxAttendees: 300,
+    currentAttendees: 185,
+    speakers: ["Customer Success Team"],
+    tags: ["Customer Success", "Retention", "Growth", "Strategies"]
+  },
+  {
+    id: 6,
+    title: "AI Integration Workshop",
+    description: "Hands-on workshop on integrating AI capabilities into your existing business processes and systems.",
+    type: "Workshop",
+    date: "2024-03-18",
+    time: "11:00 AM IST",
+    duration: "3.5 hours",
+    location: "Delhi Tech Hub",
+    registrationUrl: "#",
+    maxAttendees: 75,
+    currentAttendees: 45,
+    speakers: ["AI Specialists", "Tech Team"],
+    tags: ["AI", "Integration", "Workshop", "Technology"]
   }
 ];
 
@@ -202,6 +328,42 @@ const initialTutorials = [
     category: "Field Management",
     videoCount: 1,
     tags: ["Field Force", "GPS", "Mobile CRM"],
+    videoUrl: "#"
+  },
+  {
+    id: 5,
+    title: "Customer Data Analytics Deep Dive",
+    description: "Master customer data analytics to uncover insights and drive business growth through data-driven decisions.",
+    type: "Video Series",
+    duration: "60 minutes",
+    level: "Advanced",
+    category: "Analytics",
+    videoCount: 12,
+    tags: ["Analytics", "Data", "Business Intelligence", "Reporting"],
+    videoUrl: "#"
+  },
+  {
+    id: 6,
+    title: "Automation Workflows for Beginners",
+    description: "Learn to create simple yet powerful automation workflows to streamline your business processes.",
+    type: "Interactive Tutorial",
+    duration: "25 minutes",
+    level: "Beginner",
+    category: "Automation",
+    videoCount: 1,
+    tags: ["Automation", "Workflows", "Process", "Efficiency"],
+    videoUrl: "#"
+  },
+  {
+    id: 7,
+    title: "Mobile CRM Usage Guide",
+    description: "Complete guide to using In-Sync mobile CRM app for field sales, customer visits, and remote work.",
+    type: "Video Tutorial",
+    duration: "40 minutes",
+    level: "Beginner",
+    category: "Mobile App",
+    videoCount: 1,
+    tags: ["Mobile", "App", "Field Sales", "Remote Work"],
     videoUrl: "#"
   }
 ];
