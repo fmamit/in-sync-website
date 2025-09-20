@@ -60,13 +60,13 @@ const Footer = () => {
             {/* Contact Information */}
             <div className="mb-6 space-y-2">
               <p className="text-sm text-muted-foreground">
-                <strong>Phone:</strong> +91 98300 15881
+                <strong>Phone:</strong> +91 92288 24668
               </p>
               <p className="text-sm text-muted-foreground">
-                <strong>Email:</strong> info@insynccrm.in
+                <strong>Email:</strong> delight@in-sync.co.in
               </p>
               <p className="text-sm text-muted-foreground">
-                <strong>Address:</strong> 27A, Shakespeare Sarani, Kolkata - 700017
+                <strong>Address:</strong> Gurgaon, Haryana, India - 122002
               </p>
             </div>
 
