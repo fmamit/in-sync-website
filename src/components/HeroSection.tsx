@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Play, CheckCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import heroBanner from "@/assets/hero-banner-main.png";
-import heroBannerAlt from "@/assets/hero-banner-corrected.png";
+import heroBannerAlt from "@/assets/hero-banner-corrected-final.jpg";
 import ClientOnboardingModal from "./ClientOnboardingModal";
 // ... keep existing imports ...
 import growthvineLogo from "@/assets/growthvine-logo.jpeg";
