@@ -392,7 +392,8 @@ const Resources = () => {
     tags: "",
     author: "",
     type: "",
-    content: ""
+    content: "",
+    image: null as File | null
   });
 
   // Filter functions
@@ -432,6 +433,13 @@ const Resources = () => {
       return;
     }
 
+    // Handle image upload
+    let imageUrl = "/api/placeholder/400/250";
+    if (newResource.image) {
+      // Create a local URL for the uploaded image
+      imageUrl = URL.createObjectURL(newResource.image);
+    }
+
     const resourceData = {
       id: Date.now(),
       title: newResource.title,
@@ -449,7 +457,7 @@ const Resources = () => {
           excerpt: newResource.description,
           content: newResource.content,
           readTime: "5 min read",
-          imageUrl: "/api/placeholder/400/250"
+          imageUrl: imageUrl
         }]);
         break;
       case "whitepaper":
@@ -498,7 +506,8 @@ const Resources = () => {
       tags: "",
       author: "",
       type: "",
-      content: ""
+      content: "",
+      image: null
     });
     setIsAddDialogOpen(false);
   };
@@ -609,7 +618,15 @@ const Resources = () => {
   const BlogCard = ({ blog }: { blog: any }) => (
     <Card className="group hover:shadow-lg transition-all duration-300">
       <div className="relative overflow-hidden rounded-t-lg">
-        <div className="w-full h-48 bg-gradient-to-br from-primary/10 to-secondary/10" />
+        {blog.imageUrl && blog.imageUrl !== "/api/placeholder/400/250" ? (
+          <img 
+            src={blog.imageUrl} 
+            alt={blog.title}
+            className="w-full h-48 object-cover"
+          />
+        ) : (
+          <div className="w-full h-48 bg-gradient-to-br from-primary/10 to-secondary/10" />
+        )}
         <Badge className="absolute top-4 left-4">{blog.category}</Badge>
       </div>
       <CardHeader className="pb-3">
@@ -1010,6 +1027,25 @@ const Resources = () => {
                     placeholder="tag1, tag2, tag3..."
                   />
                 </div>
+                
+                {newResourceType === "blog" && (
+                  <div>
+                    <Label htmlFor="image">Blog Image</Label>
+                    <Input
+                      id="image"
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => {
+                        const file = e.target.files?.[0] || null;
+                        setNewResource({...newResource, image: file});
+                      }}
+                      className="cursor-pointer"
+                    />
+                    <p className="text-xs text-muted-foreground mt-1">
+                      Upload an image for your blog post (JPG, PNG, WebP supported)
+                    </p>
+                  </div>
+                )}
                 
                 {newResourceType === "blog" && (
                   <div>
