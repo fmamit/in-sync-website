@@ -46,14 +46,14 @@ const Header = () => {
 
           {/* Desktop CTAs */}
           <div className="hidden md:flex items-center space-x-4">
-            <DemoRequestModal trigger={
-              <Button variant="default" size="sm">
-                Request Demo
+            <OnboardingModal trigger={
+              <Button variant="ghost" size="sm">
+                Onboarding Form
               </Button>
             } />
-            <OnboardingModal trigger={
-              <Button variant="outline" size="sm">
-                Onboarding Form
+            <DemoRequestModal trigger={
+              <Button variant="default" size="lg" className="font-semibold">
+                Request Demo
               </Button>
             } />
           </div>
