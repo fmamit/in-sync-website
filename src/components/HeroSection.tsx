@@ -75,7 +75,7 @@ const HeroSection = () => {
             <img 
               src={heroBannerAlt}
               alt="Finally, a CRM that fits - In-Sync intelligent platform"
-              className="hidden md:block w-full h-auto object-contain"
+              className="hidden md:block w-full h-auto object-cover"
             />
             {/* Mobile Banner - Vertical Layout */}
             <img 
