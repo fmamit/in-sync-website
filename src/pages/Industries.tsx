@@ -121,7 +121,7 @@ const Industries = () => {
               <Sparkles className="w-6 h-6 text-white" />
             </div>
             <h1 className="text-4xl md:text-5xl font-bold text-primary">
-              Success Stories
+              Industry-Specific CRM Solutions
             </h1>
             <div className="w-12 h-12 rounded-full bg-gradient-to-r from-primary to-primary-glow flex items-center justify-center">
               <Lock className="w-6 h-6 text-white" />
@@ -131,27 +131,27 @@ const Industries = () => {
           {/* Navigation Tabs */}
           <div className="flex flex-wrap justify-center gap-2 mb-8">
             <Badge variant="secondary" className="px-4 py-2 text-sm font-medium bg-white border border-muted hover:bg-muted/20 transition-colors cursor-pointer">
-              Real Companies
+              Healthcare
             </Badge>
             <Badge variant="secondary" className="px-4 py-2 text-sm font-medium bg-white border border-muted hover:bg-muted/20 transition-colors cursor-pointer">
-              Proven Results
+              Financial Services
             </Badge>
             <Badge variant="secondary" className="px-4 py-2 text-sm font-medium bg-white border border-muted hover:bg-muted/20 transition-colors cursor-pointer">
-              Measurable ROI
+              Manufacturing
             </Badge>
             <Badge variant="secondary" className="px-4 py-2 text-sm font-medium bg-white border border-muted hover:bg-muted/20 transition-colors cursor-pointer">
-              Industry Leaders
+              Technology & SaaS
             </Badge>
           </div>
 
           {/* Description */}
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto mb-4">
-            Discover how industry leaders transformed their operations with In-Sync's AI-powered platform.
+            Discover how In-sync adapts to your industry's unique challenges, compliance requirements, and business processes.
           </p>
 
           {/* Tagline */}
           <p className="text-xl font-semibold text-primary">
-            Real businesses. Real results. Real impact.
+            Tailored solutions. Proven results. Industry expertise.
           </p>
         </div>
       </section>
