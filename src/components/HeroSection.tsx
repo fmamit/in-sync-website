@@ -68,26 +68,24 @@ const HeroSection = () => {
       {/* Background Elements */}
       <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
       
-      {/* Full Width Banner */}
-      <div className="w-full">
-        <div className="relative w-full">
-          {/* Desktop/Web Banner - Horizontal Layout */}
-          <img 
-            src={heroBannerAlt}
-            alt="Finally, a CRM that fits - In-Sync intelligent platform"
-            className="hidden md:block w-full h-auto object-contain"
-          />
-          {/* Mobile Banner - Vertical Layout */}
-          <img 
-            src={heroBanner}
-            alt="Finally, a CRM that fits - In-Sync intelligent platform"
-            className="block md:hidden w-full h-auto object-contain"
-          />
+      <div className="container mx-auto px-4 relative z-10">
+        <div className="flex justify-center items-center max-w-6xl mx-auto">
+          <div className="relative w-full">
+            {/* Desktop/Web Banner - Horizontal Layout */}
+            <img 
+              src={heroBannerAlt}
+              alt="Finally, a CRM that fits - In-Sync intelligent platform"
+              className="hidden md:block w-full h-auto object-cover"
+            />
+            {/* Mobile Banner - Vertical Layout */}
+            <img 
+              src={heroBanner}
+              alt="Finally, a CRM that fits - In-Sync intelligent platform"
+              className="block md:hidden w-full h-auto object-contain"
+            />
+          </div>
         </div>
-      </div>
 
-      {/* Content Container */}
-      <div className="absolute bottom-0 left-0 right-0 container mx-auto px-4 relative z-10">
         {/* CTAs Below Banner */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center mt-12">
           <Button 
