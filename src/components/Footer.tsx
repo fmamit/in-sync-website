@@ -159,7 +159,7 @@ const Footer = () => {
             <div>
               <h4 className="font-semibold mb-4">Company</h4>
               <ul className="space-y-2">
-                {footerLinks.company.map((link, index) => (
+                {footerLinks.company.slice(0, -1).map((link, index) => (
                   <li key={index}>
                     <a
                       href={link.href}
@@ -169,6 +169,15 @@ const Footer = () => {
                     </a>
                   </li>
                 ))}
+                <li>
+                  <ClientOnboardingModal
+                    trigger={
+                      <button className="text-sm text-muted-foreground hover:text-primary transition-colors text-left">
+                        Contact
+                      </button>
+                    }
+                  />
+                </li>
               </ul>
             </div>
           </div>
