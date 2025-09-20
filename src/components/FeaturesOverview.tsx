@@ -39,8 +39,8 @@ const FeaturesOverview = () => {
       items: [
         "Predictive Lead Scoring",
         "Pipeline Management",
-        "Conversational AI",
-        "Behavioral Triggers"
+        "AI-powered campaigns",
+        "AI-recommended actions"
       ]
     },
     {

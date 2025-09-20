@@ -76,8 +76,8 @@ const KeyFeatures = () => {
       features: [
         "Predictive Lead Scoring 2.0 → Close 40% more deals by knowing exactly which leads will convert in 30/60/90 days",
         "Intelligent Pipeline Management → Stop revenue leaks with automated deal risk alerts and smart progression guidance", 
-        "Conversational AI Expansion → Scale customer engagement across WhatsApp/SMS with multi-language support and sentiment detection",
-        "Behavioral Trigger Automation → Convert 25% more prospects with smart actions triggered by customer behavior patterns"
+        "AI-powered campaigns → Scale customer engagement across WhatsApp/SMS with multi-language support and sentiment detection",
+        "AI-recommended actions → Convert 25% more prospects with smart actions triggered by customer behavior patterns"
       ],
       gradient: "from-purple-50/30 via-background to-indigo-50/20",
       badge: "AI-Powered"
