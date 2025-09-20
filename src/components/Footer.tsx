@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import insyncLogo from "@/assets/insync-logo-color.png";
 import OnboardingModal from "./OnboardingModal";
+import DemoRequestModal from "./DemoRequestModal";
 
 const Footer = () => {
   const footerLinks = {
@@ -79,8 +80,22 @@ const Footer = () => {
             {/* Get Started CTA */}
             <div className="mb-6">
               <p className="text-sm text-muted-foreground mb-4">
-                Ready to transform your business? Contact us to get started.
+                Ready to transform your business?
               </p>
+              <div className="flex flex-col gap-3">
+                <DemoRequestModal trigger={
+                  <Button size="sm" className="w-full justify-start">
+                    Request Demo
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                } />
+                <OnboardingModal trigger={
+                  <Button variant="outline" size="sm" className="w-full justify-start">
+                    Get Started
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                } />
+              </div>
             </div>
 
             {/* Social Links */}

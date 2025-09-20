@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import heroBanner from "@/assets/hero-banner-main.png";
 import heroBannerAlt from "@/assets/hero-banner-final-corrected.png";
 import OnboardingModal from "./OnboardingModal";
+import DemoRequestModal from "./DemoRequestModal";
 // ... keep existing imports ...
 import growthvineLogo from "@/assets/growthvine-logo.jpeg";
 import audiLogo from "@/assets/audi-logo-better.png";
@@ -88,6 +89,12 @@ const HeroSection = () => {
 
         {/* CTAs Below Banner */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center mt-12">
+          <DemoRequestModal trigger={
+            <Button size="lg" className="text-lg px-8 py-4 bg-white text-primary hover:bg-gray-50 transition-all duration-300 transform hover:scale-105">
+              Request Demo
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Button>
+          } />
           <Button 
             size="lg" 
             className="bg-primary text-primary-foreground hover:bg-primary/90 transform hover:scale-105 transition-all text-lg px-8 py-4"
