@@ -42,13 +42,6 @@ const Integrations = () => {
           website: "https://www.tatatel.co.in"
         },
         {
-          name: "WhatsApp Business API",
-          description: "Official WhatsApp integration for business messaging and customer engagement",
-          type: "Official",
-          features: ["Business Messaging", "Media Sharing", "Template Messages", "Webhooks"],
-          website: "https://business.whatsapp.com"
-        },
-        {
           name: "Kaleyra",
           description: "Cloud communication platform for SMS, voice, and messaging APIs",
           type: "Cloud",
@@ -102,13 +95,6 @@ const Integrations = () => {
           type: "Enterprise",
           features: ["Bulk SMS", "RCS Messaging", "Global Reach", "Delivery Analytics"],
           website: "https://www.routemobile.com"
-        },
-        {
-          name: "SMS Gateway APIs",
-          description: "Multiple SMS gateway integrations for reliable message delivery",
-          type: "Multi-vendor",
-          features: ["High Delivery Rates", "Global Coverage", "Unicode Support", "DLR Tracking"],
-          website: "#"
         }
       ]
     },
@@ -181,13 +167,6 @@ const Integrations = () => {
           type: "Email Service",
           features: ["High Deliverability", "Email Templates", "A/B Testing", "Detailed Analytics"],
           website: "https://elasticemail.com"
-        },
-        {
-          name: "SendGrid",
-          description: "Cloud-based email delivery platform trusted by developers",
-          type: "Developer-Friendly", 
-          features: ["API Integration", "Email Validation", "Webhook Events", "IP Warming"],
-          website: "https://sendgrid.com"
         }
       ]
     },
@@ -229,13 +208,6 @@ const Integrations = () => {
           type: "Workflow Automation",
           features: ["5000+ App Connections", "Multi-step Zaps", "Custom Triggers", "Real-time Sync"],
           website: "https://zapier.com"
-        },
-        {
-          name: "Custom API Connectivity", 
-          description: "Flexible API framework for custom integrations and third-party connections",
-          type: "Developer Tools",
-          features: ["RESTful APIs", "Webhook Support", "Custom Endpoints", "Rate Limiting"],
-          website: "#"
         }
       ]
     }
