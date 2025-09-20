@@ -106,10 +106,8 @@ const Pricing = () => {
       features: [
         "Everything in Scale",
         "Unlimited active records",
-        "White-label solutions",
         "Custom development",
         "On-premise deployment options",
-        "Advanced security & compliance",
         "SLA guarantees",
         "24/7 dedicated support",
         "Custom training & onboarding",
