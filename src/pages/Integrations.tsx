@@ -18,7 +18,9 @@ import {
   Shield,
   ArrowRight,
   CheckCircle,
-  ExternalLink
+  ExternalLink,
+  Server,
+  Target
 } from "lucide-react";
 import Footer from "@/components/Footer";
 
@@ -40,6 +42,13 @@ const Integrations = () => {
           type: "Premium",
           features: ["HD Voice Quality", "SIP Trunking", "Call Analytics", "Geographic Coverage"],
           website: "https://www.tatatel.co.in"
+        },
+        {
+          name: "IVR Solutions",
+          description: "Interactive Voice Response systems for automated customer interactions",
+          type: "Automation",
+          features: ["Call Routing", "Voice Menus", "Call Recording", "Custom Workflows"],
+          website: "#"
         },
         {
           name: "Kaleyra",
@@ -78,6 +87,13 @@ const Integrations = () => {
           type: "Design",
           features: ["Email Templates", "Drag & Drop", "Analytics", "A/B Testing"],
           website: "https://unlayer.com"
+        },
+        {
+          name: "Power BI",
+          description: "Microsoft's business analytics service for interactive visualizations",
+          type: "Microsoft",
+          features: ["Interactive Dashboards", "Data Modeling", "Real-time Analytics", "Custom Reports"],
+          website: "https://powerbi.microsoft.com"
         }
       ]
     },
@@ -95,6 +111,13 @@ const Integrations = () => {
           type: "Enterprise",
           features: ["Bulk SMS", "RCS Messaging", "Global Reach", "Delivery Analytics"],
           website: "https://www.routemobile.com"
+        },
+        {
+          name: "Twilio",
+          description: "Cloud communications platform for SMS, voice, and video APIs",
+          type: "Global Leader",
+          features: ["Global SMS", "Voice APIs", "Video Calling", "Programmable Chat"],
+          website: "https://www.twilio.com"
         }
       ]
     },
@@ -119,6 +142,48 @@ const Integrations = () => {
           type: "Social Selling",
           features: ["Advanced Search", "InMail", "Lead Recommendations", "CRM Sync"],
           website: "https://business.linkedin.com/sales-solutions"
+        },
+        {
+          name: "Just Dial",
+          description: "India's leading local search engine for business discovery and lead generation",
+          type: "Local Search",
+          features: ["Business Listings", "Lead Generation", "Local SEO", "Customer Reviews"],
+          website: "https://www.justdial.com"
+        },
+        {
+          name: "TradeIndia",
+          description: "B2B marketplace connecting buyers and sellers across India",
+          type: "B2B Marketplace",
+          features: ["Business Directory", "Trade Leads", "Product Catalog", "Buyer Inquiries"],
+          website: "https://www.tradeindia.com"
+        },
+        {
+          name: "IndiaMART",
+          description: "India's largest online marketplace for business products and services",
+          type: "B2B Platform",
+          features: ["Product Listings", "Supplier Network", "RFQ Management", "Business Analytics"],
+          website: "https://www.indiamart.com"
+        },
+        {
+          name: "Facebook Ads",
+          description: "Social media advertising platform for targeted lead generation",
+          type: "Social Advertising",
+          features: ["Audience Targeting", "Campaign Management", "Lead Forms", "Conversion Tracking"],
+          website: "https://www.facebook.com/business/ads"
+        },
+        {
+          name: "Google Ads",
+          description: "Search and display advertising platform for online lead generation",
+          type: "Search Advertising",
+          features: ["Search Campaigns", "Display Network", "Lead Extensions", "Conversion Tracking"],
+          website: "https://ads.google.com"
+        },
+        {
+          name: "Instagram Ads",
+          description: "Visual advertising platform for brand awareness and lead generation",
+          type: "Visual Advertising",
+          features: ["Story Ads", "Photo/Video Ads", "Lead Generation", "Audience Insights"],
+          website: "https://business.instagram.com/advertising"
         }
       ]
     },
@@ -210,6 +275,51 @@ const Integrations = () => {
           website: "https://zapier.com"
         }
       ]
+    },
+    {
+      id: "infrastructure",
+      title: "Infrastructure & Data", 
+      icon: Server,
+      color: "text-blue-600",
+      bgColor: "bg-blue-50",
+      description: "Enterprise-grade infrastructure and data management solutions",
+      integrations: [
+        {
+          name: "Microsoft Azure",
+          description: "Comprehensive cloud computing platform for scalable business solutions",
+          type: "Cloud Platform",
+          features: ["Virtual Machines", "App Services", "Storage Solutions", "AI/ML Services"],
+          website: "https://azure.microsoft.com"
+        },
+        {
+          name: "Azure Data Lake",
+          description: "Scalable data lake storage for big data analytics and machine learning",
+          type: "Data Storage",
+          features: ["Unlimited Storage", "Data Analytics", "Security Controls", "Multi-format Support"],
+          website: "https://azure.microsoft.com/en-us/products/storage/data-lake-storage"
+        },
+        {
+          name: "Azure SQL Database",
+          description: "Fully managed SQL database service with built-in intelligence",
+          type: "Database",
+          features: ["Auto-scaling", "Built-in Security", "Performance Insights", "High Availability"],
+          website: "https://azure.microsoft.com/en-us/products/azure-sql/database"
+        },
+        {
+          name: "Azure Databricks",
+          description: "Apache Spark-based analytics platform for big data and machine learning",
+          type: "Analytics Platform",
+          features: ["Collaborative Workspace", "Auto-scaling Clusters", "ML Workflows", "Data Engineering"],
+          website: "https://azure.microsoft.com/en-us/products/databricks"
+        },
+        {
+          name: "Azure Data Factory",
+          description: "Cloud-based data integration service for creating data-driven workflows",
+          type: "Data Integration",
+          features: ["Data Pipeline", "ETL/ELT", "Data Movement", "Hybrid Integration"],
+          website: "https://azure.microsoft.com/en-us/products/data-factory"
+        }
+      ]
     }
   ];
 
@@ -261,7 +371,7 @@ const Integrations = () => {
           </div>
 
           <Tabs value={selectedCategory} onValueChange={setSelectedCategory} className="w-full">
-            <TabsList className="grid grid-cols-3 md:grid-cols-5 lg:grid-cols-9 mb-12 h-auto p-1">
+            <TabsList className="grid grid-cols-3 md:grid-cols-5 lg:grid-cols-10 mb-12 h-auto p-1">
               <TabsTrigger value="all" className="text-xs px-2 py-2">All</TabsTrigger>
               {integrationCategories.map((category) => (
                 <TabsTrigger key={category.id} value={category.id} className="text-xs px-2 py-2">
