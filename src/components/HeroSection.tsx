@@ -106,9 +106,9 @@ const HeroSection = () => {
 
         {/* Customer Logos Section */}
         <div className="mt-16 text-center">
-          <p className="text-sm text-muted-foreground mb-8">
+          <h2 className="text-2xl font-semibold mb-8 text-foreground">
             Trusted by industry leaders across sectors
-          </p>
+          </h2>
           <div className="grid grid-cols-4 gap-8 max-w-4xl mx-auto">
             {customerLogos.slice(0, 16).map((logo, index) => (
               <div key={index} className="flex items-center justify-center h-20 w-full bg-white/50 rounded-lg p-4 hover:bg-white/80 transition-all duration-300 hover:scale-105 shadow-sm">
