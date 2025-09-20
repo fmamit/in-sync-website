@@ -1,9 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { 
-  Mail, 
-  Phone, 
-  MapPin, 
   Linkedin, 
   Twitter, 
   Youtube,
@@ -60,22 +57,6 @@ const Footer = () => {
             <p className="text-muted-foreground mb-6 leading-relaxed">
               Digitally transforming modern organizations with AI-powered CRM solutions.
             </p>
-            
-            {/* Contact Info */}
-            <div id="contact" className="space-y-3 mb-6">
-              <div className="flex items-center gap-3 text-sm">
-                <Phone className="h-4 w-4 text-primary" />
-                <span>+91 92288 24668</span>
-              </div>
-              <div className="flex items-center gap-3 text-sm">
-                <Mail className="h-4 w-4 text-primary" />
-                <span>delight@in-sync.co.in</span>
-              </div>
-              <div className="flex items-start gap-3 text-sm">
-                <MapPin className="h-4 w-4 text-primary mt-0.5" />
-                <span>Gurgaon, Haryana, India - 122002</span>
-              </div>
-            </div>
 
             {/* Get Started CTA */}
             <div className="mb-6">
