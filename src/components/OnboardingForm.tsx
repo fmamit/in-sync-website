@@ -11,6 +11,9 @@ import { Progress } from "@/components/ui/progress";
 import { ChevronLeft, ChevronRight, Download } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import jsPDF from "jspdf";
+import "@fontsource/nunito-sans/400.css";
+import "@fontsource/nunito-sans/700.css";
+import letterheadImage from "@/assets/insync-letterhead-full.png";
 
 interface UserRow {
   fullName: string;
@@ -21,6 +24,16 @@ interface UserRow {
 }
 
 interface OnboardingData {
+  // Section 0: Client Agreement Information  
+  registeredAddress: string;
+  email: string;
+  phone: string;
+  panNumber: string;
+  gstNumber: string;
+  effectiveDate: string;
+  placeOfSigning: string;
+  dateOfSigning: string;
+
   // Section 1: Company Information
   companyName: string;
   companyAddress: string;
@@ -100,8 +113,17 @@ interface OnboardingData {
 }
 
 const OnboardingForm = () => {
-  const [currentSection, setCurrentSection] = useState(1);
+  const [currentSection, setCurrentSection] = useState(0);
+  const todayDate = new Date().toISOString().split('T')[0];
   const [formData, setFormData] = useState<OnboardingData>({
+    registeredAddress: "",
+    email: "",
+    phone: "",
+    panNumber: "",
+    gstNumber: "",
+    effectiveDate: todayDate,
+    placeOfSigning: "",
+    dateOfSigning: todayDate,
     companyName: "",
     companyAddress: "",
     industryType: "",
@@ -165,7 +187,7 @@ const OnboardingForm = () => {
 
   const { toast } = useToast();
 
-  const totalSections = 8;
+  const totalSections = 9;
   const progressPercentage = (currentSection / totalSections) * 100;
 
   // Email validation function
@@ -276,6 +298,55 @@ const OnboardingForm = () => {
 
   const validateSection = (section: number): boolean => {
     switch (section) {
+      case 0:
+        // Validate client agreement section
+        if (!validateField(formData.companyName)) {
+          toast({
+            title: "Company Name Required",
+            description: "Please enter your company name.",
+            variant: "destructive",
+          });
+          return false;
+        }
+        
+        if (!validateField(formData.registeredAddress)) {
+          toast({
+            title: "Registered Address Required",
+            description: "Please enter your registered address.",
+            variant: "destructive",
+          });
+          return false;
+        }
+        
+        if (!validateField(formData.email, "email")) {
+          toast({
+            title: "Invalid Email Address",
+            description: "Please enter a valid email address.",
+            variant: "destructive",
+          });
+          return false;
+        }
+        
+        if (!validateField(formData.phone, "phone")) {
+          toast({
+            title: "Invalid Phone Number",
+            description: "Please enter a valid phone number.",
+            variant: "destructive",
+          });
+          return false;
+        }
+        
+        if (!validateField(formData.panNumber)) {
+          toast({
+            title: "PAN Number Required",
+            description: "Please enter your PAN number.",
+            variant: "destructive",
+          });
+          return false;
+        }
+        
+        return true;
+        
       case 1:
         // Validate company information with proper validation
         if (!validateField(formData.companyName)) {
@@ -364,7 +435,150 @@ const OnboardingForm = () => {
   };
 
   const prevSection = () => {
-    setCurrentSection(prev => Math.max(prev - 1, 1));
+    setCurrentSection(prev => Math.max(prev - 1, 0));
+  };
+  
+  const downloadClientAgreement = () => {
+    const doc = new jsPDF();
+    
+    // Set font and margins
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(12);
+    
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const pageHeight = doc.internal.pageSize.getHeight();
+    const margin = 20;
+    const lineHeight = 7;
+    let yPosition = 80; // Start lower to accommodate letterhead
+    
+    // Helper function to add letterhead background to current page
+    const addLetterheadBackground = () => {
+      doc.addImage(letterheadImage, 'PNG', 0, 0, pageWidth, pageHeight);
+    };
+    
+    // Add letterhead to first page
+    addLetterheadBackground();
+    
+    // Helper function to check if we need a new page
+    const checkPageBreak = (additionalLines: number = 1) => {
+      if (yPosition + (additionalLines * lineHeight) > pageHeight - 40) { 
+        doc.addPage();
+        addLetterheadBackground(); 
+        yPosition = 80;
+      }
+    };
+    
+    // Helper function to add text with word wrapping and page breaks
+    const addText = (text: string, fontSize: number = 12) => {
+      doc.setFontSize(fontSize);
+      const splitText = doc.splitTextToSize(text, pageWidth - (margin * 2));
+      
+      checkPageBreak(splitText.length);
+      
+      doc.text(splitText, margin, yPosition);
+      yPosition += splitText.length * lineHeight;
+    };
+    
+    // Add title
+    doc.setFontSize(16);
+    doc.setFont("helvetica", "bold");
+    doc.text("CLIENT AGREEMENT FOR IN-SYNC SAAS PLATFORM", margin, yPosition);
+    yPosition += 15;
+    
+    // Reset font for body text
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(12);
+    
+    addText(`This Agreement is entered into on ${formData.dateOfSigning} at ${formData.placeOfSigning} between:`);
+    yPosition += 5;
+    
+    addText("PARTY A: ECR Technical Innovations Pvt Ltd");
+    addText("Address: 042, C 4th Floor, Supermart, DLF Phase IV GURUGRAM Haryana 122002");
+    addText("Contact: Amit Sengupta, a@-in-sync.co.in");
+    yPosition += 5;
+    
+    addText(`PARTY B: ${formData.companyName}`);
+    addText(`Address: ${formData.registeredAddress}`);
+    addText(`Email: ${formData.email}`);
+    addText(`Phone: ${formData.phone}`);
+    addText(`PAN: ${formData.panNumber}`);
+    if (formData.gstNumber) {
+      addText(`GST: ${formData.gstNumber}`);
+    }
+    yPosition += 10;
+    
+    // Terms and Conditions
+    doc.setFont("helvetica", "bold");
+    addText("TERMS AND CONDITIONS:", 14);
+    doc.setFont("helvetica", "normal");
+    yPosition += 5;
+    
+    addText("1. EFFECTIVE DATE");
+    addText(`   This agreement shall be effective from ${formData.effectiveDate}.`);
+    yPosition += 5;
+    
+    addText("2. SERVICES PROVIDED");
+    addText("   In-Sync shall provide access to its comprehensive SaaS platform including:");
+    addText("   - CRM and Customer Management");
+    addText("   - Multi-channel Marketing Tools");
+    addText("   - Analytics and Reporting");
+    addText("   - Integration Capabilities");
+    addText("   - Technical Support");
+    yPosition += 5;
+    
+    addText("3. CLIENT OBLIGATIONS");
+    addText("   The Client agrees to:");
+    addText("   - Provide accurate information for service setup");
+    addText("   - Comply with platform usage guidelines");
+    addText("   - Make timely payments as per agreed pricing");
+    addText("   - Maintain confidentiality of login credentials");
+    yPosition += 5;
+    
+    addText("4. PAYMENT TERMS");
+    addText("   - Pricing as per selected plan");
+    addText("   - Payment due within 30 days of invoice");
+    addText("   - Late payment charges may apply");
+    yPosition += 5;
+    
+    addText("5. DATA SECURITY");
+    addText("   Both parties commit to maintaining data security and privacy standards.");
+    yPosition += 5;
+    
+    addText("6. TERMINATION");
+    addText("   Either party may terminate this agreement with 30 days written notice.");
+    yPosition += 5;
+    
+    addText("7. GOVERNING LAW");
+    addText("   This agreement shall be governed by the laws of India.");
+    yPosition += 10;
+    
+    addText("IN WITNESS WHEREOF, the parties have executed this Agreement on the date first written above.");
+    yPosition += 15;
+    
+    addText("For IN-SYNC SOLUTIONS:                    For " + formData.companyName + ":");
+    yPosition += 15;
+    
+    addText("_____________________                  _____________________");
+    addText("Amit Sengupta                          " + formData.signatoryName);
+    addText("Director                               " + formData.signatoryDesignation);
+    yPosition += 10;
+    
+    addText(`Date: ${formData.dateOfSigning}         Date: ${formData.dateOfSigning}`);
+    addText(`Place: ${formData.placeOfSigning}       Place: ${formData.placeOfSigning}`);
+    yPosition += 15;
+    
+    addText("---");
+    addText(`Generated on: ${new Date().toLocaleString()}`);
+    addText(`Agreement ID: ${Date.now().toString(36).toUpperCase()}`);
+    
+    // Create filename and save
+    const filename = `InSync_Client_Agreement_${formData.companyName.replace(/[^a-zA-Z0-9]/g, '_')}_${formData.dateOfSigning}.pdf`;
+    doc.save(filename);
+    
+    toast({
+      title: "Agreement Generated Successfully!",
+      description: "Your client agreement has been downloaded as PDF. Please review and return the signed copy.",
+    });
   };
 
   const generatePDF = () => {
@@ -630,10 +844,201 @@ const OnboardingForm = () => {
 
   const renderSection = () => {
     switch (currentSection) {
+      case 0:
+        return (
+          <div className="space-y-6">
+            <h3 className="text-lg font-semibold text-primary">Client Agreement Information</h3>
+            <p className="text-sm text-muted-foreground">
+              Complete this section to generate your personalized SaaS agreement
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="space-y-2 md:col-span-2">
+                <Label htmlFor="companyName" className="flex items-center gap-1">
+                  Company Name <span className="text-red-500">*</span>
+                  {getFieldValidationState(formData.companyName, undefined, true) === "valid" && (
+                    <span className="text-green-500 text-sm">✓</span>
+                  )}
+                </Label>
+                <Input
+                  id="companyName"
+                  value={formData.companyName}
+                  onChange={(e) => updateFormData("companyName", e.target.value)}
+                  className={getInputClassName(formData.companyName, undefined, true)}
+                  placeholder="Enter your company name"
+                  required
+                />
+              </div>
+              
+              <div className="space-y-2 md:col-span-2">
+                <Label htmlFor="registeredAddress" className="flex items-center gap-1">
+                  Registered Address <span className="text-red-500">*</span>
+                  {getFieldValidationState(formData.registeredAddress, undefined, true) === "valid" && (
+                    <span className="text-green-500 text-sm">✓</span>
+                  )}
+                </Label>
+                <Textarea
+                  id="registeredAddress"
+                  value={formData.registeredAddress}
+                  onChange={(e) => updateFormData("registeredAddress", e.target.value)}
+                  className={getInputClassName(formData.registeredAddress, undefined, true)}
+                  placeholder="Enter complete registered address"
+                  rows={3}
+                  required
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="signatoryName" className="flex items-center gap-1">
+                  Authorized Signatory Name <span className="text-red-500">*</span>
+                  {getFieldValidationState(formData.signatoryName, undefined, true) === "valid" && (
+                    <span className="text-green-500 text-sm">✓</span>
+                  )}
+                </Label>
+                <Input
+                  id="signatoryName"
+                  value={formData.signatoryName}
+                  onChange={(e) => updateFormData("signatoryName", e.target.value)}
+                  className={getInputClassName(formData.signatoryName, undefined, true)}
+                  placeholder="Full name of authorized person"
+                  required
+                />
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="signatoryDesignation" className="flex items-center gap-1">
+                  Designation of Signatory <span className="text-red-500">*</span>
+                  {getFieldValidationState(formData.signatoryDesignation, undefined, true) === "valid" && (
+                    <span className="text-green-500 text-sm">✓</span>
+                  )}
+                </Label>
+                <Input
+                  id="signatoryDesignation"
+                  value={formData.signatoryDesignation}
+                  onChange={(e) => updateFormData("signatoryDesignation", e.target.value)}
+                  className={getInputClassName(formData.signatoryDesignation, undefined, true)}
+                  placeholder="e.g., CEO, Director, Manager"
+                  required
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="email" className="flex items-center gap-1">
+                  Email ID <span className="text-red-500">*</span>
+                  {getFieldValidationState(formData.email, "email", true) === "valid" && (
+                    <span className="text-green-500 text-sm">✓</span>
+                  )}
+                </Label>
+                <Input
+                  id="email"
+                  type="email"
+                  value={formData.email}
+                  onChange={(e) => updateFormData("email", e.target.value)}
+                  className={getInputClassName(formData.email, "email", true)}
+                  placeholder="official@company.com"
+                  required
+                />
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="phone" className="flex items-center gap-1">
+                  Contact Number <span className="text-red-500">*</span>
+                  {getFieldValidationState(formData.phone, "phone", true) === "valid" && (
+                    <span className="text-green-500 text-sm">✓</span>
+                  )}
+                </Label>
+                <Input
+                  id="phone"
+                  type="tel"
+                  value={formData.phone}
+                  onChange={(e) => updateFormData("phone", e.target.value)}
+                  className={getInputClassName(formData.phone, "phone", true)}
+                  placeholder="+91 XXXXX XXXXX"
+                  required
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="panNumber" className="flex items-center gap-1">
+                  PAN Number <span className="text-red-500">*</span>
+                  {getFieldValidationState(formData.panNumber, undefined, true) === "valid" && (
+                    <span className="text-green-500 text-sm">✓</span>
+                  )}
+                </Label>
+                <Input
+                  id="panNumber"
+                  value={formData.panNumber}
+                  onChange={(e) => updateFormData("panNumber", e.target.value.toUpperCase())}
+                  className={getInputClassName(formData.panNumber, undefined, true)}
+                  placeholder="ABCDE1234F"
+                  maxLength={10}
+                  required
+                />
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="gstNumber">GST Number (Optional)</Label>
+                <Input
+                  id="gstNumber"
+                  value={formData.gstNumber}
+                  onChange={(e) => updateFormData("gstNumber", e.target.value.toUpperCase())}
+                  placeholder="22AAAAA0000A1Z5"
+                  maxLength={15}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="effectiveDate" className="flex items-center gap-1">
+                  Effective Date of Agreement <span className="text-red-500">*</span>
+                </Label>
+                <Input
+                  id="effectiveDate"
+                  type="date"
+                  value={formData.effectiveDate}
+                  onChange={(e) => updateFormData("effectiveDate", e.target.value)}
+                  required
+                />
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="dateOfSigning" className="flex items-center gap-1">
+                  Date of Signing <span className="text-red-500">*</span>
+                </Label>
+                <Input
+                  id="dateOfSigning"
+                  type="date"
+                  value={formData.dateOfSigning}
+                  onChange={(e) => updateFormData("dateOfSigning", e.target.value)}
+                  required
+                />
+              </div>
+
+              <div className="space-y-2 md:col-span-2">
+                <Label htmlFor="placeOfSigning" className="flex items-center gap-1">
+                  Place of Signing <span className="text-red-500">*</span>
+                  {getFieldValidationState(formData.placeOfSigning, undefined, true) === "valid" && (
+                    <span className="text-green-500 text-sm">✓</span>
+                  )}
+                </Label>
+                <Input
+                  id="placeOfSigning"
+                  value={formData.placeOfSigning}
+                  onChange={(e) => updateFormData("placeOfSigning", e.target.value)}
+                  className={getInputClassName(formData.placeOfSigning, undefined, true)}
+                  placeholder="City, State"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+        );
+        
       case 1:
         return (
           <div className="space-y-6">
-            <h3 className="text-lg font-semibold text-primary">Company Information</h3>
+            <h3 className="text-lg font-semibold text-primary">Company Details</h3>
+            <p className="text-sm text-muted-foreground">
+              Additional company information and contact details
+            </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="companyName" className="flex items-center gap-1">
@@ -832,7 +1237,7 @@ const OnboardingForm = () => {
           </div>
         );
 
-      case 3:
+      case 2:
         return (
           <div className="space-y-6">
             <h3 className="text-lg font-semibold text-primary">Communication Services</h3>
@@ -1101,7 +1506,7 @@ const OnboardingForm = () => {
           </div>
         );
 
-      case 4:
+      case 3:
         return (
           <div className="space-y-6">
             <h3 className="text-lg font-semibold text-primary">System Configuration</h3>
@@ -1292,7 +1697,7 @@ const OnboardingForm = () => {
           </div>
         );
 
-      case 6:
+      case 5:
         return (
           <div className="space-y-6">
             <h3 className="text-lg font-semibold text-primary">Technical Requirements</h3>
@@ -1376,7 +1781,7 @@ const OnboardingForm = () => {
           </div>
         );
 
-      case 7:
+      case 6:
         return (
           <div className="space-y-6">
             <h3 className="text-lg font-semibold text-primary">Timeline & Support</h3>
@@ -1478,7 +1883,7 @@ const OnboardingForm = () => {
           </div>
         );
 
-      case 8:
+      case 7:
         return (
           <div className="space-y-6">
             <h3 className="text-lg font-semibold text-primary">For Internal Use Only</h3>
@@ -1578,7 +1983,7 @@ const OnboardingForm = () => {
             <Button
               variant="outline"
               onClick={prevSection}
-              disabled={currentSection === 1}
+              disabled={currentSection === 0}
               className="flex items-center gap-2"
             >
               <ChevronLeft className="h-4 w-4" />
@@ -1588,11 +1993,22 @@ const OnboardingForm = () => {
             <div className="flex gap-2">
               {currentSection === totalSections && (
                 <Button
+                  onClick={downloadClientAgreement}
+                  variant="outline"
+                  className="flex items-center gap-2 mr-2"
+                >
+                  <Download className="h-4 w-4" />
+                  Generate Client Agreement
+                </Button>
+              )}
+              
+              {currentSection === totalSections && (
+                <Button
                   onClick={generatePDF}
                   className="flex items-center gap-2 bg-primary text-primary-foreground hover:bg-primary/90"
                 >
                   <Download className="h-4 w-4" />
-                  Download PDF
+                  Download Complete PDF
                 </Button>
               )}
               

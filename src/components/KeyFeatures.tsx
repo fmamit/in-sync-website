@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import ClientOnboardingModal from "./ClientOnboardingModal";
+import OnboardingModal from "./OnboardingModal";
 import { 
   Brain, 
   Smartphone, 
@@ -400,7 +400,7 @@ const KeyFeatures = () => {
                 Join thousands of organizations who have transformed their operations with In-Sync
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <ClientOnboardingModal trigger={
+                <OnboardingModal trigger={
                   <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
                     Get Started Now
                     <ArrowRight className="ml-2 h-5 w-5" />

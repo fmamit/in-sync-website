@@ -10,7 +10,7 @@ import {
   ArrowRight
 } from "lucide-react";
 import insyncLogo from "@/assets/insync-logo-color.png";
-import ClientOnboardingModal from "./ClientOnboardingModal";
+import OnboardingModal from "./OnboardingModal";
 
 const Footer = () => {
   const footerLinks = {
@@ -78,7 +78,7 @@ const Footer = () => {
 
             {/* Get Started CTA */}
             <div className="mb-6">
-              <ClientOnboardingModal
+              <OnboardingModal
                 trigger={
                   <Button size="sm" className="bg-primary hover:bg-primary/90 text-primary-foreground">
                     Get Started Now
@@ -170,7 +170,7 @@ const Footer = () => {
                   </li>
                 ))}
                 <li>
-                  <ClientOnboardingModal
+                  <OnboardingModal
                     trigger={
                       <button className="text-sm text-muted-foreground hover:text-primary transition-colors text-left">
                         Contact

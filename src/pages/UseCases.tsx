@@ -1,7 +1,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import ClientOnboardingModal from "@/components/ClientOnboardingModal";
+import OnboardingModal from "@/components/OnboardingModal";
 import { 
   Building2, 
   Car, 
@@ -746,7 +746,7 @@ const UseCases = () => {
               </div>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-lg mx-auto">
-                <ClientOnboardingModal trigger={
+                <OnboardingModal trigger={
                   <Button size="lg" variant="secondary" className="text-lg px-8 shadow-lg">
                     <Users className="h-5 w-5 mr-2" />
                     Get Started Now

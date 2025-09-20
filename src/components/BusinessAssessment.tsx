@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
-import ClientOnboardingModal from "./ClientOnboardingModal";
+import OnboardingModal from "./OnboardingModal";
 import jsPDF from "jspdf";
 import { 
   ClipboardCheck,
@@ -460,7 +460,7 @@ const BusinessAssessment = ({ className = "" }: { className?: string }) => {
               <CardContent className="p-6 text-center space-y-4">
                 <h3 className="font-semibold">Ready to Transform?</h3>
                 <div className="space-y-3">
-                  <ClientOnboardingModal trigger={
+                  <OnboardingModal trigger={
                     <Button size="lg" className="w-full">
                       <CheckCircle2 className="w-4 h-4 mr-2" />
                       Get Started Now

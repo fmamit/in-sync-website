@@ -3,7 +3,7 @@ import { ArrowRight, Play, CheckCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import heroBanner from "@/assets/hero-banner-main.png";
 import heroBannerAlt from "@/assets/hero-banner-final-corrected.png";
-import ClientOnboardingModal from "./ClientOnboardingModal";
+import OnboardingModal from "./OnboardingModal";
 // ... keep existing imports ...
 import growthvineLogo from "@/assets/growthvine-logo.jpeg";
 import audiLogo from "@/assets/audi-logo-better.png";
@@ -96,7 +96,7 @@ const HeroSection = () => {
             Explore Full Platform
             <ArrowRight className="ml-2 h-5 w-5" />
           </Button>
-          <ClientOnboardingModal trigger={
+          <OnboardingModal trigger={
             <Button size="lg" variant="outline" className="group border-primary/20 hover:bg-primary/5 text-lg px-8 py-4">
               <Play className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
               Get Started Now

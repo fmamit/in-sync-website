@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import insyncLogo from "@/assets/insync-logo-color.png";
-import ClientOnboardingModal from "./ClientOnboardingModal";
 import OnboardingModal from "./OnboardingModal";
 
 const Header = () => {
@@ -50,7 +49,7 @@ const Header = () => {
                 Onboarding Form
               </Button>
             } />
-            <ClientOnboardingModal trigger={
+            <OnboardingModal trigger={
               <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90">
                 Get Started Now
               </Button>
@@ -87,7 +86,7 @@ const Header = () => {
                     Onboarding Form
                   </Button>
                 } />
-                <ClientOnboardingModal trigger={
+                <OnboardingModal trigger={
                   <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90 w-full">
                     Get Started Now
                   </Button>

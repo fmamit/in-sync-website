@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Check, Sparkles, Lock } from "lucide-react";
 import Footer from "@/components/Footer";
-import ClientOnboardingModal from "@/components/ClientOnboardingModal";
+import OnboardingModal from "@/components/OnboardingModal";
 
 const Industries = () => {
   const industries = [
@@ -249,7 +249,7 @@ const Industries = () => {
             <Button size="lg" variant="secondary" className="bg-white text-primary hover:bg-white/90">
               Schedule Industry Demo
             </Button>
-            <ClientOnboardingModal trigger={
+            <OnboardingModal trigger={
               <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary">
                 Get Started Now
               </Button>
