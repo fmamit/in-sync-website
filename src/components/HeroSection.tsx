@@ -110,13 +110,13 @@ const HeroSection = () => {
           <p className="text-sm text-muted-foreground mb-8">
             Trusted by industry leaders across sectors
           </p>
-          <div className="flex flex-wrap justify-center items-center gap-8 opacity-60 hover:opacity-80 transition-opacity">
-            {customerLogos.slice(0, 12).map((logo, index) => (
-              <div key={index} className="flex items-center justify-center h-12 w-20 grayscale hover:grayscale-0 transition-all duration-300">
+          <div className="grid grid-cols-4 gap-8 max-w-4xl mx-auto">
+            {customerLogos.slice(0, 16).map((logo, index) => (
+              <div key={index} className="flex items-center justify-center h-20 w-full bg-white/50 rounded-lg p-4 hover:bg-white/80 transition-all duration-300 hover:scale-105 shadow-sm">
                 <img
                   src={logo.src}
                   alt={logo.alt}
-                  className="max-h-full max-w-full object-contain"
+                  className="max-h-full max-w-full object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
                 />
               </div>
             ))}
