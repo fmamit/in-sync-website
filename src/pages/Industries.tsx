@@ -1,6 +1,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Check } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Check, Sparkles, Lock } from "lucide-react";
 import Footer from "@/components/Footer";
 import ClientOnboardingModal from "@/components/ClientOnboardingModal";
 
@@ -114,11 +115,43 @@ const Industries = () => {
       {/* Hero Section */}
       <section className="py-16 px-4 text-center bg-gradient-to-b from-background to-muted/20">
         <div className="container mx-auto max-w-4xl">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-primary bg-clip-text text-transparent">
-            Industry-Specific CRM Solutions
-          </h1>
-          <p className="text-lg text-muted-foreground max-w-3xl mx-auto mb-8">
-            Discover how In-sync adapts to your industry's unique challenges, compliance requirements, and business processes. Our platform delivers tailored solutions that understand your market's specific needs.
+          {/* Title with Icons */}
+          <div className="flex items-center justify-center gap-4 mb-8">
+            <div className="w-12 h-12 rounded-full bg-gradient-to-r from-primary to-primary-glow flex items-center justify-center">
+              <Sparkles className="w-6 h-6 text-white" />
+            </div>
+            <h1 className="text-4xl md:text-5xl font-bold text-primary">
+              Success Stories
+            </h1>
+            <div className="w-12 h-12 rounded-full bg-gradient-to-r from-primary to-primary-glow flex items-center justify-center">
+              <Lock className="w-6 h-6 text-white" />
+            </div>
+          </div>
+
+          {/* Navigation Tabs */}
+          <div className="flex flex-wrap justify-center gap-2 mb-8">
+            <Badge variant="secondary" className="px-4 py-2 text-sm font-medium bg-white border border-muted hover:bg-muted/20 transition-colors cursor-pointer">
+              Real Companies
+            </Badge>
+            <Badge variant="secondary" className="px-4 py-2 text-sm font-medium bg-white border border-muted hover:bg-muted/20 transition-colors cursor-pointer">
+              Proven Results
+            </Badge>
+            <Badge variant="secondary" className="px-4 py-2 text-sm font-medium bg-white border border-muted hover:bg-muted/20 transition-colors cursor-pointer">
+              Measurable ROI
+            </Badge>
+            <Badge variant="secondary" className="px-4 py-2 text-sm font-medium bg-white border border-muted hover:bg-muted/20 transition-colors cursor-pointer">
+              Industry Leaders
+            </Badge>
+          </div>
+
+          {/* Description */}
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto mb-4">
+            Discover how industry leaders transformed their operations with In-Sync's AI-powered platform.
+          </p>
+
+          {/* Tagline */}
+          <p className="text-xl font-semibold text-primary">
+            Real businesses. Real results. Real impact.
           </p>
         </div>
       </section>
