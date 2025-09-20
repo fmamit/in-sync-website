@@ -1,22 +1,22 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Separator } from "@/components/ui/separator";
 import Footer from "@/components/Footer";
-import { getResponseForQuery, findMatchingFAQs } from "@/data/faqKnowledgeBase";
+import { getResponseForQuery } from "@/data/faqKnowledgeBase";
+import { useLazyLoading } from "@/hooks/useLazyLoading";
 import {
   Calendar,
   Clock,
   Download,
   ExternalLink,
   FileText,
-  Lightbulb,
   MapPin,
   Plus,
   Search,
@@ -25,8 +25,9 @@ import {
   Video,
   BookOpen,
   Users,
-  Globe,
-  MessageCircleQuestion
+  MessageCircleQuestion,
+  ChevronDown,
+  Loader2
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
@@ -216,19 +217,10 @@ const Resources = () => {
   const [isAuthDialogOpen, setIsAuthDialogOpen] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [credentials, setCredentials] = useState({ username: "", password: "" });
-  const [activeTab, setActiveTab] = useState("blogs");
   const [faqQuery, setFaqQuery] = useState("");
   const [faqResponse, setFaqResponse] = useState("");
+  const [newResourceType, setNewResourceType] = useState("blog");
   const { toast } = useToast();
-
-  // Handle URL query parameters for tab switching
-  useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const tabParam = urlParams.get('tab');
-    if (tabParam && ['blogs', 'whitepapers', 'events', 'tutorials', 'faqs'].includes(tabParam)) {
-      setActiveTab(tabParam);
-    }
-  }, []);
 
   // Add new resource form state
   const [newResource, setNewResource] = useState({
@@ -241,7 +233,34 @@ const Resources = () => {
     content: ""
   });
 
-  const handleAddResource = () => {
+  // Filter functions
+  const filterItems = (items: any[], searchTerm: string, selectedCategory: string) => {
+    return items.filter(item => {
+      const matchesSearch = searchTerm === "" || 
+        item.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
+        (item.description || item.excerpt || "").toLowerCase().includes(searchTerm.toLowerCase());
+      
+      const matchesCategory = selectedCategory === "all" || 
+        item.category?.toLowerCase().includes(selectedCategory) ||
+        item.tags?.some((tag: string) => tag.toLowerCase().includes(selectedCategory));
+      
+      return matchesSearch && matchesCategory;
+    });
+  };
+
+  // Filtered data
+  const filteredBlogs = filterItems(blogs, searchTerm, selectedCategory);
+  const filteredWhitepapers = filterItems(whitepapers, searchTerm, selectedCategory);
+  const filteredEvents = filterItems(events, searchTerm, selectedCategory);
+  const filteredTutorials = filterItems(tutorials, searchTerm, selectedCategory);
+
+  // Lazy loading hooks for each section
+  const blogsLazy = useLazyLoading({ items: filteredBlogs, initialCount: 4 });
+  const whitepapersLazy = useLazyLoading({ items: filteredWhitepapers, initialCount: 4 });
+  const eventsLazy = useLazyLoading({ items: filteredEvents, initialCount: 4 });
+  const tutorialsLazy = useLazyLoading({ items: filteredTutorials, initialCount: 4 });
+
+  const handleAddResource = (resourceType: string) => {
     if (!newResource.title || !newResource.description) {
       toast({
         title: "Error",
@@ -261,8 +280,8 @@ const Resources = () => {
       author: newResource.author || "In-Sync Team"
     };
 
-    switch (activeTab) {
-      case "blogs":
+    switch (resourceType) {
+      case "blog":
         setBlogs([...blogs, {
           ...resourceData,
           excerpt: newResource.description,
@@ -271,7 +290,7 @@ const Resources = () => {
           imageUrl: "/api/placeholder/400/250"
         }]);
         break;
-      case "whitepapers":
+      case "whitepaper":
         setWhitepapers([...whitepapers, {
           ...resourceData,
           pages: 20,
@@ -280,7 +299,7 @@ const Resources = () => {
           fileUrl: "#"
         }]);
         break;
-      case "events":
+      case "event":
         setEvents([...events, {
           ...resourceData,
           type: newResource.type || "Webinar",
@@ -293,7 +312,7 @@ const Resources = () => {
           speakers: [newResource.author || "In-Sync Team"]
         }]);
         break;
-      case "tutorials":
+      case "tutorial":
         setTutorials([...tutorials, {
           ...resourceData,
           type: newResource.type || "Video Tutorial",
@@ -307,7 +326,7 @@ const Resources = () => {
 
     toast({
       title: "Success",
-      description: `New ${activeTab.slice(0, -1)} added successfully!`
+      description: `New ${resourceType} added successfully!`
     });
 
     setNewResource({
@@ -341,7 +360,8 @@ const Resources = () => {
     }
   };
 
-  const handleAddClick = () => {
+  const handleAddClick = (resourceType: string) => {
+    setNewResourceType(resourceType);
     if (isAuthenticated) {
       setIsAddDialogOpen(true);
     } else {
@@ -357,6 +377,72 @@ const Resources = () => {
       setFaqResponse("");
     }
   };
+
+  // Section Header Component
+  const SectionHeader = ({ 
+    title, 
+    icon: Icon, 
+    count, 
+    onAddClick 
+  }: { 
+    title: string; 
+    icon: any; 
+    count: number; 
+    onAddClick?: () => void; 
+  }) => (
+    <div className="flex items-center justify-between mb-8">
+      <div className="flex items-center gap-4">
+        <div className="p-3 rounded-lg bg-primary/10">
+          <Icon className="w-6 h-6 text-primary" />
+        </div>
+        <div>
+          <h2 className="text-2xl font-bold text-foreground">{title}</h2>
+          <p className="text-muted-foreground">{count} items available</p>
+        </div>
+      </div>
+      {onAddClick && (
+        <Button onClick={onAddClick} variant="outline">
+          <Plus className="w-4 h-4 mr-2" />
+          Add {title.slice(0, -1)}
+        </Button>
+      )}
+    </div>
+  );
+
+  // Load More Button Component
+  const LoadMoreButton = ({ 
+    hasMore, 
+    onLoadMore, 
+    isLoading = false 
+  }: { 
+    hasMore: boolean; 
+    onLoadMore: () => void; 
+    isLoading?: boolean; 
+  }) => (
+    hasMore && (
+      <div className="text-center mt-8">
+        <Button 
+          onClick={onLoadMore} 
+          variant="outline" 
+          size="lg"
+          disabled={isLoading}
+          className="min-w-[200px]"
+        >
+          {isLoading ? (
+            <>
+              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+              Loading...
+            </>
+          ) : (
+            <>
+              Load More
+              <ChevronDown className="w-4 h-4 ml-2" />
+            </>
+          )}
+        </Button>
+      </div>
+    )
+  );
 
   const BlogCard = ({ blog }: { blog: any }) => (
     <Card className="group hover:shadow-lg transition-all duration-300">
@@ -529,7 +615,6 @@ const Resources = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5">
-      
       <main>
         {/* Hero Section */}
         <section className="py-20 bg-gradient-to-br from-primary/5 via-background to-secondary/5">
@@ -571,341 +656,299 @@ const Resources = () => {
           </div>
         </section>
 
-        {/* Main Content */}
+        {/* Main Content - Free Flowing Layout */}
         <section className="py-20">
           <div className="container mx-auto px-4">
-            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-              <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-8">
-                <TabsList className="grid w-full lg:w-auto grid-cols-5 mb-4 lg:mb-0">
-                  <TabsTrigger value="blogs" className="flex items-center gap-2">
-                    <BookOpen className="h-4 w-4" />
-                    Blogs
-                  </TabsTrigger>
-                  <TabsTrigger value="whitepapers" className="flex items-center gap-2">
-                    <FileText className="h-4 w-4" />
-                    Whitepapers
-                  </TabsTrigger>
-                  <TabsTrigger value="events" className="flex items-center gap-2">
-                    <Calendar className="h-4 w-4" />
-                    Events
-                  </TabsTrigger>
-                  <TabsTrigger value="tutorials" className="flex items-center gap-2">
-                    <Video className="h-4 w-4" />
-                    Tutorials
-                  </TabsTrigger>
-                  <TabsTrigger value="faqs" className="flex items-center gap-2">
-                    <MessageCircleQuestion className="h-4 w-4" />
-                    FAQs
-                  </TabsTrigger>
-                </TabsList>
-
-                {/* Add Resource Button */}
-                <Button onClick={handleAddClick} className="w-full lg:w-auto">
-                  <Plus className="h-4 w-4 mr-2" />
-                  Add New {activeTab.slice(0, -1).charAt(0).toUpperCase() + activeTab.slice(1, -1)}
-                </Button>
-
-                {/* Authentication Dialog */}
-                <Dialog open={isAuthDialogOpen} onOpenChange={setIsAuthDialogOpen}>
-                  <DialogContent className="max-w-md">
-                    <DialogHeader>
-                      <DialogTitle>Authentication Required</DialogTitle>
-                    </DialogHeader>
-                    
-                    <div className="space-y-4">
-                      <div>
-                        <Label htmlFor="username">Username</Label>
-                        <Input
-                          id="username"
-                          type="text"
-                          value={credentials.username}
-                          onChange={(e) => setCredentials({...credentials, username: e.target.value})}
-                          placeholder="Enter username..."
-                        />
-                      </div>
-                      
-                      <div>
-                        <Label htmlFor="password">Password</Label>
-                        <Input
-                          id="password"
-                          type="password"
-                          value={credentials.password}
-                          onChange={(e) => setCredentials({...credentials, password: e.target.value})}
-                          placeholder="Enter password..."
-                        />
-                      </div>
-                      
-                      <div className="flex gap-3 pt-4">
-                        <Button onClick={handleAuth} className="flex-1">
-                          Login
-                        </Button>
-                        <Button variant="outline" onClick={() => setIsAuthDialogOpen(false)}>
-                          Cancel
-                        </Button>
-                      </div>
-                    </div>
-                  </DialogContent>
-                </Dialog>
-
-                {/* Add Resource Dialog */}
-                <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
-                  <DialogContent className="max-w-2xl">
-                    <DialogHeader>
-                      <DialogTitle>Add New {activeTab.slice(0, -1).charAt(0).toUpperCase() + activeTab.slice(1, -1)}</DialogTitle>
-                    </DialogHeader>
-                    
-                    <div className="space-y-4">
-                      <div>
-                        <Label htmlFor="title">Title *</Label>
-                        <Input
-                          id="title"
-                          value={newResource.title}
-                          onChange={(e) => setNewResource({...newResource, title: e.target.value})}
-                          placeholder="Enter title..."
-                        />
-                      </div>
-                      
-                      <div>
-                        <Label htmlFor="description">Description *</Label>
-                        <Textarea
-                          id="description"
-                          value={newResource.description}
-                          onChange={(e) => setNewResource({...newResource, description: e.target.value})}
-                          placeholder="Enter description..."
-                          rows={3}
-                        />
-                      </div>
-                      
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                          <Label htmlFor="category">Category</Label>
-                          <Input
-                            id="category"
-                            value={newResource.category}
-                            onChange={(e) => setNewResource({...newResource, category: e.target.value})}
-                            placeholder="Enter category..."
-                          />
-                        </div>
-                        
-                        <div>
-                          <Label htmlFor="author">Author</Label>
-                          <Input
-                            id="author"
-                            value={newResource.author}
-                            onChange={(e) => setNewResource({...newResource, author: e.target.value})}
-                            placeholder="Author name..."
-                          />
-                        </div>
-                      </div>
-                      
-                      {(activeTab === "events" || activeTab === "tutorials") && (
-                        <div>
-                          <Label htmlFor="type">Type</Label>
-                          <Input
-                            id="type"
-                            value={newResource.type}
-                            onChange={(e) => setNewResource({...newResource, type: e.target.value})}
-                            placeholder={activeTab === "events" ? "Webinar, Conference, Workshop..." : "Video Tutorial, Written Guide, Interactive..."}
-                          />
-                        </div>
-                      )}
-                      
-                      <div>
-                        <Label htmlFor="tags">Tags (comma-separated)</Label>
-                        <Input
-                          id="tags"
-                          value={newResource.tags}
-                          onChange={(e) => setNewResource({...newResource, tags: e.target.value})}
-                          placeholder="tag1, tag2, tag3..."
-                        />
-                      </div>
-                      
-                      {activeTab === "blogs" && (
-                        <div>
-                          <Label htmlFor="content">Content</Label>
-                          <Textarea
-                            id="content"
-                            value={newResource.content}
-                            onChange={(e) => setNewResource({...newResource, content: e.target.value})}
-                            placeholder="Full blog content..."
-                            rows={5}
-                          />
-                        </div>
-                      )}
-                      
-                      <div className="flex gap-3 pt-4">
-                        <Button onClick={handleAddResource} className="flex-1">
-                          Add {activeTab.slice(0, -1).charAt(0).toUpperCase() + activeTab.slice(1, -1)}
-                        </Button>
-                        <Button variant="outline" onClick={() => setIsAddDialogOpen(false)}>
-                          Cancel
-                        </Button>
-                      </div>
-                    </div>
-                  </DialogContent>
-                </Dialog>
+            {/* Blogs Section */}
+            <div className="mb-20">
+              <SectionHeader 
+                title="Blogs" 
+                icon={BookOpen} 
+                count={filteredBlogs.length}
+                onAddClick={() => handleAddClick("blog")}
+              />
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {blogsLazy.displayedItems.map((blog) => (
+                  <BlogCard key={blog.id} blog={blog} />
+                ))}
               </div>
+              <LoadMoreButton 
+                hasMore={blogsLazy.hasMore} 
+                onLoadMore={blogsLazy.loadMore}
+              />
+              <div ref={blogsLazy.loadMoreRef} className="h-4" />
+            </div>
 
-              {/* Blogs Tab */}
-              <TabsContent value="blogs" className="space-y-8">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {blogs
-                    .filter(blog => 
-                      (selectedCategory === "all" || blog.category.toLowerCase().includes(selectedCategory)) &&
-                      (searchTerm === "" || blog.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                       blog.excerpt.toLowerCase().includes(searchTerm.toLowerCase()))
-                    )
-                    .map((blog) => (
-                      <BlogCard key={blog.id} blog={blog} />
-                    ))
-                  }
-                </div>
-              </TabsContent>
+            {/* Whitepapers Section */}
+            <div className="mb-20">
+              <Separator className="mb-12" />
+              <SectionHeader 
+                title="Whitepapers" 
+                icon={FileText} 
+                count={filteredWhitepapers.length}
+                onAddClick={() => handleAddClick("whitepaper")}
+              />
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {whitepapersLazy.displayedItems.map((whitepaper) => (
+                  <WhitepaperCard key={whitepaper.id} whitepaper={whitepaper} />
+                ))}
+              </div>
+              <LoadMoreButton 
+                hasMore={whitepapersLazy.hasMore} 
+                onLoadMore={whitepapersLazy.loadMore}
+              />
+              <div ref={whitepapersLazy.loadMoreRef} className="h-4" />
+            </div>
 
-              {/* Whitepapers Tab */}
-              <TabsContent value="whitepapers" className="space-y-8">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {whitepapers
-                    .filter(whitepaper => 
-                      (selectedCategory === "all" || whitepaper.category.toLowerCase().includes(selectedCategory)) &&
-                      (searchTerm === "" || whitepaper.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                       whitepaper.description.toLowerCase().includes(searchTerm.toLowerCase()))
-                    )
-                    .map((whitepaper) => (
-                      <WhitepaperCard key={whitepaper.id} whitepaper={whitepaper} />
-                    ))
-                  }
-                </div>
-              </TabsContent>
+            {/* Events Section */}
+            <div className="mb-20">
+              <Separator className="mb-12" />
+              <SectionHeader 
+                title="Events" 
+                icon={Calendar} 
+                count={filteredEvents.length}
+                onAddClick={() => handleAddClick("event")}
+              />
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {eventsLazy.displayedItems.map((event) => (
+                  <EventCard key={event.id} event={event} />
+                ))}
+              </div>
+              <LoadMoreButton 
+                hasMore={eventsLazy.hasMore} 
+                onLoadMore={eventsLazy.loadMore}
+              />
+              <div ref={eventsLazy.loadMoreRef} className="h-4" />
+            </div>
 
-              {/* Events Tab */}
-              <TabsContent value="events" className="space-y-8">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {events
-                    .filter(event => 
-                      (selectedCategory === "all" || event.tags.some((tag: string) => tag.toLowerCase().includes(selectedCategory))) &&
-                      (searchTerm === "" || event.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                       event.description.toLowerCase().includes(searchTerm.toLowerCase()))
-                    )
-                    .map((event) => (
-                      <EventCard key={event.id} event={event} />
-                    ))
-                  }
-                </div>
-              </TabsContent>
+            {/* Tutorials Section */}
+            <div className="mb-20">
+              <Separator className="mb-12" />
+              <SectionHeader 
+                title="Tutorials" 
+                icon={Video} 
+                count={filteredTutorials.length}
+                onAddClick={() => handleAddClick("tutorial")}
+              />
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {tutorialsLazy.displayedItems.map((tutorial) => (
+                  <TutorialCard key={tutorial.id} tutorial={tutorial} />
+                ))}
+              </div>
+              <LoadMoreButton 
+                hasMore={tutorialsLazy.hasMore} 
+                onLoadMore={tutorialsLazy.loadMore}
+              />
+              <div ref={tutorialsLazy.loadMoreRef} className="h-4" />
+            </div>
 
-              {/* Tutorials Tab */}
-              <TabsContent value="tutorials" className="space-y-8">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {tutorials
-                    .filter(tutorial => 
-                      (selectedCategory === "all" || tutorial.category.toLowerCase().includes(selectedCategory)) &&
-                      (searchTerm === "" || tutorial.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                       tutorial.description.toLowerCase().includes(searchTerm.toLowerCase()))
-                    )
-                    .map((tutorial) => (
-                      <TutorialCard key={tutorial.id} tutorial={tutorial} />
-                    ))
-                  }
-                </div>
-              </TabsContent>
-
-              {/* FAQs Tab */}
-              <TabsContent value="faqs" className="space-y-8">
-                <div className="max-w-4xl mx-auto">
-                  <Card>
-                    <CardHeader>
-                      <CardTitle className="flex items-center gap-2">
-                        <MessageCircleQuestion className="h-5 w-5" />
-                        Frequently Asked Questions
-                      </CardTitle>
-                      <p className="text-muted-foreground">
-                        Ask any question about In-Sync platform and get instant answers from our knowledge base.
-                      </p>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="space-y-6">
-                        <div className="flex flex-col sm:flex-row gap-3">
-                          <Input
-                            placeholder="Ask a question about In-Sync..."
-                            value={faqQuery}
-                            onChange={(e) => setFaqQuery(e.target.value)}
-                            onKeyPress={(e) => e.key === 'Enter' && handleFAQQuery()}
-                            className="flex-1"
-                          />
-                          <Button onClick={handleFAQQuery}>
-                            <Search className="h-4 w-4 mr-2" />
-                            Ask Question
-                          </Button>
-                        </div>
-                        
-                        {faqResponse && (
-                          <Card className="bg-muted/50">
-                            <CardContent className="pt-6">
-                              <div className="prose prose-sm max-w-none">
-                                <div className="whitespace-pre-wrap">{faqResponse}</div>
-                              </div>
-                            </CardContent>
-                          </Card>
-                        )}
-                        
-                        <div className="space-y-4">
-                          <h3 className="text-lg font-semibold">Popular Questions</h3>
-                          <div className="grid gap-3">
-                            {[
-                              "What is In-Sync?",
-                              "How does the Gargi AI Agent work?",
-                              "What integrations are available?",
-                              "How does WhatsApp automation work?",
-                              "What security measures does In-Sync provide?"
-                            ].map((question, index) => (
-                              <Button
-                                key={index}
-                                variant="outline"
-                                className="justify-start h-auto p-3 text-left"
-                                onClick={() => {
-                                  setFaqQuery(question);
-                                  const response = getResponseForQuery(question);
-                                  setFaqResponse(response);
-                                }}
-                              >
-                                <MessageCircleQuestion className="h-4 w-4 mr-2 flex-shrink-0" />
-                                <span>{question}</span>
-                              </Button>
-                            ))}
-                          </div>
+            {/* FAQs Section */}
+            <div className="mb-20">
+              <Separator className="mb-12" />
+              <SectionHeader 
+                title="FAQs" 
+                icon={MessageCircleQuestion} 
+                count={5}
+              />
+              <div className="max-w-4xl mx-auto">
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <MessageCircleQuestion className="h-5 w-5" />
+                      Frequently Asked Questions
+                    </CardTitle>
+                    <p className="text-muted-foreground">
+                      Ask any question about In-Sync platform and get instant answers from our knowledge base.
+                    </p>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-6">
+                      <div className="flex flex-col sm:flex-row gap-3">
+                        <Input
+                          placeholder="Ask a question about In-Sync..."
+                          value={faqQuery}
+                          onChange={(e) => setFaqQuery(e.target.value)}
+                          onKeyPress={(e) => e.key === 'Enter' && handleFAQQuery()}
+                          className="flex-1"
+                        />
+                        <Button onClick={handleFAQQuery}>
+                          <Search className="h-4 w-4 mr-2" />
+                          Ask Question
+                        </Button>
+                      </div>
+                      
+                      {faqResponse && (
+                        <Card className="bg-muted/50">
+                          <CardContent className="pt-6">
+                            <div className="prose prose-sm max-w-none">
+                              <div className="whitespace-pre-wrap">{faqResponse}</div>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      )}
+                      
+                      <div className="space-y-4">
+                        <h3 className="text-lg font-semibold">Popular Questions</h3>
+                        <div className="grid gap-3">
+                          {[
+                            "What is In-Sync?",
+                            "How does the Gargi AI Agent work?",
+                            "What integrations are available?",
+                            "How does WhatsApp automation work?",
+                            "What security measures does In-Sync provide?"
+                          ].map((question, index) => (
+                            <Button
+                              key={index}
+                              variant="outline"
+                              className="justify-start h-auto p-3 text-left"
+                              onClick={() => {
+                                setFaqQuery(question);
+                                const response = getResponseForQuery(question);
+                                setFaqResponse(response);
+                              }}
+                            >
+                              <MessageCircleQuestion className="h-4 w-4 mr-2 flex-shrink-0" />
+                              <span className="text-sm">{question}</span>
+                            </Button>
+                          ))}
                         </div>
                       </div>
-                    </CardContent>
-                  </Card>
-                </div>
-              </TabsContent>
-            </Tabs>
-          </div>
-        </section>
-
-        {/* Newsletter Section */}
-        <section className="py-20 bg-gradient-to-br from-primary/5 to-secondary/5">
-          <div className="container mx-auto px-4">
-            <div className="text-center max-w-2xl mx-auto">
-              <h2 className="text-3xl font-bold mb-6">Stay Updated</h2>
-              <p className="text-muted-foreground mb-8">
-                Subscribe to our newsletter to get the latest resources, insights, and updates delivered to your inbox.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-                <Input
-                  type="email"
-                  placeholder="Enter your email"
-                  className="flex-1"
-                />
-                <Button>
-                  Subscribe
-                  <Globe className="ml-2 h-4 w-4" />
-                </Button>
+                    </div>
+                  </CardContent>
+                </Card>
               </div>
             </div>
           </div>
+
+          {/* Authentication Dialog */}
+          <Dialog open={isAuthDialogOpen} onOpenChange={setIsAuthDialogOpen}>
+            <DialogContent className="max-w-md">
+              <DialogHeader>
+                <DialogTitle>Authentication Required</DialogTitle>
+              </DialogHeader>
+              
+              <div className="space-y-4">
+                <div>
+                  <Label htmlFor="username">Username</Label>
+                  <Input
+                    id="username"
+                    type="text"
+                    value={credentials.username}
+                    onChange={(e) => setCredentials({...credentials, username: e.target.value})}
+                    placeholder="Enter username..."
+                  />
+                </div>
+                
+                <div>
+                  <Label htmlFor="password">Password</Label>
+                  <Input
+                    id="password"
+                    type="password"
+                    value={credentials.password}
+                    onChange={(e) => setCredentials({...credentials, password: e.target.value})}
+                    placeholder="Enter password..."
+                  />
+                </div>
+                
+                <div className="flex gap-3 pt-4">
+                  <Button onClick={handleAuth} className="flex-1">
+                    Login
+                  </Button>
+                  <Button variant="outline" onClick={() => setIsAuthDialogOpen(false)}>
+                    Cancel
+                  </Button>
+                </div>
+              </div>
+            </DialogContent>
+          </Dialog>
+
+          {/* Add Resource Dialog */}
+          <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
+            <DialogContent className="max-w-2xl">
+              <DialogHeader>
+                <DialogTitle>Add New {newResourceType}</DialogTitle>
+              </DialogHeader>
+              
+              <div className="space-y-4">
+                <div>
+                  <Label htmlFor="title">Title *</Label>
+                  <Input
+                    id="title"
+                    value={newResource.title}
+                    onChange={(e) => setNewResource({...newResource, title: e.target.value})}
+                    placeholder="Enter title..."
+                  />
+                </div>
+                
+                <div>
+                  <Label htmlFor="description">Description *</Label>
+                  <Textarea
+                    id="description"
+                    value={newResource.description}
+                    onChange={(e) => setNewResource({...newResource, description: e.target.value})}
+                    placeholder="Enter description..."
+                    rows={3}
+                  />
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="category">Category</Label>
+                    <Input
+                      id="category"
+                      value={newResource.category}
+                      onChange={(e) => setNewResource({...newResource, category: e.target.value})}
+                      placeholder="Enter category..."
+                    />
+                  </div>
+                  
+                  <div>
+                    <Label htmlFor="author">Author</Label>
+                    <Input
+                      id="author"
+                      value={newResource.author}
+                      onChange={(e) => setNewResource({...newResource, author: e.target.value})}
+                      placeholder="Author name..."
+                    />
+                  </div>
+                </div>
+                
+                <div>
+                  <Label htmlFor="tags">Tags (comma-separated)</Label>
+                  <Input
+                    id="tags"
+                    value={newResource.tags}
+                    onChange={(e) => setNewResource({...newResource, tags: e.target.value})}
+                    placeholder="tag1, tag2, tag3..."
+                  />
+                </div>
+                
+                {newResourceType === "blog" && (
+                  <div>
+                    <Label htmlFor="content">Content</Label>
+                    <Textarea
+                      id="content"
+                      value={newResource.content}
+                      onChange={(e) => setNewResource({...newResource, content: e.target.value})}
+                      placeholder="Full blog content..."
+                      rows={5}
+                    />
+                  </div>
+                )}
+                
+                <div className="flex gap-3 pt-4">
+                  <Button onClick={() => handleAddResource(newResourceType)} className="flex-1">
+                    Add {newResourceType}
+                  </Button>
+                  <Button variant="outline" onClick={() => setIsAddDialogOpen(false)}>
+                    Cancel
+                  </Button>
+                </div>
+              </div>
+            </DialogContent>
+          </Dialog>
         </section>
+
       </main>
 
       <Footer />
