@@ -113,7 +113,7 @@ const Industries = () => {
       </div>
 
       {/* Hero Section */}
-      <section className="py-16 px-4 text-center bg-gradient-to-b from-background to-muted/20">
+      <section className="py-16 px-4 text-center bg-gradient-to-br from-primary/5 via-blue-50/30 to-accent/10">
         <div className="container mx-auto max-w-4xl">
           {/* Title with Icons */}
           <div className="flex items-center justify-center gap-4 mb-8">
