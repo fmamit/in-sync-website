@@ -904,82 +904,8 @@ const Resources = () => {
               <div ref={tutorialsLazy.loadMoreRef} className="h-4" />
             </div>
 
-            {/* FAQs Section */}
-            <div className="mb-20">
-              <Separator className="mb-12" />
-              <SectionHeader 
-                title="FAQs" 
-                icon={MessageCircleQuestion} 
-                count={5}
-              />
-              <div className="max-w-4xl mx-auto">
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <MessageCircleQuestion className="h-5 w-5" />
-                      Frequently Asked Questions
-                    </CardTitle>
-                    <p className="text-muted-foreground">
-                      Ask any question about In-Sync platform and get instant answers from our knowledge base.
-                    </p>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-6">
-                      <div className="flex flex-col sm:flex-row gap-3">
-                        <Input
-                          placeholder="Ask a question about In-Sync..."
-                          value={faqQuery}
-                          onChange={(e) => setFaqQuery(e.target.value)}
-                          onKeyPress={(e) => e.key === 'Enter' && handleFAQQuery()}
-                          className="flex-1"
-                        />
-                        <Button onClick={handleFAQQuery}>
-                          <Search className="h-4 w-4 mr-2" />
-                          Ask Question
-                        </Button>
-                      </div>
-                      
-                      {faqResponse && (
-                        <Card className="bg-muted/50">
-                          <CardContent className="pt-6">
-                            <div className="prose prose-sm max-w-none">
-                              <div className="whitespace-pre-wrap">{faqResponse}</div>
-                            </div>
-                          </CardContent>
-                        </Card>
-                      )}
-                      
-                      <div className="space-y-4">
-                        <h3 className="text-lg font-semibold">Popular Questions</h3>
-                        <div className="grid gap-3">
-                          {[
-                            "What is In-Sync?",
-                            "How does the Gargi AI Agent work?",
-                            "What integrations are available?",
-                            "How does WhatsApp automation work?",
-                            "What security measures does In-Sync provide?"
-                          ].map((question, index) => (
-                            <Button
-                              key={index}
-                              variant="outline"
-                              className="justify-start h-auto p-3 text-left"
-                              onClick={() => {
-                                setFaqQuery(question);
-                                const response = getResponseForQuery(question);
-                                setFaqResponse(response);
-                              }}
-                            >
-                              <MessageCircleQuestion className="h-4 w-4 mr-2 flex-shrink-0" />
-                              <span className="text-sm">{question}</span>
-                            </Button>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-            </div>
+            {/* FAQs Section - Removed */}
+            {/* FAQ functionality moved to dedicated /faq page */}
           </div>
 
           {/* Authentication Dialog */}

@@ -1,273 +1,362 @@
-import { Helmet } from "react-helmet-async";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
+import { useState } from "react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Search, MessageCircle, ChevronRight } from "lucide-react";
-import { useState, useMemo } from "react";
-import { faqKnowledgeBase, FAQItem } from "@/data/faqKnowledgeBase";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Separator } from "@/components/ui/separator";
+import Footer from "@/components/Footer";
+import { faqKnowledgeBase, getResponseForQuery } from "@/data/faqKnowledgeBase";
+import {
+  Search,
+  MessageCircleQuestion,
+  HelpCircle,
+  BookOpen,
+  Users,
+  Settings,
+  Zap,
+  DollarSign,
+  BarChart3,
+  Smartphone,
+  Shield
+} from "lucide-react";
+import { Helmet } from 'react-helmet-async';
 
 const FAQ = () => {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState<string>("all");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [faqQuery, setFaqQuery] = useState("");
+  const [faqResponse, setFaqResponse] = useState("");
 
-  // Get unique categories
-  const categories = useMemo(() => {
-    const cats = Array.from(new Set(faqKnowledgeBase.map(faq => faq.category)));
-    return ["all", ...cats];
-  }, []);
+  // Group FAQs by category
+  const categories = [
+    { id: "all", name: "All Categories", icon: BookOpen },
+    { id: "General Platform", name: "General Platform", icon: HelpCircle },
+    { id: "CRM & Contact Management", name: "CRM & Contacts", icon: Users },
+    { id: "Sales & Marketing", name: "Sales & Marketing", icon: DollarSign },
+    { id: "Gargi AI Agent", name: "Gargi AI Agent", icon: Zap },
+    { id: "Task & Workflow Management", name: "Tasks & Workflows", icon: Settings },
+    { id: "Field Operations", name: "Field Operations", icon: Smartphone },
+    { id: "Finance", name: "Finance", icon: DollarSign },
+    { id: "Analytics", name: "Analytics", icon: BarChart3 },
+    { id: "Integrations", name: "Integrations", icon: Zap },
+    { id: "Security", name: "Security", icon: Shield }
+  ];
 
-  // Filter FAQs based on search and category
-  const filteredFAQs = useMemo(() => {
-    let filtered = faqKnowledgeBase;
+  // Filter FAQs based on search term and category
+  const filteredFAQs = faqKnowledgeBase.filter(faq => {
+    const matchesSearch = searchTerm === "" || 
+      faq.question.toLowerCase().includes(searchTerm.toLowerCase()) || 
+      faq.answer.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      faq.keywords.some(keyword => keyword.toLowerCase().includes(searchTerm.toLowerCase()));
+    
+    const matchesCategory = selectedCategory === "all" || faq.category === selectedCategory;
+    
+    return matchesSearch && matchesCategory;
+  });
 
-    if (selectedCategory !== "all") {
-      filtered = filtered.filter(faq => faq.category === selectedCategory);
+  // Group filtered FAQs by category
+  const groupedFAQs = categories.reduce((acc, category) => {
+    if (category.id === "all") return acc;
+    
+    const categoryFAQs = filteredFAQs.filter(faq => faq.category === category.id);
+    if (categoryFAQs.length > 0) {
+      acc[category.id] = {
+        ...category,
+        faqs: categoryFAQs
+      };
     }
+    return acc;
+  }, {} as Record<string, any>);
 
-    if (searchQuery.trim()) {
-      const query = searchQuery.toLowerCase();
-      filtered = filtered.filter(faq => 
-        faq.question.toLowerCase().includes(query) ||
-        faq.answer.toLowerCase().includes(query) ||
-        faq.keywords.some(keyword => keyword.toLowerCase().includes(query))
-      );
+  const handleFAQQuery = () => {
+    if (faqQuery.trim()) {
+      const response = getResponseForQuery(faqQuery.trim());
+      setFaqResponse(response);
+    } else {
+      setFaqResponse("");
     }
+  };
 
-    return filtered;
-  }, [searchQuery, selectedCategory]);
-
-  // Group FAQs by category for display
-  const groupedFAQs = useMemo(() => {
-    if (selectedCategory !== "all") {
-      return { [selectedCategory]: filteredFAQs };
-    }
-
-    return filteredFAQs.reduce((acc, faq) => {
-      if (!acc[faq.category]) {
-        acc[faq.category] = [];
-      }
-      acc[faq.category].push(faq);
-      return acc;
-    }, {} as Record<string, FAQItem[]>);
-  }, [filteredFAQs, selectedCategory]);
-
-  const totalFAQs = faqKnowledgeBase.length;
-  const displayedFAQs = filteredFAQs.length;
+  const popularQuestions = [
+    "What is In-Sync?",
+    "How does the Gargi AI Agent work?", 
+    "What integrations are available?",
+    "How does WhatsApp automation work?",
+    "What security measures does In-Sync provide?",
+    "How much can I save with Gargi AI Agent?",
+    "What is Field Force Automation?",
+    "How does lead qualification work?"
+  ];
 
   return (
-    <>
+    <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5">
       <Helmet>
-        <title>In-Sync Platform FAQ - Frequently Asked Questions | Help Center</title>
-        <meta 
-          name="description" 
-          content="Find answers to common questions about In-Sync platform features, CRM functionality, Gargi AI Agent, integrations, troubleshooting, and more. Get instant support for your business automation needs." 
-        />
-        <meta name="keywords" content="In-Sync FAQ, CRM help, Gargi AI Agent, business automation support, platform questions, troubleshooting guide" />
-        <link rel="canonical" href="/faq" />
-        
-        {/* Open Graph */}
-        <meta property="og:title" content="In-Sync Platform FAQ - Complete Help Center" />
-        <meta property="og:description" content="Get instant answers to your In-Sync platform questions. Comprehensive FAQ covering CRM, AI calling, field operations, integrations and more." />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="/faq" />
-        
-        {/* Twitter Card */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="In-Sync Platform FAQ - Help Center" />
-        <meta name="twitter:description" content="Complete guide to In-Sync platform features and troubleshooting. Find answers instantly." />
-
-        {/* FAQ Schema Markup */}
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            "mainEntity": filteredFAQs.slice(0, 10).map(faq => ({
-              "@type": "Question",
-              "name": faq.question,
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": faq.answer
-              }
-            }))
-          })}
-        </script>
-
-        {/* Organization Schema */}
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Organization",
-            "name": "In-Sync Platform",
-            "description": "Comprehensive business automation platform with CRM, AI calling, and field operations management",
-            "url": "/",
-            "contactPoint": {
-              "@type": "ContactPoint",
-              "contactType": "customer support",
-              "description": "Get help with In-Sync platform questions and support"
-            }
-          })}
-        </script>
+        <title>Frequently Asked Questions - In-Sync CRM Platform</title>
+        <meta name="description" content="Get answers to frequently asked questions about In-Sync CRM platform, features, integrations, pricing, and more." />
+        <meta name="keywords" content="FAQ, In-Sync, CRM, questions, support, help, documentation" />
       </Helmet>
 
-      <div className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-secondary/5">
-        <div className="container mx-auto px-4 py-12">
-          {/* Header Section */}
-          <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold text-primary mb-4">
-              Frequently Asked Questions
-            </h1>
-            <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Find instant answers to your In-Sync platform questions. From CRM basics to advanced integrations, 
-              we've got you covered with comprehensive support documentation.
-            </p>
-
-            {/* Search and Filter Section */}
-            <div className="max-w-4xl mx-auto space-y-6">
-              {/* Search Bar */}
-              <div className="relative">
-                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground h-5 w-5" />
-                <Input
-                  placeholder="Search frequently asked questions..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-12 pr-4 py-3 text-lg border-2 border-primary/20 focus:border-primary/50 rounded-xl"
-                />
+      <main>
+        {/* Hero Section */}
+        <section className="py-20 bg-gradient-to-br from-primary/5 via-background to-secondary/5">
+          <div className="container mx-auto px-4">
+            <div className="text-center max-w-4xl mx-auto">
+              <div className="flex items-center justify-center gap-3 mb-6">
+                <MessageCircleQuestion className="w-12 h-12 text-primary" />
+                <h1 className="text-5xl font-bold text-primary">
+                  Frequently Asked Questions
+                </h1>
               </div>
-
-              {/* Category Filter */}
-              <div className="flex flex-wrap gap-2 justify-center">
-                {categories.map((category) => (
-                  <Button
-                    key={category}
-                    variant={selectedCategory === category ? "default" : "outline"}
-                    size="sm"
-                    onClick={() => setSelectedCategory(category)}
-                    className="rounded-full px-4 py-2"
-                  >
-                    {category === "all" ? "All Categories" : category}
-                  </Button>
-                ))}
-              </div>
-
-              {/* Results Counter */}
-              <div className="text-sm text-muted-foreground">
-                Showing {displayedFAQs} of {totalFAQs} questions
-                {searchQuery && ` for "${searchQuery}"`}
-                {selectedCategory !== "all" && ` in ${selectedCategory}`}
-              </div>
-            </div>
-          </div>
-
-          {/* FAQ Content */}
-          {Object.keys(groupedFAQs).length > 0 ? (
-            <div className="space-y-12">
-              {Object.entries(groupedFAQs).map(([category, faqs]) => (
-                <section key={category} className="space-y-6">
-                  <div className="flex items-center gap-3">
-                    <h2 className="text-2xl font-semibold text-primary">{category}</h2>
-                    <Badge variant="secondary" className="px-3 py-1">
-                      {faqs.length} questions
-                    </Badge>
-                  </div>
-
-                  <div className="grid gap-4">
-                    {faqs.map((faq) => (
-                      <Card key={faq.id} className="group hover:shadow-lg transition-all duration-200 border-l-4 border-l-primary/20 hover:border-l-primary">
-                        <CardHeader className="pb-3">
-                          <CardTitle className="text-lg text-left group-hover:text-primary transition-colors">
-                            {faq.question}
-                          </CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                          <div className="text-muted-foreground leading-relaxed whitespace-pre-wrap">
-                            {faq.answer}
-                          </div>
-                          
-                          {/* Keywords */}
-                          <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-border/50">
-                            {faq.keywords.slice(0, 5).map((keyword, index) => (
-                              <Badge 
-                                key={index} 
-                                variant="outline" 
-                                className="text-xs px-2 py-1 bg-primary/5 hover:bg-primary/10 cursor-pointer transition-colors"
-                                onClick={() => setSearchQuery(keyword)}
-                              >
-                                {keyword}
-                              </Badge>
-                            ))}
-                          </div>
-                        </CardContent>
-                      </Card>
-                    ))}
-                  </div>
-                </section>
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-16">
-              <div className="text-6xl mb-4">🔍</div>
-              <h3 className="text-2xl font-semibold text-muted-foreground mb-2">No questions found</h3>
-              <p className="text-muted-foreground mb-6">
-                Try adjusting your search terms or browse all categories
+              <p className="text-xl text-muted-foreground mb-8">
+                Find answers to common questions about In-Sync platform, features, and capabilities. 
+                Get instant support from our comprehensive knowledge base.
               </p>
-              <Button onClick={() => { setSearchQuery(""); setSelectedCategory("all"); }}>
-                View All Questions
-              </Button>
+              
+              {/* Quick Search */}
+              <div className="flex flex-col md:flex-row gap-4 max-w-2xl mx-auto mb-8">
+                <div className="relative flex-1">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                  <Input
+                    placeholder="Search FAQs..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="pl-10"
+                  />
+                </div>
+                <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+                  <SelectTrigger className="w-full md:w-64">
+                    <SelectValue placeholder="All Categories" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {categories.map((category) => (
+                      <SelectItem key={category.id} value={category.id}>
+                        {category.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {/* AI Query Section */}
+              <Card className="max-w-3xl mx-auto">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Zap className="w-5 h-5" />
+                    Ask Our AI Assistant
+                  </CardTitle>
+                  <CardDescription>
+                    Can't find your answer? Ask our AI assistant any question about In-Sync.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex flex-col sm:flex-row gap-3 mb-4">
+                    <Input
+                      placeholder="Ask any question about In-Sync..."
+                      value={faqQuery}
+                      onChange={(e) => setFaqQuery(e.target.value)}
+                      onKeyPress={(e) => e.key === 'Enter' && handleFAQQuery()}
+                      className="flex-1"
+                    />
+                    <Button onClick={handleFAQQuery}>
+                      <Search className="h-4 w-4 mr-2" />
+                      Ask Question
+                    </Button>
+                  </div>
+                  
+                  {faqResponse && (
+                    <Card className="bg-muted/50 mt-4">
+                      <CardContent className="pt-6">
+                        <div className="prose prose-sm max-w-none">
+                          <div className="whitespace-pre-wrap">{faqResponse}</div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  )}
+                </CardContent>
+              </Card>
             </div>
-          )}
-
-          {/* Contact Support Section */}
-          <div className="mt-16 text-center">
-            <Card className="max-w-2xl mx-auto bg-gradient-to-r from-primary/5 to-secondary/5 border-primary/20">
-              <CardContent className="py-8">
-                <MessageCircle className="h-12 w-12 text-primary mx-auto mb-4" />
-                <h3 className="text-xl font-semibold mb-2">Still have questions?</h3>
-                <p className="text-muted-foreground mb-6">
-                  Can't find what you're looking for? Our AI assistant is here to help with instant, 
-                  personalized support for your specific needs.
-                </p>
-                <Button className="bg-primary hover:bg-primary/90">
-                  <MessageCircle className="h-4 w-4 mr-2" />
-                  Chat with AI Assistant
-                </Button>
-              </CardContent>
-            </Card>
           </div>
+        </section>
 
-          {/* Popular Categories Quick Links */}
-          <div className="mt-12">
-            <h3 className="text-xl font-semibold text-center mb-6">Popular Help Topics</h3>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl mx-auto">
-              {[
-                { name: "CRM & Contact Management", icon: "👥", count: faqKnowledgeBase.filter(f => f.category === "CRM & Contact Management").length },
-                { name: "Gargi AI Agent & Communication", icon: "🤖", count: faqKnowledgeBase.filter(f => f.category === "Gargi AI Agent & Communication").length },
-                { name: "Troubleshooting", icon: "🔧", count: faqKnowledgeBase.filter(f => f.category === "Troubleshooting").length },
-                { name: "Integrations", icon: "🔗", count: faqKnowledgeBase.filter(f => f.category === "Integrations").length },
-                { name: "Field Operations", icon: "📱", count: faqKnowledgeBase.filter(f => f.category === "Field Operations").length },
-                { name: "Getting Started", icon: "🚀", count: faqKnowledgeBase.filter(f => f.category === "Getting Started").length }
-              ].map((topic) => (
+        {/* Popular Questions */}
+        <section className="py-12 bg-muted/30">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-8">
+              <h2 className="text-2xl font-bold mb-4">Popular Questions</h2>
+              <p className="text-muted-foreground">Quick answers to the most commonly asked questions</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto">
+              {popularQuestions.map((question, index) => (
                 <Button
-                  key={topic.name}
+                  key={index}
                   variant="outline"
-                  className="h-auto p-4 flex flex-col items-start space-y-2 hover:bg-primary/5 border-primary/20"
-                  onClick={() => setSelectedCategory(topic.name)}
+                  className="justify-start h-auto p-4 text-left"
+                  onClick={() => {
+                    setFaqQuery(question);
+                    const response = getResponseForQuery(question);
+                    setFaqResponse(response);
+                  }}
                 >
-                  <div className="flex items-center gap-2 w-full">
-                    <span className="text-xl">{topic.icon}</span>
-                    <span className="font-medium text-left flex-1">{topic.name}</span>
-                    <ChevronRight className="h-4 w-4" />
-                  </div>
-                  <div className="text-xs text-muted-foreground">
-                    {topic.count} questions
-                  </div>
+                  <MessageCircleQuestion className="h-4 w-4 mr-3 flex-shrink-0" />
+                  <span className="text-sm">{question}</span>
                 </Button>
               ))}
             </div>
           </div>
-        </div>
-      </div>
-    </>
+        </section>
+
+        {/* All FAQs by Category */}
+        <section className="py-20">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold mb-4">Complete FAQ Database</h2>
+              <p className="text-muted-foreground max-w-2xl mx-auto">
+                Explore all {faqKnowledgeBase.length} questions and answers organized by category. 
+                {filteredFAQs.length < faqKnowledgeBase.length && (
+                  <span> Currently showing {filteredFAQs.length} results.</span>
+                )}
+              </p>
+            </div>
+
+            <div className="max-w-4xl mx-auto space-y-8">
+              {Object.values(groupedFAQs).map((categoryData: any) => (
+                <div key={categoryData.id} className="space-y-4">
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="p-2 rounded-lg bg-primary/10">
+                      <categoryData.icon className="w-5 h-5 text-primary" />
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-semibold">{categoryData.name}</h3>
+                      <p className="text-sm text-muted-foreground">
+                        {categoryData.faqs.length} question{categoryData.faqs.length !== 1 ? 's' : ''}
+                      </p>
+                    </div>
+                  </div>
+
+                  <Accordion type="single" collapsible className="space-y-2">
+                    {categoryData.faqs.map((faq: any) => (
+                      <AccordionItem 
+                        key={faq.id} 
+                        value={faq.id}
+                        className="border rounded-lg px-4"
+                      >
+                        <AccordionTrigger className="hover:no-underline">
+                          <div className="flex items-start gap-3 text-left">
+                            <HelpCircle className="w-4 h-4 mt-1 text-primary flex-shrink-0" />
+                            <span className="font-medium">{faq.question}</span>
+                          </div>
+                        </AccordionTrigger>
+                        <AccordionContent className="pt-4 pb-6">
+                          <div className="pl-7">
+                            <p className="text-muted-foreground mb-4 leading-relaxed">
+                              {faq.answer}
+                            </p>
+                            
+                            {/* Keywords */}
+                            <div className="flex flex-wrap gap-2 mb-4">
+                              {faq.keywords.slice(0, 5).map((keyword: string, index: number) => (
+                                <Badge key={index} variant="secondary" className="text-xs">
+                                  {keyword}
+                                </Badge>
+                              ))}
+                            </div>
+
+                            {/* Related Questions */}
+                            {faq.relatedQuestions && faq.relatedQuestions.length > 0 && (
+                              <div className="border-t pt-4">
+                                <p className="text-sm font-medium mb-2">Related Questions:</p>
+                                <div className="space-y-1">
+                                  {faq.relatedQuestions.map((relatedQ: string, index: number) => (
+                                    <Button
+                                      key={index}
+                                      variant="ghost"
+                                      size="sm"
+                                      className="h-auto p-2 justify-start text-xs text-primary hover:bg-primary/5"
+                                      onClick={() => {
+                                        setFaqQuery(relatedQ);
+                                        const response = getResponseForQuery(relatedQ);
+                                        setFaqResponse(response);
+                                      }}
+                                    >
+                                      → {relatedQ}
+                                    </Button>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        </AccordionContent>
+                      </AccordionItem>
+                    ))}
+                  </Accordion>
+
+                  <Separator className="my-8" />
+                </div>
+              ))}
+
+              {filteredFAQs.length === 0 && (
+                <div className="text-center py-12">
+                  <MessageCircleQuestion className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
+                  <h3 className="text-lg font-semibold mb-2">No FAQs Found</h3>
+                  <p className="text-muted-foreground">
+                    Try adjusting your search terms or category filter.
+                  </p>
+                  <Button 
+                    variant="outline" 
+                    onClick={() => { setSearchTerm(""); setSelectedCategory("all"); }}
+                    className="mt-4"
+                  >
+                    Clear Filters
+                  </Button>
+                </div>
+              )}
+            </div>
+          </div>
+        </section>
+
+        {/* Contact Support Section */}
+        <section className="py-16 bg-muted/30">
+          <div className="container mx-auto px-4">
+            <div className="max-w-2xl mx-auto text-center">
+              <h2 className="text-2xl font-bold mb-4">Still Need Help?</h2>
+              <p className="text-muted-foreground mb-8">
+                Can't find the answer you're looking for? Our support team is here to help you get the most out of In-Sync.
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <Card>
+                  <CardContent className="p-6 text-center">
+                    <MessageCircleQuestion className="w-8 h-8 text-primary mx-auto mb-3" />
+                    <h3 className="font-semibold mb-2">Contact Support</h3>
+                    <p className="text-sm text-muted-foreground mb-4">
+                      Get personalized help from our expert team
+                    </p>
+                    <Button className="w-full">
+                      Contact Support Team
+                    </Button>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardContent className="p-6 text-center">
+                    <BookOpen className="w-8 h-8 text-primary mx-auto mb-3" />
+                    <h3 className="font-semibold mb-2">Documentation</h3>
+                    <p className="text-sm text-muted-foreground mb-4">
+                      Browse our comprehensive guides and tutorials
+                    </p>
+                    <Button variant="outline" className="w-full">
+                      View Documentation
+                    </Button>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <Footer />
+    </div>
   );
 };
 
