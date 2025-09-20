@@ -60,8 +60,6 @@ const CostCalculator = ({ className = "" }: CostCalculatorProps) => {
     { id: "analytics", name: "Advanced Analytics", price: 1000, icon: TrendingUp },
     { id: "workflow", name: "Custom Workflow Builder", price: 1000, icon: Zap },
     { id: "api", name: "API Access & Webhooks", price: 1000, icon: Zap },
-    { id: "branding", name: "White-label Branding", price: 1000, icon: Zap },
-    { id: "security", name: "Advanced Security", price: 1000, icon: Zap },
     { id: "fieldforce", name: "Field Force Management", price: 1000, icon: Users }
   ];
 

@@ -183,8 +183,6 @@ const Pricing = () => {
     { name: "Advanced Analytics", price: 1000, description: "Enhanced reporting and BI dashboards" },
     { name: "Custom Workflow Builder", price: 1000, description: "Advanced automation capabilities" },
     { name: "API Access & Webhooks", price: 1000, description: "Full API access and integrations" },
-    { name: "White-label Branding", price: 1000, description: "Customize with your brand" },
-    { name: "Advanced Security & Compliance", price: 1000, description: "Enhanced security features" },
     { name: "Field Force Management", price: 1000, description: "Track and manage field teams" }
   ];
 
