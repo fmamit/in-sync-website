@@ -105,6 +105,24 @@ const HeroSection = () => {
           </Button>
         </div>
 
+        {/* Customer Logos Section */}
+        <div className="mt-16 text-center">
+          <p className="text-sm text-muted-foreground mb-8">
+            Trusted by industry leaders across sectors
+          </p>
+          <div className="flex flex-wrap justify-center items-center gap-8 opacity-60 hover:opacity-80 transition-opacity">
+            {customerLogos.slice(0, 12).map((logo, index) => (
+              <div key={index} className="flex items-center justify-center h-12 w-20 grayscale hover:grayscale-0 transition-all duration-300">
+                <img
+                  src={logo.src}
+                  alt={logo.alt}
+                  className="max-h-full max-w-full object-contain"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+
         {/* Bottom Stats Section */}
         <div className="mt-20 text-center">
           <div className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-full border border-primary/20">
