@@ -114,6 +114,7 @@ interface OnboardingData {
 
 const OnboardingForm = () => {
   const [currentSection, setCurrentSection] = useState(0);
+  const [touchedFields, setTouchedFields] = useState<Set<string>>(new Set());
   const todayDate = new Date().toISOString().split('T')[0];
   const [formData, setFormData] = useState<OnboardingData>({
     registeredAddress: "",
@@ -234,7 +235,10 @@ const OnboardingForm = () => {
   };
 
   // Real-time field validation with visual feedback
-  const getFieldValidationState = (value: string, fieldType?: string, required: boolean = false): "valid" | "invalid" | "neutral" => {
+  const getFieldValidationState = (value: string, fieldName: string, fieldType?: string, required: boolean = false): "valid" | "invalid" | "neutral" => {
+    // Only show validation for touched fields
+    if (!touchedFields.has(fieldName)) return "neutral";
+    
     if (!required && (!value || value.trim() === "")) return "neutral";
     if (required && (!value || value.trim() === "")) return "invalid";
     
@@ -242,9 +246,9 @@ const OnboardingForm = () => {
     return "valid";
   };
 
-  const getInputClassName = (value: string, fieldType?: string, required: boolean = false): string => {
+  const getInputClassName = (value: string, fieldName: string, fieldType?: string, required: boolean = false): string => {
     const baseClass = "transition-colors duration-200";
-    const state = getFieldValidationState(value, fieldType, required);
+    const state = getFieldValidationState(value, fieldName, fieldType, required);
     
     switch (state) {
       case "valid":
@@ -256,7 +260,12 @@ const OnboardingForm = () => {
     }
   };
 
+  const markFieldTouched = (fieldName: string) => {
+    setTouchedFields(prev => new Set(prev).add(fieldName));
+  };
+
   const updateFormData = (field: keyof OnboardingData, value: any) => {
+    markFieldTouched(field);
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
@@ -855,7 +864,7 @@ const OnboardingForm = () => {
               <div className="space-y-2 md:col-span-2">
                 <Label htmlFor="companyName" className="flex items-center gap-1">
                   Company Name <span className="text-red-500">*</span>
-                  {getFieldValidationState(formData.companyName, undefined, true) === "valid" && (
+                  {getFieldValidationState(formData.companyName, "companyName", undefined, true) === "valid" && (
                     <span className="text-green-500 text-sm">✓</span>
                   )}
                 </Label>
@@ -863,7 +872,8 @@ const OnboardingForm = () => {
                   id="companyName"
                   value={formData.companyName}
                   onChange={(e) => updateFormData("companyName", e.target.value)}
-                  className={getInputClassName(formData.companyName, undefined, true)}
+                  onBlur={() => markFieldTouched("companyName")}
+                  className={getInputClassName(formData.companyName, "companyName", undefined, true)}
                   placeholder="Enter your company name"
                   required
                 />
@@ -872,7 +882,7 @@ const OnboardingForm = () => {
               <div className="space-y-2 md:col-span-2">
                 <Label htmlFor="registeredAddress" className="flex items-center gap-1">
                   Registered Address <span className="text-red-500">*</span>
-                  {getFieldValidationState(formData.registeredAddress, undefined, true) === "valid" && (
+                  {getFieldValidationState(formData.registeredAddress, "registeredAddress", undefined, true) === "valid" && (
                     <span className="text-green-500 text-sm">✓</span>
                   )}
                 </Label>
@@ -880,7 +890,8 @@ const OnboardingForm = () => {
                   id="registeredAddress"
                   value={formData.registeredAddress}
                   onChange={(e) => updateFormData("registeredAddress", e.target.value)}
-                  className={getInputClassName(formData.registeredAddress, undefined, true)}
+                  onBlur={() => markFieldTouched("registeredAddress")}
+                  className={getInputClassName(formData.registeredAddress, "registeredAddress", undefined, true)}
                   placeholder="Enter complete registered address"
                   rows={3}
                   required
@@ -890,7 +901,7 @@ const OnboardingForm = () => {
               <div className="space-y-2">
                 <Label htmlFor="signatoryName" className="flex items-center gap-1">
                   Authorized Signatory Name <span className="text-red-500">*</span>
-                  {getFieldValidationState(formData.signatoryName, undefined, true) === "valid" && (
+                  {getFieldValidationState(formData.signatoryName, "signatoryName", undefined, true) === "valid" && (
                     <span className="text-green-500 text-sm">✓</span>
                   )}
                 </Label>
@@ -898,7 +909,8 @@ const OnboardingForm = () => {
                   id="signatoryName"
                   value={formData.signatoryName}
                   onChange={(e) => updateFormData("signatoryName", e.target.value)}
-                  className={getInputClassName(formData.signatoryName, undefined, true)}
+                  onBlur={() => markFieldTouched("signatoryName")}
+                  className={getInputClassName(formData.signatoryName, "signatoryName", undefined, true)}
                   placeholder="Full name of authorized person"
                   required
                 />
@@ -907,7 +919,7 @@ const OnboardingForm = () => {
               <div className="space-y-2">
                 <Label htmlFor="signatoryDesignation" className="flex items-center gap-1">
                   Designation of Signatory <span className="text-red-500">*</span>
-                  {getFieldValidationState(formData.signatoryDesignation, undefined, true) === "valid" && (
+                  {getFieldValidationState(formData.signatoryDesignation, "signatoryDesignation", undefined, true) === "valid" && (
                     <span className="text-green-500 text-sm">✓</span>
                   )}
                 </Label>
@@ -915,7 +927,8 @@ const OnboardingForm = () => {
                   id="signatoryDesignation"
                   value={formData.signatoryDesignation}
                   onChange={(e) => updateFormData("signatoryDesignation", e.target.value)}
-                  className={getInputClassName(formData.signatoryDesignation, undefined, true)}
+                  onBlur={() => markFieldTouched("signatoryDesignation")}
+                  className={getInputClassName(formData.signatoryDesignation, "signatoryDesignation", undefined, true)}
                   placeholder="e.g., CEO, Director, Manager"
                   required
                 />
@@ -924,7 +937,7 @@ const OnboardingForm = () => {
               <div className="space-y-2">
                 <Label htmlFor="email" className="flex items-center gap-1">
                   Email ID <span className="text-red-500">*</span>
-                  {getFieldValidationState(formData.email, "email", true) === "valid" && (
+                  {getFieldValidationState(formData.email, "email", "email", true) === "valid" && (
                     <span className="text-green-500 text-sm">✓</span>
                   )}
                 </Label>
@@ -933,7 +946,8 @@ const OnboardingForm = () => {
                   type="email"
                   value={formData.email}
                   onChange={(e) => updateFormData("email", e.target.value)}
-                  className={getInputClassName(formData.email, "email", true)}
+                  onBlur={() => markFieldTouched("email")}
+                  className={getInputClassName(formData.email, "email", "email", true)}
                   placeholder="official@company.com"
                   required
                 />
@@ -942,7 +956,7 @@ const OnboardingForm = () => {
               <div className="space-y-2">
                 <Label htmlFor="phone" className="flex items-center gap-1">
                   Contact Number <span className="text-red-500">*</span>
-                  {getFieldValidationState(formData.phone, "phone", true) === "valid" && (
+                  {getFieldValidationState(formData.phone, "phone", "phone", true) === "valid" && (
                     <span className="text-green-500 text-sm">✓</span>
                   )}
                 </Label>
@@ -951,7 +965,8 @@ const OnboardingForm = () => {
                   type="tel"
                   value={formData.phone}
                   onChange={(e) => updateFormData("phone", e.target.value)}
-                  className={getInputClassName(formData.phone, "phone", true)}
+                  onBlur={() => markFieldTouched("phone")}
+                  className={getInputClassName(formData.phone, "phone", "phone", true)}
                   placeholder="+91 XXXXX XXXXX"
                   required
                 />
@@ -960,7 +975,7 @@ const OnboardingForm = () => {
               <div className="space-y-2">
                 <Label htmlFor="panNumber" className="flex items-center gap-1">
                   PAN Number <span className="text-red-500">*</span>
-                  {getFieldValidationState(formData.panNumber, undefined, true) === "valid" && (
+                  {getFieldValidationState(formData.panNumber, "panNumber", undefined, true) === "valid" && (
                     <span className="text-green-500 text-sm">✓</span>
                   )}
                 </Label>
@@ -968,7 +983,8 @@ const OnboardingForm = () => {
                   id="panNumber"
                   value={formData.panNumber}
                   onChange={(e) => updateFormData("panNumber", e.target.value.toUpperCase())}
-                  className={getInputClassName(formData.panNumber, undefined, true)}
+                  onBlur={() => markFieldTouched("panNumber")}
+                  className={getInputClassName(formData.panNumber, "panNumber", undefined, true)}
                   placeholder="ABCDE1234F"
                   maxLength={10}
                   required
@@ -1015,7 +1031,7 @@ const OnboardingForm = () => {
               <div className="space-y-2 md:col-span-2">
                 <Label htmlFor="placeOfSigning" className="flex items-center gap-1">
                   Place of Signing <span className="text-red-500">*</span>
-                  {getFieldValidationState(formData.placeOfSigning, undefined, true) === "valid" && (
+                  {getFieldValidationState(formData.placeOfSigning, "placeOfSigning", undefined, true) === "valid" && (
                     <span className="text-green-500 text-sm">✓</span>
                   )}
                 </Label>
@@ -1023,7 +1039,8 @@ const OnboardingForm = () => {
                   id="placeOfSigning"
                   value={formData.placeOfSigning}
                   onChange={(e) => updateFormData("placeOfSigning", e.target.value)}
-                  className={getInputClassName(formData.placeOfSigning, undefined, true)}
+                  onBlur={() => markFieldTouched("placeOfSigning")}
+                  className={getInputClassName(formData.placeOfSigning, "placeOfSigning", undefined, true)}
                   placeholder="City, State"
                   required
                 />
@@ -1043,7 +1060,7 @@ const OnboardingForm = () => {
               <div className="space-y-2">
                 <Label htmlFor="companyName" className="flex items-center gap-1">
                   Company Name <span className="text-red-500">*</span>
-                  {getFieldValidationState(formData.companyName, undefined, true) === "valid" && (
+                  {getFieldValidationState(formData.companyName, "companyName", undefined, true) === "valid" && (
                     <span className="text-green-500 text-sm">✓</span>
                   )}
                 </Label>
@@ -1051,14 +1068,15 @@ const OnboardingForm = () => {
                   id="companyName"
                   value={formData.companyName}
                   onChange={(e) => updateFormData("companyName", e.target.value)}
-                  className={getInputClassName(formData.companyName, undefined, true)}
+                  onBlur={() => markFieldTouched("companyName")}
+                  className={getInputClassName(formData.companyName, "companyName", undefined, true)}
                   required
                 />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="industryType" className="flex items-center gap-1">
                   Industry Type <span className="text-red-500">*</span>
-                  {getFieldValidationState(formData.industryType, undefined, true) === "valid" && (
+                  {getFieldValidationState(formData.industryType, "industryType", undefined, true) === "valid" && (
                     <span className="text-green-500 text-sm">✓</span>
                   )}
                 </Label>
@@ -1066,14 +1084,15 @@ const OnboardingForm = () => {
                   id="industryType"
                   value={formData.industryType}
                   onChange={(e) => updateFormData("industryType", e.target.value)}
-                  className={getInputClassName(formData.industryType, undefined, true)}
+                  onBlur={() => markFieldTouched("industryType")}
+                  className={getInputClassName(formData.industryType, "industryType", undefined, true)}
                   required
                 />
               </div>
               <div className="space-y-2 md:col-span-2">
                 <Label htmlFor="companyAddress" className="flex items-center gap-1">
                   Company Address <span className="text-red-500">*</span>
-                  {getFieldValidationState(formData.companyAddress, undefined, true) === "valid" && (
+                  {getFieldValidationState(formData.companyAddress, "companyAddress", undefined, true) === "valid" && (
                     <span className="text-green-500 text-sm">✓</span>
                   )}
                 </Label>
@@ -1081,14 +1100,15 @@ const OnboardingForm = () => {
                   id="companyAddress"
                   value={formData.companyAddress}
                   onChange={(e) => updateFormData("companyAddress", e.target.value)}
-                  className={getInputClassName(formData.companyAddress, undefined, true)}
+                  onBlur={() => markFieldTouched("companyAddress")}
+                  className={getInputClassName(formData.companyAddress, "companyAddress", undefined, true)}
                   required
                 />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="contactPersonName" className="flex items-center gap-1">
                   Contact Person Name <span className="text-red-500">*</span>
-                  {getFieldValidationState(formData.contactPersonName, undefined, true) === "valid" && (
+                  {getFieldValidationState(formData.contactPersonName, "contactPersonName", undefined, true) === "valid" && (
                     <span className="text-green-500 text-sm">✓</span>
                   )}
                 </Label>
@@ -1096,14 +1116,15 @@ const OnboardingForm = () => {
                   id="contactPersonName"
                   value={formData.contactPersonName}
                   onChange={(e) => updateFormData("contactPersonName", e.target.value)}
-                  className={getInputClassName(formData.contactPersonName, undefined, true)}
+                  onBlur={() => markFieldTouched("contactPersonName")}
+                  className={getInputClassName(formData.contactPersonName, "contactPersonName", undefined, true)}
                   required
                 />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="contactPersonEmail" className="flex items-center gap-1">
                   Contact Person Email <span className="text-red-500">*</span>
-                  {getFieldValidationState(formData.contactPersonEmail, "email", true) === "valid" && (
+                  {getFieldValidationState(formData.contactPersonEmail, "contactPersonEmail", "email", true) === "valid" && (
                     <span className="text-green-500 text-sm">✓</span>
                   )}
                 </Label>
@@ -1112,7 +1133,8 @@ const OnboardingForm = () => {
                   type="email"
                   value={formData.contactPersonEmail}
                   onChange={(e) => updateFormData("contactPersonEmail", e.target.value)}
-                  className={getInputClassName(formData.contactPersonEmail, "email", true)}
+                  onBlur={() => markFieldTouched("contactPersonEmail")}
+                  className={getInputClassName(formData.contactPersonEmail, "contactPersonEmail", "email", true)}
                   placeholder="user@company.com"
                   required
                 />
@@ -1120,7 +1142,7 @@ const OnboardingForm = () => {
               <div className="space-y-2">
                 <Label htmlFor="contactPersonMobile" className="flex items-center gap-1">
                   Contact Person Mobile <span className="text-red-500">*</span>
-                  {getFieldValidationState(formData.contactPersonMobile, "phone", true) === "valid" && (
+                  {getFieldValidationState(formData.contactPersonMobile, "contactPersonMobile", "phone", true) === "valid" && (
                     <span className="text-green-500 text-sm">✓</span>
                   )}
                 </Label>
@@ -1129,7 +1151,8 @@ const OnboardingForm = () => {
                   type="tel"
                   value={formData.contactPersonMobile}
                   onChange={(e) => updateFormData("contactPersonMobile", e.target.value)}
-                  className={getInputClassName(formData.contactPersonMobile, "phone", true)}
+                  onBlur={() => markFieldTouched("contactPersonMobile")}
+                  className={getInputClassName(formData.contactPersonMobile, "contactPersonMobile", "phone", true)}
                   placeholder="+1234567890"
                   required
                 />
@@ -1146,10 +1169,10 @@ const OnboardingForm = () => {
               <div className="space-y-2">
                 <Label htmlFor="totalUsers" className="flex items-center gap-1">
                   Total Number of Users
-                  {getFieldValidationState(formData.totalUsers, "positiveNumber") === "valid" && (
+                  {getFieldValidationState(formData.totalUsers, "totalUsers", "positiveNumber") === "valid" && (
                     <span className="text-green-500 text-sm">✓</span>
                   )}
-                  {getFieldValidationState(formData.totalUsers, "positiveNumber") === "invalid" && (
+                  {getFieldValidationState(formData.totalUsers, "totalUsers", "positiveNumber") === "invalid" && (
                     <span className="text-red-500 text-sm">✗</span>
                   )}
                 </Label>
@@ -1159,7 +1182,8 @@ const OnboardingForm = () => {
                   min="1"
                   value={formData.totalUsers}
                   onChange={(e) => updateFormData("totalUsers", e.target.value)}
-                  className={getInputClassName(formData.totalUsers, "positiveNumber")}
+                  onBlur={() => markFieldTouched("totalUsers")}
+                  className={getInputClassName(formData.totalUsers, "totalUsers", "positiveNumber")}
                   placeholder="Enter number of users"
                 />
                 {formData.totalUsers && !validateField(formData.totalUsers, "positiveNumber") && (
@@ -1196,7 +1220,7 @@ const OnboardingForm = () => {
                               type="email"
                               value={user.email}
                               onChange={(e) => updateUserDetail(index, "email", e.target.value)}
-                              className={getInputClassName(user.email, "email")}
+                              className={getInputClassName(user.email, `userDetails.${index}.email`, "email")}
                               placeholder="user@company.com"
                             />
                             {user.email && !validateEmail(user.email) && (
@@ -1208,7 +1232,7 @@ const OnboardingForm = () => {
                               type="tel"
                               value={user.mobile}
                               onChange={(e) => updateUserDetail(index, "mobile", e.target.value)}
-                              className={getInputClassName(user.mobile, "phone")}
+                              className={getInputClassName(user.mobile, `userDetails.${index}.mobile`, "phone")}
                               placeholder="+1234567890"
                             />
                             {user.mobile && !validatePhone(user.mobile) && (
@@ -1237,7 +1261,7 @@ const OnboardingForm = () => {
           </div>
         );
 
-      case 2:
+      case 3:
         return (
           <div className="space-y-6">
             <h3 className="text-lg font-semibold text-primary">Communication Services</h3>
@@ -1260,7 +1284,7 @@ const OnboardingForm = () => {
                     <div className="space-y-2">
                       <Label className="flex items-center gap-1">
                         Number of users requiring calling access
-                        {getFieldValidationState(formData.callingUsers, "positiveNumber") === "valid" && (
+                        {getFieldValidationState(formData.callingUsers, "callingUsers", "positiveNumber") === "valid" && (
                           <span className="text-green-500 text-sm">✓</span>
                         )}
                       </Label>
@@ -1269,7 +1293,8 @@ const OnboardingForm = () => {
                         min="1"
                         value={formData.callingUsers}
                         onChange={(e) => updateFormData("callingUsers", e.target.value)}
-                        className={getInputClassName(formData.callingUsers, "positiveNumber")}
+                        onBlur={() => markFieldTouched("callingUsers")}
+                        className={getInputClassName(formData.callingUsers, "callingUsers", "positiveNumber")}
                         placeholder="e.g., 10"
                       />
                       {formData.callingUsers && !validateField(formData.callingUsers, "positiveNumber") && (
@@ -1279,7 +1304,7 @@ const OnboardingForm = () => {
                     <div className="space-y-2">
                       <Label className="flex items-center gap-1">
                         Number of channels needed
-                        {getFieldValidationState(formData.callingChannels, "positiveNumber") === "valid" && (
+                        {getFieldValidationState(formData.callingChannels, "callingChannels", "positiveNumber") === "valid" && (
                           <span className="text-green-500 text-sm">✓</span>
                         )}
                       </Label>
@@ -1288,7 +1313,8 @@ const OnboardingForm = () => {
                         min="1"
                         value={formData.callingChannels}
                         onChange={(e) => updateFormData("callingChannels", e.target.value)}
-                        className={getInputClassName(formData.callingChannels, "positiveNumber")}
+                        onBlur={() => markFieldTouched("callingChannels")}
+                        className={getInputClassName(formData.callingChannels, "callingChannels", "positiveNumber")}
                         placeholder="e.g., 5"
                       />
                       {formData.callingChannels && !validateField(formData.callingChannels, "positiveNumber") && (
@@ -1342,7 +1368,7 @@ const OnboardingForm = () => {
                     <div className="space-y-2">
                       <Label className="flex items-center gap-1">
                         Outbound Email ID
-                        {getFieldValidationState(formData.outboundEmail, "email") === "valid" && (
+                        {getFieldValidationState(formData.outboundEmail, "outboundEmail", "email") === "valid" && (
                           <span className="text-green-500 text-sm">✓</span>
                         )}
                       </Label>
@@ -1350,7 +1376,8 @@ const OnboardingForm = () => {
                         type="email"
                         value={formData.outboundEmail}
                         onChange={(e) => updateFormData("outboundEmail", e.target.value)}
-                        className={getInputClassName(formData.outboundEmail, "email")}
+                        onBlur={() => markFieldTouched("outboundEmail")}
+                        className={getInputClassName(formData.outboundEmail, "outboundEmail", "email")}
                         placeholder="noreply@company.com"
                       />
                       {formData.outboundEmail && !validateEmail(formData.outboundEmail) && (
@@ -1360,7 +1387,7 @@ const OnboardingForm = () => {
                     <div className="space-y-2">
                       <Label className="flex items-center gap-1">
                         Inbound Email ID
-                        {getFieldValidationState(formData.inboundEmail, "email") === "valid" && (
+                        {getFieldValidationState(formData.inboundEmail, "inboundEmail", "email") === "valid" && (
                           <span className="text-green-500 text-sm">✓</span>
                         )}
                       </Label>
@@ -1368,7 +1395,8 @@ const OnboardingForm = () => {
                         type="email"
                         value={formData.inboundEmail}
                         onChange={(e) => updateFormData("inboundEmail", e.target.value)}
-                        className={getInputClassName(formData.inboundEmail, "email")}
+                        onBlur={() => markFieldTouched("inboundEmail")}
+                        className={getInputClassName(formData.inboundEmail, "inboundEmail", "email")}
                         placeholder="support@company.com"
                       />
                       {formData.inboundEmail && !validateEmail(formData.inboundEmail) && (
@@ -1461,7 +1489,7 @@ const OnboardingForm = () => {
                   <div className="space-y-2">
                     <Label className="flex items-center gap-1">
                       Expected monthly SMS volume
-                      {getFieldValidationState(formData.smsVolume, "positiveNumber") === "valid" && (
+                      {getFieldValidationState(formData.smsVolume, "smsVolume", "positiveNumber") === "valid" && (
                         <span className="text-green-500 text-sm">✓</span>
                       )}
                     </Label>
@@ -1470,7 +1498,8 @@ const OnboardingForm = () => {
                       min="1"
                       value={formData.smsVolume}
                       onChange={(e) => updateFormData("smsVolume", e.target.value)}
-                      className={getInputClassName(formData.smsVolume, "positiveNumber")}
+                      onBlur={() => markFieldTouched("smsVolume")}
+                      className={getInputClassName(formData.smsVolume, "smsVolume", "positiveNumber")}
                       placeholder="e.g., 1000"
                     />
                     {formData.smsVolume && !validateField(formData.smsVolume, "positiveNumber") && (
@@ -1506,7 +1535,7 @@ const OnboardingForm = () => {
           </div>
         );
 
-      case 3:
+      case 4:
         return (
           <div className="space-y-6">
             <h3 className="text-lg font-semibold text-primary">System Configuration</h3>
@@ -1697,7 +1726,7 @@ const OnboardingForm = () => {
           </div>
         );
 
-      case 5:
+      case 6:
         return (
           <div className="space-y-6">
             <h3 className="text-lg font-semibold text-primary">Technical Requirements</h3>
@@ -1781,7 +1810,7 @@ const OnboardingForm = () => {
           </div>
         );
 
-      case 6:
+      case 7:
         return (
           <div className="space-y-6">
             <h3 className="text-lg font-semibold text-primary">Timeline & Support</h3>
@@ -1883,7 +1912,7 @@ const OnboardingForm = () => {
           </div>
         );
 
-      case 7:
+      case 8:
         return (
           <div className="space-y-6">
             <h3 className="text-lg font-semibold text-primary">For Internal Use Only</h3>
