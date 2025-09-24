@@ -813,10 +813,6 @@ const Features = () => {
                       </div>
                     ))}
                   </div>
-                  <Button variant="outline" className="w-full mt-6">
-                    <PlayCircle className="h-4 w-4 mr-2" />
-                    Start Guide
-                  </Button>
                 </CardContent>
               </Card>
             ))}
