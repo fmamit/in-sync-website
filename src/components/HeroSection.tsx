@@ -104,38 +104,13 @@ const HeroSection = () => {
           </Button>
         </div>
 
-        {/* Customer Logos Section - Floating Animation */}
+        {/* Customer Logos Section - Ticker Tape Scroller */}
         <div className="mt-16 text-center">
           <h2 className="text-2xl font-semibold mb-8 text-foreground">
             Trusted by industry leaders across sectors
           </h2>
           
-          {/* Floating Grid Layout */}
-          <div className="relative max-w-5xl mx-auto h-96 overflow-hidden">
-            {customerLogos.slice(0, 16).map((logo, index) => (
-              <div 
-                key={index} 
-                className="absolute animate-float bg-white/60 backdrop-blur-sm rounded-xl p-4 shadow-lg hover:shadow-xl transition-all duration-500 hover:scale-110 hover:bg-white/80"
-                style={{
-                  left: `${(index % 4) * 25 + Math.sin(index) * 5}%`,
-                  top: `${Math.floor(index / 4) * 25 + Math.cos(index) * 3}%`,
-                  width: '140px',
-                  height: '80px',
-                  animationDelay: `${index * 0.2}s`,
-                  animationDuration: `${3 + (index % 3)}s`
-                }}
-              >
-                <img
-                  src={logo.src}
-                  alt={logo.alt}
-                  className="w-full h-full object-contain filter grayscale hover:grayscale-0 transition-all duration-500"
-                />
-              </div>
-            ))}
-          </div>
-
-          {/* Alternative: Ticker Tape Animation */}
-          <div className="mt-12 overflow-hidden bg-gradient-to-r from-transparent via-white/10 to-transparent py-6">
+          <div className="overflow-hidden bg-gradient-to-r from-transparent via-white/10 to-transparent py-6">
             <div className="flex animate-ticker space-x-12">
               {[...customerLogos, ...customerLogos].map((logo, index) => (
                 <div key={index} className="flex-shrink-0 w-32 h-16 bg-white/40 rounded-lg p-3 backdrop-blur-sm">
