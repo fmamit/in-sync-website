@@ -343,7 +343,7 @@ Contact: sunita.negi@in-sync.co.in | +91 82870 83502`);
       {/* Client Information Form */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-4 border rounded-lg bg-muted/30">
         <div className="space-y-2">
-          <Label htmlFor="clientName">Client Name</Label>
+          <Label htmlFor="clientName">Name</Label>
           <Input
             id="clientName"
             value={clientName}
@@ -394,15 +394,13 @@ Contact: sunita.negi@in-sync.co.in | +91 82870 83502`);
       {/* Action Buttons */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
         <Button onClick={downloadPDF} variant="default" className="w-full">
-          <Download className="w-4 h-4 mr-2" />
-          Download Quote
+          <Download className="w-4 h-4" />
         </Button>
         
         <Dialog open={isEmailDialogOpen} onOpenChange={setIsEmailDialogOpen}>
           <DialogTrigger asChild>
             <Button variant="outline" className="w-full">
-              <Mail className="w-4 h-4 mr-2" />
-              Email Quote
+              <Mail className="w-4 h-4" />
             </Button>
           </DialogTrigger>
           <DialogContent>
@@ -438,8 +436,7 @@ Contact: sunita.negi@in-sync.co.in | +91 82870 83502`);
         </Dialog>
 
         <Button onClick={printQuote} variant="outline" className="w-full">
-          <Printer className="w-4 h-4 mr-2" />
-          Print Quote
+          <Printer className="w-4 h-4" />
         </Button>
       </div>
 

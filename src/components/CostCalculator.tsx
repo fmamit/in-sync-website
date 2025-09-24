@@ -440,7 +440,7 @@ const CostCalculator = ({ className = "" }: CostCalculatorProps) => {
 
               {/* Quote Generator */}
               <div className="pt-4 border-t">
-                <div className="text-sm font-medium text-foreground mb-3">Generate Professional Quote</div>
+                <div className="text-sm font-medium text-foreground mb-3">Quote</div>
                 <QuoteGenerator quoteData={quoteData} />
               </div>
 
