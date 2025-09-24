@@ -24,7 +24,7 @@ import evcoLogo from "@/assets/evco-logo-transparent.png";
 // New client logos from success stories
 import ecofyNewLogo from "@/assets/ecofy-new-logo.jpg";
 import bimaLeapLogo from "@/assets/bima-leap-logo.jpg";
-import aliceblueLogo from "@/assets/aliceblue-logo-new.png";
+import aliceblueLogo from "@/assets/aliceblue-logo-vector.png";
 import carportalLogo from "@/assets/carportal-logo.jpg";
 import collegedekhoLogo from "@/assets/collegedekho-logo-new.png";
 import edmingleLogo from "@/assets/edmingle-logo.jpg";
