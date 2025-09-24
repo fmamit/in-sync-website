@@ -6,7 +6,7 @@ import heroBannerAlt from "@/assets/hero-banner-final-corrected.png";
 import OnboardingModal from "./OnboardingModal";
 import DemoRequestModal from "./DemoRequestModal";
 // ... keep existing imports ...
-import growthvineLogo from "@/assets/growthvine-logo-2.jpeg";
+import growthvineLogo from "@/assets/growthvine-logo-3.jpeg";
 import audiLogo from "@/assets/audi-logo-transparent-2.png";
 import capitalIndiaLogo from "@/assets/capital-india-logo-3.webp";
 import carTrendsLogo from "@/assets/car-trends-logo-2.webp";
