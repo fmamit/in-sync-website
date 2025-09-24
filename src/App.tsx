@@ -24,6 +24,7 @@ import Pricing from "./pages/Pricing";
 import Resources from "./pages/Resources";
 import Partnership from "./pages/Partnership";
 import BlogPost from "./pages/BlogPost";
+import Cookies from "./pages/Cookies";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -56,6 +57,7 @@ const App = () => (
           <Route path="/resources" element={<Resources />} />
           <Route path="/blog/:id" element={<BlogPost />} />
           <Route path="/partnership" element={<Partnership />} />
+          <Route path="/cookies" element={<Cookies />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
