@@ -34,6 +34,10 @@ import {
   LogOut
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+
+// Custom styles for ReactQuill to match the design system
 
 // Sample data - in a real app, this would come from a backend
 const initialBlogs = [
@@ -1159,13 +1163,25 @@ const Resources = () => {
 
             <div>
               <Label htmlFor="edit-content">Content</Label>
-              <Textarea
-                id="edit-content"
-                value={editBlogData.content}
-                onChange={(e) => setEditBlogData({...editBlogData, content: e.target.value})}
-                placeholder="Full blog content..."
-                rows={8}
-              />
+              <div className="mt-2">
+                <ReactQuill
+                  theme="snow"
+                  value={editBlogData.content}
+                  onChange={(content) => setEditBlogData({...editBlogData, content})}
+                  placeholder="Full blog content..."
+                  style={{ minHeight: '200px' }}
+                  modules={{
+                    toolbar: [
+                      [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+                      ['bold', 'italic', 'underline', 'strike'],
+                      [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                      ['blockquote', 'code-block'],
+                      ['link', 'image'],
+                      ['clean']
+                    ],
+                  }}
+                />
+              </div>
             </div>
 
             <div className="grid grid-cols-2 gap-4">
@@ -1264,13 +1280,25 @@ const Resources = () => {
             {newResourceType === "blog" && (
               <div>
                 <Label htmlFor="content">Content</Label>
-                <Textarea
-                  id="content"
-                  value={newResource.content}
-                  onChange={(e) => setNewResource({...newResource, content: e.target.value})}
-                  placeholder="Full blog content..."
-                  rows={8}
-                />
+                <div className="mt-2">
+                  <ReactQuill
+                    theme="snow"
+                    value={newResource.content}
+                    onChange={(content) => setNewResource({...newResource, content})}
+                    placeholder="Full blog content..."
+                    style={{ minHeight: '200px' }}
+                    modules={{
+                      toolbar: [
+                        [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+                        ['bold', 'italic', 'underline', 'strike'],
+                        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                        ['blockquote', 'code-block'],
+                        ['link', 'image'],
+                        ['clean']
+                      ],
+                    }}
+                  />
+                </div>
               </div>
             )}
 

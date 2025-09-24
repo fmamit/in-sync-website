@@ -163,4 +163,69 @@ All colors MUST be HSL.
   .animate-ticker {
     animation: ticker 30s linear infinite;
   }
+
+  /* ReactQuill Editor Styling */
+  .ql-toolbar {
+    border-top: 1px solid hsl(var(--border)) !important;
+    border-left: 1px solid hsl(var(--border)) !important;
+    border-right: 1px solid hsl(var(--border)) !important;
+    border-bottom: none !important;
+    border-radius: calc(var(--radius)) calc(var(--radius)) 0 0 !important;
+    background: hsl(var(--background)) !important;
+  }
+
+  .ql-container {
+    border-bottom: 1px solid hsl(var(--border)) !important;
+    border-left: 1px solid hsl(var(--border)) !important;
+    border-right: 1px solid hsl(var(--border)) !important;
+    border-top: none !important;
+    border-radius: 0 0 calc(var(--radius)) calc(var(--radius)) !important;
+    background: hsl(var(--background)) !important;
+    color: hsl(var(--foreground)) !important;
+    font-family: inherit !important;
+  }
+
+  .ql-editor {
+    color: hsl(var(--foreground)) !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    padding: 12px !important;
+  }
+
+  .ql-editor.ql-blank::before {
+    color: hsl(var(--muted-foreground)) !important;
+    font-style: normal !important;
+  }
+
+  .ql-snow .ql-stroke {
+    stroke: hsl(var(--foreground)) !important;
+  }
+
+  .ql-snow .ql-fill {
+    fill: hsl(var(--foreground)) !important;
+  }
+
+  .ql-snow .ql-picker {
+    color: hsl(var(--foreground)) !important;
+  }
+
+  .ql-snow .ql-picker-options {
+    background: hsl(var(--popover)) !important;
+    border: 1px solid hsl(var(--border)) !important;
+    border-radius: calc(var(--radius)) !important;
+  }
+
+  .ql-snow .ql-picker-item:hover {
+    background: hsl(var(--accent) / 0.1) !important;
+  }
+
+  .ql-snow .ql-active {
+    background: hsl(var(--primary) / 0.1) !important;
+    border-radius: calc(var(--radius)) !important;
+  }
+
+  .ql-snow .ql-toolbar button:hover {
+    background: hsl(var(--accent) / 0.1) !important;
+    border-radius: calc(var(--radius)) !important;
+  }
 }
