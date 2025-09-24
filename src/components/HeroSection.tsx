@@ -13,8 +13,15 @@ import carTrendsLogo from "@/assets/car-trends-logo-2.webp";
 import ezeepayLogo from "@/assets/ezeepay-logo-2.png";
 import hiranandaniLogo from "@/assets/hiranandani-logo-2.png";
 import incredLogo from "@/assets/incred-logo-new-2.png";
-import rupeeBossLogo from "@/assets/rupee-boss-logo-2.webp";
+import rupeeBossLogo from "@/assets/rupee-boss-logo-3.jpg";
 import aliceblueLogo from "@/assets/aliceblue-logo-vector-2.png";
+import bseEbixLogo from "@/assets/bse-ebix-logo-3.png";
+import legitquestLogo from "@/assets/legitquest-logo-2.svg";
+import ecofyLogo from "@/assets/ecofy-logo-3.svg";
+import quessLogo from "@/assets/quess-logo-3.png";
+import redefineLogo from "@/assets/redefine-logo-2.png";
+import seedsLogo from "@/assets/seeds-logo-2.png";
+import uhcLogo from "@/assets/uhc-logo-2.png";
 // Additional partner logos
 import zolveLogo from "@/assets/zolve-logo-transparent.webp";
 
@@ -31,7 +38,14 @@ const HeroSection = () => {
     { src: ezeepayLogo, alt: "Ezeepay" },
     { src: rupeeBossLogo, alt: "Rupee Boss" },
     { src: growthvineLogo, alt: "GrowthVine" },
-    { src: hiranandaniLogo, alt: "Hiranandani" }
+    { src: hiranandaniLogo, alt: "Hiranandani" },
+    { src: bseEbixLogo, alt: "BSE EBIX" },
+    { src: legitquestLogo, alt: "Legitquest" },
+    { src: ecofyLogo, alt: "Ecofy" },
+    { src: quessLogo, alt: "Quess" },
+    { src: redefineLogo, alt: "Redefine" },
+    { src: seedsLogo, alt: "Seeds" },
+    { src: uhcLogo, alt: "United Health Care" }
   ];
 
   return (
