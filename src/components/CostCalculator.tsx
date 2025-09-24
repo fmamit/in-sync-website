@@ -58,7 +58,7 @@ const CostCalculator = ({ className = "" }: CostCalculatorProps) => {
 
   const addOnModules = [
     { id: "analytics", name: "Advanced Analytics", price: 1000, icon: TrendingUp },
-    { id: "workflow", name: "Custom Workflow Builder", price: 1000, icon: Zap },
+    { id: "workflow", name: "Custom APIs", price: 1000, icon: Zap },
     { id: "api", name: "API Access & Webhooks", price: 1000, icon: Zap },
     { id: "fieldforce", name: "Field Force Management", price: 1000, icon: Users }
   ];
@@ -298,7 +298,7 @@ const CostCalculator = ({ className = "" }: CostCalculatorProps) => {
                     placeholder="500"
                   />
                   <div className="text-xs text-muted-foreground">
-                    ₹0.05 above Meta's rate per message
+                    ₹0.85 per message
                   </div>
                 </div>
                 <div className="space-y-2">
