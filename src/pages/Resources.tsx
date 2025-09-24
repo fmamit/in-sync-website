@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
@@ -31,7 +32,8 @@ import {
   Loader2,
   Edit3,
   LogIn,
-  LogOut
+  LogOut,
+  Trash2
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import ReactQuill from 'react-quill';
@@ -405,6 +407,10 @@ const Resources = () => {
     readTime: ""
   });
   
+  // Delete blog state
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [deletingBlog, setDeletingBlog] = useState<any>(null);
+  
   const [faqQuery, setFaqQuery] = useState("");
   const [faqResponse, setFaqResponse] = useState("");
   const [newResourceType, setNewResourceType] = useState("blog");
@@ -504,6 +510,24 @@ const Resources = () => {
       title: "Success",
       description: "Blog updated successfully!",
     });
+  };
+
+  // Delete blog functions
+  const handleDeleteBlog = (blog: any) => {
+    setDeletingBlog(blog);
+    setIsDeleteDialogOpen(true);
+  };
+
+  const confirmDeleteBlog = () => {
+    if (deletingBlog) {
+      setBlogs(blogs.filter(blog => blog.id !== deletingBlog.id));
+      setIsDeleteDialogOpen(false);
+      setDeletingBlog(null);
+      toast({
+        title: "Success",
+        description: "Blog deleted successfully!",
+      });
+    }
   };
 
   // Filter functions
@@ -712,13 +736,23 @@ const Resources = () => {
             <ExternalLink className="h-4 w-4 ml-2" />
           </Button>
           {isAuthenticated && (
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => handleEditBlog(blog)}
-            >
-              <Edit3 className="h-4 w-4" />
-            </Button>
+            <>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => handleEditBlog(blog)}
+              >
+                <Edit3 className="h-4 w-4" />
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => handleDeleteBlog(blog)}
+                className="text-destructive hover:text-destructive hover:bg-destructive/10"
+              >
+                <Trash2 className="h-4 w-4" />
+              </Button>
+            </>
           )}
         </div>
       </CardContent>
@@ -1237,6 +1271,29 @@ const Resources = () => {
           </div>
         </DialogContent>
       </Dialog>
+
+      {/* Delete Blog Confirmation Dialog */}
+      <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Delete Blog Post</AlertDialogTitle>
+            <AlertDialogDescription>
+              Are you sure you want to delete "{deletingBlog?.title}"? This action cannot be undone.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel onClick={() => setIsDeleteDialogOpen(false)}>
+              Cancel
+            </AlertDialogCancel>
+            <AlertDialogAction 
+              onClick={confirmDeleteBlog}
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+            >
+              Delete
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
 
       {/* Add Resource Dialog - existing code */}
       <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
