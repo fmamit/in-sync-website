@@ -178,7 +178,7 @@ const IndustryResults = () => {
           <div className="flex items-center justify-center gap-6 text-sm text-muted-foreground">
             <div className="flex items-center gap-1">
               <div className="w-2 h-2 bg-primary rounded-full" />
-              <span>30-day free trial</span>
+              <span>Get started FREE</span>
             </div>
             <div className="flex items-center gap-1">
               <div className="w-2 h-2 bg-primary rounded-full" />
