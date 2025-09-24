@@ -44,23 +44,7 @@ const HeroSection = () => {
   const navigate = useNavigate();
   
   const customerLogos = [
-    { src: audiLogo, alt: "Audi" },
-    { src: ecofyNewLogo, alt: "Ecofy" },
-    { src: bimaLeapLogo, alt: "BIMA LEAP (Motherson Group)" },
-    { src: aliceblueLogo, alt: "AliceBlue" },
-    { src: zolveLogo, alt: "Zolve" },
-    { src: hiranandaniLogo, alt: "Hiranandani" },
-    { src: mothersonLogo, alt: "Motherson" },
-    { src: zopperLogo, alt: "Zopper" },
-    { src: legitquestLogo, alt: "Legitquest" },
-    { src: seedsFincapLogo, alt: "Seeds Fincap" },
-    { src: clientLogo3, alt: "Increa" },
-    { src: clientLogo5, alt: "Information Insight Intelligence" },
-    { src: clientLogo6, alt: "LIDO" },
-    { src: clientLogo7, alt: "Policy Planner" },
-    { src: clientLogo8, alt: "SEEDS" },
-    { src: uhcLogo, alt: "United Health Care Staffing" },
-    { src: carTrendsLogo, alt: "Car Trends" }
+    { src: zolveLogo, alt: "Zolve" }
   ];
 
   return (
