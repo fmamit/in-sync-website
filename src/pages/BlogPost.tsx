@@ -1540,8 +1540,8 @@ const BlogPost = () => {
 
       <div className="min-h-screen bg-background">
         {/* Header */}
-        <div className="bg-gradient-to-br from-primary/5 to-accent/10 py-8">
-          <div className="container mx-auto px-4">
+          <div className="bg-gradient-to-br from-primary/5 to-accent/10 py-8">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <Button 
               variant="outline" 
               onClick={() => navigate('/resources')}
@@ -1554,7 +1554,7 @@ const BlogPost = () => {
         </div>
 
         {/* Blog Content */}
-        <article className="container mx-auto px-4 py-12 max-w-4xl">
+        <article className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 max-w-4xl overflow-hidden">
           {/* Blog Header */}
           <header className="mb-12">
             <div className="mb-6">
@@ -1611,16 +1611,17 @@ const BlogPost = () => {
 
           {/* Blog Content */}
           <div 
-            className="prose prose-lg max-w-none
+            className="prose prose-lg max-w-full
               prose-headings:text-foreground prose-headings:font-bold
               prose-h2:text-3xl prose-h2:mt-12 prose-h2:mb-6
               prose-h3:text-2xl prose-h3:mt-8 prose-h3:mb-4
               prose-h4:text-xl prose-h4:mt-6 prose-h4:mb-3
-              prose-p:text-muted-foreground prose-p:leading-relaxed prose-p:mb-6
+              prose-p:text-muted-foreground prose-p:leading-relaxed prose-p:mb-6 prose-p:break-words
               prose-ul:text-muted-foreground prose-ul:mb-6
-              prose-li:mb-2
+              prose-li:mb-2 prose-li:break-words
               prose-strong:text-foreground
-              prose-code:text-primary prose-code:bg-muted prose-code:px-1 prose-code:py-0.5 prose-code:rounded
+              prose-code:text-primary prose-code:bg-muted prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-code:break-words
+              [&>*]:max-w-full [&>*]:overflow-hidden [&>*]:break-words
             "
             dangerouslySetInnerHTML={{ __html: blog.content }}
           />
