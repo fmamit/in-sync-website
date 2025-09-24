@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { Link } from "react-router-dom";
 import { 
   Linkedin, 
   Twitter, 
@@ -21,7 +22,7 @@ const Footer = () => {
     ],
     solutions: [
       { name: "Financial Services", href: "/industries/financial-services" },
-      { name: "Healthcare", href: "/industries/healthcare" },
+      { name: "Healthcare", href: "/industries/healthcare-life-sciences" },
       { name: "Manufacturing", href: "/industries/manufacturing" },
       { name: "Real Estate", href: "/industries/real-estate" },
       { name: "Retail & E-commerce", href: "/industries/retail-ecommerce" },
@@ -92,12 +93,12 @@ const Footer = () => {
               <ul className="space-y-2">
                 {footerLinks.platform.map((link, index) => (
                   <li key={index}>
-                    <a
-                      href={link.href}
+                    <Link
+                      to={link.href}
                       className="text-sm text-muted-foreground hover:text-primary transition-colors"
                     >
                       {link.name}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -109,12 +110,12 @@ const Footer = () => {
               <ul className="space-y-2">
                 {footerLinks.solutions.map((link, index) => (
                   <li key={index}>
-                    <a
-                      href={link.href}
+                    <Link
+                      to={link.href}
                       className="text-sm text-muted-foreground hover:text-primary transition-colors"
                     >
                       {link.name}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -126,12 +127,12 @@ const Footer = () => {
               <ul className="space-y-2">
                 {footerLinks.resources.map((link, index) => (
                   <li key={index}>
-                    <a
-                      href={link.href}
+                    <Link
+                      to={link.href}
                       className="text-sm text-muted-foreground hover:text-primary transition-colors"
                     >
                       {link.name}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -143,12 +144,12 @@ const Footer = () => {
               <ul className="space-y-2">
                 {footerLinks.company.map((link, index) => (
                   <li key={index}>
-                    <a
-                      href={link.href}
+                    <Link
+                      to={link.href}
                       className="text-sm text-muted-foreground hover:text-primary transition-colors"
                     >
                       {link.name}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -165,9 +166,9 @@ const Footer = () => {
           <div className="flex flex-col md:flex-row items-center gap-4 text-sm text-muted-foreground">
             <span>© 2024 In-Sync Tech-Fin Solutions Ltd. All rights reserved.</span>
             <div className="flex gap-4">
-              <a href="/privacy" className="hover:text-primary transition-colors">Privacy Policy</a>
-              <a href="/terms" className="hover:text-primary transition-colors">Terms of Service</a>
-              <a href="/cookies" className="hover:text-primary transition-colors">Cookie Policy</a>
+              <Link to="/privacy" className="hover:text-primary transition-colors">Privacy Policy</Link>
+              <Link to="/terms" className="hover:text-primary transition-colors">Terms of Service</Link>
+              <Link to="/cookies" className="hover:text-primary transition-colors">Cookie Policy</Link>
             </div>
           </div>
           <div className="text-sm text-muted-foreground">
