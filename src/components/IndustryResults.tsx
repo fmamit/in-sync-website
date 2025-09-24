@@ -48,6 +48,12 @@ const IndustryResults = () => {
 
   const CountingNumber = ({ value, duration = 2000 }) => {
     const [count, setCount] = useState(0);
+    
+    // Special case for "24/7" - don't animate, just display as is
+    if (value === "24/7") {
+      return <span>{value}</span>;
+    }
+    
     const numericValue = parseInt(value.replace(/\D/g, '')) || 0;
     const suffix = value.replace(/\d/g, '');
 
