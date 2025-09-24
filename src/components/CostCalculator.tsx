@@ -128,9 +128,9 @@ const CostCalculator = ({ className = "" }: CostCalculatorProps) => {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 xl:grid-cols-5 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Configuration Panel */}
-        <div className="xl:col-span-3 space-y-6">
+        <div className="space-y-6">
           {/* Currency & Billing */}
           <Card>
             <CardHeader>
@@ -335,7 +335,7 @@ const CostCalculator = ({ className = "" }: CostCalculatorProps) => {
         </div>
 
         {/* Cost Summary */}
-        <div className="xl:col-span-2">
+        <div className="">
           <Card className="sticky top-4">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
