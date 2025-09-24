@@ -8,7 +8,7 @@ import DemoRequestModal from "./DemoRequestModal";
 // ... keep existing imports ...
 import growthvineLogo from "@/assets/growthvine-logo-2.jpeg";
 import audiLogo from "@/assets/audi-logo-transparent-2.png";
-import capitalIndiaLogo from "@/assets/capital-india-logo-2.jpg";
+import capitalIndiaLogo from "@/assets/capital-india-logo-3.webp";
 import carTrendsLogo from "@/assets/car-trends-logo-2.webp";
 import ezeepayLogo from "@/assets/ezeepay-logo-2.png";
 import hiranandaniLogo from "@/assets/hiranandani-logo-2.png";
@@ -26,6 +26,7 @@ const HeroSection = () => {
     { src: incredLogo, alt: "InCred" },
     { src: aliceblueLogo, alt: "AliceBlue" },
     { src: audiLogo, alt: "Audi" },
+    { src: capitalIndiaLogo, alt: "Capital India" },
     { src: carTrendsLogo, alt: "Car Trends" },
     { src: ezeepayLogo, alt: "Ezeepay" },
     { src: rupeeBossLogo, alt: "Rupee Boss" },
