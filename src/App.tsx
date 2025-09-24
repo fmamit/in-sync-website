@@ -25,6 +25,7 @@ import Resources from "./pages/Resources";
 import Partnership from "./pages/Partnership";
 import BlogPost from "./pages/BlogPost";
 import Cookies from "./pages/Cookies";
+import Privacy from "./pages/Privacy";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -58,6 +59,7 @@ const App = () => (
           <Route path="/blog/:id" element={<BlogPost />} />
           <Route path="/partnership" element={<Partnership />} />
           <Route path="/cookies" element={<Cookies />} />
+          <Route path="/privacy" element={<Privacy />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
