@@ -22,7 +22,7 @@ const IndustryResults = () => {
     },
     {
       icon: Users,
-      value: "2,500+",
+      value: "2500+",
       label: "Clients Managed",
       description: "CarTrends Distribution",
       color: "from-green-500 to-green-600",
