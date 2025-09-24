@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -30,9 +30,30 @@ import ccaasIcon from "@/assets/ccaas-icon.jpg";
 
 const KeyFeatures = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleExploreFeature = (featureId: string) => {
-    navigate(`/features?section=${featureId}`);
+    console.log('Exploring feature:', featureId, 'Current location:', location.pathname);
+    
+    // If we're already on the features page, scroll to the section
+    if (location.pathname === '/features') {
+      const element = document.getElementById(featureId);
+      if (element) {
+        console.log('Scrolling to element:', featureId);
+        element.scrollIntoView({ 
+          behavior: 'smooth', 
+          block: 'start',
+          inline: 'nearest'
+        });
+      } else {
+        console.log('Element not found, navigating normally');
+        navigate(`/features?section=${featureId}`);
+      }
+    } else {
+      // If we're not on features page, navigate there
+      console.log('Navigating to features page with section:', featureId);
+      navigate(`/features?section=${featureId}`);
+    }
   };
   const keyFeatures = [
     {
