@@ -426,7 +426,7 @@ const Features = () => {
                     <Card key={index} className="group cursor-pointer transition-all duration-300 hover:shadow-xl hover:-translate-y-2 border-0 shadow-lg"
                           onClick={() => setActiveTab(index === 0 ? 'crm' : index === 1 ? 'communication' : index === 2 ? 'field-force' : index === 3 ? 'ai' : 'no-code')}>
                       <CardContent className="p-8">
-                        <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-primary to-teal-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-primary to-teal-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                           <IconComponent className="h-8 w-8 text-white" />
                         </div>
                         
