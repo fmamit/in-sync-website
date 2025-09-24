@@ -302,13 +302,13 @@ const KeyFeatures = () => {
             Key Differentiators
           </Badge>
           <h2 className="text-3xl md:text-5xl font-bold mb-4">
-            Why Choose{" "}
+            Why we're kinda{" "}
             <span className="text-primary">
-              In-Sync?
+              different? 🤔
             </span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            Revolutionary features that set us apart from traditional CRM solutions
+            Here's what makes us stand out from the boring CRM crowd
           </p>
         </div>
 

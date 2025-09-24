@@ -32,7 +32,7 @@ const Pricing = () => {
       name: "Starter",
       price: { monthly: 0, annual: 0 },
       originalPrice: null,
-      description: "Perfect for small teams getting started",
+      description: "Perfect for small teams just getting started with CRM",
       badge: "Free Forever",
       badgeColor: "bg-green-500",
       records: "Up to 1,000 records",
@@ -53,7 +53,7 @@ const Pricing = () => {
       name: "Growth", 
       price: { monthly: 12999, annual: 124790 }, // ₹12,999/month, 4% annual discount
       originalPrice: { monthly: null, annual: 155988 },
-      description: "For growing businesses with moderate data volume",
+      description: "For growing businesses that need more power",
       badge: "Most Popular",
       badgeColor: "bg-primary",
       records: "10,000 to 1,00,000 records",
@@ -76,7 +76,7 @@ const Pricing = () => {
       name: "Scale",
       price: { monthly: 37999, annual: 364790 }, // ₹37,999/month, 4% annual discount
       originalPrice: { monthly: null, annual: 455988 },
-      description: "For large organizations with extensive data needs",
+      description: "For larger teams that need all the bells and whistles",
       badge: "Advanced",
       badgeColor: "bg-blue-500",
       records: "1,00,001 to 5,00,000 records",
@@ -99,7 +99,7 @@ const Pricing = () => {
       name: "Enterprise",
       price: { monthly: 75000, annual: 720000 }, // ₹75,000/month, 4% annual discount
       originalPrice: { monthly: null, annual: 900000 },
-      description: "Enterprise solution for unlimited scale",
+      description: "When you need everything + the kitchen sink",
       badge: "Enterprise",
       badgeColor: "bg-purple-500",
       records: "Above 5,00,000 records",
@@ -199,15 +199,15 @@ const Pricing = () => {
             Simple Pricing
           </Badge>
           <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-6">
-            Simple Pricing.{" "}
-            <span className="text-primary">Unlimited Users.</span>
+            Honest Pricing.{" "}
+            <span className="text-primary">No Surprises.</span>
             <br />
             <span className="text-2xl md:text-4xl text-muted-foreground">
-              Scalable for Growth.
+              Grows with you.
             </span>
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
-            No hidden fees. Add only what you need. Start free and scale as you grow.
+            No sneaky fees. No user limits. Just pick what you need and we'll grow together.
           </p>
           
           {/* Billing Toggle */}
@@ -325,11 +325,10 @@ const Pricing = () => {
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-foreground mb-4">
-              Additional Services
+              Communication Add-ons 📞
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Enhance your In-Sync experience with powerful communication services 
-              that scale with your business needs.
+              Want to chat with your customers? These are pretty handy for that.
             </p>
           </div>
 
@@ -384,11 +383,10 @@ const Pricing = () => {
           {/* Add-on Modules */}
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-foreground mb-4">
-              Additional Modules
+              Extra Cool Modules 🚀
             </h2>
             <p className="text-muted-foreground mb-8">
-              Extend your In-Sync platform with specialized modules designed 
-              for specific business needs.
+              Want to supercharge your setup? Pick and choose what you need.
             </p>
             <div className="flex items-center justify-center gap-4">
               <Badge variant="secondary" className="text-lg px-4 py-2">
@@ -434,10 +432,10 @@ const Pricing = () => {
           {/* One-time Services */}
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-foreground mb-4">
-              One-time Services
+              One-time Help 🛠️
             </h2>
             <p className="text-muted-foreground">
-              Professional services to get you up and running quickly with custom solutions.
+              Need a pro to set things up? We've got your back.
             </p>
           </div>
 

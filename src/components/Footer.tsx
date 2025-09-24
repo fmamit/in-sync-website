@@ -54,7 +54,7 @@ const Footer = () => {
               <img src={insyncLogo} alt="In-Sync" className="h-8 w-auto" />
             </div>
             <p className="text-muted-foreground mb-6 leading-relaxed">
-              Digitally transforming modern organizations with AI-powered CRM solutions.
+              Making work life better with smart CRM that actually works. No fancy jargon, just results.
             </p>
 
             {/* Contact Information */}

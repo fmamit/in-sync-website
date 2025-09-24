@@ -369,19 +369,19 @@ const Features = () => {
               Interactive Feature Experience
             </Badge>
             <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
-              Discover Features Through Real Stories
+              Explore Cool Features Through Real Stories 📚
             </h1>
             <p className="text-xl md:text-2xl text-primary-foreground/90 mb-8 max-w-3xl mx-auto leading-relaxed">
-              Explore our comprehensive platform through interactive demos, transformation stories, and hands-on calculators
+              Jump into interactive demos, real transformation stories, and handy calculators to see what we're all about
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" variant="secondary" className="bg-white text-primary hover:bg-slate-100">
                 <PlayCircle className="h-5 w-5 mr-2" />
-                Interactive Demo
+                Try the Demo
               </Button>
               <Button size="lg" variant="hero">
                 <Calculator className="h-5 w-5 mr-2" />
-                Calculate Your Savings
+                See What You'll Save
               </Button>
             </div>
           </div>
@@ -401,10 +401,10 @@ const Features = () => {
               Interactive Explorer
             </Badge>
             <h2 className="text-3xl md:text-5xl font-bold mb-4">
-              Explore Features by Category
+              Pick Your Feature Adventure 🎯
             </h2>
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              Click on any category to see detailed features and real-world applications
+              Click on any category to see what's inside (we promise it's pretty neat!)
             </p>
           </div>
           
@@ -441,9 +441,9 @@ const Features = () => {
                               {feature}
                             </li>
                           ))}
-                          <li className="text-primary text-sm font-medium cursor-pointer hover:underline">
-                            +{category.features.length - 3} more features →
-                          </li>
+                           <li className="text-primary text-sm font-medium cursor-pointer hover:underline">
+                            See all {category.features.length - 3} more cool features →
+                           </li>
                         </ul>
                       </CardContent>
                     </Card>

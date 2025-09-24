@@ -106,10 +106,10 @@ const TestimonialsShowcase = ({ className = "" }: { className?: string }) => {
       <div className="text-center mb-12">
         <div className="flex items-center justify-center gap-2 mb-4">
           <Quote className="w-8 h-8 text-primary" />
-          <h2 className="text-3xl font-bold">Success Stories</h2>
+          <h2 className="text-3xl font-bold">Real Stories from Real People</h2>
         </div>
         <p className="text-muted-foreground max-w-2xl mx-auto">
-          See how businesses across India transformed their operations with In-Sync
+          Here's what folks are saying about us (spoiler: they're pretty happy!) 
         </p>
       </div>
 
@@ -185,16 +185,16 @@ const TestimonialsShowcase = ({ className = "" }: { className?: string }) => {
 
       {/* CTA Section */}
       <div className="text-center mt-12 p-8 bg-gradient-to-r from-primary/5 via-primary/10 to-primary/5 rounded-2xl">
-        <h3 className="text-2xl font-bold mb-4">Ready to Join These Success Stories?</h3>
+        <h3 className="text-2xl font-bold mb-4">Want to be our next success story? 🚀</h3>
         <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-          See how In-Sync can transform your business operations and deliver measurable results in just 30 days
+          Let's see how we can make your work life awesome in just 30 days
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Button size="lg">
-            Start Your Success Story
+            Let's Get Started!
           </Button>
           <Button variant="outline" size="lg">
-            See More Case Studies
+            Show Me More Stories
           </Button>
         </div>
       </div>

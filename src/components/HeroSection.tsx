@@ -94,7 +94,7 @@ const HeroSection = () => {
         {/* Customer Logos Section - Hexagonal Grid */}
         <div className="mt-16 text-center">
           <h2 className="text-2xl font-semibold mb-8 text-foreground">
-            Trusted by industry leaders across sectors
+            Some pretty cool companies already love us ❤️
           </h2>
           
           {/* Hexagonal Grid Layout */}
@@ -135,7 +135,7 @@ const HeroSection = () => {
           <div className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-full border border-primary/20">
             <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
             <span className="text-sm font-medium text-foreground">
-              20,000+ daily active users across 100+ growing organizations
+              20,000+ happy users wake up to In-Sync every morning ☀️
             </span>
           </div>
         </div>

@@ -137,11 +137,11 @@ const FeaturesOverview = () => {
             Platform Overview
           </Badge>
           <h2 className="text-3xl md:text-5xl font-bold mb-4">
-            Every Feature. Every Department.{" "}
-            <span className="text-teal-600">Every Industry.</span>
+            Everything you need.{" "}
+            <span className="text-teal-600">Nothing you don't.</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            Discover how In-Sync's integrated modules work together to transform your business operations
+            See how all our tools play nice together to make your work life way easier
           </p>
         </div>
 
@@ -186,11 +186,11 @@ const FeaturesOverview = () => {
         {/* CTA */}
         <div className="text-center">
           <p className="text-muted-foreground mb-4">
-            Click any feature above to learn more about how it can transform your business
+            Click any card above to dive deeper (trust us, it gets even cooler) 
           </p>
           <div className="flex items-center justify-center gap-2 text-sm text-primary">
-            <span>Scroll down for detailed features</span>
-            <div className="animate-bounce">↓</div>
+            <span>More goodies below</span>
+            <div className="animate-bounce">👇</div>
           </div>
         </div>
       </div>
