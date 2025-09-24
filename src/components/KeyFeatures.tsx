@@ -399,7 +399,7 @@ const KeyFeatures = () => {
                   onClick={() => handleExploreFeature(feature.id)}
                 >
                   {expandedFeatures.has(feature.id) ? 'Show Less' : 'Explore Feature'}
-                  <ArrowRight className={`ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform ${expandedFeatures.has(feature.id) ? 'rotate-90' : ''}`} />
+                  <ArrowRight className={`ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform ${expandedFeatures.has(feature.id) ? '-rotate-90' : ''}`} />
                 </Button>
               </CardContent>
             </Card>
