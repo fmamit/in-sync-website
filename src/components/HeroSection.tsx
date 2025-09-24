@@ -12,7 +12,7 @@ import capitalIndiaLogo from "@/assets/capital-india-logo-new.png";
 import carTrendsLogo from "@/assets/car-trends-logo.webp";
 import ezeepayLogo from "@/assets/ezeepay-logo.png";
 import hiranandaniLogo from "@/assets/hiranandani-logo.png";
-import quessLogo from "@/assets/quess-logo.png";
+import quessLogo from "@/assets/quess-logo-new.png";
 import redefineLogo from "@/assets/redefine-logo.png";
 import seedsLogo from "@/assets/seeds-logo.png";
 import uhcLogo from "@/assets/uhc-logo.png";
@@ -51,6 +51,7 @@ const HeroSection = () => {
     { src: zolveLogo, alt: "Zolve" },
     { src: hiranandaniLogo, alt: "Hiranandani" },
     { src: mothersonLogo, alt: "Motherson" },
+    { src: quessLogo, alt: "Quess" },
     { src: zopperLogo, alt: "Zopper" },
     { src: legitquestLogo, alt: "Legitquest" },
     { src: seedsFincapLogo, alt: "Seeds Fincap" },
