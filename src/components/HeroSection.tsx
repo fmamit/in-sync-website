@@ -51,7 +51,6 @@ const HeroSection = () => {
     { src: zolveLogo, alt: "Zolve" },
     { src: hiranandaniLogo, alt: "Hiranandani" },
     { src: mothersonLogo, alt: "Motherson" },
-    { src: quessLogo, alt: "Quess" },
     { src: zopperLogo, alt: "Zopper" },
     { src: legitquestLogo, alt: "Legitquest" },
     { src: seedsFincapLogo, alt: "Seeds Fincap" },
