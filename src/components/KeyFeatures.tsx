@@ -31,29 +31,18 @@ import ccaasIcon from "@/assets/ccaas-icon.jpg";
 const KeyFeatures = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const [expandedFeatures, setExpandedFeatures] = React.useState<Set<string>>(new Set());
 
   const handleExploreFeature = (featureId: string) => {
-    console.log('Exploring feature:', featureId, 'Current location:', location.pathname);
-    
-    // If we're already on the features page, scroll to the section
-    if (location.pathname === '/features') {
-      const element = document.getElementById(featureId);
-      if (element) {
-        console.log('Scrolling to element:', featureId);
-        element.scrollIntoView({ 
-          behavior: 'smooth', 
-          block: 'start',
-          inline: 'nearest'
-        });
+    setExpandedFeatures(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(featureId)) {
+        newSet.delete(featureId);
       } else {
-        console.log('Element not found, navigating normally');
-        navigate(`/features?section=${featureId}`);
+        newSet.add(featureId);
       }
-    } else {
-      // If we're not on features page, navigate there
-      console.log('Navigating to features page with section:', featureId);
-      navigate(`/features?section=${featureId}`);
-    }
+      return newSet;
+    });
   };
   const keyFeatures = [
     {
@@ -378,7 +367,7 @@ const KeyFeatures = () => {
                 </p>
 
                 <div className="space-y-3 mb-6">
-                  {feature.features.slice(0, 3).map((item, idx) => {
+                  {(expandedFeatures.has(feature.id) ? feature.features : feature.features.slice(0, 3)).map((item, idx) => {
                     const parts = item.split(' → ');
                     const hasArrow = parts.length === 2;
                     
@@ -396,7 +385,7 @@ const KeyFeatures = () => {
                       </div>
                     );
                   })}
-                  {feature.features.length > 3 && (
+                  {!expandedFeatures.has(feature.id) && feature.features.length > 3 && (
                     <div className="text-xs text-muted-foreground">
                       +{feature.features.length - 3} more features
                     </div>
@@ -409,8 +398,8 @@ const KeyFeatures = () => {
                   className="group w-full border-primary/30 hover:bg-primary/5"
                   onClick={() => handleExploreFeature(feature.id)}
                 >
-                  Explore Feature
-                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                  {expandedFeatures.has(feature.id) ? 'Show Less' : 'Explore Feature'}
+                  <ArrowRight className={`ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform ${expandedFeatures.has(feature.id) ? 'rotate-90' : ''}`} />
                 </Button>
               </CardContent>
             </Card>
