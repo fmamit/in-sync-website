@@ -16,12 +16,13 @@ import incredLogo from "@/assets/incred-logo-new-2.png";
 import rupeeBossLogo from "@/assets/rupee-boss-logo-3.jpg";
 import aliceblueLogo from "@/assets/aliceblue-logo-vector-2.png";
 import bseEbixLogo from "@/assets/bse-ebix-logo-3.png";
-import legitquestLogo from "@/assets/legitquest-logo-2.svg";
-import ecofyLogo from "@/assets/ecofy-logo-3.svg";
+import legitquestLogo from "@/assets/legitquest-logo-3.svg";
+import ecofyLogo from "@/assets/ecofy-logo-4.svg";
 import quessLogo from "@/assets/quess-logo-3.png";
 import redefineLogo from "@/assets/redefine-logo-3.png";
 import seedsLogo from "@/assets/seeds-logo-3.png";
-import uhcLogo from "@/assets/uhc-logo-3.png";
+import uhcLogo from "@/assets/uhc-logo-4.png";
+import zopperLogo from "@/assets/zopper-logo-2.png";
 // Additional partner logos
 import zolveLogo from "@/assets/zolve-logo-transparent.webp";
 
@@ -45,7 +46,8 @@ const HeroSection = () => {
     { src: quessLogo, alt: "Quess" },
     { src: redefineLogo, alt: "Redefine" },
     { src: seedsLogo, alt: "Seeds" },
-    { src: uhcLogo, alt: "United Health Care" }
+    { src: uhcLogo, alt: "United Health Care" },
+    { src: zopperLogo, alt: "Zopper" }
   ];
 
   return (
