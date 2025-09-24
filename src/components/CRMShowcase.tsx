@@ -42,11 +42,11 @@ const CRMShowcase = () => {
         </div>
 
         {/* Main Content */}
-        <div className="max-w-6xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid lg:grid-cols-5 gap-12 items-center">
             
             {/* Left: Benefits */}
-            <div className="space-y-8">
+            <div className="lg:col-span-2 space-y-8">
               <div>
                 <h3 className="text-2xl font-semibold mb-4">Real Results for Real Businesses</h3>
                 <p className="text-muted-foreground mb-8">
@@ -87,13 +87,15 @@ const CRMShowcase = () => {
             </div>
 
             {/* Right: Visual */}
-            <div className="relative">
+            <div className="lg:col-span-3 relative">
               <div className="relative rounded-2xl overflow-hidden bg-card border shadow-xl">
-                <img
-                  src={crm2}
-                  alt="In-Sync CRM Dashboard"
-                  className="w-full h-auto object-cover"
-                />
+                <div className="aspect-[16/10] overflow-hidden">
+                  <img
+                    src={crm2}
+                    alt="In-Sync CRM Dashboard"
+                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                  />
+                </div>
                 
                 {/* Overlay for interactivity */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
