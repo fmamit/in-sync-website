@@ -44,7 +44,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-gradient-to-br from-orange-50/10 via-card to-accent/5 border-t border-border">
+    <footer className="bg-card border-t border-border">
       {/* Main Footer Content */}
       <div className="container mx-auto px-4 py-16">
         <div className="grid grid-cols-1 lg:grid-cols-6 gap-8 lg:gap-12">

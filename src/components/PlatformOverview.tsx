@@ -107,10 +107,10 @@ const PlatformOverview = () => {
   ];
 
   return (
-    <section className="py-20 bg-gradient-to-br from-purple-50/20 via-background to-blue-50/10">
+    <section className="py-20 bg-background">
       <div className="container mx-auto px-4">
         {/* Header */}
-        <div className="text-center mb-16 bg-gradient-to-r from-blue-50/30 via-transparent to-purple-50/20 py-12 rounded-2xl">
+        <div className="text-center mb-16 bg-card py-12 rounded-2xl">
           <h2 className="text-3xl md:text-5xl font-bold mb-4">
             Every Feature. Every Department.{" "}
             <span className="text-blue-600">
@@ -130,7 +130,7 @@ const PlatformOverview = () => {
               <Card key={index} className="group hover:shadow-xl transition-all duration-300 hover:scale-105 border-primary/10 hover:border-primary/30">
                 <CardHeader className="pb-3">
                   <div className="flex items-center gap-3 mb-2">
-                    <div className="p-2 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-lg group-hover:from-primary/20 group-hover:to-secondary/20 transition-colors">
+                    <div className="p-2 bg-primary/10 rounded-lg hover:bg-primary/20 transition-colors">
                       <Icon className={`h-5 w-5 ${capability.iconColor}`} />
                     </div>
                   </div>

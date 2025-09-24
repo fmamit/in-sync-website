@@ -69,7 +69,6 @@ const KeyFeatures = () => {
         "Customer Service → Boost customer retention by 25% with integrated support and faster response times",
         "Sales Analytics → Make data-driven decisions that increase revenue by 20% with actionable insights"
       ],
-      gradient: "from-blue-50/30 via-background to-indigo-50/20",
       badge: "Sales Ready"
     },
     {
@@ -95,7 +94,6 @@ const KeyFeatures = () => {
         "AI-powered campaigns → Scale customer engagement across WhatsApp/SMS with multi-language support and sentiment detection",
         "AI-recommended actions → Convert 25% more prospects with smart actions triggered by customer behavior patterns"
       ],
-      gradient: "from-purple-50/30 via-background to-indigo-50/20",
       badge: "AI-Powered"
     },
     {
@@ -121,7 +119,6 @@ const KeyFeatures = () => {
         "Real-time Monitoring → Boost first-call resolution by 40% with live performance insights and instant coaching",
         "One Click CSAT → Capture customer feedback instantly and improve service quality with effortless satisfaction surveys"
       ],
-      gradient: "from-teal-50/30 via-background to-cyan-50/20",
       badge: "Contact Center"
     },
     {
@@ -147,7 +144,6 @@ const KeyFeatures = () => {
         "Drip Marketing Automation → Convert 25% more leads with perfectly timed, personalized message sequences",
         "Campaign Analytics → Optimize marketing ROI by 35% with detailed performance insights across all channels"
       ],
-      gradient: "from-purple-50/30 via-background to-violet-50/20",
       badge: "Marketing Pro"
     },
     {
@@ -173,7 +169,6 @@ const KeyFeatures = () => {
         "Performance Analytics → Increase revenue by 30% with data-driven insights on field team effectiveness",
         "Time & Attendance Automation → Eliminate timesheet fraud and save 10 hours/week on payroll processing"
       ],
-      gradient: "from-green-50/30 via-background to-emerald-50/20",
       badge: "Field Ready"
     },
     {
@@ -199,7 +194,6 @@ const KeyFeatures = () => {
         "Agile Data Visualization → Build and modify reports on-the-fly without IT dependency or lengthy development cycles",
         "Performance Metrics Automation → Track what matters most with flexible KPIs that evolve with your business goals"
       ],
-      gradient: "from-indigo-50/30 via-background to-blue-50/20",
       badge: "Analytics Pro"
     },
     {
@@ -225,7 +219,6 @@ const KeyFeatures = () => {
         "Complex Approval Matrix Builder → Design multi-level approval workflows with conditional routing without any coding knowledge",
         "Instant Module Generation → Build custom business applications 10x faster than traditional coding methods"
       ],
-      gradient: "from-orange-50/30 via-background to-amber-50/20",
       badge: "Zero Code"
     },
     {
@@ -251,7 +244,6 @@ const KeyFeatures = () => {
         "Lead Generation Ecosystem → Capture leads from Facebook, Google, LinkedIn, Instagram, and Apollo.io in one unified system",
         "Business Operations Hub → Streamline workflows with Google Forms, Excel, Busy accounting, Tally, and Zapier API connectivity"
       ],
-      gradient: "from-orange-50/30 via-background to-amber-50/20",
       badge: "Connected"
     },
     {
@@ -277,7 +269,6 @@ const KeyFeatures = () => {
         "Full Arsenal Unleashed → Every single user gets every premium feature - no gatekeeping, no upgrade traps, no \"enterprise only\" torture",
         "Fort Knox for Everyone → Your newest intern gets the same bulletproof security as your CEO - because protection isn't a luxury tier"
       ],
-      gradient: "from-green-50/30 via-background to-emerald-50/20",
       badge: "∞ Users"
     },
     {
@@ -303,7 +294,6 @@ const KeyFeatures = () => {
         "Military-Grade Access Control → 2-factor authentication, NDA-backed data ownership, and automatic session timeouts protect every entry point",
         "Bulletproof Audit Trail → Track every login, every change, every access attempt with comprehensive logs that satisfy the strictest compliance auditors"
       ],
-      gradient: "from-red-50/30 via-background to-rose-50/20",
       badge: "Secure"
     }
   ];
@@ -408,7 +398,7 @@ const KeyFeatures = () => {
 
         {/* CTA Section */}
         <div className="text-center">
-          <Card className="border-0 shadow-lg bg-gradient-to-r from-primary/5 to-secondary/5">
+          <Card className="border-0 shadow-lg bg-primary/5">
             <CardContent className="p-12">
               <h3 className="text-2xl md:text-3xl font-bold mb-4">
                 Ready to Experience the Difference?

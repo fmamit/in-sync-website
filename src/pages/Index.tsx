@@ -39,14 +39,14 @@ const Index = () => {
         <IndustryResults />
         
         {/* ROI Calculator */}
-        <section className="py-20 bg-gradient-to-b from-slate-50/30 to-background" id="features-overview">
+        <section className="py-20 bg-background" id="features-overview">
           <div className="container mx-auto px-4">
             <ROICalculator />
           </div>
         </section>
         
         {/* Business Assessment Quiz */}
-        <section className="py-20 bg-gradient-to-b from-background to-slate-50/30">
+        <section className="py-20 bg-background">
           <div className="container mx-auto px-4">
             <BusinessAssessment />
           </div>
@@ -55,14 +55,14 @@ const Index = () => {
         <CRMShowcase />
         
         {/* Success Stories */}
-        <section className="py-20 bg-gradient-to-b from-slate-50/30 to-background">
+        <section className="py-20 bg-background">
           <div className="container mx-auto px-4">
             <TestimonialsShowcase />
           </div>
         </section>
         
         {/* Implementation Guide */}
-        <section className="py-20 bg-gradient-to-b from-background to-slate-50/30">
+        <section className="py-20 bg-background">
           <div className="container mx-auto px-4">
             <StepByStepGuide />
           </div>

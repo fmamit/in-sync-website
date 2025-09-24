@@ -286,7 +286,7 @@ const ROICalculator = ({ className = "" }: ROICalculatorProps) => {
             </CardHeader>
             <CardContent className="space-y-6">
               {/* ROI Percentage */}
-              <div className="text-center p-6 bg-gradient-to-br from-primary/10 to-primary/5 rounded-xl">
+              <div className="text-center p-6 bg-primary/10 rounded-xl">
                 <div className="text-4xl font-bold text-primary mb-2">
                   {Math.round(roiPercentage)}%
                 </div>

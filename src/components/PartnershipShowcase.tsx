@@ -59,7 +59,7 @@ export default function PartnershipShowcase({ onEnrollmentSuccess }: Partnership
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-primary/10 via-primary/5 to-background py-20">
+      <section className="bg-primary/10 py-20">
         <div className="container mx-auto px-4 text-center space-y-6">
           <h1 className="text-4xl md:text-6xl font-bold text-foreground">
             Our <span className="text-primary">Trusted</span> Partners

@@ -103,7 +103,7 @@ const CRMShowcase = () => {
   const activeScreenData = screens.find(screen => screen.id === activeScreen) || screens[0];
 
   return (
-    <section className="py-20 bg-gradient-to-b from-background to-secondary/5">
+    <section className="py-20 bg-background">
       <div className="container mx-auto px-4">
         
         {/* Header */}

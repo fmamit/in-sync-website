@@ -538,7 +538,7 @@ const StepByStepGuide = ({ className = "" }: { className?: string }) => {
       </div>
 
       {/* CTA */}
-      <div className="text-center mt-12 p-8 bg-gradient-to-r from-primary/5 via-primary/10 to-primary/5 rounded-2xl">
+      <div className="text-center mt-12 p-8 bg-primary/5 rounded-2xl">
         <h3 className="text-2xl font-bold mb-4">Ready to Start Your Implementation?</h3>
         <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
           Our implementation experts will guide you through every step to ensure your success

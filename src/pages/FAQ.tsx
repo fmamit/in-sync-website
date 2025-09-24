@@ -91,7 +91,7 @@ const FAQ = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5">
+    <div className="min-h-screen bg-background">
       <Helmet>
         <title>Frequently Asked Questions - In-Sync CRM Platform</title>
         <meta name="description" content="Get answers to frequently asked questions about In-Sync CRM platform, features, integrations, pricing, and more." />
@@ -100,7 +100,7 @@ const FAQ = () => {
 
       <main>
         {/* Hero Section */}
-        <section className="py-20 bg-gradient-to-br from-primary/5 via-background to-secondary/5">
+        <section className="py-20 bg-background">
           <div className="container mx-auto px-4">
             <div className="text-center max-w-4xl mx-auto">
               <div className="flex items-center justify-center gap-3 mb-6">

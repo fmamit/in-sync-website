@@ -51,7 +51,7 @@ const HeroSection = () => {
   ];
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-background via-blue-50/30 to-accent/20 min-h-screen flex items-center justify-center py-20">
+    <section className="relative overflow-hidden bg-background min-h-screen flex items-center justify-center py-20">
       {/* Background Elements */}
       <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
       
@@ -132,7 +132,7 @@ const HeroSection = () => {
 
         {/* Bottom Stats Section */}
         <div className="mt-20 text-center">
-          <div className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-full border border-primary/20">
+          <div className="inline-flex items-center gap-2 px-6 py-3 bg-primary/10 rounded-full border border-primary/20">
             <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
             <span className="text-sm font-medium text-foreground">
               20,000+ happy users wake up to In-Sync every morning ☀️
