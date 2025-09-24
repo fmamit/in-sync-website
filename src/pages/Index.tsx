@@ -4,7 +4,7 @@ import HeroSection from "@/components/HeroSection";
 import FeaturesOverview from "@/components/FeaturesOverview";
 import BusinessAssessment from "@/components/BusinessAssessment";
 import ROICalculator from "@/components/ROICalculator";
-import CRMShowcase from "@/components/CRMShowcase";
+import PlatformJourney from "@/components/PlatformJourney";
 import TestimonialsShowcase from "@/components/TestimonialsShowcase";
 import StepByStepGuide from "@/components/StepByStepGuide";
 import Footer from "@/components/Footer";
@@ -49,7 +49,12 @@ const Index = () => {
           </div>
         </section>
         
-        <CRMShowcase />
+        {/* Platform Transformation Journey */}
+        <section className="py-20 bg-gradient-to-b from-background to-slate-50/30">
+          <div className="container mx-auto px-4">
+            <PlatformJourney />
+          </div>
+        </section>
         
         {/* Success Stories */}
         <section className="py-20 bg-gradient-to-b from-slate-50/30 to-background">
