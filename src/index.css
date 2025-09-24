@@ -133,4 +133,34 @@ All colors MUST be HSL.
   .progress[style*="--progress-color"] .progress-indicator {
     background-color: var(--progress-color);
   }
+
+  /* Hero Section Logo Animations */
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px) rotate(0deg);
+    }
+    33% {
+      transform: translateY(-10px) rotate(1deg);
+    }
+    66% {
+      transform: translateY(5px) rotate(-1deg);
+    }
+  }
+
+  @keyframes ticker {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  .animate-float {
+    animation: float 4s ease-in-out infinite;
+  }
+
+  .animate-ticker {
+    animation: ticker 30s linear infinite;
+  }
 }
