@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -28,6 +29,11 @@ import crmSalesIcon from "@/assets/crm-sales-icon.png";
 import ccaasIcon from "@/assets/ccaas-icon.jpg";
 
 const KeyFeatures = () => {
+  const navigate = useNavigate();
+
+  const handleExploreFeature = (featureId: string) => {
+    navigate(`/features?section=${featureId}`);
+  };
   const keyFeatures = [
     {
       id: "crm-sales",
@@ -380,6 +386,7 @@ const KeyFeatures = () => {
                   variant="outline" 
                   size="sm"
                   className="group w-full border-primary/30 hover:bg-primary/5"
+                  onClick={() => handleExploreFeature(feature.id)}
                 >
                   Explore Feature
                   <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
