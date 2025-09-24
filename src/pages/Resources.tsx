@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -372,6 +373,7 @@ const initialTutorials = [
 ];
 
 const Resources = () => {
+  const navigate = useNavigate();
   const [blogs, setBlogs] = useState(initialBlogs);
   const [whitepapers, setWhitepapers] = useState(initialWhitepapers);
   const [events, setEvents] = useState(initialEvents);
@@ -697,7 +699,11 @@ const Resources = () => {
           ))}
         </div>
         <div className="flex gap-2">
-          <Button variant="outline" className="flex-1 group-hover:bg-primary group-hover:text-primary-foreground">
+          <Button 
+            variant="outline" 
+            className="flex-1 group-hover:bg-primary group-hover:text-primary-foreground"
+            onClick={() => navigate(`/blog/${blog.id}`)}
+          >
             Read More
             <ExternalLink className="h-4 w-4 ml-2" />
           </Button>

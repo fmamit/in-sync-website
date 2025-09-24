@@ -23,6 +23,7 @@ import RetailEcommerce from "./pages/industries/RetailEcommerce";
 import Pricing from "./pages/Pricing";
 import Resources from "./pages/Resources";
 import Partnership from "./pages/Partnership";
+import BlogPost from "./pages/BlogPost";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -53,6 +54,7 @@ const App = () => (
           <Route path="/industries/retail-ecommerce" element={<RetailEcommerce />} />
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/resources" element={<Resources />} />
+          <Route path="/blog/:id" element={<BlogPost />} />
           <Route path="/partnership" element={<Partnership />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
