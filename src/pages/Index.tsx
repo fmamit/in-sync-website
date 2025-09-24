@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import HeroSection from "@/components/HeroSection";
 import FeaturesOverview from "@/components/FeaturesOverview";
+import IndustryResults from "@/components/IndustryResults";
 import BusinessAssessment from "@/components/BusinessAssessment";
 import ROICalculator from "@/components/ROICalculator";
 import CRMShowcase from "@/components/CRMShowcase";
@@ -34,6 +35,8 @@ const Index = () => {
         <HeroSection />
         
         <FeaturesOverview />
+        
+        <IndustryResults />
         
         {/* ROI Calculator */}
         <section className="py-20 bg-gradient-to-b from-slate-50/30 to-background" id="features-overview">
