@@ -33,43 +33,6 @@ const UseCases = () => {
   const realCaseStudies = [
     // Case Studies from Business Transformation PDF
     {
-      id: "tata-electra",
-      company: "Tata Electra EV",
-      industry: "Electric Vehicle Services - Tata Group",
-      icon: Car,
-      color: "bg-gradient-to-br from-blue-600 to-teal-700",
-      challenge: "Tata Electra EV, with EVs deployed across 60+ cities, faced challenges with manual roadside assistance tracking, siloed operations without real-time monitoring, and lack of standardized issue resolution processes.",
-      solution: [
-        "WhatsApp conversational bot for assistance requests",
-        "Automated ticketing with timestamps and location data",
-        "Internal approval workflow with SLA compliance",
-        "Automated engineer dispatch with field force management",
-        "Live GPS tracking and route optimization",
-        "Post-service WhatsApp customer satisfaction surveys"
-      ],
-      results: [
-        "Centralized operations across 60 cities",
-        "Faster response and resolution times",
-        "Agentless customer interaction with AI",
-        "Real-time field tracking and automation",
-        "Complete operational transparency achieved"
-      ],
-      workflow: [
-        "Customer requests help via WhatsApp bot",
-        "Automated ticket creation with location data",
-        "Internal approval process for SLA compliance",
-        "Nearest engineer automatically dispatched",
-        "Live GPS tracking for transparency",
-        "Automated post-service satisfaction survey"
-      ],
-      metrics: { citiesCovered: "60+", responseTime: "Faster", automation: "100%" },
-      testimonial: {
-        name: "Operations Team",
-        role: "Tata Electra EV",
-        quote: "In-Sync transformed our roadside assistance from manual tracking to complete automation across 60+ cities with real-time visibility and faster customer response."
-      }
-    },
-    {
       id: "cartrends",
       company: "CarTrends", 
       industry: "Automobile Components Distribution",
