@@ -6,45 +6,32 @@ import heroBannerAlt from "@/assets/hero-banner-final-corrected.png";
 import OnboardingModal from "./OnboardingModal";
 import DemoRequestModal from "./DemoRequestModal";
 // ... keep existing imports ...
-import growthvineLogo from "@/assets/growthvine-logo.jpeg";
-import audiLogo from "@/assets/audi-logo-better.png";
-import capitalIndiaLogo from "@/assets/capital-india-logo-new.png";
-import carTrendsLogo from "@/assets/car-trends-logo.webp";
-import ezeepayLogo from "@/assets/ezeepay-logo.png";
-import hiranandaniLogo from "@/assets/hiranandani-logo.png";
-import quessLogo from "@/assets/quess-logo-new.png";
-import redefineLogo from "@/assets/redefine-logo.png";
-import seedsLogo from "@/assets/seeds-logo.png";
-import uhcLogo from "@/assets/uhc-logo.png";
-import incredLogo from "@/assets/incred-logo-new.png";
-import ecofyLogo from "@/assets/ecofy-logo.svg";
-import mothersonLogo from "@/assets/motherson-logo.jpg";
-import rupeeBossLogo from "@/assets/rupee-boss-logo.webp";
-import evcoLogo from "@/assets/evco-logo-transparent.png";
-// New client logos from success stories
-import ecofyNewLogo from "@/assets/ecofy-new-logo.jpg";
-import bimaLeapLogo from "@/assets/bima-leap-logo.jpg";
-import aliceblueLogo from "@/assets/aliceblue-logo-vector.png";
-import carportalLogo from "@/assets/carportal-logo.jpg";
-import collegedekhoLogo from "@/assets/collegedekho-logo-new.png";
-import edmingleLogo from "@/assets/edmingle-logo.jpg";
-import clientLogo3 from "@/assets/client-logo-3.jpg";
-import clientLogo4 from "@/assets/client-logo-4.jpg";
-import clientLogo5 from "@/assets/client-logo-5.jpg";
-import clientLogo6 from "@/assets/client-logo-6.jpg";
-import clientLogo7 from "@/assets/client-logo-7.jpg";
-import clientLogo8 from "@/assets/client-logo-8.jpg";
+import growthvineLogo from "@/assets/growthvine-logo-2.jpeg";
+import audiLogo from "@/assets/audi-logo-transparent-2.png";
+import capitalIndiaLogo from "@/assets/capital-india-logo-2.jpg";
+import carTrendsLogo from "@/assets/car-trends-logo-2.webp";
+import ezeepayLogo from "@/assets/ezeepay-logo-2.png";
+import hiranandaniLogo from "@/assets/hiranandani-logo-2.png";
+import incredLogo from "@/assets/incred-logo-new-2.png";
+import rupeeBossLogo from "@/assets/rupee-boss-logo-2.webp";
+import aliceblueLogo from "@/assets/aliceblue-logo-vector-2.png";
 // Additional partner logos
 import zolveLogo from "@/assets/zolve-logo-transparent.webp";
-import zopperLogo from "@/assets/zopper-logo-transparent.png";
-import legitquestLogo from "@/assets/legitquest-logo-white-bg.png";
-import seedsFincapLogo from "@/assets/seeds-fincap-logo.png";
 
 const HeroSection = () => {
   const navigate = useNavigate();
   
   const customerLogos = [
-    { src: zolveLogo, alt: "Zolve" }
+    { src: zolveLogo, alt: "Zolve" },
+    { src: incredLogo, alt: "InCred" },
+    { src: aliceblueLogo, alt: "AliceBlue" },
+    { src: audiLogo, alt: "Audi" },
+    { src: capitalIndiaLogo, alt: "Capital India" },
+    { src: carTrendsLogo, alt: "Car Trends" },
+    { src: ezeepayLogo, alt: "Ezeepay" },
+    { src: rupeeBossLogo, alt: "Rupee Boss" },
+    { src: growthvineLogo, alt: "GrowthVine" },
+    { src: hiranandaniLogo, alt: "Hiranandani" }
   ];
 
   return (
