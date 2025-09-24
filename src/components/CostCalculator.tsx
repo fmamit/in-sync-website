@@ -116,7 +116,7 @@ const CostCalculator = ({ className = "" }: CostCalculatorProps) => {
   };
 
   return (
-    <div className={`w-full px-16 ${className}`}>
+    <div className={`w-full ${className}`}>
       <div className="text-center mb-8">
         <div className="flex items-center justify-center gap-2 mb-4">
           <Calculator className="w-8 h-8 text-primary" />
