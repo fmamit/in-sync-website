@@ -91,49 +91,61 @@ const HeroSection = () => {
           </Button>
         </div>
 
-        {/* Customer Logos Section - Multiple Layout Options */}
+        {/* Customer Logos Section - Alternative Layouts */}
         <div className="mt-16 text-center">
           <h2 className="text-2xl font-semibold mb-8 text-foreground">
             Trusted by industry leaders across sectors
           </h2>
           
-          {/* Layout 1: Masonry Grid */}
-          <div className="grid grid-cols-6 gap-4 max-w-6xl mx-auto mb-12">
-            {customerLogos.map((logo, index) => (
-              <div 
-                key={index} 
-                className={`
-                  ${index % 7 === 0 ? 'col-span-2 row-span-2' : 'col-span-1'} 
-                  ${index % 5 === 0 ? 'row-span-2' : 'row-span-1'}
-                  bg-white/50 rounded-xl p-4 hover:bg-white/80 transition-all duration-300 hover:scale-105 shadow-sm
-                  flex items-center justify-center min-h-[80px]
-                `}
-              >
-                <img
-                  src={logo.src}
-                  alt={logo.alt}
-                  className="max-h-full max-w-full object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
-                />
-              </div>
-            ))}
+          {/* Layout 1: Hexagonal Grid */}
+          <div className="max-w-4xl mx-auto mb-16">
+            <div className="flex justify-center items-center space-x-4 mb-4">
+              {customerLogos.slice(0, 4).map((logo, index) => (
+                <div key={index} className="w-20 h-20 bg-white/50 rounded-full p-3 hover:bg-white/80 transition-all duration-300 hover:scale-110 shadow-md">
+                  <img src={logo.src} alt={logo.alt} className="w-full h-full object-contain filter grayscale hover:grayscale-0 transition-all duration-300" />
+                </div>
+              ))}
+            </div>
+            <div className="flex justify-center items-center space-x-4 mb-4 -translate-x-10">
+              {customerLogos.slice(4, 9).map((logo, index) => (
+                <div key={index} className="w-20 h-20 bg-white/50 rounded-full p-3 hover:bg-white/80 transition-all duration-300 hover:scale-110 shadow-md">
+                  <img src={logo.src} alt={logo.alt} className="w-full h-full object-contain filter grayscale hover:grayscale-0 transition-all duration-300" />
+                </div>
+              ))}
+            </div>
+            <div className="flex justify-center items-center space-x-4 mb-4">
+              {customerLogos.slice(9, 14).map((logo, index) => (
+                <div key={index} className="w-20 h-20 bg-white/50 rounded-full p-3 hover:bg-white/80 transition-all duration-300 hover:scale-110 shadow-md">
+                  <img src={logo.src} alt={logo.alt} className="w-full h-full object-contain filter grayscale hover:grayscale-0 transition-all duration-300" />
+                </div>
+              ))}
+            </div>
+            <div className="flex justify-center items-center space-x-4 -translate-x-10">
+              {customerLogos.slice(14).map((logo, index) => (
+                <div key={index} className="w-20 h-20 bg-white/50 rounded-full p-3 hover:bg-white/80 transition-all duration-300 hover:scale-110 shadow-md">
+                  <img src={logo.src} alt={logo.alt} className="w-full h-full object-contain filter grayscale hover:grayscale-0 transition-all duration-300" />
+                </div>
+              ))}
+            </div>
           </div>
 
-          {/* Layout 2: Circular Arrangement */}
-          <div className="relative w-96 h-96 mx-auto mb-12">
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 rounded-full"></div>
+          {/* Layout 2: Wave Pattern */}
+          <div className="max-w-6xl mx-auto mb-16 relative h-48">
             {customerLogos.map((logo, index) => {
-              const angle = (index / customerLogos.length) * 2 * Math.PI;
-              const radius = 140;
-              const x = Math.cos(angle) * radius;
-              const y = Math.sin(angle) * radius;
+              const waveHeight = 30;
+              const frequency = 0.5;
+              const amplitude = Math.sin(index * frequency) * waveHeight;
+              const x = (index * 300) / customerLogos.length;
+              const y = amplitude + 60;
+              
               return (
                 <div
                   key={index}
-                  className="absolute w-16 h-16 bg-white/60 rounded-lg p-2 shadow-md hover:shadow-lg transition-all duration-300 hover:scale-110 hover:z-10"
+                  className="absolute w-16 h-16 bg-white/60 rounded-lg p-2 shadow-lg hover:shadow-xl transition-all duration-500 hover:scale-125 hover:z-10"
                   style={{
-                    left: `calc(50% + ${x}px - 32px)`,
-                    top: `calc(50% + ${y}px - 32px)`,
-                    animationDelay: `${index * 0.1}s`
+                    left: `${x}%`,
+                    top: `${y}px`,
+                    animationDelay: `${index * 0.15}s`
                   }}
                 >
                   <img
@@ -146,26 +158,58 @@ const HeroSection = () => {
             })}
           </div>
 
-          {/* Layout 3: Staggered Rows */}
+          {/* Layout 3: Spiral Galaxy */}
+          <div className="relative w-80 h-80 mx-auto mb-16">
+            <div className="absolute inset-0 bg-gradient-radial from-primary/10 via-accent/5 to-transparent rounded-full"></div>
+            {customerLogos.map((logo, index) => {
+              const turns = 2;
+              const angle = (index / customerLogos.length) * turns * 2 * Math.PI;
+              const radius = 20 + (index / customerLogos.length) * 120;
+              const x = Math.cos(angle) * radius;
+              const y = Math.sin(angle) * radius;
+              
+              return (
+                <div
+                  key={index}
+                  className="absolute w-12 h-12 bg-white/70 rounded-lg p-1.5 shadow-md hover:shadow-lg transition-all duration-300 hover:scale-125 hover:z-10"
+                  style={{
+                    left: `calc(50% + ${x}px - 24px)`,
+                    top: `calc(50% + ${y}px - 24px)`,
+                    transform: `rotate(${angle}rad)`,
+                    animationDelay: `${index * 0.1}s`
+                  }}
+                >
+                  <img
+                    src={logo.src}
+                    alt={logo.alt}
+                    className="w-full h-full object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
+                    style={{ transform: `rotate(${-angle}rad)` }}
+                  />
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Layout 4: Flowing River */}
           <div className="max-w-5xl mx-auto">
-            <div className="flex justify-center items-center space-x-6 mb-4">
-              {customerLogos.slice(0, 6).map((logo, index) => (
-                <div key={index} className="w-24 h-16 bg-white/40 rounded-lg p-3 hover:bg-white/70 transition-all duration-300 hover:scale-105">
-                  <img src={logo.src} alt={logo.alt} className="w-full h-full object-contain opacity-70 hover:opacity-100 transition-opacity duration-300" />
-                </div>
-              ))}
-            </div>
-            <div className="flex justify-center items-center space-x-6 mb-4 transform translate-x-12">
-              {customerLogos.slice(6, 12).map((logo, index) => (
-                <div key={index} className="w-24 h-16 bg-white/40 rounded-lg p-3 hover:bg-white/70 transition-all duration-300 hover:scale-105">
-                  <img src={logo.src} alt={logo.alt} className="w-full h-full object-contain opacity-70 hover:opacity-100 transition-opacity duration-300" />
-                </div>
-              ))}
-            </div>
-            <div className="flex justify-center items-center space-x-6">
-              {customerLogos.slice(12).map((logo, index) => (
-                <div key={index} className="w-24 h-16 bg-white/40 rounded-lg p-3 hover:bg-white/70 transition-all duration-300 hover:scale-105">
-                  <img src={logo.src} alt={logo.alt} className="w-full h-full object-contain opacity-70 hover:opacity-100 transition-opacity duration-300" />
+            <div className="flex flex-wrap justify-center items-center gap-4">
+              {customerLogos.map((logo, index) => (
+                <div
+                  key={index}
+                  className={`
+                    bg-white/50 rounded-2xl p-4 hover:bg-white/80 transition-all duration-500 hover:scale-110 shadow-sm hover:shadow-lg
+                    ${index % 3 === 0 ? 'w-28 h-20' : index % 3 === 1 ? 'w-24 h-16' : 'w-32 h-18'}
+                    ${index % 4 === 0 ? 'transform rotate-1' : index % 4 === 1 ? 'transform -rotate-1' : index % 4 === 2 ? 'transform rotate-2' : 'transform -rotate-2'}
+                  `}
+                  style={{
+                    animationDelay: `${index * 0.1}s`
+                  }}
+                >
+                  <img
+                    src={logo.src}
+                    alt={logo.alt}
+                    className="w-full h-full object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
+                  />
                 </div>
               ))}
             </div>
