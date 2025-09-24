@@ -26,7 +26,6 @@ const HeroSection = () => {
     { src: incredLogo, alt: "InCred" },
     { src: aliceblueLogo, alt: "AliceBlue" },
     { src: audiLogo, alt: "Audi" },
-    { src: capitalIndiaLogo, alt: "Capital India" },
     { src: carTrendsLogo, alt: "Car Trends" },
     { src: ezeepayLogo, alt: "Ezeepay" },
     { src: rupeeBossLogo, alt: "Rupee Boss" },
