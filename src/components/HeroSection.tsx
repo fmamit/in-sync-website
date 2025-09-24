@@ -36,7 +36,7 @@ import clientLogo7 from "@/assets/client-logo-7.jpg";
 import clientLogo8 from "@/assets/client-logo-8.jpg";
 // Additional partner logos
 import zolveLogo from "@/assets/zolve-logo-transparent.webp";
-import zopperLogo from "@/assets/zopper-logo.png";
+import zopperLogo from "@/assets/zopper-logo-transparent.png";
 import legitquestLogo from "@/assets/legitquest-logo-white-bg.png";
 import seedsFincapLogo from "@/assets/seeds-fincap-logo.png";
 
