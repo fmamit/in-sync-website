@@ -75,35 +75,33 @@ const IndustryResults = () => {
   };
 
   return (
-    <section className="py-20 relative overflow-hidden">
-      {/* Background with animated gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary/90 to-primary/80" />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent" />
+    <section className="py-20 relative overflow-hidden bg-muted/30">
+      {/* Subtle background pattern */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background/90" />
       
-      {/* Animated background patterns */}
-      <div className="absolute inset-0 opacity-20">
-        <div className="absolute top-20 left-10 w-32 h-32 rounded-full bg-white/10 animate-pulse" />
-        <div className="absolute bottom-20 right-20 w-48 h-48 rounded-full bg-white/5 animate-pulse delay-1000" />
-        <div className="absolute top-1/2 left-1/3 w-24 h-24 rounded-full bg-white/10 animate-pulse delay-500" />
+      {/* Minimal decoration */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute top-20 left-10 w-32 h-32 rounded-full bg-foreground animate-pulse" />
+        <div className="absolute bottom-20 right-20 w-48 h-48 rounded-full bg-foreground animate-pulse delay-1000" />
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
         
         {/* Header */}
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm text-white mb-6">
-            <Sparkles className="w-4 h-4" />
-            <span className="text-sm font-medium">Proven Track Record</span>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-muted border border-border mb-6">
+            <Sparkles className="w-4 h-4 text-muted-foreground" />
+            <span className="text-sm font-medium text-muted-foreground">Proven Track Record</span>
           </div>
           
-          <h2 className="text-4xl md:text-6xl font-bold text-white mb-6">
+          <h2 className="text-4xl md:text-6xl font-bold text-foreground mb-6">
             Industry-Leading
-            <span className="block bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent">
+            <span className="block text-muted-foreground">
               Results
             </span>
           </h2>
           
-          <p className="text-xl text-white/90 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             Join the ecosystem of successful businesses already transformed by In-Sync. 
             Real numbers, real results, real transformation.
           </p>
@@ -116,31 +114,31 @@ const IndustryResults = () => {
             return (
               <Card 
                 key={index} 
-                className={`relative p-8 bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/15 transition-all duration-500 group ${stat.delay} ${
+                className={`relative p-8 bg-card border border-border hover:bg-accent/10 transition-all duration-500 group ${stat.delay} ${
                   isVisible ? 'animate-fade-in translate-y-0' : 'translate-y-8 opacity-0'
                 }`}
               >
-                {/* Icon with gradient background */}
-                <div className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-r ${stat.color} mb-6 group-hover:scale-110 transition-transform duration-300`}>
-                  <IconComponent className="w-8 h-8 text-white" />
+                {/* Icon with subtle background */}
+                <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-muted border border-border mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <IconComponent className="w-8 h-8 text-foreground" />
                 </div>
 
                 {/* Stat Value */}
                 <div className="mb-4">
-                  <div className="text-4xl md:text-5xl font-bold text-white mb-2 font-mono">
+                  <div className="text-4xl md:text-5xl font-bold text-foreground mb-2 font-mono">
                     <CountingNumber value={stat.value} />
                   </div>
-                  <div className="text-lg font-semibold text-white/90 mb-1">
+                  <div className="text-lg font-semibold text-foreground mb-1">
                     {stat.label}
                   </div>
-                  <div className="text-sm text-white/70">
+                  <div className="text-sm text-muted-foreground">
                     {stat.description}
                   </div>
                 </div>
 
                 {/* Hover indicator */}
                 <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <ArrowRight className="w-5 h-5 text-white/60" />
+                  <ArrowRight className="w-5 h-5 text-muted-foreground" />
                 </div>
               </Card>
             );
@@ -149,7 +147,7 @@ const IndustryResults = () => {
 
         {/* Call to Action */}
         <div className="text-center">
-          <div className="inline-flex items-center gap-2 text-white/80 mb-6">
+          <div className="inline-flex items-center gap-2 text-muted-foreground mb-6">
             <Sparkles className="w-5 h-5" />
             <span className="text-lg font-medium">Ready to transform your business?</span>
           </div>
@@ -157,7 +155,7 @@ const IndustryResults = () => {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6">
             <Button 
               size="lg" 
-              className="bg-white text-primary hover:bg-white/90 font-semibold px-8 py-4 rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 group"
+              className="bg-primary text-primary-foreground hover:bg-primary/90 font-semibold px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group"
             >
               <Clock className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform duration-300" />
               Schedule Demo
@@ -165,23 +163,23 @@ const IndustryResults = () => {
             <Button 
               variant="outline" 
               size="lg" 
-              className="border-white/30 text-white hover:bg-white/10 font-medium px-8 py-4 rounded-xl"
+              className="border border-border text-foreground hover:bg-accent font-medium px-8 py-4 rounded-xl"
             >
               Start Free Trial
             </Button>
           </div>
           
-          <div className="flex items-center justify-center gap-6 text-sm text-white/70">
+          <div className="flex items-center justify-center gap-6 text-sm text-muted-foreground">
             <div className="flex items-center gap-1">
-              <div className="w-2 h-2 bg-green-400 rounded-full" />
+              <div className="w-2 h-2 bg-primary rounded-full" />
               <span>30-day free trial</span>
             </div>
             <div className="flex items-center gap-1">
-              <div className="w-2 h-2 bg-blue-400 rounded-full" />
+              <div className="w-2 h-2 bg-primary rounded-full" />
               <span>No credit card required</span>
             </div>
             <div className="flex items-center gap-1">
-              <div className="w-2 h-2 bg-yellow-400 rounded-full" />
+              <div className="w-2 h-2 bg-primary rounded-full" />
               <span>Setup in 1-2 days</span>
             </div>
           </div>
