@@ -19,9 +19,9 @@ import bseEbixLogo from "@/assets/bse-ebix-logo-3.png";
 import legitquestLogo from "@/assets/legitquest-logo-2.svg";
 import ecofyLogo from "@/assets/ecofy-logo-3.svg";
 import quessLogo from "@/assets/quess-logo-3.png";
-import redefineLogo from "@/assets/redefine-logo-2.png";
-import seedsLogo from "@/assets/seeds-logo-2.png";
-import uhcLogo from "@/assets/uhc-logo-2.png";
+import redefineLogo from "@/assets/redefine-logo-3.png";
+import seedsLogo from "@/assets/seeds-logo-3.png";
+import uhcLogo from "@/assets/uhc-logo-3.png";
 // Additional partner logos
 import zolveLogo from "@/assets/zolve-logo-transparent.webp";
 
