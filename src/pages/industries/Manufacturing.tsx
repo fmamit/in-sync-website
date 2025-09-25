@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowRight, Factory, TrendingUp, Shield, Users, CheckCircle, Building, Zap, DollarSign } from "lucide-react";
 import Footer from "@/components/Footer";
+import DemoRequestModal from "@/components/DemoRequestModal";
 
 const Manufacturing = () => {
   return (
@@ -50,9 +51,13 @@ const Manufacturing = () => {
               </div>
               
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button size="lg" className="bg-primary hover:bg-primary/90">
-                  See How Top Manufacturers Do It - Schedule Demo
-                </Button>
+                <DemoRequestModal
+                  trigger={
+                    <Button size="lg" className="bg-primary hover:bg-primary/90">
+                      See How Top Manufacturers Do It - Schedule Demo
+                    </Button>
+                  }
+                />
                 <Button size="lg" variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
                   Calculate Your Cost Savings
                 </Button>
@@ -486,7 +491,11 @@ const Manufacturing = () => {
                 <Card className="p-6 text-center">
                   <h4 className="font-semibold mb-4">Schedule Your Demo Now</h4>
                   <p className="text-sm mb-4">See exactly how In-sync eliminates production delays and reduces costs for manufacturers just like yours.</p>
-                  <Button className="w-full">Schedule Demo</Button>
+                  <DemoRequestModal
+                    trigger={
+                      <Button className="w-full">Schedule Demo</Button>
+                    }
+                  />
                 </Card>
                 <Card className="p-6 text-center">
                   <h4 className="font-semibold mb-4">Calculate Your Savings</h4>

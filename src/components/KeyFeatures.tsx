@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import OnboardingModal from "./OnboardingModal";
+import DemoRequestModal from "./DemoRequestModal";
 import { 
   Brain, 
   Smartphone, 
@@ -407,9 +408,13 @@ const KeyFeatures = () => {
                 Join thousands of organizations who have transformed their operations with In-Sync
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" variant="outline">
-                  Schedule Demo
-                </Button>
+                <DemoRequestModal
+                  trigger={
+                    <Button size="lg" variant="outline">
+                      Schedule Demo
+                    </Button>
+                  }
+                />
               </div>
             </CardContent>
           </Card>

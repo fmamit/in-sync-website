@@ -3,6 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Check, ArrowRight, Target, TrendingUp, Users, Shield } from "lucide-react";
 import Footer from "@/components/Footer";
+import DemoRequestModal from "@/components/DemoRequestModal";
 
 const RealEstate = () => {
   return (
@@ -60,10 +61,14 @@ const RealEstate = () => {
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground">
-              See How Top Developers Close More Deals - Schedule Demo
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
+            <DemoRequestModal
+              trigger={
+                <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground">
+                  See How Top Developers Close More Deals - Schedule Demo
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              }
+            />
             <Button size="lg" variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
               Calculate Your Lost Revenue
             </Button>
@@ -640,9 +645,13 @@ const RealEstate = () => {
                 <p className="text-sm opacity-90 mb-6">
                   See exactly how In-sync transforms lead wastage into revenue growth for developers just like yours.
                 </p>
-                <Button className="w-full bg-white text-primary hover:bg-white/90">
-                  Schedule Demo
-                </Button>
+                <DemoRequestModal
+                  trigger={
+                    <Button className="w-full bg-white text-primary hover:bg-white/90">
+                      Schedule Demo
+                    </Button>
+                  }
+                />
               </CardContent>
             </Card>
 

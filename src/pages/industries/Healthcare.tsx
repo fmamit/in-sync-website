@@ -2,6 +2,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Check, Shield, Users, Activity, DollarSign } from "lucide-react";
 import Footer from "@/components/Footer";
+import DemoRequestModal from "@/components/DemoRequestModal";
 
 const Healthcare = () => {
   return (
@@ -48,9 +49,13 @@ const Healthcare = () => {
 
               {/* Hero CTAs */}
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white">
-                  See How Leading Hospitals Build Patient Loyalty - Schedule Demo
-                </Button>
+                <DemoRequestModal
+                  trigger={
+                    <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white">
+                      See How Leading Hospitals Build Patient Loyalty - Schedule Demo
+                    </Button>
+                  }
+                />
                 <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-blue-600">
                   Calculate Your Patient Retention Value
                 </Button>
@@ -521,9 +526,13 @@ const Healthcare = () => {
             <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6">
               <h3 className="text-xl font-semibold mb-4">Schedule Your Demo Now</h3>
               <p className="text-sm opacity-90 mb-4">See exactly how In-sync transforms one-time patients into loyal, long-term healthcare relationships for practices just like yours.</p>
-              <Button className="bg-white text-green-600 hover:bg-gray-100 w-full">
-                Schedule Demo
-              </Button>
+              <DemoRequestModal
+                trigger={
+                  <Button className="bg-white text-green-600 hover:bg-gray-100 w-full">
+                    Schedule Demo
+                  </Button>
+                }
+              />
             </div>
             
             <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6">

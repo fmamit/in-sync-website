@@ -2,6 +2,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import OnboardingModal from "@/components/OnboardingModal";
+import DemoRequestModal from "@/components/DemoRequestModal";
 import { 
   Building2, 
   Car, 
@@ -709,10 +710,14 @@ const UseCases = () => {
               </div>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-lg mx-auto">
-                <Button size="lg" variant="outline" className="text-lg px-8 border-white/30 text-white hover:bg-white/10 shadow-lg">
-                  <Clock className="h-5 w-5 mr-2" />
-                  Schedule Demo
-                </Button>
+                <DemoRequestModal
+                  trigger={
+                    <Button size="lg" variant="outline" className="text-lg px-8 border-white/30 text-white hover:bg-white/10 shadow-lg">
+                      <Clock className="h-5 w-5 mr-2" />
+                      Schedule Demo
+                    </Button>
+                  }
+                />
               </div>
               
               <p className="text-sm mt-6 opacity-75">

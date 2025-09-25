@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import Footer from "@/components/Footer";
+import DemoRequestModal from "@/components/DemoRequestModal";
 
 const RetailEcommerce = () => {
   return (
@@ -56,10 +57,14 @@ const RetailEcommerce = () => {
               </Card>
               
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground">
-                  See How Top Retailers Build Customer Loyalty - Schedule Demo
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
+                <DemoRequestModal
+                  trigger={
+                    <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground">
+                      See How Top Retailers Build Customer Loyalty - Schedule Demo
+                      <ArrowRight className="ml-2 h-5 w-5" />
+                    </Button>
+                  }
+                />
                 <Button size="lg" variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
                   Calculate Your Customer Lifetime Value Potential
                 </Button>
@@ -381,9 +386,13 @@ const RetailEcommerce = () => {
                 <p className="text-sm opacity-90 mb-6">
                   See exactly how In-sync transforms one-time buyers into loyal customers for retailers just like yours.
                 </p>
-                <Button className="w-full bg-white text-primary hover:bg-white/90">
-                  Schedule Demo
-                </Button>
+                <DemoRequestModal
+                  trigger={
+                    <Button className="w-full bg-white text-primary hover:bg-white/90">
+                      Schedule Demo
+                    </Button>
+                  }
+                />
               </CardContent>
             </Card>
 

@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Check, Shield, TrendingUp, Users, Building, FileText, BarChart, Lock } from "lucide-react";
 import Footer from "@/components/Footer";
+import DemoRequestModal from "@/components/DemoRequestModal";
 
 const FinancialServices = () => {
   return (
@@ -47,9 +48,13 @@ const FinancialServices = () => {
               </div>
               
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button size="lg" className="bg-white text-primary hover:bg-white/90">
-                  See How Leading Banks Do It - Schedule Demo
-                </Button>
+                <DemoRequestModal
+                  trigger={
+                    <Button size="lg" className="bg-white text-primary hover:bg-white/90">
+                      See How Leading Banks Do It - Schedule Demo
+                    </Button>
+                  }
+                />
                 <Button size="lg" variant="secondary" className="bg-white/10 text-white border-white hover:bg-white hover:text-primary">
                   Calculate Your Revenue Impact
                 </Button>
@@ -494,9 +499,13 @@ const FinancialServices = () => {
             <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6">
               <h3 className="text-xl font-semibold mb-4">Schedule Your Demo Now</h3>
               <p className="text-sm opacity-90 mb-4">See exactly how In-sync transforms scattered data into revenue growth for banks just like yours.</p>
-              <Button className="bg-white text-primary hover:bg-gray-100 w-full">
-                Schedule Demo
-              </Button>
+              <DemoRequestModal
+                trigger={
+                  <Button className="bg-white text-primary hover:bg-gray-100 w-full">
+                    Schedule Demo
+                  </Button>
+                }
+              />
             </div>
             
             <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6">
