@@ -1,43 +1,60 @@
-# Blog Persistence Setup Guide
+# Blog Persistence Setup Guide - Lovable + Supabase
 
-## Database Setup
+## 🚨 Current Status
+Your app is now using fallback data since the Supabase database isn't fully set up yet. Follow these steps to enable full persistence:
 
-1. **Run the SQL Script**
-   - Open your Supabase dashboard
-   - Go to the SQL Editor
+## Step 1: Database Setup
+
+1. **Open your Supabase Dashboard**
+   - Click the green Supabase button in the top right of Lovable
+   - Go to your Supabase project dashboard
+
+2. **Run the Database Script**
+   - In Supabase, go to **SQL Editor**
+   - Create a new query
    - Copy and paste the contents of `database-setup.sql`
-   - Run the script to create the blogs table and initial data
+   - Click **Run** to create the blogs table and initial data
 
-## Environment Variables
+## Step 2: Verify Environment Variables
 
-Make sure your `.env.local` file (or environment) contains:
+In Lovable with native Supabase integration, environment variables should be automatically configured. If you're still seeing issues:
 
-```
-VITE_SUPABASE_URL=your_supabase_project_url
-VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
-```
+1. **Check Supabase Connection**
+   - In Lovable, click the Supabase button (top right)
+   - Ensure your project is properly connected
+   - Check that the connection status shows as active
 
-You can find these values in your Supabase project settings under "API".
+2. **Verify Project URL and Keys**
+   - In your Supabase dashboard, go to **Settings** → **API**
+   - Copy your Project URL and anon public key
+   - These should be automatically available in Lovable
 
-## Features Now Available
+## Step 3: Test the Integration
 
-✅ **Persistent Blog Storage** - Blogs are now stored in Supabase database
-✅ **CRUD Operations** - Add, edit, delete blogs with real persistence  
-✅ **Automatic Timestamps** - Created/updated timestamps managed automatically
-✅ **Row Level Security** - Proper security policies in place
-✅ **Initial Data** - Sample blogs loaded automatically
+After completing the database setup:
 
-## How It Works
+1. **Refresh your Lovable preview**
+2. **Try adding a blog post** (username: `asg`, password: `asg@987`)
+3. **Refresh the page** - your blog should persist
+4. **Edit or delete blogs** - changes should persist after refresh
 
-- **Adding blogs**: Now saves to database via Supabase client
-- **Editing blogs**: Updates database records directly
-- **Deleting blogs**: Removes records from database
-- **Page refresh**: Data persists and loads from database
+## Features Available After Setup
 
-## Testing
+✅ **Persistent Blog Storage** - Blogs stored in Supabase database  
+✅ **CRUD Operations** - Add, edit, delete with real persistence  
+✅ **Automatic Timestamps** - Created/updated timestamps  
+✅ **Row Level Security** - Proper security policies  
+✅ **Sample Data** - Initial blogs loaded automatically  
 
-1. Add a new blog post using the admin interface (username: `asg`, password: `asg@987`)
-2. Refresh the page - your blog should still be there
-3. Edit or delete blogs - changes will persist after refresh
+## Troubleshooting
 
-Your blog functionality is now fully integrated with Supabase!
+**Still seeing fallback data?**
+- Check that you ran the SQL script in Supabase
+- Verify the `blogs` table exists in your Supabase database
+- Ensure your Supabase project is active and connected
+
+**Environment variable errors?**
+- The Supabase connection in Lovable should handle this automatically
+- Try disconnecting and reconnecting Supabase in Lovable
+
+Your blog functionality will work with sample data for now, but will have full persistence once the database is properly set up!

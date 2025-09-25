@@ -2,11 +2,51 @@ import { useState } from 'react'
 import { supabase, type BlogPost } from '@/lib/supabase'
 import { useToast } from '@/hooks/use-toast'
 
+// Fallback data in case Supabase isn't fully configured
+const fallbackBlogs: BlogPost[] = [
+  {
+    id: 1,
+    title: "AI-Powered CRM: The Future of Customer Relationship Management",
+    excerpt: "Discover how artificial intelligence is revolutionizing CRM systems and transforming customer interactions across industries.",
+    content: "Full blog content here...",
+    author: "Rahul Sharma",
+    date: "2024-01-15",
+    category: "AI & Automation",
+    readTime: "8 min read",
+    tags: ["AI", "CRM", "Automation", "Technology"],
+    imageUrl: "/api/placeholder/400/250"
+  },
+  {
+    id: 2,
+    title: "WhatsApp Business API Integration Best Practices",
+    excerpt: "Learn how to effectively integrate WhatsApp Business API into your customer communication strategy for maximum engagement.",
+    content: "Full blog content here...",
+    author: "Priya Patel",
+    date: "2024-01-10",
+    category: "Communication",
+    readTime: "6 min read",
+    tags: ["WhatsApp", "API", "Communication", "Best Practices"],
+    imageUrl: "/api/placeholder/400/250"
+  }
+];
+
 export const useBlogOperations = () => {
   const [loading, setLoading] = useState(false)
   const { toast } = useToast()
 
+  // Check if Supabase is properly configured
+  const isSupabaseConfigured = () => {
+    return import.meta.env.VITE_SUPABASE_URL && 
+           import.meta.env.VITE_SUPABASE_ANON_KEY &&
+           import.meta.env.VITE_SUPABASE_URL !== 'https://placeholder.supabase.co'
+  }
+
   const fetchBlogs = async (): Promise<BlogPost[]> => {
+    if (!isSupabaseConfigured()) {
+      console.log('Supabase not configured, using fallback data')
+      return fallbackBlogs
+    }
+
     try {
       setLoading(true)
       const { data, error } = await supabase
@@ -32,17 +72,25 @@ export const useBlogOperations = () => {
     } catch (error) {
       console.error('Error fetching blogs:', error)
       toast({
-        title: "Error",
-        description: "Failed to load blogs. Please try again.",
-        variant: "destructive"
+        title: "Info",
+        description: "Using sample blog data. Set up Supabase database for full functionality.",
       })
-      return []
+      return fallbackBlogs
     } finally {
       setLoading(false)
     }
   }
 
   const createBlog = async (blogData: Omit<BlogPost, 'id' | 'date'>): Promise<BlogPost | null> => {
+    if (!isSupabaseConfigured()) {
+      toast({
+        title: "Database Required",
+        description: "Please run the database setup script in your Supabase dashboard.",
+        variant: "destructive"
+      })
+      return null
+    }
+
     try {
       setLoading(true)
       const { data, error } = await supabase
@@ -67,7 +115,6 @@ export const useBlogOperations = () => {
         description: "Blog created successfully!",
       })
 
-      // Transform back to component format
       return {
         id: data.id,
         title: data.title,
@@ -84,7 +131,7 @@ export const useBlogOperations = () => {
       console.error('Error creating blog:', error)
       toast({
         title: "Error",
-        description: "Failed to create blog. Please try again.",
+        description: "Failed to create blog. Please check your database setup.",
         variant: "destructive"
       })
       return null
@@ -94,6 +141,15 @@ export const useBlogOperations = () => {
   }
 
   const updateBlog = async (id: number, blogData: Partial<BlogPost>): Promise<BlogPost | null> => {
+    if (!isSupabaseConfigured()) {
+      toast({
+        title: "Database Required",
+        description: "Please run the database setup script in your Supabase dashboard.",
+        variant: "destructive"
+      })
+      return null
+    }
+
     try {
       setLoading(true)
       const { data, error } = await supabase
@@ -136,7 +192,7 @@ export const useBlogOperations = () => {
       console.error('Error updating blog:', error)
       toast({
         title: "Error",
-        description: "Failed to update blog. Please try again.",
+        description: "Failed to update blog. Please check your database setup.",
         variant: "destructive"
       })
       return null
@@ -146,6 +202,15 @@ export const useBlogOperations = () => {
   }
 
   const deleteBlog = async (id: number): Promise<boolean> => {
+    if (!isSupabaseConfigured()) {
+      toast({
+        title: "Database Required",
+        description: "Please run the database setup script in your Supabase dashboard.",
+        variant: "destructive"
+      })
+      return false
+    }
+
     try {
       setLoading(true)
       const { error } = await supabase
@@ -165,7 +230,7 @@ export const useBlogOperations = () => {
       console.error('Error deleting blog:', error)
       toast({
         title: "Error",
-        description: "Failed to delete blog. Please try again.",
+        description: "Failed to delete blog. Please check your database setup.",
         variant: "destructive"
       })
       return false
@@ -179,6 +244,7 @@ export const useBlogOperations = () => {
     fetchBlogs,
     createBlog,
     updateBlog,
-    deleteBlog
+    deleteBlog,
+    isConfigured: isSupabaseConfigured()
   }
 }
