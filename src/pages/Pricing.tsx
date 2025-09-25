@@ -51,7 +51,7 @@ const Pricing = () => {
     },
     {
       name: "Growth", 
-      price: { monthly: 12999, annual: 124790 }, // ₹12,999/month, 4% annual discount
+      price: { monthly: 12999, annual: 129470 }, // ₹12,999/month, 17% annual discount
       originalPrice: { monthly: null, annual: 155988 },
       description: "For growing businesses that need more power",
       badge: "Most Popular",
@@ -74,7 +74,7 @@ const Pricing = () => {
     },
     {
       name: "Scale",
-      price: { monthly: 37999, annual: 364790 }, // ₹37,999/month, 4% annual discount
+      price: { monthly: 37999, annual: 378710 }, // ₹37,999/month, 17% annual discount
       originalPrice: { monthly: null, annual: 455988 },
       description: "For larger teams that need all the bells and whistles",
       badge: "Advanced",
@@ -97,7 +97,7 @@ const Pricing = () => {
     },
     {
       name: "Enterprise",
-      price: { monthly: 75000, annual: 720000 }, // ₹75,000/month, 4% annual discount
+      price: { monthly: 75000, annual: 747000 }, // ₹75,000/month, 17% annual discount
       originalPrice: { monthly: null, annual: 900000 },
       description: "When you need everything + the kitchen sink",
       badge: "Enterprise",
@@ -217,7 +217,7 @@ const Pricing = () => {
                 <TabsTrigger value="monthly">Monthly</TabsTrigger>
                 <TabsTrigger value="annual" className="relative">
                   Annual
-                  <Badge variant="secondary" className="ml-2 text-xs">Save 4%</Badge>
+                  <Badge variant="secondary" className="ml-2 text-xs">Save 17%</Badge>
                 </TabsTrigger>
               </TabsList>
             </Tabs>
@@ -288,7 +288,7 @@ const Pricing = () => {
                         <span className="line-through">
                           ₹{plan.originalPrice.annual.toLocaleString()}
                         </span>
-                        <span className="ml-2 text-primary font-semibold">Save 4%</span>
+                        <span className="ml-2 text-primary font-semibold">Save 17%</span>
                       </div>
                     )}
                   </div>

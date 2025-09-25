@@ -78,7 +78,7 @@ const CostCalculator = ({ className = "" }: CostCalculatorProps) => {
   const callingCost = callingChannels * 1500 * (billingCycle === "annual" ? 12 : 1);
 
   const subtotal = basePlanCost + modulesCost + smsCost + whatsappCost + emailCost + callingCost;
-  const annualDiscount = billingCycle === "annual" && subtotal > 0 ? subtotal * 0.04 : 0; // 4% annual discount
+  const annualDiscount = billingCycle === "annual" && subtotal > 0 ? subtotal * 0.17 : 0; // 17% annual discount
   const totalCost = subtotal - annualDiscount;
 
   // Prepare quote data for generation
@@ -417,7 +417,7 @@ const CostCalculator = ({ className = "" }: CostCalculatorProps) => {
               {/* Annual Discount */}
               {billingCycle === "annual" && annualDiscount > 0 && (
                 <div className="flex items-center justify-between text-green-600">
-                  <div className="font-medium">Annual Discount (4%)</div>
+                  <div className="font-medium">Annual Discount (17%)</div>
                   <div className="font-semibold">-{formatCurrency(annualDiscount)}</div>
                 </div>
               )}

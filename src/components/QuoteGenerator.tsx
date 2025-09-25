@@ -200,7 +200,7 @@ const QuoteGenerator = ({ quoteData, className = "" }: QuoteGeneratorProps) => {
 
             ${quoteData.discount > 0 ? `
             <div class="cost-item" style="color: #059669;">
-                <span><strong>Annual Discount (4%)</strong></span>
+                <span><strong>Annual Discount (17%)</strong></span>
                 <span>-${formatCurrency(quoteData.discount)}</span>
             </div>` : ''}
 
