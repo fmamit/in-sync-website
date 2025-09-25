@@ -178,7 +178,7 @@ User's question: ${query}`
       JSON.stringify({ 
         error: 'Failed to process query',
         answer: "I'm experiencing technical difficulties. Please contact our team directly at +91 92288 24668 or delight@in-sync.co.in for immediate assistance.",
-        details: error.message 
+        details: error instanceof Error ? error.message : 'Unknown error' 
       }),
       {
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },

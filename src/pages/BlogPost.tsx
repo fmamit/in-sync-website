@@ -6,6 +6,8 @@ import { Separator } from "@/components/ui/separator";
 import Footer from "@/components/Footer";
 import { ArrowLeft, Calendar, Clock, User, Tag } from "lucide-react";
 import { Helmet } from "react-helmet-async";
+import { useBlogOperations } from "@/hooks/useBlogOperations";
+import { type BlogPost as BlogPostType } from "@/lib/supabase";
 
 // Sample blog data - in a real app, this would come from a backend/database
 const blogData = [
@@ -1481,22 +1483,33 @@ const blogData = [
 const BlogPost = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [blog, setBlog] = useState<any>(null);
+  const [blog, setBlog] = useState<BlogPostType | null>(null);
   const [loading, setLoading] = useState(true);
+  const { fetchBlogs } = useBlogOperations();
 
   useEffect(() => {
-    const blogId = parseInt(id || "1");
-    const foundBlog = blogData.find(b => b.id === blogId);
-    
-    if (foundBlog) {
-      setBlog(foundBlog);
-    } else {
-      // Redirect to 404 or blog listing if blog not found
-      navigate('/resources');
-    }
-    
-    setLoading(false);
-  }, [id, navigate]);
+    const loadBlog = async () => {
+      try {
+        const blogs = await fetchBlogs();
+        const blogId = parseInt(id || "1");
+        const foundBlog = blogs.find(b => b.id === blogId);
+        
+        if (foundBlog) {
+          setBlog(foundBlog);
+        } else {
+          // Redirect to resources if blog not found
+          navigate('/resources');
+        }
+      } catch (error) {
+        console.error("Error loading blog:", error);
+        navigate('/resources');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadBlog();
+  }, [id, navigate, fetchBlogs]);
 
   if (loading) {
     return (

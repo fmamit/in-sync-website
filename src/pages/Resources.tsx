@@ -13,6 +13,8 @@ import { Separator } from "@/components/ui/separator";
 import Footer from "@/components/Footer";
 import { getResponseForQuery } from "@/data/faqKnowledgeBase";
 import { useLazyLoading } from "@/hooks/useLazyLoading";
+import { useBlogOperations } from "@/hooks/useBlogOperations";
+import { type BlogPost } from "@/lib/supabase";
 import {
   Calendar,
   Clock,
@@ -380,7 +382,7 @@ const initialTutorials = [
 
 const Resources = () => {
   const navigate = useNavigate();
-  const [blogs, setBlogs] = useState(initialBlogs);
+  const [blogs, setBlogs] = useState<BlogPost[]>([]);
   const [whitepapers, setWhitepapers] = useState(initialWhitepapers);
   const [events, setEvents] = useState(initialEvents);
   const [tutorials, setTutorials] = useState(initialTutorials);
@@ -395,7 +397,7 @@ const Resources = () => {
   
   // Edit blog state
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
-  const [editingBlog, setEditingBlog] = useState<any>(null);
+  const [editingBlog, setEditingBlog] = useState<BlogPost | null>(null);
   const [editBlogData, setEditBlogData] = useState({
     title: "",
     excerpt: "",
@@ -409,12 +411,15 @@ const Resources = () => {
   
   // Delete blog state
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
-  const [deletingBlog, setDeletingBlog] = useState<any>(null);
+  const [deletingBlog, setDeletingBlog] = useState<BlogPost | null>(null);
   
   const [faqQuery, setFaqQuery] = useState("");
   const [faqResponse, setFaqResponse] = useState("");
   const [newResourceType, setNewResourceType] = useState("blog");
   const { toast } = useToast();
+
+  // Blog operations hook
+  const { loading: blogLoading, fetchBlogs, createBlog, updateBlog, deleteBlog } = useBlogOperations();
 
   // Add new resource form state
   const [newResource, setNewResource] = useState({
@@ -427,6 +432,15 @@ const Resources = () => {
     content: "",
     image: null as File | null
   });
+
+  // Load blogs from Supabase on component mount
+  useEffect(() => {
+    const loadBlogs = async () => {
+      const blogData = await fetchBlogs();
+      setBlogs(blogData);
+    };
+    loadBlogs();
+  }, []);
 
   // Check authentication on component mount
   useEffect(() => {
@@ -466,7 +480,7 @@ const Resources = () => {
   };
 
   // Edit blog functions
-  const handleEditBlog = (blog: any) => {
+  const handleEditBlog = (blog: BlogPost) => {
     setEditingBlog(blog);
     setEditBlogData({
       title: blog.title,
@@ -481,8 +495,8 @@ const Resources = () => {
     setIsEditDialogOpen(true);
   };
 
-  const handleSaveEdit = () => {
-    if (!editBlogData.title.trim() || !editBlogData.excerpt.trim()) {
+  const handleSaveEdit = async () => {
+    if (!editBlogData.title.trim() || !editBlogData.excerpt.trim() || !editingBlog) {
       toast({
         title: "Error",
         description: "Please fill in all required fields.",
@@ -491,8 +505,7 @@ const Resources = () => {
       return;
     }
 
-    const updatedBlog = {
-      ...editingBlog,
+    const updatedBlogData = {
       title: editBlogData.title,
       excerpt: editBlogData.excerpt,
       content: editBlogData.content,
@@ -503,30 +516,28 @@ const Resources = () => {
       readTime: editBlogData.readTime
     };
 
-    setBlogs(blogs.map(blog => blog.id === editingBlog.id ? updatedBlog : blog));
-    setIsEditDialogOpen(false);
-    setEditingBlog(null);
-    toast({
-      title: "Success",
-      description: "Blog updated successfully!",
-    });
+    const result = await updateBlog(editingBlog.id, updatedBlogData);
+    if (result) {
+      setBlogs(blogs.map(blog => blog.id === editingBlog.id ? result : blog));
+      setIsEditDialogOpen(false);
+      setEditingBlog(null);
+    }
   };
 
   // Delete blog functions
-  const handleDeleteBlog = (blog: any) => {
+  const handleDeleteBlog = (blog: BlogPost) => {
     setDeletingBlog(blog);
     setIsDeleteDialogOpen(true);
   };
 
-  const confirmDeleteBlog = () => {
+  const confirmDeleteBlog = async () => {
     if (deletingBlog) {
-      setBlogs(blogs.filter(blog => blog.id !== deletingBlog.id));
-      setIsDeleteDialogOpen(false);
-      setDeletingBlog(null);
-      toast({
-        title: "Success",
-        description: "Blog deleted successfully!",
-      });
+      const success = await deleteBlog(deletingBlog.id);
+      if (success) {
+        setBlogs(blogs.filter(blog => blog.id !== deletingBlog.id));
+        setIsDeleteDialogOpen(false);
+        setDeletingBlog(null);
+      }
     }
   };
 
@@ -557,7 +568,7 @@ const Resources = () => {
   const eventsLazy = useLazyLoading({ items: filteredEvents, initialCount: 4 });
   const tutorialsLazy = useLazyLoading({ items: filteredTutorials, initialCount: 4 });
 
-  const handleAddResource = (resourceType: string) => {
+  const handleAddResource = async (resourceType: string) => {
     if (!newResource.title || !newResource.description) {
       toast({
         title: "Error",
@@ -567,71 +578,81 @@ const Resources = () => {
       return;
     }
 
-    // Handle image upload
-    let imageUrl = "/api/placeholder/400/250";
-    if (newResource.image) {
-      // Create a local URL for the uploaded image
-      imageUrl = URL.createObjectURL(newResource.image);
+    if (resourceType === "blog") {
+      // Handle image upload
+      let imageUrl = "/api/placeholder/400/250";
+      if (newResource.image) {
+        // Create a local URL for the uploaded image
+        imageUrl = URL.createObjectURL(newResource.image);
+      }
+
+      const blogData = {
+        title: newResource.title,
+        excerpt: newResource.description,
+        content: newResource.content,
+        author: newResource.author || "In-Sync Team",
+        category: newResource.category,
+        readTime: "5 min read",
+        tags: newResource.tags.split(",").map(tag => tag.trim()).filter(tag => tag),
+        imageUrl: imageUrl
+      };
+
+      const result = await createBlog(blogData);
+      if (result) {
+        setBlogs([result, ...blogs]);
+      }
+    } else {
+      // Handle other resource types with existing logic
+      const resourceData = {
+        id: Date.now(),
+        title: newResource.title,
+        description: newResource.description,
+        category: newResource.category,
+        tags: newResource.tags.split(",").map(tag => tag.trim()),
+        date: new Date().toISOString().split("T")[0],
+        author: newResource.author || "In-Sync Team"
+      };
+
+      switch (resourceType) {
+        case "whitepaper":
+          setWhitepapers([...whitepapers, {
+            ...resourceData,
+            pages: 20,
+            downloadCount: 0,
+            publishDate: resourceData.date,
+            fileUrl: "#"
+          }]);
+          break;
+        case "event":
+          setEvents([...events, {
+            ...resourceData,
+            type: newResource.type || "Webinar",
+            time: "3:00 PM IST",
+            duration: "1 hour",
+            location: "Online",
+            registrationUrl: "#",
+            maxAttendees: 500,
+            currentAttendees: 0,
+            speakers: [newResource.author || "In-Sync Team"]
+          }]);
+          break;
+        case "tutorial":
+          setTutorials([...tutorials, {
+            ...resourceData,
+            type: newResource.type || "Video Tutorial",
+            duration: "30 minutes",
+            level: "Beginner",
+            videoCount: 1,
+            videoUrl: "#"
+          }]);
+          break;
+      }
+
+      toast({
+        title: "Success",
+        description: `${resourceType.charAt(0).toUpperCase() + resourceType.slice(1)} added successfully!`,
+      });
     }
-
-    const resourceData = {
-      id: Date.now(),
-      title: newResource.title,
-      description: newResource.description,
-      category: newResource.category,
-      tags: newResource.tags.split(",").map(tag => tag.trim()),
-      date: new Date().toISOString().split("T")[0],
-      author: newResource.author || "In-Sync Team"
-    };
-
-    switch (resourceType) {
-      case "blog":
-        setBlogs([...blogs, {
-          ...resourceData,
-          excerpt: newResource.description,
-          content: newResource.content,
-          readTime: "5 min read",
-          imageUrl: imageUrl
-        }]);
-        break;
-      case "whitepaper":
-        setWhitepapers([...whitepapers, {
-          ...resourceData,
-          pages: 20,
-          downloadCount: 0,
-          publishDate: resourceData.date,
-          fileUrl: "#"
-        }]);
-        break;
-      case "event":
-        setEvents([...events, {
-          ...resourceData,
-          type: newResource.type || "Webinar",
-          time: "3:00 PM IST",
-          duration: "1 hour",
-          location: "Online",
-          registrationUrl: "#",
-          maxAttendees: 500,
-          currentAttendees: 0,
-          speakers: [newResource.author || "In-Sync Team"]
-        }]);
-        break;
-      case "tutorial":
-        setTutorials([...tutorials, {
-          ...resourceData,
-          type: newResource.type || "Video Tutorial",
-          duration: "30 minutes",
-          level: "Beginner",
-          videoCount: 1,
-          videoUrl: "#"
-        }]);
-        break;
-    }
-
-    toast({
-      title: "Success",
-      description: `${resourceType.charAt(0).toUpperCase() + resourceType.slice(1)} added successfully!`,
-    });
 
     // Reset form and close dialog
     setNewResource({
@@ -679,7 +700,7 @@ const Resources = () => {
     )
   );
 
-  const BlogCard = ({ blog }: { blog: any }) => (
+  const BlogCard = ({ blog }: { blog: BlogPost }) => (
     <Card className="group hover:shadow-lg transition-all duration-300">
       <div className="relative overflow-hidden rounded-t-lg">
         {blog.imageUrl && blog.imageUrl !== "/api/placeholder/400/250" ? (
