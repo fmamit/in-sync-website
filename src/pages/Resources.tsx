@@ -13,8 +13,7 @@ import { Separator } from "@/components/ui/separator";
 import Footer from "@/components/Footer";
 import { getResponseForQuery } from "@/data/faqKnowledgeBase";
 import { useLazyLoading } from "@/hooks/useLazyLoading";
-import { useBlogOperations } from "@/hooks/useBlogOperations";
-import { type BlogPost } from "@/lib/supabase";
+import { useBlogOperations, type BlogPost } from "@/hooks/useBlogOperations";
 import {
   Calendar,
   Clock,

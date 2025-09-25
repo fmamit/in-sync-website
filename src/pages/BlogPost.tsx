@@ -6,8 +6,7 @@ import { Separator } from "@/components/ui/separator";
 import Footer from "@/components/Footer";
 import { ArrowLeft, Calendar, Clock, User, Tag } from "lucide-react";
 import { Helmet } from "react-helmet-async";
-import { useBlogOperations } from "@/hooks/useBlogOperations";
-import { type BlogPost as BlogPostType } from "@/lib/supabase";
+import { useBlogOperations, type BlogPost as BlogPostType } from "@/hooks/useBlogOperations";
 
 // Sample blog data - in a real app, this would come from a backend/database
 const blogData = [
