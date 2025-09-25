@@ -291,68 +291,13 @@ const QuoteGenerator = ({ quoteData, className = "" }: QuoteGeneratorProps) => {
     const subject = encodeURIComponent(`In-Sync Cost Quote - ${quoteData.selectedPlan} Plan`);
     const body = encodeURIComponent(`Dear ${clientName || '[Recipient\'s Name]'},
 
-Thank you for considering In-Sync, our unified customer engagement and operations platform. Please find below the detailed quotation as requested, detailing the proposed solution, scope, and commercial terms.
+Thank you for considering In-Sync, our unified customer engagement and operations platform. Please find attached the quotation as requested, detailing the proposed solution, scope, and commercial terms.
 
 In-Sync is designed to streamline customer communication, automate workflows, and enhance operational efficiency across messaging, campaigns, field team management, and ticketing. We believe this solution will help your team achieve faster response times, improved customer satisfaction, and measurable business growth.
 
-DETAILED QUOTATION:
-==================
-
-CLIENT INFORMATION:
-${clientName ? `Name: ${clientName}` : ''}
-${clientCompany ? `Company: ${clientCompany}` : ''}
-${clientEmail ? `Email: ${clientEmail}` : ''}
-${clientPhone ? `Phone: ${clientPhone}` : ''}
-
-PLAN DETAILS:
-- Selected Plan: ${quoteData.selectedPlan} Plan
-- Billing Cycle: ${quoteData.billingCycle === 'monthly' ? 'Monthly' : 'Annual'}
-- Team Size: ${quoteData.teamSize} users
-- Plan Cost: ${formatCurrency(quoteData.planPrice)} ${quoteData.billingCycle === 'monthly' ? '/month' : '/year'}
-
-${quoteData.selectedModules.length > 0 ? `SELECTED MODULES:
-${quoteData.selectedModules.map(module => `- ${module.name} (Qty: ${module.quantity})`).join('\n')}
-- Total Modules Cost: ${formatCurrency(quoteData.modulePrice)} ${quoteData.billingCycle === 'monthly' ? '/month' : '/year'}
-` : ''}
-
-${(quoteData as any).selectedOneTimeServices && (quoteData as any).selectedOneTimeServices.length > 0 ? `ONE-TIME SERVICES:
-${(quoteData as any).selectedOneTimeServices.map((service: any) => `- ${service.name} (Qty: ${service.quantity}${service.unit ? ` ${service.unit}` : ''})`).join('\n')}
-- Total One-Time Cost: ${formatCurrency((quoteData as any).oneTimeCost)}
-` : ''}
-
-COMMUNICATION COSTS:
-${quoteData.smsCost > 0 ? `- SMS (${quoteData.smsVolume}/month): ${formatCurrency(quoteData.smsCost)} ${quoteData.billingCycle === 'monthly' ? '/month' : '/year'}` : ''}
-${quoteData.whatsappCost > 0 ? `- WhatsApp (${quoteData.whatsappVolume}/month): ${formatCurrency(quoteData.whatsappCost)} ${quoteData.billingCycle === 'monthly' ? '/month' : '/year'}` : ''}
-${quoteData.emailCost > 0 ? `- Email (${quoteData.emailVolume}/month): ${formatCurrency(quoteData.emailCost)} ${quoteData.billingCycle === 'monthly' ? '/month' : '/year'}` : ''}
-${quoteData.callingCost > 0 ? `- Voice Calls (${quoteData.callingChannels} channels): ${formatCurrency(quoteData.callingCost)} ${quoteData.billingCycle === 'monthly' ? '/month' : '/year'}` : ''}
-
-COST SUMMARY:
-- Subtotal: ${formatCurrency(quoteData.subtotal)} ${quoteData.billingCycle === 'monthly' ? '/month' : '/year'}
-${quoteData.discount > 0 ? `- Annual Discount: -${formatCurrency(quoteData.discount)} ${quoteData.billingCycle === 'monthly' ? '/month' : '/year'}` : ''}
-${(quoteData as any).oneTimeCost > 0 ? `- One-Time Services: ${formatCurrency((quoteData as any).oneTimeCost)}` : ''}
-
-TOTAL COST: ${formatCurrency(quoteData.totalCost)} ${quoteData.billingCycle === 'monthly' ? '/month' : '/year'}${(quoteData as any).oneTimeCost > 0 ? ` + ${formatCurrency((quoteData as any).oneTimeCost)} one-time` : ''}
-
-KEY BENEFITS INCLUDED:
-✓ Unlimited Users - No per-seat pricing
-✓ 30-Day Free Trial - Test all features risk-free  
-✓ 24/7 Support - Round-the-clock assistance
-✓ 99.9% Uptime - Guaranteed reliability
-
-${notes ? `
-ADDITIONAL NOTES:
-${notes}
-` : ''}
-
-This quote is valid for 30 days from the date of issue. Prices are subject to change. All plans include unlimited users and 30-day free trial.
-
 Should you have any questions or require clarifications, please feel free to reach out. I'd be glad to walk you through the proposal or arrange a quick discussion at your convenience.
 
-Looking forward to your feedback.
-
-Best regards,
-In-Sync Team
-Contact: sunita.negi@in-sync.co.in | +91 82870 83502`);
+Looking forward to your feedback.`);
     
     return { subject, body };
   };
@@ -367,67 +312,20 @@ Contact: sunita.negi@in-sync.co.in | +91 82870 83502`);
       return;
     }
 
-    try {
-      const { subject, body } = generateEmailBody();
-      const mailtoLink = `mailto:${clientEmail}?subject=${subject}&body=${body}`;
-      
-      // Check if URL is too long (most email clients limit to ~2000 characters)
-      if (mailtoLink.length > 2000) {
-        // Fallback: copy to clipboard and show instructions
-        navigator.clipboard.writeText(decodeURIComponent(body)).then(() => {
-          toast({
-            title: "Email Content Copied",
-            description: "The quotation has been copied to your clipboard. Please paste it into your email client.",
-            duration: 7000,
-          });
-        }).catch(() => {
-          toast({
-            title: "Please Copy Manually",
-            description: "Please copy the quotation from the dialog that will open.",
-            duration: 5000,
-          });
-        });
-        
-        // Keep dialog open to show content
-        return;
-      }
-      
-      // Try to open email client
-      const newWindow = window.open(mailtoLink);
-      
-      // Check if popup was blocked
-      if (!newWindow || newWindow.closed || typeof newWindow.closed == 'undefined') {
-        // Fallback: copy to clipboard
-        navigator.clipboard.writeText(decodeURIComponent(body)).then(() => {
-          toast({
-            title: "Popup Blocked - Content Copied",
-            description: "Your browser blocked the email popup, but the content was copied to clipboard.",
-            duration: 7000,
-          });
-        }).catch(() => {
-          toast({
-            title: "Unable to Open Email",
-            description: "Please copy the quotation manually from this dialog.",
-            duration: 5000,
-          });
-        });
-        return;
-      }
-      
-      setIsEmailDialogOpen(false);
-      toast({
-        title: "Email Client Opened",
-        description: "Your email client should now be open with the quotation.",
-      });
-      
-    } catch (error) {
-      console.log('Email error:', error);
-      toast({
-        title: "Email Error",
-        description: "Unable to open email client. Please copy the quotation manually.",
-        variant: "destructive",
-      });
-    }
+    // First download the PDF
+    downloadPDF();
+    
+    // Then prepare the email
+    const { subject, body } = generateEmailBody();
+    const mailtoLink = `mailto:${clientEmail}?subject=${subject}&body=${body}`;
+    window.open(mailtoLink);
+    setIsEmailDialogOpen(false);
+    
+    toast({
+      title: "Email Prepared & PDF Downloaded",
+      description: "The quotation PDF has been downloaded. Please attach it to the email that just opened.",
+      duration: 5000,
+    });
   };
 
   return (
