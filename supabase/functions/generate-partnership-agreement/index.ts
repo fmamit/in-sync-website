@@ -6,87 +6,242 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 }
 
-const AGREEMENT_TEMPLATE = `CHANNEL PARTNERSHIP AGREEMENT
+const INDIA_AGREEMENT_TEMPLATE = `DISTRIBUTION CHANNEL PARTNERSHIP MOU
 
-This Agreement is made on [SystemDate] between:
+This Distribution Channel Partnership MOU (the "MOU") is made and entered into as of [SystemDate], by and between:
 
-Partner: [PartnerName]
-Company: [CompanyName]
+[PartnerName]
+[CompanyName]
+[Address]
+(referred to as "Partner")
+
+and
+
+ECR Technical Innovations Pvt Ltd
+C042C, 4th Floor, DLF Phase 4, Gurugram, Haryana 122002
+(referred to as "In-Sync")
+
+WHEREAS, Partner has agreed to act as a preferred partner for In-Sync's distribution channel, and
+WHEREAS, both parties wish to establish a framework for their partnership,
+
+NOW, THEREFORE, in consideration of the mutual covenants and promises herein contained, the parties hereby agree as follows:
+
+1. OVERVIEW
+
+1.1 Partner is appointed as a preferred partner for In-Sync's distribution channel in the open market, inclusive of MSMEs.
+
+1.2 Partner has sufficient understanding of the In-Sync platform, enabling effective promotion and support.
+
+1.3 The partnership will follow a build-scale model with a Minimum Business Guarantee (MBG) to ensure committed growth.
+
+2. PAYOUTS
+
+2.1 Partner's earnings shall consist of:
+
+One-time Setup Earnings: Partner shall receive 40% of the setup cost per closure.
+Monthly Recurring Earnings: Partner shall earn 30% of the monthly recurring fee per closure.
+
+Realized Revenue Type                                | Billing Amount | Partner Margin
+One-time Setup                                       | Upto Rs. 1L    | 40%
+Monthly Recurring Business - License                 | Any Amount     | 30%
+Monthly Recurring Business - Consumption/Transaction | Any Amount     | Actual+
+
+3. MARKETING AND SALES RESPONSIBILITIES
+
+3.1 Partner shall have full ownership of marketing and sales efforts to promote In-Sync, which includes:
+- Complete Marketing Responsibility: Utilizing Partner's existing marketing setup for all promotional activities.
+- Product Materials: Preparing all sales and marketing materials related to In-Sync, subject to In-Sync's approval.
+- Sales Process: Conducting presentations, product demos, and client meetings with the goal of achieving the MBG.
+
+4. MINIMUM BUSINESS GUARANTEE (MBG)
+
+4.1 Partner commits to achieving a minimum number of closures or revenue target over an initial 12-month cycle.
+
+5. REVENUE SHARING MODEL
+
+5.1 Partner shall earn:
+
+Realized Revenue Type                                | Billing Amount | Partner Margin
+New Customer Sales                                   | Upto Rs. 1L    | 40%
+Monthly Recurring Business - License                 | Any Amount     | 30%
+Monthly Recurring Business - Consumption/Transaction | Any Amount     | Actual+
+New Customer Sales                                   | Above Rs. 1L   | Additional 5%
+
+5.2 Revenue-sharing will be monitored through regular financial reporting by Partner.
+
+6. SETTLEMENT CYCLE
+
+6.1 Settlements shall occur in 15 day cycles, following the receipt of client revenues.
+
+7. TECHNICAL RESPONSIBILITIES (In-Sync's Role)
+
+7.1 In-Sync shall manage all technical aspects, including:
+- Platform Support: Handling technical queries and product updates.
+- Customization and Implementation: Managing customizations and ensuring client onboarding.
+
+8. COLLECTIONS RESPONSIBILITY
+
+8.1 Partner and In-Sync shall collaborate to ensure efficient collections from clients.
+
+9. FEEDBACK AND REPORTING MECHANISM
+
+9.1 Partner shall provide regular feedback regarding platform performance and submit monthly performance reports.
+
+10. COMMITMENT TO SCALE
+
+10.1 Partner commits to scaling business with In-Sync, expanding market outreach, and increasing closures beyond the MBG in subsequent cycles.
+
+11. TENURE
+
+11.1 This Agreement shall continue until terminated by either party with written notice.
+
+IN WITNESS WHEREOF, the parties hereto have executed this Agreement as of the date first above written.
+
+[CompanyName]
+By: ___________________________
+Name: [PartnerName]
+Title: 
+Date: [SystemDate]
+
+ECR Technical Innovations Pvt Ltd (In-Sync)
+By: ___________________________
+Name: Amit Sengupta
+Title: Director
+Date: [SystemDate]
+
+COMMERCIAL INFORMATION
+
+Partner Details:
 Contact: [ContactNumber]
 Email: [Email]
 PAN: [PanNumber]
 GST: [GstNumber]
-Address: [Address]
+Proposed Territory: [ProposedTerritory]
+
+Bank Account Details for Payouts:
+Account Holder Name: [AccountHolderName]
+Bank Name: [BankName]
+Account Number: [AccountNumber]
+IFSC Code: [IfscCode]
+
+Any Special Commercial Terms: [SpecialTerms]`
+
+const INTERNATIONAL_AGREEMENT_TEMPLATE = `DISTRIBUTION CHANNEL PARTNERSHIP MOU
+
+This Distribution Channel Partnership MOU (the "MOU") is made and entered into as of [SystemDate], by and between:
+
+[PartnerName]
+[CompanyName]
+[Address]
+(referred to as "Partner")
 
 and
 
-In-Sync: ECR Technical Innovations Pvt Ltd
-Address: C042C, 4th Floor, DLF Phase 4, Gurugram, Haryana 122002
+ECR Technical Innovations Pvt Ltd
+C042C, 4th Floor, DLF Phase 4, Gurugram, Haryana 122002
+(referred to as "In-Sync")
 
-1. Appointment
+WHEREAS, Partner has agreed to act as a preferred partner for In-Sync's distribution channel, and
+WHEREAS, both parties wish to establish a framework for their partnership,
 
-In-Sync appoints Partner as a non-exclusive channel partner to promote and sell the In-Sync platform.
+NOW, THEREFORE, in consideration of the mutual covenants and promises herein contained, the parties hereby agree as follows:
 
-2. Revenue Sharing
+1. OVERVIEW
 
-Partner will earn commissions as per the standard rates detailed in Annexure.
+1.1 Partner is appointed as a preferred partner for In-Sync's distribution channel in the open market, inclusive of MSMEs.
 
-Payments will be made after receipt of customer payments by In-Sync.
+1.2 Partner has sufficient understanding of the In-Sync platform, enabling effective promotion and support.
 
-3. Roles & Responsibilities
+1.3 The partnership will follow a build-scale model with a Minimum Business Guarantee (MBG) to ensure committed growth.
 
-Partner: Marketing, lead generation, and client acquisition.
+2. PAYOUTS
 
-In-Sync: Product delivery, onboarding, support, and updates.
+2.1 Partner's earnings shall consist of:
 
-4. Term & Termination
+One-time Setup Earnings: Partner shall receive 40% of the setup cost per closure.
+Monthly Recurring Earnings: Partner shall earn 30% of the monthly recurring fee per closure.
 
-This Agreement is valid for 12 months from the date of signing and will auto-renew annually unless terminated.
+Realized Revenue Type                                | Billing Amount | Partner Margin
+One-time Setup                                       | Upto 5k USD    | 40%
+Monthly Recurring Business - License                 | Any Amount     | 30%
+Monthly Recurring Business - Consumption/Transaction | Any Amount     | Actual+
 
-Either party may terminate with 30 days' written notice.
+3. MARKETING AND SALES RESPONSIBILITIES
 
-5. Confidentiality
+3.1 Partner shall have full ownership of marketing and sales efforts to promote In-Sync, which includes:
+- Complete Marketing Responsibility: Utilizing Partner's existing marketing setup for all promotional activities.
+- Product Materials: Preparing all sales and marketing materials related to In-Sync, subject to In-Sync's approval.
+- Sales Process: Conducting presentations, product demos, and client meetings with the goal of achieving the MBG.
 
-Both parties agree to maintain confidentiality of shared business and technical information.
+4. MINIMUM BUSINESS GUARANTEE (MBG)
 
-6. Legal Terms
+4.1 Partner commits to achieving a minimum number of closures or revenue target over an initial 12-month cycle.
 
-Relationship: Independent contractors; no joint venture or agency.
+5. REVENUE SHARING MODEL
 
-Governing Law: Indian law; disputes to be resolved by arbitration in Gurugram.
+5.1 Partner shall earn:
 
-Signatures
+Realized Revenue Type                                | Billing Amount | Partner Margin
+New Customer Sales                                   | Upto 5k USD    | 40%
+Monthly Recurring Business - License                 | Any Amount     | 30%
+Monthly Recurring Business - Consumption/Transaction | Any Amount     | Actual+
+New Customer Sales                                   | Above 5k USD   | Additional 5%
 
-Partner
-By: [Signer1 Signature]
+5.2 Revenue-sharing will be monitored through regular financial reporting by Partner.
+
+6. SETTLEMENT CYCLE
+
+6.1 Settlements shall occur in 15 day cycles, following the receipt of client revenues.
+
+7. TECHNICAL RESPONSIBILITIES (In-Sync's Role)
+
+7.1 In-Sync shall manage all technical aspects, including:
+- Platform Support: Handling technical queries and product updates.
+- Customization and Implementation: Managing customizations and ensuring client onboarding.
+
+8. COLLECTIONS RESPONSIBILITY
+
+8.1 Partner and In-Sync shall collaborate to ensure efficient collections from clients.
+
+9. FEEDBACK AND REPORTING MECHANISM
+
+9.1 Partner shall provide regular feedback regarding platform performance and submit monthly performance reports.
+
+10. COMMITMENT TO SCALE
+
+10.1 Partner commits to scaling business with In-Sync, expanding market outreach, and increasing closures beyond the MBG in subsequent cycles.
+
+11. TENURE
+
+11.1 This Agreement shall continue until terminated by either party with written notice.
+
+IN WITNESS WHEREOF, the parties hereto have executed this Agreement as of the date first above written.
+
+[CompanyName]
+By: ___________________________
 Name: [PartnerName]
-Company: [CompanyName]
-Date: [Signer1 DateSigned]
+Title: 
+Date: [SystemDate]
 
 ECR Technical Innovations Pvt Ltd (In-Sync)
-By: [Signer2 Signature]
+By: ___________________________
 Name: Amit Sengupta
 Title: Director
-Date: [Signer2 DateSigned]
+Date: [SystemDate]
 
-Annexure – Commercial Information Form
+COMMERCIAL INFORMATION
 
+Partner Details:
+Contact: [ContactNumber]
+Email: [Email]
+PAN: [PanNumber]
+GST: [GstNumber]
 Proposed Territory: [ProposedTerritory]
 
-Commission % on Setup Fees: 40% (Standard, Locked)
-
-Commission % on Recurring Revenue: 30% (Standard, Locked)
-
-Payment Settlement Cycle: Monthly on banked revenues, settled by the 10th of the next month (Standard, Locked)
-
 Bank Account Details for Payouts:
-
 Account Holder Name: [AccountHolderName]
-
 Bank Name: [BankName]
-
 Account Number: [AccountNumber]
-
 IFSC Code: [IfscCode]
 
 Any Special Commercial Terms: [SpecialTerms]`
@@ -150,14 +305,20 @@ serve(async (req) => {
     // Generate agreement content by replacing placeholders
     const currentDate = new Date().toLocaleDateString('en-GB')
     
-    let agreementContent = AGREEMENT_TEMPLATE
+    // Determine which template to use based on territory
+    const isInternational = partnership.proposed_territory && 
+      !partnership.proposed_territory.toLowerCase().includes('india')
+    
+    const selectedTemplate = isInternational ? INTERNATIONAL_AGREEMENT_TEMPLATE : INDIA_AGREEMENT_TEMPLATE
+    
+    let agreementContent = selectedTemplate
       .replace(/\[SystemDate\]/g, currentDate)
       .replace(/\[PartnerName\]/g, partnership.full_name)
-      .replace(/\[CompanyName\]/g, partnership.company_name || '')
+      .replace(/\[CompanyName\]/g, partnership.company_name || partnership.full_name)
       .replace(/\[ContactNumber\]/g, partnership.contact_number)
       .replace(/\[Email\]/g, partnership.email)
       .replace(/\[PanNumber\]/g, partnership.pan_number)
-      .replace(/\[GstNumber\]/g, partnership.gst_number || '')
+      .replace(/\[GstNumber\]/g, partnership.gst_number || 'N/A')
       .replace(/\[Address\]/g, partnership.address)
       .replace(/\[ProposedTerritory\]/g, partnership.proposed_territory)
       .replace(/\[AccountHolderName\]/g, partnership.account_holder_name)

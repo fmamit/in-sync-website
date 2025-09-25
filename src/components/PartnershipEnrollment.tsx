@@ -5,6 +5,7 @@ import * as z from "zod";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
@@ -22,7 +23,9 @@ const partnershipSchema = z.object({
   address: z.string().min(10, "Complete address is required"),
   
   // Commercial Information
-  proposedTerritory: z.string().default("India"),
+  proposedTerritory: z.enum(["India", "International"], {
+    required_error: "Territory selection is required",
+  }),
   accountHolderName: z.string().min(2, "Account holder name is required"),
   bankName: z.string().min(2, "Bank name is required"),
   accountNumber: z.string().min(8, "Valid account number is required"),
@@ -345,10 +348,20 @@ export default function PartnershipEnrollment({ onSuccess }: PartnershipEnrollme
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Proposed Territory</FormLabel>
-                      <FormControl>
-                        <Input placeholder="India" {...field} />
-                      </FormControl>
-                      <FormDescription>Geographic area you plan to operate in</FormDescription>
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select territory" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="India">India</SelectItem>
+                          <SelectItem value="International">International</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <FormDescription>
+                        Territory determines agreement terms and billing currency
+                      </FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}
