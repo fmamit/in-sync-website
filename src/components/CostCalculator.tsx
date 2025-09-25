@@ -148,7 +148,7 @@ const CostCalculator = ({ className = "" }: CostCalculatorProps) => {
                     <TabsTrigger value="monthly">Monthly</TabsTrigger>
                     <TabsTrigger value="annual">
                       Annual
-                      <Badge variant="secondary" className="ml-2 text-xs">-4%</Badge>
+                      <Badge variant="secondary" className="ml-2 text-xs">-17%</Badge>
                     </TabsTrigger>
                   </TabsList>
                 </Tabs>
