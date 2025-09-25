@@ -159,9 +159,6 @@ const CRMShowcase = () => {
                   <Play className="w-4 h-4 mr-2" />
                   Watch Live Demo
                 </Button>
-                <Button variant="outline" size="lg">
-                  Start Free Trial
-                </Button>
               </div>
             </div>
 

@@ -171,13 +171,6 @@ const IndustryResults = () => {
                 </Button>
               }
             />
-            <Button 
-              variant="outline" 
-              size="lg" 
-              className="border border-border text-foreground hover:bg-accent font-medium px-8 py-4 rounded-xl"
-            >
-              Start Free Trial
-            </Button>
           </div>
           
           <div className="flex items-center justify-center gap-6 text-sm text-muted-foreground">
