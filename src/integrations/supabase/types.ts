@@ -56,12 +56,234 @@ export type Database = {
         }
         Relationships: []
       }
+      onboarding_applications: {
+        Row: {
+          accent_color: string | null
+          access_control_level: string | null
+          apis_required: string | null
+          application_id: string | null
+          assigned_account_manager: string | null
+          backup_preferences: string | null
+          branding_guidelines: string | null
+          calling_channels: string | null
+          calling_features: string[] | null
+          calling_service: boolean | null
+          calling_users: string | null
+          company_address: string | null
+          company_name: string
+          compliance_requirements: string | null
+          contact_person_email: string | null
+          contact_person_mobile: string | null
+          contact_person_name: string | null
+          created_at: string
+          custom_theme: string | null
+          data_migration: boolean | null
+          date_of_signing: string | null
+          effective_date: string | null
+          email: string
+          email_domain: string | null
+          email_requirements: string | null
+          email_service: boolean | null
+          estimated_setup_time: string | null
+          existing_systems: string | null
+          feature_requests: string | null
+          go_live_date: string | null
+          gst_number: string | null
+          id: string
+          inbound_email: string | null
+          industry_type: string | null
+          inventory_features: string[] | null
+          inventory_module: boolean | null
+          inventory_other: string | null
+          logo_path: string | null
+          logo_specs: string | null
+          master_data: string[] | null
+          master_data_details: string | null
+          master_data_other: string | null
+          meta_business_id: string | null
+          migration_system: string | null
+          outbound_email: string | null
+          pan_number: string | null
+          phone: string | null
+          place_of_signing: string | null
+          primary_color: string | null
+          priority_level: string | null
+          registered_address: string | null
+          secondary_color: string | null
+          signatory_designation: string | null
+          signatory_name: string | null
+          signature_date: string | null
+          sms_other: string | null
+          sms_service: boolean | null
+          sms_use_cases: string[] | null
+          sms_volume: string | null
+          special_requirements: string | null
+          status: string | null
+          support_level: string | null
+          total_users: string | null
+          training_requirements: string | null
+          updated_at: string
+          user_details: Json | null
+          whatsapp_number: string | null
+          whatsapp_other: string | null
+          whatsapp_service: boolean | null
+          whatsapp_use: string[] | null
+        }
+        Insert: {
+          accent_color?: string | null
+          access_control_level?: string | null
+          apis_required?: string | null
+          application_id?: string | null
+          assigned_account_manager?: string | null
+          backup_preferences?: string | null
+          branding_guidelines?: string | null
+          calling_channels?: string | null
+          calling_features?: string[] | null
+          calling_service?: boolean | null
+          calling_users?: string | null
+          company_address?: string | null
+          company_name: string
+          compliance_requirements?: string | null
+          contact_person_email?: string | null
+          contact_person_mobile?: string | null
+          contact_person_name?: string | null
+          created_at?: string
+          custom_theme?: string | null
+          data_migration?: boolean | null
+          date_of_signing?: string | null
+          effective_date?: string | null
+          email: string
+          email_domain?: string | null
+          email_requirements?: string | null
+          email_service?: boolean | null
+          estimated_setup_time?: string | null
+          existing_systems?: string | null
+          feature_requests?: string | null
+          go_live_date?: string | null
+          gst_number?: string | null
+          id?: string
+          inbound_email?: string | null
+          industry_type?: string | null
+          inventory_features?: string[] | null
+          inventory_module?: boolean | null
+          inventory_other?: string | null
+          logo_path?: string | null
+          logo_specs?: string | null
+          master_data?: string[] | null
+          master_data_details?: string | null
+          master_data_other?: string | null
+          meta_business_id?: string | null
+          migration_system?: string | null
+          outbound_email?: string | null
+          pan_number?: string | null
+          phone?: string | null
+          place_of_signing?: string | null
+          primary_color?: string | null
+          priority_level?: string | null
+          registered_address?: string | null
+          secondary_color?: string | null
+          signatory_designation?: string | null
+          signatory_name?: string | null
+          signature_date?: string | null
+          sms_other?: string | null
+          sms_service?: boolean | null
+          sms_use_cases?: string[] | null
+          sms_volume?: string | null
+          special_requirements?: string | null
+          status?: string | null
+          support_level?: string | null
+          total_users?: string | null
+          training_requirements?: string | null
+          updated_at?: string
+          user_details?: Json | null
+          whatsapp_number?: string | null
+          whatsapp_other?: string | null
+          whatsapp_service?: boolean | null
+          whatsapp_use?: string[] | null
+        }
+        Update: {
+          accent_color?: string | null
+          access_control_level?: string | null
+          apis_required?: string | null
+          application_id?: string | null
+          assigned_account_manager?: string | null
+          backup_preferences?: string | null
+          branding_guidelines?: string | null
+          calling_channels?: string | null
+          calling_features?: string[] | null
+          calling_service?: boolean | null
+          calling_users?: string | null
+          company_address?: string | null
+          company_name?: string
+          compliance_requirements?: string | null
+          contact_person_email?: string | null
+          contact_person_mobile?: string | null
+          contact_person_name?: string | null
+          created_at?: string
+          custom_theme?: string | null
+          data_migration?: boolean | null
+          date_of_signing?: string | null
+          effective_date?: string | null
+          email?: string
+          email_domain?: string | null
+          email_requirements?: string | null
+          email_service?: boolean | null
+          estimated_setup_time?: string | null
+          existing_systems?: string | null
+          feature_requests?: string | null
+          go_live_date?: string | null
+          gst_number?: string | null
+          id?: string
+          inbound_email?: string | null
+          industry_type?: string | null
+          inventory_features?: string[] | null
+          inventory_module?: boolean | null
+          inventory_other?: string | null
+          logo_path?: string | null
+          logo_specs?: string | null
+          master_data?: string[] | null
+          master_data_details?: string | null
+          master_data_other?: string | null
+          meta_business_id?: string | null
+          migration_system?: string | null
+          outbound_email?: string | null
+          pan_number?: string | null
+          phone?: string | null
+          place_of_signing?: string | null
+          primary_color?: string | null
+          priority_level?: string | null
+          registered_address?: string | null
+          secondary_color?: string | null
+          signatory_designation?: string | null
+          signatory_name?: string | null
+          signature_date?: string | null
+          sms_other?: string | null
+          sms_service?: boolean | null
+          sms_use_cases?: string[] | null
+          sms_volume?: string | null
+          special_requirements?: string | null
+          status?: string | null
+          support_level?: string | null
+          total_users?: string | null
+          training_requirements?: string | null
+          updated_at?: string
+          user_details?: Json | null
+          whatsapp_number?: string | null
+          whatsapp_other?: string | null
+          whatsapp_service?: boolean | null
+          whatsapp_use?: string[] | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      generate_application_id: {
+        Args: Record<PropertyKey, never>
+        Returns: string
+      }
     }
     Enums: {
       [_ in never]: never
