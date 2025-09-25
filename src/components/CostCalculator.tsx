@@ -42,17 +42,17 @@ const CostCalculator = ({ className = "" }: CostCalculatorProps) => {
     },
     growth: {
       name: "Growth", 
-      price: { monthly: 12999, annual: 124790 },
+      price: { monthly: 12999, annual: 129470 },
       records: "10K - 1L"
     },
     scale: {
       name: "Scale",
-      price: { monthly: 37999, annual: 364790 },
+      price: { monthly: 37999, annual: 378710 },
       records: "1L - 5L"
     },
     enterprise: {
       name: "Enterprise",
-      price: { monthly: 75000, annual: 720000 },
+      price: { monthly: 75000, annual: 747000 },
       records: "5L+"
     }
   };
