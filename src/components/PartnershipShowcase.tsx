@@ -15,10 +15,17 @@ interface PartnershipShowcaseProps {
 
 const partners = [
   { name: "LeadKwik", logo: leadkwikLogo, industry: "Lead Generation", status: "Active" },
+  { name: "Cube Creations", logo: "", industry: "Creative Services", status: "Active" },
+  { name: "Neo Infotech", logo: "", industry: "Technology", status: "Active" },
+  { name: "JK", logo: "", industry: "Business Solutions", status: "Active" },
+  { name: "PentaXelec Electronics", logo: "", industry: "Electronics", status: "Active" },
+  { name: "Contact ABC", logo: "", industry: "Contact Solutions", status: "Active" },
+  { name: "Sprout Strategists", logo: "", industry: "Strategy & Consulting", status: "Active" },
+  { name: "OPC", logo: "", industry: "Operations", status: "Active" },
 ];
 
 const stats = [
-  { label: "Active Partners", value: "1+", icon: Users },
+  { label: "Active Partners", value: "8+", icon: Users },
   { label: "Industries Served", value: "15+", icon: Award },
   { label: "Average Growth", value: "40%", icon: TrendingUp },
   { label: "Success Rate", value: "95%", icon: Handshake },
@@ -89,11 +96,19 @@ export default function PartnershipShowcase({ onEnrollmentSuccess }: Partnership
               <Card key={index} className="group hover:shadow-lg transition-shadow">
                 <CardContent className="p-6 text-center space-y-4">
                   <div className="h-16 flex items-center justify-center">
-                    <img 
-                      src={partner.logo} 
-                      alt={partner.name}
-                      className="max-h-12 max-w-full object-contain group-hover:scale-110 transition-transform"
-                    />
+                    {partner.logo ? (
+                      <img 
+                        src={partner.logo} 
+                        alt={partner.name}
+                        className="max-h-12 max-w-full object-contain group-hover:scale-110 transition-transform"
+                      />
+                    ) : (
+                      <div className="h-12 w-12 bg-primary/10 rounded-full flex items-center justify-center">
+                        <span className="text-primary font-semibold text-lg">
+                          {partner.name.charAt(0)}
+                        </span>
+                      </div>
+                    )}
                   </div>
                   <div>
                     <h3 className="font-semibold text-foreground">{partner.name}</h3>
