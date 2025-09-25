@@ -59,8 +59,6 @@ const CostCalculator = ({ className = "" }: CostCalculatorProps) => {
 
   const addOnModules = [
     { id: "analytics", name: "Advanced Analytics", price: 1000, icon: TrendingUp },
-    { id: "workflow", name: "Custom APIs", price: 1000, icon: Wrench },
-    { id: "api", name: "API Access & Webhooks", price: 1000, icon: Zap },
     { id: "fieldforce", name: "Field Force Management", price: 1000, icon: Users }
   ];
 
