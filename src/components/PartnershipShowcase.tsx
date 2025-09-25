@@ -8,18 +8,6 @@ import PartnershipEnrollment from "./PartnershipEnrollment";
 
 // Partner logos - using the existing asset imports
 import leadkwikLogo from "@/assets/leadkwik-logo.png";
-import capitalIndiaLogo from "@/assets/capital-india-logo-transparent.png";
-import ecoFyLogo from "@/assets/ecofy-logo.svg";
-import evcoLogo from "@/assets/evco-logo-transparent.png";
-import ezeepayLogo from "@/assets/ezeepay-logo.png";
-import growthvineLogo from "@/assets/growthvine-logo.jpeg";
-import hiranandaniLogo from "@/assets/hiranandani-logo.png";
-import incredLogo from "@/assets/incred-logo-transparent.png";
-import mothersonLogo from "@/assets/motherson-logo.jpg";
-import questLogo from "@/assets/quess-logo.png";
-import redefineLogo from "@/assets/redefine-logo.png";
-import seedsLogo from "@/assets/seeds-logo.png";
-import uhcLogo from "@/assets/uhc-logo.png";
 
 interface PartnershipShowcaseProps {
   onEnrollmentSuccess?: (data: { partnershipId: string }) => void;
@@ -27,22 +15,10 @@ interface PartnershipShowcaseProps {
 
 const partners = [
   { name: "LeadKwik", logo: leadkwikLogo, industry: "Lead Generation", status: "Active" },
-  { name: "Capital India", logo: capitalIndiaLogo, industry: "Finance", status: "Active" },
-  { name: "EcoFy", logo: ecoFyLogo, industry: "Fintech", status: "Active" },
-  { name: "EVCO", logo: evcoLogo, industry: "Electric Vehicles", status: "Active" },
-  { name: "Ezeepay", logo: ezeepayLogo, industry: "Payments", status: "Active" },
-  { name: "Growthvine", logo: growthvineLogo, industry: "Marketing", status: "Active" },
-  { name: "Hiranandani", logo: hiranandaniLogo, industry: "Real Estate", status: "Active" },
-  { name: "InCred", logo: incredLogo, industry: "Finance", status: "Active" },
-  { name: "Motherson", logo: mothersonLogo, industry: "Manufacturing", status: "Active" },
-  { name: "Quess", logo: questLogo, industry: "HR Services", status: "Active" },
-  { name: "Redefine", logo: redefineLogo, industry: "Real Estate", status: "Active" },
-  { name: "Seeds", logo: seedsLogo, industry: "Ventures", status: "Active" },
-  { name: "UHC", logo: uhcLogo, industry: "Healthcare", status: "Active" },
 ];
 
 const stats = [
-  { label: "Active Partners", value: "50+", icon: Users },
+  { label: "Active Partners", value: "1+", icon: Users },
   { label: "Industries Served", value: "15+", icon: Award },
   { label: "Average Growth", value: "40%", icon: TrendingUp },
   { label: "Success Rate", value: "95%", icon: Handshake },
