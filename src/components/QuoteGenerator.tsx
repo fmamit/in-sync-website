@@ -367,15 +367,67 @@ Contact: sunita.negi@in-sync.co.in | +91 82870 83502`);
       return;
     }
 
-    const { subject, body } = generateEmailBody();
-    const mailtoLink = `mailto:${clientEmail}?subject=${subject}&body=${body}`;
-    window.open(mailtoLink);
-    setIsEmailDialogOpen(false);
-    
-    toast({
-      title: "Email Prepared",
-      description: "Your default email client should open with the detailed quotation ready to send.",
-    });
+    try {
+      const { subject, body } = generateEmailBody();
+      const mailtoLink = `mailto:${clientEmail}?subject=${subject}&body=${body}`;
+      
+      // Check if URL is too long (most email clients limit to ~2000 characters)
+      if (mailtoLink.length > 2000) {
+        // Fallback: copy to clipboard and show instructions
+        navigator.clipboard.writeText(decodeURIComponent(body)).then(() => {
+          toast({
+            title: "Email Content Copied",
+            description: "The quotation has been copied to your clipboard. Please paste it into your email client.",
+            duration: 7000,
+          });
+        }).catch(() => {
+          toast({
+            title: "Please Copy Manually",
+            description: "Please copy the quotation from the dialog that will open.",
+            duration: 5000,
+          });
+        });
+        
+        // Keep dialog open to show content
+        return;
+      }
+      
+      // Try to open email client
+      const newWindow = window.open(mailtoLink);
+      
+      // Check if popup was blocked
+      if (!newWindow || newWindow.closed || typeof newWindow.closed == 'undefined') {
+        // Fallback: copy to clipboard
+        navigator.clipboard.writeText(decodeURIComponent(body)).then(() => {
+          toast({
+            title: "Popup Blocked - Content Copied",
+            description: "Your browser blocked the email popup, but the content was copied to clipboard.",
+            duration: 7000,
+          });
+        }).catch(() => {
+          toast({
+            title: "Unable to Open Email",
+            description: "Please copy the quotation manually from this dialog.",
+            duration: 5000,
+          });
+        });
+        return;
+      }
+      
+      setIsEmailDialogOpen(false);
+      toast({
+        title: "Email Client Opened",
+        description: "Your email client should now be open with the quotation.",
+      });
+      
+    } catch (error) {
+      console.log('Email error:', error);
+      toast({
+        title: "Email Error",
+        description: "Unable to open email client. Please copy the quotation manually.",
+        variant: "destructive",
+      });
+    }
   };
 
   return (
