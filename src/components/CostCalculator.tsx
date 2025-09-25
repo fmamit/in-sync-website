@@ -73,7 +73,7 @@ const CostCalculator = ({ className = "" }: CostCalculatorProps) => {
   
   // Communication costs
   const smsCost = smsVolume * 0.12 * (billingCycle === "annual" ? 12 : 1);
-  const whatsappCost = whatsappVolume * 0.05 * (billingCycle === "annual" ? 12 : 1);
+  const whatsappCost = whatsappVolume * 0.85 * (billingCycle === "annual" ? 12 : 1);
   const emailCost = emailVolume * 0.05 * (billingCycle === "annual" ? 12 : 1);
   const callingCost = callingChannels * 1500 * (billingCycle === "annual" ? 12 : 1);
 

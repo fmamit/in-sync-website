@@ -150,7 +150,7 @@ const Pricing = () => {
     {
       name: "WhatsApp Business",
       description: "WhatsApp Business API integration",
-      pricing: "₹0.05",
+      pricing: "₹0.85",
       detail: "Above Meta's published rate per message",
       icon: MessageSquare,
       features: [
