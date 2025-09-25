@@ -312,14 +312,19 @@ Looking forward to your feedback.`);
       return;
     }
 
+    // First download the PDF
+    downloadPDF();
+    
+    // Then prepare the email
     const { subject, body } = generateEmailBody();
     const mailtoLink = `mailto:${clientEmail}?subject=${subject}&body=${body}`;
     window.open(mailtoLink);
     setIsEmailDialogOpen(false);
     
     toast({
-      title: "Email Prepared",
-      description: "Your default email client should open with the quote ready to send.",
+      title: "Email Prepared & PDF Downloaded",
+      description: "The quotation PDF has been downloaded. Please attach it to the email that just opened.",
+      duration: 5000,
     });
   };
 
