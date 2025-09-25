@@ -17,7 +17,9 @@ import {
   TrendingUp,
   Info,
   Download,
-  Wrench
+  Wrench,
+  FileText,
+  Settings
 } from "lucide-react";
 
 interface CostCalculatorProps {
@@ -28,6 +30,7 @@ const CostCalculator = ({ className = "" }: CostCalculatorProps) => {
   const [selectedPlan, setSelectedPlan] = useState<"starter" | "growth" | "scale" | "enterprise">("growth");
   const [billingCycle, setBillingCycle] = useState<"monthly" | "annual">("monthly");
   const [moduleQuantities, setModuleQuantities] = useState<Record<string, number>>({});
+  const [oneTimeQuantities, setOneTimeQuantities] = useState<Record<string, number>>({});
   const [smsVolume, setSmsVolume] = useState<number>(1000);
   const [whatsappVolume, setWhatsappVolume] = useState<number>(500);
   const [emailVolume, setEmailVolume] = useState<number>(2000);
@@ -62,6 +65,13 @@ const CostCalculator = ({ className = "" }: CostCalculatorProps) => {
     { id: "fieldforce", name: "Field Force Management", price: 1000, icon: Users }
   ];
 
+  const oneTimeServices = [
+    { id: "standard_api", name: "Standard API Integration", price: 10000, icon: Wrench },
+    { id: "custom_api", name: "Custom API/Webhook", price: 25000, icon: Zap },
+    { id: "custom_reports", name: "Custom Reports", price: 5000, icon: FileText },
+    { id: "customizations", name: "Customizations", price: 6000, icon: Settings, unit: "per man day" }
+  ];
+
   // Pricing calculations
   const basePlanCost = plans[selectedPlan].price[billingCycle];
   const modulesCost = Object.entries(moduleQuantities).reduce((total, [moduleId, quantity]) => {
@@ -75,9 +85,15 @@ const CostCalculator = ({ className = "" }: CostCalculatorProps) => {
   const emailCost = emailVolume * 0.05 * (billingCycle === "annual" ? 12 : 1);
   const callingCost = callingChannels * 1500 * (billingCycle === "annual" ? 12 : 1);
 
+  // One-time services costs
+  const oneTimeCost = Object.entries(oneTimeQuantities).reduce((total, [serviceId, quantity]) => {
+    const service = oneTimeServices.find(s => s.id === serviceId);
+    return total + (service ? service.price * quantity : 0);
+  }, 0);
+
   const subtotal = basePlanCost + modulesCost + smsCost + whatsappCost + emailCost + callingCost;
   const annualDiscount = billingCycle === "annual" && subtotal > 0 ? subtotal * 0.17 : 0; // 17% annual discount
-  const totalCost = subtotal - annualDiscount;
+  const totalCost = subtotal - annualDiscount + oneTimeCost;
 
   // Prepare quote data for generation
   const quoteData = {
@@ -97,6 +113,12 @@ const CostCalculator = ({ className = "" }: CostCalculatorProps) => {
     emailCost,
     callingChannels,
     callingCost,
+    selectedOneTimeServices: Object.entries(oneTimeQuantities).filter(([_, qty]) => qty > 0).map(([id, qty]) => ({
+      name: oneTimeServices.find(s => s.id === id)?.name || id,
+      quantity: qty,
+      unit: oneTimeServices.find(s => s.id === id)?.unit || "unit"
+    })),
+    oneTimeCost,
     subtotal,
     discount: annualDiscount,
     totalCost,
@@ -111,6 +133,13 @@ const CostCalculator = ({ className = "" }: CostCalculatorProps) => {
     setModuleQuantities(prev => ({
       ...prev,
       [moduleId]: Math.max(0, quantity)
+    }));
+  };
+
+  const handleOneTimeQuantityChange = (serviceId: string, quantity: number) => {
+    setOneTimeQuantities(prev => ({
+      ...prev,
+      [serviceId]: Math.max(0, quantity)
     }));
   };
 
@@ -248,6 +277,48 @@ const CostCalculator = ({ className = "" }: CostCalculatorProps) => {
                           max="100"
                           value={moduleQuantities[module.id] || 0}
                           onChange={(e) => handleModuleQuantityChange(module.id, parseInt(e.target.value) || 0)}
+                          className="w-20"
+                          placeholder="0"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* One-Time Services */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Settings className="w-5 h-5" />
+                One-Time Services
+              </CardTitle>
+              <CardDescription>
+                Professional services and custom development work
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {oneTimeServices.map((service) => (
+                  <div key={service.id} className="flex items-center space-x-3 p-3 border rounded-lg">
+                    <div className="flex-1">
+                      <Label htmlFor={service.id} className="font-medium">
+                        {service.name}
+                      </Label>
+                      <div className="text-sm text-muted-foreground mb-2">
+                        {formatCurrency(service.price)}{service.unit ? ` ${service.unit}` : ' one-time'}
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <Label htmlFor={`${service.id}-qty`} className="text-sm">Quantity:</Label>
+                        <Input
+                          id={`${service.id}-qty`}
+                          type="number"
+                          min="0"
+                          max="100"
+                          value={oneTimeQuantities[service.id] || 0}
+                          onChange={(e) => handleOneTimeQuantityChange(service.id, parseInt(e.target.value) || 0)}
                           className="w-20"
                           placeholder="0"
                         />
@@ -406,6 +477,26 @@ const CostCalculator = ({ className = "" }: CostCalculatorProps) => {
                         <span>{formatCurrency(callingCost)}</span>
                       </div>
                     )}
+                  </div>
+                </>
+              )}
+
+              {/* One-Time Services */}
+              {Object.keys(oneTimeQuantities).some(key => oneTimeQuantities[key] > 0) && (
+                <>
+                  <Separator />
+                  <div className="space-y-2">
+                    <div className="font-medium">One-Time Services</div>
+                    {Object.entries(oneTimeQuantities).filter(([_, qty]) => qty > 0).map(([serviceId, qty]) => {
+                      const service = oneTimeServices.find(s => s.id === serviceId);
+                      const cost = service ? service.price * qty : 0;
+                      return (
+                        <div key={serviceId} className="flex justify-between text-sm">
+                          <span>{service?.name} (x{qty}{service?.unit ? ` ${service.unit}` : ''})</span>
+                          <span>{formatCurrency(cost)}</span>
+                        </div>
+                      );
+                    })}
                   </div>
                 </>
               )}
