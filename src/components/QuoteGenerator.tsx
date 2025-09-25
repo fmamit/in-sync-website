@@ -289,30 +289,15 @@ const QuoteGenerator = ({ quoteData, className = "" }: QuoteGeneratorProps) => {
 
   const generateEmailBody = () => {
     const subject = encodeURIComponent(`In-Sync Cost Quote - ${quoteData.selectedPlan} Plan`);
-    const body = encodeURIComponent(`Dear ${clientName || 'Valued Customer'},
+    const body = encodeURIComponent(`Dear ${clientName || '[Recipient\'s Name]'},
 
-Thank you for your interest in In-Sync! Here's your personalized cost quote:
+Thank you for considering In-Sync, our unified customer engagement and operations platform. Please find attached the quotation as requested, detailing the proposed solution, scope, and commercial terms.
 
-QUOTE DETAILS:
-- Plan: ${quoteData.selectedPlan} Plan
-- Billing: ${quoteData.billingCycle === 'monthly' ? 'Monthly' : 'Annual'}
-- Team Size: ${quoteData.teamSize} users
-- Total Cost: ${formatCurrency(quoteData.totalCost)} ${quoteData.billingCycle === 'monthly' ? '/month' : '/year'}
+In-Sync is designed to streamline customer communication, automate workflows, and enhance operational efficiency across messaging, campaigns, field team management, and ticketing. We believe this solution will help your team achieve faster response times, improved customer satisfaction, and measurable business growth.
 
-KEY BENEFITS:
-✓ Unlimited Users - No per-seat pricing
-✓ 30-Day Free Trial - Test all features risk-free
-✓ 24/7 Support - Round-the-clock assistance
-✓ 99.9% Uptime - Guaranteed reliability
+Should you have any questions or require clarifications, please feel free to reach out. I'd be glad to walk you through the proposal or arrange a quick discussion at your convenience.
 
-${notes ? `\nADDITIONAL NOTES:\n${notes}` : ''}
-
-Ready to get started? Let's schedule a demo to show you how In-Sync can transform your business operations.
-
-Best regards,
-In-Sync Team
-
-Contact: sunita.negi@in-sync.co.in | +91 82870 83502`);
+Looking forward to your feedback.`);
     
     return { subject, body };
   };
