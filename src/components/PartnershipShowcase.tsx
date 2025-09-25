@@ -6,40 +6,11 @@ import { Badge } from "@/components/ui/badge";
 import { Users, Award, TrendingUp, Handshake, Plus } from "lucide-react";
 import PartnershipEnrollment from "./PartnershipEnrollment";
 
-// Partner logos - using the existing asset imports
-import leadkwikLogo from "@/assets/leadkwik-logo.png";
-import capitalIndiaLogo from "@/assets/capital-india-logo-transparent.png";
-import ecoFyLogo from "@/assets/ecofy-logo.svg";
-import evcoLogo from "@/assets/evco-logo-transparent.png";
-import ezeepayLogo from "@/assets/ezeepay-logo.png";
-import growthvineLogo from "@/assets/growthvine-logo.jpeg";
-import hiranandaniLogo from "@/assets/hiranandani-logo.png";
-import incredLogo from "@/assets/incred-logo-transparent.png";
-import mothersonLogo from "@/assets/motherson-logo.jpg";
-import questLogo from "@/assets/quess-logo.png";
-import redefineLogo from "@/assets/redefine-logo.png";
-import seedsLogo from "@/assets/seeds-logo.png";
-import uhcLogo from "@/assets/uhc-logo.png";
 
 interface PartnershipShowcaseProps {
   onEnrollmentSuccess?: (data: { partnershipId: string }) => void;
 }
 
-const partners = [
-  { name: "LeadKwik", logo: leadkwikLogo, industry: "Lead Generation", status: "Active" },
-  { name: "Capital India", logo: capitalIndiaLogo, industry: "Finance", status: "Active" },
-  { name: "EcoFy", logo: ecoFyLogo, industry: "Fintech", status: "Active" },
-  { name: "EVCO", logo: evcoLogo, industry: "Electric Vehicles", status: "Active" },
-  { name: "Ezeepay", logo: ezeepayLogo, industry: "Payments", status: "Active" },
-  { name: "Growthvine", logo: growthvineLogo, industry: "Marketing", status: "Active" },
-  { name: "Hiranandani", logo: hiranandaniLogo, industry: "Real Estate", status: "Active" },
-  { name: "InCred", logo: incredLogo, industry: "Finance", status: "Active" },
-  { name: "Motherson", logo: mothersonLogo, industry: "Manufacturing", status: "Active" },
-  { name: "Quess", logo: questLogo, industry: "HR Services", status: "Active" },
-  { name: "Redefine", logo: redefineLogo, industry: "Real Estate", status: "Active" },
-  { name: "Seeds", logo: seedsLogo, industry: "Ventures", status: "Active" },
-  { name: "UHC", logo: uhcLogo, industry: "Healthcare", status: "Active" },
-];
 
 const stats = [
   { label: "Active Partners", value: "50+", icon: Users },
@@ -98,40 +69,6 @@ export default function PartnershipShowcase({ onEnrollmentSuccess }: Partnership
         </div>
       </section>
 
-      {/* Partners Grid */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <div className="text-center space-y-4 mb-12">
-            <h2 className="text-3xl font-bold text-foreground">Trusted by Industry Leaders</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Our partners span across various industries, leveraging In-Sync's solutions to drive growth and efficiency
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-            {partners.map((partner, index) => (
-              <Card key={index} className="group hover:shadow-lg transition-shadow">
-                <CardContent className="p-6 text-center space-y-4">
-                  <div className="h-16 flex items-center justify-center">
-                    <img 
-                      src={partner.logo} 
-                      alt={partner.name}
-                      className="max-h-12 max-w-full object-contain group-hover:scale-110 transition-transform"
-                    />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-foreground">{partner.name}</h3>
-                    <p className="text-sm text-muted-foreground">{partner.industry}</p>
-                    <Badge variant="secondary" className="mt-2">
-                      {partner.status}
-                    </Badge>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* Partnership Benefits */}
       <section className="py-16 bg-muted/30">
