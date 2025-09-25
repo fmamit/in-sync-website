@@ -7,7 +7,7 @@ import { Users, Award, TrendingUp, Handshake, Plus } from "lucide-react";
 import PartnershipEnrollment from "./PartnershipEnrollment";
 
 // Partner logos - using the existing asset imports
-import audiLogo from "@/assets/audi-logo.png";
+import leadkwikLogo from "@/assets/leadkwik-logo.png";
 import capitalIndiaLogo from "@/assets/capital-india-logo-transparent.png";
 import ecoFyLogo from "@/assets/ecofy-logo.svg";
 import evcoLogo from "@/assets/evco-logo-transparent.png";
@@ -26,7 +26,7 @@ interface PartnershipShowcaseProps {
 }
 
 const partners = [
-  { name: "Audi", logo: audiLogo, industry: "Automotive", status: "Active" },
+  { name: "LeadKwik", logo: leadkwikLogo, industry: "Lead Generation", status: "Active" },
   { name: "Capital India", logo: capitalIndiaLogo, industry: "Finance", status: "Active" },
   { name: "EcoFy", logo: ecoFyLogo, industry: "Fintech", status: "Active" },
   { name: "EVCO", logo: evcoLogo, industry: "Electric Vehicles", status: "Active" },
