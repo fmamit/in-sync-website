@@ -401,7 +401,8 @@ const Resources = () => {
     tags: "",
     imageUrl: "",
     author: "",
-    readTime: ""
+    readTime: "",
+    publicationDate: ""
   });
   
   // Delete blog state
@@ -454,7 +455,8 @@ const Resources = () => {
       tags: blog.tags.join(", "),
       imageUrl: blog.imageUrl || "",
       author: blog.author,
-      readTime: blog.readTime
+      readTime: blog.readTime,
+      publicationDate: blog.publicationDate || blog.date
     });
     setIsEditDialogOpen(true);
   };
@@ -477,7 +479,8 @@ const Resources = () => {
       tags: editBlogData.tags.split(",").map(tag => tag.trim()).filter(tag => tag),
       imageUrl: editBlogData.imageUrl,
       author: editBlogData.author,
-      readTime: editBlogData.readTime
+      readTime: editBlogData.readTime,
+      publicationDate: editBlogData.publicationDate
     };
 
     const result = await updateBlog(editingBlog.id, updatedBlogData);
@@ -1232,6 +1235,16 @@ const Resources = () => {
                   placeholder="e.g., 5 min read"
                 />
               </div>
+            </div>
+
+            <div>
+              <Label htmlFor="edit-publicationDate">Publication Date</Label>
+              <Input
+                id="edit-publicationDate"
+                type="date"
+                value={editBlogData.publicationDate}
+                onChange={(e) => setEditBlogData({...editBlogData, publicationDate: e.target.value})}
+              />
             </div>
 
             <div>

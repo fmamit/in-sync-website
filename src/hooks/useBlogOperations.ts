@@ -19,6 +19,7 @@ export type BlogPost = {
   geoPlacename?: string
   geoPosition?: string
   icbm?: string
+  publicationDate?: string
   created_at?: string
   updated_at?: string
 }
@@ -77,7 +78,7 @@ export const useBlogOperations = () => {
         excerpt: blog.excerpt,
         content: blog.content,
         author: blog.author,
-        date: blog.created_at?.split('T')[0] || new Date().toISOString().split('T')[0],
+        date: blog.publication_date || blog.created_at?.split('T')[0] || new Date().toISOString().split('T')[0],
         category: blog.category,
         readTime: blog.read_time || '5 min read',
         tags: blog.tags || [],
@@ -87,7 +88,8 @@ export const useBlogOperations = () => {
         geoRegion: blog.geo_region || 'IN',
         geoPlacename: blog.geo_placename || 'India',
         geoPosition: blog.geo_position || '20.5937;78.9629',
-        icbm: blog.icbm || '20.5937, 78.9629'
+        icbm: blog.icbm || '20.5937, 78.9629',
+        publicationDate: blog.publication_date
       }))
     } catch (error) {
       console.error('Error fetching blogs:', error)
@@ -122,7 +124,8 @@ export const useBlogOperations = () => {
           geo_region: blogData.geoRegion,
           geo_placename: blogData.geoPlacename,
           geo_position: blogData.geoPosition,
-          icbm: blogData.icbm
+          icbm: blogData.icbm,
+          publication_date: blogData.publicationDate || new Date().toISOString().split('T')[0]
         })
         .select()
         .single()
@@ -140,7 +143,7 @@ export const useBlogOperations = () => {
         excerpt: data.excerpt,
         content: data.content,
         author: data.author,
-        date: data.created_at?.split('T')[0] || new Date().toISOString().split('T')[0],
+        date: data.publication_date || data.created_at?.split('T')[0] || new Date().toISOString().split('T')[0],
         category: data.category,
         readTime: data.read_time || '5 min read',
         tags: data.tags || [],
@@ -150,7 +153,8 @@ export const useBlogOperations = () => {
         geoRegion: data.geo_region || 'IN',
         geoPlacename: data.geo_placename || 'India',
         geoPosition: data.geo_position || '20.5937;78.9629',
-        icbm: data.icbm || '20.5937, 78.9629'
+        icbm: data.icbm || '20.5937, 78.9629',
+        publicationDate: data.publication_date
       }
     } catch (error) {
       console.error('Error creating blog:', error)
@@ -186,6 +190,7 @@ export const useBlogOperations = () => {
           geo_placename: blogData.geoPlacename,
           geo_position: blogData.geoPosition,
           icbm: blogData.icbm,
+          publication_date: blogData.publicationDate,
           updated_at: new Date().toISOString()
         })
         .eq('id', id)
@@ -205,7 +210,7 @@ export const useBlogOperations = () => {
         excerpt: data.excerpt,
         content: data.content,
         author: data.author,
-        date: data.created_at?.split('T')[0] || new Date().toISOString().split('T')[0],
+        date: data.publication_date || data.created_at?.split('T')[0] || new Date().toISOString().split('T')[0],
         category: data.category,
         readTime: data.read_time || '5 min read',
         tags: data.tags || [],
@@ -215,7 +220,8 @@ export const useBlogOperations = () => {
         geoRegion: data.geo_region || 'IN',
         geoPlacename: data.geo_placename || 'India',
         geoPosition: data.geo_position || '20.5937;78.9629',
-        icbm: data.icbm || '20.5937, 78.9629'
+        icbm: data.icbm || '20.5937, 78.9629',
+        publicationDate: data.publication_date
       }
     } catch (error) {
       console.error('Error updating blog:', error)

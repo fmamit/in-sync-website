@@ -29,6 +29,7 @@ export type Database = {
           image_url: string | null
           meta_description: string | null
           meta_keywords: string | null
+          publication_date: string | null
           read_time: string | null
           tags: string[] | null
           title: string
@@ -48,6 +49,7 @@ export type Database = {
           image_url?: string | null
           meta_description?: string | null
           meta_keywords?: string | null
+          publication_date?: string | null
           read_time?: string | null
           tags?: string[] | null
           title: string
@@ -67,6 +69,7 @@ export type Database = {
           image_url?: string | null
           meta_description?: string | null
           meta_keywords?: string | null
+          publication_date?: string | null
           read_time?: string | null
           tags?: string[] | null
           title?: string
