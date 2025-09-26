@@ -70,7 +70,7 @@ export function useAuth() {
     try {
       // Map user ID to email for Supabase authentication
       const emailMap: { [key: string]: string } = {
-        'asg': 'asg@example.com'
+        'asg': 'a@in-sync.co.in'
       };
       
       const email = emailMap[userId] || userId; // Use mapping or fallback to userId if it's already an email
