@@ -12,7 +12,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Separator } from "@/components/ui/separator";
 import Footer from "@/components/Footer";
 import { getResponseForQuery } from "@/data/faqKnowledgeBase";
-import { useLazyLoading } from "@/hooks/useLazyLoading";
+import { useLazyList } from "@/hooks/useLazyLoad";
 import { useBlogOperations, type BlogPost } from "@/hooks/useBlogOperations";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
@@ -24,7 +24,6 @@ import {
   fetchWhitepapers,
   type WhitepaperData 
 } from "@/utils/whitepaperUpload";
-import { useLazyList } from "@/hooks/useLazyLoad";
 import { ResourceCard } from "@/components/common/BusinessCard";
 import {
   Calendar,
@@ -986,20 +985,21 @@ const Resources = () => {
           )}
         </div>
       }
+      footer={
+        <Button 
+          className="w-full"
+          onClick={() => {
+            if (whitepaper.pdf_url) {
+              window.open(whitepaper.pdf_url, '_blank');
+            }
+          }}
+        >
+          <Download className="h-4 w-4 mr-2" />
+          Download PDF
+        </Button>
+      }
       className="h-full"
-    >
-      <Button 
-        className="w-full mt-4"
-        onClick={() => {
-          if (whitepaper.pdf_url) {
-            window.open(whitepaper.pdf_url, '_blank');
-          }
-        }}
-      >
-        <Download className="h-4 w-4 mr-2" />
-        Download PDF
-      </Button>
-    </ResourceCard>
+    />
   );
 
   const EventCard = ({ event }: { event: any }) => (

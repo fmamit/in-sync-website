@@ -113,6 +113,8 @@ interface OnboardingData {
   status: string;
 }
 
+import { validateEmail, validatePhone, validateField } from "@/utils/validation";
+
 const OnboardingForm = () => {
   const [currentSection, setCurrentSection] = useState(0);
   const [touchedFields, setTouchedFields] = useState<Set<string>>(new Set());
@@ -190,13 +192,9 @@ const OnboardingForm = () => {
   const { toast } = useToast();
   const { submitOnboardingForm, isSubmitting } = useOnboardingOperations();
 
-  const totalSections = 9;
-  const progressPercentage = (currentSection / totalSections) * 100;
-
-  // Email validation function
-  const validateEmail = (email: string): boolean => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
+  // Form validation functions using centralized validation
+  const isEmailValid = (email: string): boolean => {
+    return validateEmail(email).isValid;
   };
 
   // Phone number validation function (supports various international formats)
@@ -279,7 +277,7 @@ const OnboardingForm = () => {
 
     // Show validation toast only for completed fields that are invalid
     if (value && value.trim() !== "") {
-      if (field === "email" && !validateEmail(value)) {
+      if (field === "email" && !isEmailValid(value)) {
         toast({
           title: "Invalid Email Format",
           description: `Please enter a valid email address for user ${index + 1}.`,
