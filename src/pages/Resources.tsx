@@ -410,6 +410,22 @@ const Resources = () => {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [deletingBlog, setDeletingBlog] = useState<BlogPost | null>(null);
   
+  // Edit whitepaper state
+  const [isEditWhitepaperDialogOpen, setIsEditWhitepaperDialogOpen] = useState(false);
+  const [editingWhitepaper, setEditingWhitepaper] = useState<any>(null);
+  const [editWhitepaperData, setEditWhitepaperData] = useState({
+    title: "",
+    description: "",
+    category: "",
+    tags: "",
+    pages: 0,
+    publishDate: ""
+  });
+  
+  // Delete whitepaper state
+  const [isDeleteWhitepaperDialogOpen, setIsDeleteWhitepaperDialogOpen] = useState(false);
+  const [deletingWhitepaper, setDeletingWhitepaper] = useState<any>(null);
+  
   const [faqQuery, setFaqQuery] = useState("");
   const [faqResponse, setFaqResponse] = useState("");
   const [newResourceType, setNewResourceType] = useState("blog");
@@ -511,6 +527,69 @@ const Resources = () => {
         setIsDeleteDialogOpen(false);
         setDeletingBlog(null);
       }
+    }
+  };
+
+  // Edit whitepaper functions
+  const handleEditWhitepaper = (whitepaper: any) => {
+    setEditingWhitepaper(whitepaper);
+    setEditWhitepaperData({
+      title: whitepaper.title,
+      description: whitepaper.description,
+      category: whitepaper.category,
+      tags: whitepaper.tags.join(", "),
+      pages: whitepaper.pages,
+      publishDate: whitepaper.publishDate
+    });
+    setIsEditWhitepaperDialogOpen(true);
+  };
+
+  const handleSaveWhitepaperEdit = async () => {
+    if (!editWhitepaperData.title.trim() || !editWhitepaperData.description.trim() || !editingWhitepaper) {
+      toast({
+        title: "Error",
+        description: "Please fill in all required fields.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    const updatedWhitepaperData = {
+      ...editingWhitepaper,
+      title: editWhitepaperData.title,
+      description: editWhitepaperData.description,
+      category: editWhitepaperData.category,
+      tags: editWhitepaperData.tags.split(",").map(tag => tag.trim()).filter(tag => tag),
+      pages: editWhitepaperData.pages,
+      publishDate: editWhitepaperData.publishDate
+    };
+
+    setWhitepapers(whitepapers.map(wp => wp.id === editingWhitepaper.id ? updatedWhitepaperData : wp));
+    setIsEditWhitepaperDialogOpen(false);
+    setEditingWhitepaper(null);
+    
+    toast({
+      title: "Success",
+      description: "Whitepaper updated successfully!",
+    });
+  };
+
+  // Delete whitepaper functions
+  const handleDeleteWhitepaper = (whitepaper: any) => {
+    setDeletingWhitepaper(whitepaper);
+    setIsDeleteWhitepaperDialogOpen(true);
+  };
+
+  const confirmDeleteWhitepaper = async () => {
+    if (deletingWhitepaper) {
+      setWhitepapers(whitepapers.filter(wp => wp.id !== deletingWhitepaper.id));
+      setIsDeleteWhitepaperDialogOpen(false);
+      setDeletingWhitepaper(null);
+      
+      toast({
+        title: "Success",
+        description: "Whitepaper deleted successfully!",
+      });
     }
   };
 
@@ -836,6 +915,16 @@ const Resources = () => {
             <FileText className="h-4 w-4" />
             <span>{whitepaper.pages} pages</span>
           </div>
+          {user && isAdmin && (
+            <Button
+              size="sm"
+              variant="secondary"
+              className="opacity-0 group-hover:opacity-100 transition-opacity"
+              onClick={() => handleEditWhitepaper(whitepaper)}
+            >
+              <Edit3 className="h-4 w-4" />
+            </Button>
+          )}
         </div>
         <CardTitle className="group-hover:text-primary transition-colors">
           {whitepaper.title}
@@ -855,10 +944,31 @@ const Resources = () => {
           <span>Published: {whitepaper.publishDate}</span>
           <span>{whitepaper.downloadCount} downloads</span>
         </div>
-        <Button className="w-full">
-          <Download className="h-4 w-4 mr-2" />
-          Download PDF
-        </Button>
+        <div className="flex gap-2">
+          <Button className="flex-1">
+            <Download className="h-4 w-4 mr-2" />
+            Download PDF
+          </Button>
+          {user && isAdmin && (
+            <>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => handleEditWhitepaper(whitepaper)}
+              >
+                <Edit3 className="h-4 w-4" />
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => handleDeleteWhitepaper(whitepaper)}
+                className="text-destructive hover:text-destructive hover:bg-destructive/10"
+              >
+                <Trash2 className="h-4 w-4" />
+              </Button>
+            </>
+          )}
+        </div>
       </CardContent>
     </Card>
   );
@@ -1315,6 +1425,113 @@ const Resources = () => {
             </AlertDialogCancel>
             <AlertDialogAction 
               onClick={confirmDeleteBlog}
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+            >
+              Delete
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+        </AlertDialog>
+
+      {/* Edit Whitepaper Dialog */}
+      <Dialog open={isEditWhitepaperDialogOpen} onOpenChange={setIsEditWhitepaperDialogOpen}>
+        <DialogContent className="max-w-2xl">
+          <DialogHeader>
+            <DialogTitle>Edit Whitepaper</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <Label htmlFor="edit-wp-title">Title</Label>
+                <Input
+                  id="edit-wp-title"
+                  value={editWhitepaperData.title}
+                  onChange={(e) => setEditWhitepaperData({...editWhitepaperData, title: e.target.value})}
+                  placeholder="Whitepaper title"
+                />
+              </div>
+              <div>
+                <Label htmlFor="edit-wp-category">Category</Label>
+                <Input
+                  id="edit-wp-category"
+                  value={editWhitepaperData.category}
+                  onChange={(e) => setEditWhitepaperData({...editWhitepaperData, category: e.target.value})}
+                  placeholder="Category"
+                />
+              </div>
+            </div>
+
+            <div>
+              <Label htmlFor="edit-wp-description">Description</Label>
+              <Textarea
+                id="edit-wp-description"
+                value={editWhitepaperData.description}
+                onChange={(e) => setEditWhitepaperData({...editWhitepaperData, description: e.target.value})}
+                placeholder="Brief description..."
+                rows={3}
+              />
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <Label htmlFor="edit-wp-pages">Pages</Label>
+                <Input
+                  id="edit-wp-pages"
+                  type="number"
+                  value={editWhitepaperData.pages}
+                  onChange={(e) => setEditWhitepaperData({...editWhitepaperData, pages: parseInt(e.target.value) || 0})}
+                  placeholder="Number of pages"
+                />
+              </div>
+              <div>
+                <Label htmlFor="edit-wp-publishDate">Publish Date</Label>
+                <Input
+                  id="edit-wp-publishDate"
+                  type="date"
+                  value={editWhitepaperData.publishDate}
+                  onChange={(e) => setEditWhitepaperData({...editWhitepaperData, publishDate: e.target.value})}
+                />
+              </div>
+            </div>
+
+            <div>
+              <Label htmlFor="edit-wp-tags">Tags (comma separated)</Label>
+              <Input
+                id="edit-wp-tags"
+                value={editWhitepaperData.tags}
+                onChange={(e) => setEditWhitepaperData({...editWhitepaperData, tags: e.target.value})}
+                placeholder="tag1, tag2, tag3"
+              />
+            </div>
+
+            <div className="flex gap-4 pt-4">
+              <Button onClick={handleSaveWhitepaperEdit} className="flex-1">
+                <Edit3 className="h-4 w-4 mr-2" />
+                Save Changes
+              </Button>
+              <Button variant="outline" onClick={() => setIsEditWhitepaperDialogOpen(false)} className="flex-1">
+                Cancel
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Delete Whitepaper Confirmation Dialog */}
+      <AlertDialog open={isDeleteWhitepaperDialogOpen} onOpenChange={setIsDeleteWhitepaperDialogOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Delete Whitepaper</AlertDialogTitle>
+            <AlertDialogDescription>
+              Are you sure you want to delete "{deletingWhitepaper?.title}"? This action cannot be undone.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel onClick={() => setIsDeleteWhitepaperDialogOpen(false)}>
+              Cancel
+            </AlertDialogCancel>
+            <AlertDialogAction 
+              onClick={confirmDeleteWhitepaper}
               className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
             >
               Delete
