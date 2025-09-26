@@ -23,6 +23,7 @@ import {
   deleteWhitepaper, 
   fetchWhitepapers,
   fixWhitepaperPageCounts,
+  downloadWhitepaperPDF,
   type WhitepaperData 
 } from "@/utils/whitepaperUpload";
 import { ResourceCard } from "@/components/common/BusinessCard";
@@ -996,60 +997,75 @@ const Resources = () => {
     </Card>
   );
 
-  const WhitepaperCard = ({ whitepaper }: { whitepaper: any }) => (
-    <ResourceCard
-      title={whitepaper.title}
-      description={whitepaper.description}
-      category={whitepaper.category}
-      tags={whitepaper.tags}
-      thumbnail={whitepaper.thumbnail_url}
-      metadata={[
-        { label: "Published", value: whitepaper.publication_date || whitepaper.publishDate },
-        { label: "Downloads", value: String(whitepaper.download_count || whitepaper.downloadCount) }
-      ]}
-      actions={
-        <div className="flex items-center gap-2">
-          <div className="flex items-center gap-1 text-sm text-muted-foreground">
-            <FileText className="h-4 w-4" />
-            <span>{whitepaper.pages} pages</span>
-          </div>
-          {user && isAdmin && (
-            <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-              <Button
-                size="sm"
-                variant="secondary"
-                onClick={() => handleEditWhitepaper(whitepaper)}
-              >
-                <Edit3 className="h-4 w-4" />
-              </Button>
-              <Button
-                size="sm"
-                variant="outline"
-                onClick={() => handleDeleteWhitepaper(whitepaper)}
-                className="text-destructive hover:text-destructive hover:bg-destructive/10"
-              >
-                <Trash2 className="h-4 w-4" />
-              </Button>
+  const WhitepaperCard = ({ whitepaper }: { whitepaper: any }) => {
+    const handleDownload = async () => {
+      try {
+        await downloadWhitepaperPDF(whitepaper);
+        toast({
+          title: "Download Started",
+          description: "Your whitepaper download has begun.",
+        });
+      } catch (error) {
+        console.error('Download failed:', error);
+        toast({
+          title: "Download Failed",
+          description: "There was an error downloading the whitepaper. Please try again.",
+          variant: "destructive"
+        });
+      }
+    };
+
+    return (
+      <ResourceCard
+        title={whitepaper.title}
+        description={whitepaper.description}
+        category={whitepaper.category}
+        tags={whitepaper.tags}
+        thumbnail={whitepaper.thumbnail_url}
+        metadata={[
+          { label: "Published", value: whitepaper.publication_date || whitepaper.publishDate },
+          { label: "Downloads", value: String(whitepaper.download_count || whitepaper.downloadCount) }
+        ]}
+        actions={
+          <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1 text-sm text-muted-foreground">
+              <FileText className="h-4 w-4" />
+              <span>{whitepaper.pages} pages</span>
             </div>
-          )}
-        </div>
-      }
-      footer={
-        <Button 
-          className="w-full"
-          onClick={() => {
-            if (whitepaper.pdf_url) {
-              window.open(whitepaper.pdf_url, '_blank');
-            }
-          }}
-        >
-          <Download className="h-4 w-4 mr-2" />
-          Download PDF
-        </Button>
-      }
-      className="h-full"
-    />
-  );
+            {user && isAdmin && (
+              <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                <Button
+                  size="sm"
+                  variant="secondary"
+                  onClick={() => handleEditWhitepaper(whitepaper)}
+                >
+                  <Edit3 className="h-4 w-4" />
+                </Button>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => handleDeleteWhitepaper(whitepaper)}
+                  className="text-destructive hover:text-destructive hover:bg-destructive/10"
+                >
+                  <Trash2 className="h-4 w-4" />
+                </Button>
+              </div>
+            )}
+          </div>
+        }
+        footer={
+          <Button 
+            className="w-full"
+            onClick={handleDownload}
+          >
+            <Download className="h-4 w-4 mr-2" />
+            Download PDF
+          </Button>
+        }
+        className="h-full"
+      />
+    );
+  };
 
   const EventCard = ({ event }: { event: any }) => (
     <Card className="group hover:shadow-lg transition-all duration-300">

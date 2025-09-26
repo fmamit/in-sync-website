@@ -305,6 +305,67 @@ export const fetchWhitepapers = async () => {
   }
 };
 
+export const downloadWhitepaperPDF = async (whitepaper: any): Promise<void> => {
+  try {
+    if (!whitepaper.pdf_url) {
+      throw new Error('No PDF URL available');
+    }
+
+    console.log('Starting PDF download for:', whitepaper.title);
+    
+    // Fetch the PDF file
+    const response = await fetch(whitepaper.pdf_url, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/pdf',
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch PDF: ${response.status} ${response.statusText}`);
+    }
+
+    // Get the blob
+    const blob = await response.blob();
+    
+    // Create a blob URL
+    const blobUrl = URL.createObjectURL(blob);
+    
+    // Create a temporary download link
+    const link = document.createElement('a');
+    link.href = blobUrl;
+    link.download = `${whitepaper.title.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.pdf`;
+    link.style.display = 'none';
+    
+    // Add to DOM, click, and remove
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    // Clean up the blob URL
+    URL.revokeObjectURL(blobUrl);
+    
+    console.log('PDF download completed successfully');
+    
+    // Optionally update download count in the database
+    try {
+      await supabase
+        .from('whitepapers')
+        .update({ 
+          download_count: (whitepaper.download_count || 0) + 1 
+        })
+        .eq('id', whitepaper.id);
+    } catch (updateError) {
+      console.warn('Failed to update download count:', updateError);
+      // Don't throw here as the download was successful
+    }
+    
+  } catch (error) {
+    console.error('Error downloading PDF:', error);
+    throw error;
+  }
+};
+
 export const fixWhitepaperPageCounts = async (): Promise<{ success: boolean; fixed: number; errors: string[] }> => {
   try {
     console.log('Starting whitepaper page count fix...');
