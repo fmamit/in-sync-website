@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import PartnershipShowcase from "@/components/PartnershipShowcase";
 import PartnershipDashboard from "@/components/PartnershipDashboard";
 

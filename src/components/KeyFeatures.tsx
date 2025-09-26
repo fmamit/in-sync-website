@@ -1,4 +1,5 @@
-import React from "react";
+
+import { useState, createElement } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -31,7 +32,7 @@ import ccaasIcon from "@/assets/ccaas-icon.jpg";
 const KeyFeatures = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [expandedFeatures, setExpandedFeatures] = React.useState<Set<string>>(new Set());
+  const [expandedFeatures, setExpandedFeatures] = useState<Set<string>>(new Set());
 
   const handleExploreFeature = (featureId: string) => {
     setExpandedFeatures(prev => {
@@ -331,10 +332,10 @@ const KeyFeatures = () => {
                   <div className="w-16 h-16 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
                     {typeof feature.icon === 'function' ? (
                       <div className="w-8 h-8">
-                        {React.createElement(feature.icon)}
+                        {createElement(feature.icon)}
                       </div>
                     ) : (
-                      React.createElement(feature.icon, { className: `h-8 w-8 text-primary` })
+                      createElement(feature.icon, { className: `h-8 w-8 text-primary` })
                     )}
                   </div>
                   <div className="flex-1">

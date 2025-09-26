@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useSubmission } from "@/hooks/useModal";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -40,7 +40,7 @@ interface PartnershipEnrollmentProps {
 }
 
 export default function PartnershipEnrollment({ onSuccess }: PartnershipEnrollmentProps) {
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { isSubmitting, startSubmission, completeSubmission, failSubmission } = useSubmission();
   const { toast } = useToast();
 
   const form = useForm<PartnershipFormData>({
@@ -121,7 +121,7 @@ export default function PartnershipEnrollment({ onSuccess }: PartnershipEnrollme
   };
 
   const onSubmit = async (data: PartnershipFormData) => {
-    setIsSubmitting(true);
+    startSubmission();
     
     try {
       // Generate unique partnership ID
@@ -159,7 +159,7 @@ export default function PartnershipEnrollment({ onSuccess }: PartnershipEnrollme
         variant: "destructive",
       });
     } finally {
-      setIsSubmitting(false);
+      completeSubmission();
     }
   };
 

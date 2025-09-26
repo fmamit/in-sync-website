@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useModal } from "@/hooks/useModal";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
@@ -35,12 +35,12 @@ const stats = [
 ];
 
 export default function PartnershipShowcase({ onEnrollmentSuccess }: PartnershipShowcaseProps) {
-  const [isEnrollmentOpen, setIsEnrollmentOpen] = useState(false);
+  const { isOpen: isEnrollmentOpen, openModal: openEnrollment, closeModal: closeEnrollment } = useModal();
   const { user, isAdmin } = useAuth();
   const navigate = useNavigate();
 
   const handleEnrollmentSuccess = (data: any) => {
-    setIsEnrollmentOpen(false);
+    closeEnrollment();
     onEnrollmentSuccess?.(data);
   };
 
@@ -57,7 +57,7 @@ export default function PartnershipShowcase({ onEnrollmentSuccess }: Partnership
     }
     
     if (action === 'become-partner') {
-      setIsEnrollmentOpen(true);
+      openEnrollment();
     }
   };
 
@@ -72,7 +72,7 @@ export default function PartnershipShowcase({ onEnrollmentSuccess }: Partnership
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             Join a network of successful businesses growing with In-Sync's channel partnership program
           </p>
-          <Dialog open={isEnrollmentOpen} onOpenChange={setIsEnrollmentOpen}>
+          <Dialog open={isEnrollmentOpen} onOpenChange={closeEnrollment}>
             <DialogTrigger asChild>
               <Button 
                 size="lg" 
@@ -205,7 +205,7 @@ export default function PartnershipShowcase({ onEnrollmentSuccess }: Partnership
           <p className="text-muted-foreground max-w-2xl mx-auto">
             Start your journey with In-Sync and unlock new revenue opportunities for your business
           </p>
-          <Dialog open={isEnrollmentOpen} onOpenChange={setIsEnrollmentOpen}>
+          <Dialog open={isEnrollmentOpen} onOpenChange={closeEnrollment}>
             <DialogTrigger asChild>
               <Button 
                 size="lg" 

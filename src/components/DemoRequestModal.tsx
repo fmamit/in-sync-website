@@ -96,7 +96,6 @@ const DemoRequestModal = ({ trigger }: DemoRequestModalProps) => {
   const onSubmit = async (data: DemoRequestFormData) => {
     try {
       // For now, just show success message - user needs Supabase integration for actual submission
-      console.log("Demo request data:", data);
       setIsSubmitted(true);
     } catch (error) {
       toast({
