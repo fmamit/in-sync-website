@@ -66,7 +66,7 @@ export function useAuth() {
     return () => subscription.unsubscribe();
   }, []);
 
-  const signIn = async (userId: string, password: string) => {
+  const signIn = async (userId: string, password: string, captchaToken?: string) => {
     try {
       // Map user ID to email for Supabase authentication
       const emailMap: { [key: string]: string } = {
@@ -75,10 +75,19 @@ export function useAuth() {
       
       const email = emailMap[userId] || userId; // Use mapping or fallback to userId if it's already an email
       
-      const { error } = await supabase.auth.signInWithPassword({
+      const signInOptions: any = {
         email,
         password,
-      });
+      };
+
+      // Add captcha token if provided
+      if (captchaToken) {
+        signInOptions.options = {
+          captchaToken
+        };
+      }
+      
+      const { error } = await supabase.auth.signInWithPassword(signInOptions);
       
       if (error) {
         throw error;
