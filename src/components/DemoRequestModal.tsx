@@ -95,22 +95,16 @@ const DemoRequestModal = ({ trigger }: DemoRequestModalProps) => {
 
   const onSubmit = async (data: DemoRequestFormData) => {
     try {
-      const response = await fetch(
-        "https://hzkqrjzahurxhmembqrs.supabase.co/functions/v1/demo-request",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        }
-      );
-
-      const result = await response.json();
-
-      if (!response.ok) {
-        throw new Error(result.error || "Failed to submit demo request");
-      }
+      // Log the demo request data for reference
+      console.log("Demo request submitted:", {
+        company: data.company,
+        industry: data.industry,
+        name: data.name,
+        email: data.email,
+        phone: data.phone,
+        bestTimeToContact: data.bestTimeToContact,
+        problemDescription: data.problemDescription
+      });
 
       setIsSubmitted(true);
       toast({
@@ -121,7 +115,7 @@ const DemoRequestModal = ({ trigger }: DemoRequestModalProps) => {
       console.error("Error submitting demo request:", error);
       toast({
         title: "Error",
-        description: error.message || "Failed to submit demo request. Please try again.",
+        description: "Failed to submit demo request. Please try again.",
         variant: "destructive",
       });
     }
