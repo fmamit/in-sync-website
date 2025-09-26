@@ -66,8 +66,15 @@ export function useAuth() {
     return () => subscription.unsubscribe();
   }, []);
 
-  const signIn = async (email: string, password: string) => {
+  const signIn = async (userId: string, password: string) => {
     try {
+      // Map user ID to email for Supabase authentication
+      const emailMap: { [key: string]: string } = {
+        'asg': 'asg@example.com'
+      };
+      
+      const email = emailMap[userId] || userId; // Use mapping or fallback to userId if it's already an email
+      
       const { error } = await supabase.auth.signInWithPassword({
         email,
         password,

@@ -9,13 +9,13 @@ import { z } from 'zod';
 import { toast } from 'sonner';
 
 const authSchema = z.object({
-  email: z.string().email('Please enter a valid email address'),
+  userId: z.string().min(1, 'Please enter your user ID'),
   password: z.string().min(6, 'Password must be at least 6 characters'),
 });
 
 export default function Auth() {
   const [isLoading, setIsLoading] = useState(false);
-  const [signInData, setSignInData] = useState({ email: '', password: '' });
+  const [signInData, setSignInData] = useState({ userId: '', password: '' });
   const { signIn, user } = useAuth();
   const navigate = useNavigate();
 
@@ -32,7 +32,7 @@ export default function Auth() {
 
     try {
       const validation = authSchema.parse(signInData);
-      const { error } = await signIn(validation.email, validation.password);
+      const { error } = await signIn(validation.userId, validation.password);
       
       if (!error) {
         navigate('/');
@@ -58,13 +58,13 @@ export default function Auth() {
         <CardContent>
           <form onSubmit={handleSignIn} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email">User ID</Label>
               <Input
                 id="email"
-                type="email"
-                placeholder="Enter your email"
-                value={signInData.email}
-                onChange={(e) => setSignInData({ ...signInData, email: e.target.value })}
+                type="text"
+                placeholder="Enter your user ID"
+                value={signInData.userId}
+                onChange={(e) => setSignInData({ ...signInData, userId: e.target.value })}
                 required
               />
             </div>
