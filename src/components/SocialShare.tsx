@@ -64,11 +64,11 @@ export const SocialShare = ({ title, excerpt, url, imageUrl }: SocialShareProps)
           variant="ghost"
           size="sm"
           onClick={() => handleShare('twitter')}
-          className="text-[#000000] hover:text-[#000000] hover:bg-black/10"
-          title="Share on X"
+          className="text-[#1DA1F2] hover:text-[#1DA1F2] hover:bg-[#1DA1F2]/10"
+          title="Share on Twitter"
         >
           <Twitter className="w-4 h-4" />
-          <span className="hidden sm:inline ml-1">X</span>
+          <span className="hidden sm:inline ml-1">Twitter</span>
         </Button>
         
         <Button
