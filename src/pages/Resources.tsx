@@ -24,6 +24,8 @@ import {
   fetchWhitepapers,
   type WhitepaperData 
 } from "@/utils/whitepaperUpload";
+import { useLazyList } from "@/hooks/useLazyLoad";
+import { ResourceCard } from "@/components/common/BusinessCard";
 import {
   Calendar,
   Clock,
@@ -627,10 +629,10 @@ const Resources = () => {
   const filteredTutorials = filterItems(tutorials, searchTerm, selectedCategory);
 
   // Lazy loading hooks for each section
-  const blogsLazy = useLazyLoading({ items: filteredBlogs, initialCount: 4 });
-  const whitepapersLazy = useLazyLoading({ items: filteredWhitepapers, initialCount: 4 });
-  const eventsLazy = useLazyLoading({ items: filteredEvents, initialCount: 4 });
-  const tutorialsLazy = useLazyLoading({ items: filteredTutorials, initialCount: 4 });
+  const blogsLazy = useLazyList({ items: filteredBlogs, initialCount: 4 });
+  const whitepapersLazy = useLazyList({ items: filteredWhitepapers, initialCount: 4 });
+  const eventsLazy = useLazyList({ items: filteredEvents, initialCount: 4 });
+  const tutorialsLazy = useLazyList({ items: filteredTutorials, initialCount: 4 });
 
   const handleAddResource = async (resourceType: string) => {
     if (!newResource.title || !newResource.description) {
@@ -947,90 +949,57 @@ const Resources = () => {
   );
 
   const WhitepaperCard = ({ whitepaper }: { whitepaper: any }) => (
-    <Card className="group hover:shadow-lg transition-all duration-300">
-      {/* Thumbnail Image */}
-      {whitepaper.thumbnail_url && (
-        <div className="relative overflow-hidden rounded-t-lg">
-          <img 
-            src={whitepaper.thumbnail_url} 
-            alt={`${whitepaper.title} preview`}
-            className="w-full h-48 object-cover transition-transform group-hover:scale-105"
-            loading="lazy"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/20" />
-        </div>
-      )}
-      
-      <CardHeader>
-        <div className="flex items-center justify-between mb-2">
-          <Badge>{whitepaper.category}</Badge>
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+    <ResourceCard
+      title={whitepaper.title}
+      description={whitepaper.description}
+      category={whitepaper.category}
+      tags={whitepaper.tags}
+      thumbnail={whitepaper.thumbnail_url}
+      metadata={[
+        { label: "Published", value: whitepaper.publication_date || whitepaper.publishDate },
+        { label: "Downloads", value: String(whitepaper.download_count || whitepaper.downloadCount) }
+      ]}
+      actions={
+        <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1 text-sm text-muted-foreground">
             <FileText className="h-4 w-4" />
             <span>{whitepaper.pages} pages</span>
           </div>
           {user && isAdmin && (
-            <Button
-              size="sm"
-              variant="secondary"
-              className="opacity-0 group-hover:opacity-100 transition-opacity"
-              onClick={() => handleEditWhitepaper(whitepaper)}
-            >
-              <Edit3 className="h-4 w-4" />
-            </Button>
-          )}
-        </div>
-        <CardTitle className="group-hover:text-primary transition-colors">
-          {whitepaper.title}
-        </CardTitle>
-      </CardHeader>
-      <CardContent>
-        <p className="text-muted-foreground line-clamp-3 mb-4">{whitepaper.description}</p>
-        <div className="flex flex-wrap gap-2 mb-4">
-          {whitepaper.tags.slice(0, 3).map((tag: string, index: number) => (
-            <Badge key={index} variant="outline" className="text-xs">
-              <Tag className="h-3 w-3 mr-1" />
-              {tag}
-            </Badge>
-          ))}
-        </div>
-        <div className="flex items-center justify-between text-sm text-muted-foreground mb-4">
-          <span>Published: {whitepaper.publication_date || whitepaper.publishDate}</span>
-          <span>{whitepaper.download_count || whitepaper.downloadCount} downloads</span>
-        </div>
-        <div className="flex gap-2">
-          <Button 
-            className="flex-1"
-            onClick={() => {
-              if (whitepaper.pdf_url) {
-                window.open(whitepaper.pdf_url, '_blank');
-              }
-            }}
-          >
-            <Download className="h-4 w-4 mr-2" />
-            Download PDF
-          </Button>
-          {user && isAdmin && (
-            <>
+            <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
               <Button
-                variant="outline"
                 size="sm"
+                variant="secondary"
                 onClick={() => handleEditWhitepaper(whitepaper)}
               >
                 <Edit3 className="h-4 w-4" />
               </Button>
               <Button
-                variant="outline"
                 size="sm"
+                variant="outline"
                 onClick={() => handleDeleteWhitepaper(whitepaper)}
                 className="text-destructive hover:text-destructive hover:bg-destructive/10"
               >
                 <Trash2 className="h-4 w-4" />
               </Button>
-            </>
+            </div>
           )}
         </div>
-      </CardContent>
-    </Card>
+      }
+      className="h-full"
+    >
+      <Button 
+        className="w-full mt-4"
+        onClick={() => {
+          if (whitepaper.pdf_url) {
+            window.open(whitepaper.pdf_url, '_blank');
+          }
+        }}
+      >
+        <Download className="h-4 w-4 mr-2" />
+        Download PDF
+      </Button>
+    </ResourceCard>
   );
 
   const EventCard = ({ event }: { event: any }) => (
