@@ -192,6 +192,10 @@ const OnboardingForm = () => {
   const { toast } = useToast();
   const { submitOnboardingForm, isSubmitting } = useOnboardingOperations();
 
+  // Constants
+  const totalSections = 7; // 8 sections (0-7)
+  const progressPercentage = ((currentSection + 1) / (totalSections + 1)) * 100;
+
   // Form validation functions using centralized validation
   const isEmailValid = (email: string): boolean => {
     return validateEmail(email).isValid;
@@ -209,7 +213,7 @@ const OnboardingForm = () => {
     if (!value || value.trim() === "") return false;
     
     if (fieldType === "email") {
-      return validateEmail(value);
+      return validateEmail(value).isValid;
     }
     
     if (fieldType === "phone") {
