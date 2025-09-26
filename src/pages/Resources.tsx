@@ -1420,31 +1420,33 @@ const Resources = () => {
               <div className="border border-border rounded-lg p-4 bg-card">
                 <h4 className="font-medium mb-3 text-card-foreground">SEO Meta Tags</h4>
                 <div className="space-y-4">
-                  <div>
-                    <Label htmlFor="metaDescription">Meta Description</Label>
-                    <Textarea
-                      id="metaDescription"
-                      value={newResource.metaDescription}
-                      onChange={(e) => setNewResource({...newResource, metaDescription: e.target.value})}
-                      placeholder="Learn how to master project deadlines with the precision of booking Tatkal tickets..."
-                      rows={2}
-                      maxLength={160}
-                    />
-                    <p className="text-xs text-muted-foreground mt-1">
-                      {newResource.metaDescription.length}/160 characters
-                    </p>
-                  </div>
+                   <div>
+                     <Label htmlFor="metaDescription">Meta Description</Label>
+                     <Textarea
+                       id="metaDescription"
+                       value={newResource.metaDescription}
+                       onChange={(e) => setNewResource({...newResource, metaDescription: e.target.value})}
+                       placeholder="Learn how to master project deadlines with the precision of booking Tatkal tickets..."
+                       rows={4}
+                       maxLength={250}
+                       className="resize-y min-h-[100px]"
+                     />
+                     <p className="text-xs text-muted-foreground mt-1">
+                       {newResource.metaDescription.length}/250 characters (recommended: 150-160 for SEO)
+                     </p>
+                   </div>
                   
-                  <div>
-                    <Label htmlFor="metaKeywords">Keywords (comma separated)</Label>
-                    <Textarea
-                      id="metaKeywords"
-                      value={newResource.metaKeywords}
-                      onChange={(e) => setNewResource({...newResource, metaKeywords: e.target.value})}
-                      placeholder="project management, Tatkal tickets, deadline management, critical path optimization..."
-                      rows={2}
-                    />
-                  </div>
+                   <div>
+                     <Label htmlFor="metaKeywords">Keywords (comma separated)</Label>
+                     <Textarea
+                       id="metaKeywords"
+                       value={newResource.metaKeywords}
+                       onChange={(e) => setNewResource({...newResource, metaKeywords: e.target.value})}
+                       placeholder="project management, Tatkal tickets, deadline management, critical path optimization..."
+                       rows={3}
+                       className="resize-y min-h-[80px]"
+                     />
+                   </div>
                   
                   <div className="grid grid-cols-2 gap-4">
                     <div>
