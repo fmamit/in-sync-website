@@ -518,7 +518,7 @@ const OnboardingForm = () => {
     
     addText("PARTY A: ECR Technical Innovations Pvt Ltd");
     addText("Address: 042, C 4th Floor, Supermart, DLF Phase IV GURUGRAM Haryana 122002");
-    addText("Contact: Amit Sengupta, a@-in-sync.co.in");
+    addText("Contact: Flt Lt Amit Sengupta, a@in-sync.co.in");
     yPosition += 5;
     
     addText(`PARTY B: ${formData.companyName}`);
@@ -583,7 +583,7 @@ const OnboardingForm = () => {
     yPosition += 15;
     
     addText("_____________________                  _____________________");
-    addText("Amit Sengupta                          " + formData.signatoryName);
+    addText("Flt Lt Amit Sengupta                   " + formData.signatoryName);
     addText("Director                               " + formData.signatoryDesignation);
     yPosition += 10;
     

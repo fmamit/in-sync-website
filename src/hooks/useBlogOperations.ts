@@ -31,7 +31,7 @@ const fallbackBlogs: BlogPost[] = [
     title: "AI-Powered CRM: The Future of Customer Relationship Management",
     excerpt: "Discover how artificial intelligence is revolutionizing CRM systems and transforming customer interactions across industries.",
     content: "Full blog content here...",
-    author: "Rahul Sharma",
+    author: "Flt Lt Amit Sengupta",
     date: "2024-01-15",
     category: "AI & Automation",
     readTime: "8 min read",

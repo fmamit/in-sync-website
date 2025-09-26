@@ -4,9 +4,10 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import Footer from "@/components/Footer";
-import { ArrowLeft, Calendar, Clock, User, Tag } from "lucide-react";
+import { ArrowLeft, Calendar, Clock, User, Tag, Mail } from "lucide-react";
 import { Helmet } from "react-helmet-async";
 import { useBlogOperations, type BlogPost as BlogPostType } from "@/hooks/useBlogOperations";
+import { getAuthorProfile } from "@/utils/authorProfiles";
 
 // Sample blog data - in a real app, this would come from a backend/database
 const blogData = [
@@ -64,7 +65,7 @@ const blogData = [
       <h2>Conclusion</h2>
       <p>AI-powered CRM systems represent the future of customer relationship management. By embracing these technologies, businesses can create more meaningful customer relationships, improve operational efficiency, and drive sustainable growth.</p>
     `,
-    author: "Rahul Sharma",
+    author: "Flt Lt Amit Sengupta",
     date: "2024-01-15",
     category: "AI & Automation",
     readTime: "8 min read",
@@ -290,7 +291,7 @@ const blogData = [
       <h2>Conclusion</h2>
       <p>Digital transformation in field force management is not just about technology—it's about empowering teams to deliver exceptional results. By embracing modern solutions, businesses can achieve greater efficiency, improved customer satisfaction, and sustainable growth.</p>
     `,
-    author: "Amit Kumar",
+    author: "Flt Lt Amit Sengupta",
     date: "2024-01-05",
     category: "Field Force",
     readTime: "10 min read",
@@ -1642,16 +1643,29 @@ const BlogPost = () => {
 
           {/* Author Info */}
           <div className="bg-muted/50 rounded-lg p-6 mb-8">
-            <div className="flex items-center gap-4">
-              <div className="h-12 w-12 bg-primary/10 rounded-full flex items-center justify-center">
+            <div className="flex items-start gap-4">
+              <div className="h-12 w-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
                 <User className="h-6 w-6 text-primary" />
               </div>
-              <div>
-                <h3 className="font-semibold text-lg">About {blog.author}</h3>
-                <p className="text-muted-foreground">
-                  {blog.author} is a contributor to the In-Sync CRM blog, sharing insights on 
-                  {blog.category.toLowerCase()} and related topics to help businesses succeed.
+              <div className="flex-1">
+                <h3 className="font-semibold text-lg mb-2">About {getAuthorProfile(blog.author).name}</h3>
+                {getAuthorProfile(blog.author).title && (
+                  <p className="text-sm font-medium text-primary mb-2">{getAuthorProfile(blog.author).title}</p>
+                )}
+                <p className="text-muted-foreground mb-3">
+                  {getAuthorProfile(blog.author).bio}
                 </p>
+                {getAuthorProfile(blog.author).email && (
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                    <Mail className="h-4 w-4" />
+                    <a 
+                      href={`mailto:${getAuthorProfile(blog.author).email}`}
+                      className="hover:text-primary transition-colors"
+                    >
+                      {getAuthorProfile(blog.author).email}
+                    </a>
+                  </div>
+                )}
               </div>
             </div>
           </div>

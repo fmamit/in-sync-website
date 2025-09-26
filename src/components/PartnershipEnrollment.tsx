@@ -113,7 +113,7 @@ export default function PartnershipEnrollment({ onSuccess }: PartnershipEnrollme
     doc.text(`Partner: ${data.fullName}`, 20, 125);
     doc.text(`Date: ${currentDate}`, 20, 135);
     doc.text("ECR Technical Innovations Pvt Ltd (In-Sync)", 20, 155);
-    doc.text("By: Amit Sengupta, Director", 20, 165);
+    doc.text("By: Flt Lt Amit Sengupta, Director", 20, 165);
     doc.text(`Date: ${currentDate}`, 20, 175);
     
     // Save PDF
