@@ -3,7 +3,10 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
-import { Users, Award, TrendingUp, Handshake, Plus } from "lucide-react";
+import { Users, Award, TrendingUp, Handshake, Plus, Lock } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 import PartnershipEnrollment from "./PartnershipEnrollment";
 
 // Partner logos - using the existing asset imports
@@ -33,10 +36,29 @@ const stats = [
 
 export default function PartnershipShowcase({ onEnrollmentSuccess }: PartnershipShowcaseProps) {
   const [isEnrollmentOpen, setIsEnrollmentOpen] = useState(false);
+  const { user, isAdmin } = useAuth();
+  const navigate = useNavigate();
 
   const handleEnrollmentSuccess = (data: any) => {
     setIsEnrollmentOpen(false);
     onEnrollmentSuccess?.(data);
+  };
+
+  const handleAdminAction = (action: string) => {
+    if (!user) {
+      toast.error('Please sign in to access this feature');
+      navigate('/auth');
+      return;
+    }
+    
+    if (!isAdmin) {
+      toast.error('This feature is only available to administrators');
+      return;
+    }
+    
+    if (action === 'become-partner') {
+      setIsEnrollmentOpen(true);
+    }
   };
 
   return (
@@ -52,9 +74,15 @@ export default function PartnershipShowcase({ onEnrollmentSuccess }: Partnership
           </p>
           <Dialog open={isEnrollmentOpen} onOpenChange={setIsEnrollmentOpen}>
             <DialogTrigger asChild>
-              <Button size="lg" className="bg-primary hover:bg-primary/90">
-                <Plus className="h-5 w-5 mr-2" />
+              <Button 
+                size="lg" 
+                className="bg-primary hover:bg-primary/90"
+                onClick={() => handleAdminAction('become-partner')}
+              >
+                {isAdmin ? <Plus className="h-5 w-5 mr-2" /> : <Lock className="h-5 w-5 mr-2" />}
                 Become a Partner
+                {!isAdmin && !user && <span className="ml-2 text-xs">(Sign in required)</span>}
+                {!isAdmin && user && <span className="ml-2 text-xs">(Admin only)</span>}
               </Button>
             </DialogTrigger>
             <DialogContent className="max-w-6xl max-h-[90vh] overflow-y-auto">
@@ -179,9 +207,15 @@ export default function PartnershipShowcase({ onEnrollmentSuccess }: Partnership
           </p>
           <Dialog open={isEnrollmentOpen} onOpenChange={setIsEnrollmentOpen}>
             <DialogTrigger asChild>
-              <Button size="lg" className="bg-primary hover:bg-primary/90">
-                <Handshake className="h-5 w-5 mr-2" />
+              <Button 
+                size="lg" 
+                className="bg-primary hover:bg-primary/90"
+                onClick={() => handleAdminAction('apply-now')}
+              >
+                {isAdmin ? <Handshake className="h-5 w-5 mr-2" /> : <Lock className="h-5 w-5 mr-2" />}
                 Apply Now
+                {!isAdmin && !user && <span className="ml-2 text-xs">(Sign in required)</span>}
+                {!isAdmin && user && <span className="ml-2 text-xs">(Admin only)</span>}
               </Button>
             </DialogTrigger>
             <DialogContent className="max-w-6xl max-h-[90vh] overflow-y-auto">

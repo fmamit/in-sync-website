@@ -1,13 +1,15 @@
-// Fixed duplicate OnboardingModal import issue
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
-import { useState } from "react";
+import { Menu, X, User, LogOut } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
 import insyncLogo from "@/assets/insync-logo-color.png";
 import OnboardingModal from "./OnboardingModal";
 import DemoRequestModal from "./DemoRequestModal";
 
-const Header = () => {
+export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { user, isAdmin, signOut } = useAuth();
 
   const navigation = [
     { name: "Features", href: "/features" },
@@ -25,23 +27,23 @@ const Header = () => {
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
-          <a href="/" className="flex items-center space-x-2 group">
+          <Link to="/" className="flex items-center space-x-2 group">
             <div className="relative">
               <div className="absolute -inset-2 bg-gradient-to-r from-primary/20 to-primary/10 rounded-lg blur-sm opacity-75 group-hover:opacity-100 transition-opacity"></div>
               <img src={insyncLogo} alt="In-Sync" className="relative h-12 w-auto transform group-hover:scale-105 transition-transform" />
             </div>
-          </a>
+          </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
             {navigation.map((item) => (
-              <a
+              <Link
                 key={item.name}
-                href={item.href}
+                to={item.href}
                 className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors"
               >
                 {item.name}
-              </a>
+              </Link>
             ))}
           </nav>
 
@@ -53,10 +55,32 @@ const Header = () => {
               </Button>
             } />
             <DemoRequestModal trigger={
-              <Button variant="default" size="lg" className="font-semibold">
+              <Button variant="default" size="sm" className="font-semibold">
                 Request Demo
               </Button>
             } />
+            {user ? (
+              <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-1 text-sm text-muted-foreground">
+                  <User className="h-4 w-4" />
+                  <span>{user.email}</span>
+                  {isAdmin && <span className="text-primary font-medium">(Admin)</span>}
+                </div>
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  onClick={signOut}
+                  className="flex items-center space-x-1"
+                >
+                  <LogOut className="h-4 w-4" />
+                  <span>Sign Out</span>
+                </Button>
+              </div>
+            ) : (
+              <Button asChild className="bg-primary hover:bg-primary/90">
+                <Link to="/auth">Sign In</Link>
+              </Button>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -75,13 +99,14 @@ const Header = () => {
           <div className="md:hidden border-t bg-background/95 backdrop-blur-md">
             <nav className="flex flex-col space-y-4 px-4 py-6">
               {navigation.map((item) => (
-                <a
+                <Link
                   key={item.name}
-                  href={item.href}
+                  to={item.href}
                   className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors"
+                  onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {item.name}
-                </a>
+                </Link>
               ))}
               <div className="flex flex-col space-y-2 pt-4">
                 <DemoRequestModal trigger={
@@ -94,6 +119,32 @@ const Header = () => {
                     Onboarding Form
                   </Button>
                 } />
+                {user ? (
+                  <div className="space-y-3">
+                    <div className="flex items-center space-x-2 p-2 bg-muted rounded-lg">
+                      <User className="h-4 w-4" />
+                      <div className="flex-1">
+                        <p className="text-sm font-medium">{user.email}</p>
+                        {isAdmin && <p className="text-xs text-primary">Admin</p>}
+                      </div>
+                    </div>
+                    <Button 
+                      variant="outline" 
+                      onClick={() => {
+                        signOut();
+                        setIsMobileMenuOpen(false);
+                      }}
+                      className="w-full flex items-center space-x-2"
+                    >
+                      <LogOut className="h-4 w-4" />
+                      <span>Sign Out</span>
+                    </Button>
+                  </div>
+                ) : (
+                  <Button asChild className="bg-primary hover:bg-primary/90 w-full">
+                    <Link to="/auth" onClick={() => setIsMobileMenuOpen(false)}>Sign In</Link>
+                  </Button>
+                )}
               </div>
             </nav>
           </div>
@@ -101,6 +152,4 @@ const Header = () => {
       </div>
     </header>
   );
-};
-
-export default Header;
+}

@@ -7,6 +7,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import ChatbotEnhanced from "@/components/ChatbotEnhanced";
 import Header from "@/components/Header";
 import Index from "./pages/Index";
+import Auth from "./pages/Auth";
 import Features from "./pages/Features";
 import UseCases from "./pages/UseCases";
 import Integrations from "./pages/Integrations";
@@ -58,6 +59,7 @@ const App = () => (
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/resources" element={<Resources />} />
           <Route path="/blog/:id" element={<BlogPost />} />
+          <Route path="/auth" element={<Auth />} />
           <Route path="/partnership" element={<Partnership />} />
           <Route path="/cookies" element={<Cookies />} />
           <Route path="/privacy" element={<Privacy />} />
