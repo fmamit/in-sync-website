@@ -39,7 +39,7 @@ const handler = async (req: Request): Promise<Response> => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: "InSync Demo Requests <a@in-sync.co.in>",
+        from: "InSync Demo Requests <onboarding@resend.dev>",
         to: ["delight@in-sync.co.in"],
         subject: `New Demo Request from ${requestData.name} - ${requestData.company}`,
         html: `
