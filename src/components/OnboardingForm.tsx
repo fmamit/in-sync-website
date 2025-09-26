@@ -10,6 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Progress } from "@/components/ui/progress";
 import { ChevronLeft, ChevronRight, Download } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useOnboardingOperations } from "@/hooks/useOnboardingOperations";
 import jsPDF from "jspdf";
 import "@fontsource/nunito-sans/400.css";
 import "@fontsource/nunito-sans/700.css";
@@ -187,6 +188,7 @@ const OnboardingForm = () => {
   });
 
   const { toast } = useToast();
+  const { submitOnboardingForm, isSubmitting } = useOnboardingOperations();
 
   const totalSections = 9;
   const progressPercentage = (currentSection / totalSections) * 100;
@@ -445,6 +447,19 @@ const OnboardingForm = () => {
 
   const prevSection = () => {
     setCurrentSection(prev => Math.max(prev - 1, 0));
+  };
+  
+  const handleSubmitForm = async () => {
+    if (!validateSection(currentSection)) {
+      return;
+    }
+
+    const result = await submitOnboardingForm(formData);
+    
+    if (result.success) {
+      // Update the application ID in form data for display
+      setFormData(prev => ({ ...prev, applicationId: result.applicationId }));
+    }
   };
   
   const downloadClientAgreement = () => {
@@ -2021,24 +2036,31 @@ const OnboardingForm = () => {
             
             <div className="flex gap-2">
               {currentSection === totalSections && (
-                <Button
-                  onClick={downloadClientAgreement}
-                  variant="outline"
-                  className="flex items-center gap-2 mr-2"
-                >
-                  <Download className="h-4 w-4" />
-                  Generate Client Agreement
-                </Button>
-              )}
-              
-              {currentSection === totalSections && (
-                <Button
-                  onClick={generatePDF}
-                  className="flex items-center gap-2 bg-primary text-primary-foreground hover:bg-primary/90"
-                >
-                  <Download className="h-4 w-4" />
-                  Download Complete PDF
-                </Button>
+                <>
+                  <Button
+                    onClick={handleSubmitForm}
+                    disabled={isSubmitting}
+                    className="flex items-center gap-2 bg-green-600 text-white hover:bg-green-700"
+                  >
+                    {isSubmitting ? 'Submitting...' : 'Submit Application'}
+                  </Button>
+                  <Button
+                    onClick={downloadClientAgreement}
+                    variant="outline"
+                    className="flex items-center gap-2"
+                  >
+                    <Download className="h-4 w-4" />
+                    Generate Client Agreement
+                  </Button>
+                  <Button
+                    onClick={generatePDF}
+                    variant="outline"
+                    className="flex items-center gap-2"
+                  >
+                    <Download className="h-4 w-4" />
+                    Download Complete PDF
+                  </Button>
+                </>
               )}
               
               {currentSection < totalSections && (
