@@ -1,0 +1,6 @@
+-- Update the password for the admin user
+UPDATE auth.users 
+SET 
+  encrypted_password = crypt('asg@987', gen_salt('bf')),
+  updated_at = now()
+WHERE email = 'a@in-sync.co.in';
