@@ -8,6 +8,7 @@ import { ArrowLeft, Calendar, Clock, User, Tag, Mail } from "lucide-react";
 import { Helmet } from "react-helmet-async";
 import { useBlogOperations, type BlogPost as BlogPostType } from "@/hooks/useBlogOperations";
 import { getAuthorProfile } from "@/utils/authorProfiles";
+import { SocialShare } from "@/components/SocialShare";
 
 // Sample blog data - in a real app, this would come from a backend/database
 const blogData = [
@@ -1542,12 +1543,35 @@ const BlogPost = () => {
         <title>{blog.title} | In-Sync CRM Blog</title>
         <meta name="description" content={blog.excerpt} />
         <meta name="keywords" content={blog.tags.join(', ')} />
+        
+        {/* Open Graph / Facebook */}
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content={`${window.location.origin}/blog/${blog.id}`} />
         <meta property="og:title" content={blog.title} />
         <meta property="og:description" content={blog.excerpt} />
-        <meta property="og:type" content="article" />
+        <meta property="og:image" content={blog.imageUrl ? `${window.location.origin}${blog.imageUrl}` : `${window.location.origin}/api/placeholder/1200/630`} />
+        <meta property="og:site_name" content="In-Sync CRM" />
+        
+        {/* Article specific */}
         <meta property="article:author" content={blog.author} />
         <meta property="article:published_time" content={blog.date} />
-        <meta property="article:tag" content={blog.tags.join(', ')} />
+        <meta property="article:section" content={blog.category} />
+        {blog.tags.map((tag: string) => (
+          <meta key={tag} property="article:tag" content={tag} />
+        ))}
+        
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:url" content={`${window.location.origin}/blog/${blog.id}`} />
+        <meta name="twitter:title" content={blog.title} />
+        <meta name="twitter:description" content={blog.excerpt} />
+        <meta name="twitter:image" content={blog.imageUrl ? `${window.location.origin}${blog.imageUrl}` : `${window.location.origin}/api/placeholder/1200/630`} />
+        <meta name="twitter:creator" content="@InSyncCX" />
+        
+        {/* LinkedIn */}
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        
         <link rel="canonical" href={`${window.location.origin}/blog/${blog.id}`} />
       </Helmet>
 
@@ -1641,6 +1665,16 @@ const BlogPost = () => {
 
           <Separator className="my-12" />
 
+          {/* Social Share */}
+          <div className="mb-8">
+            <SocialShare 
+              title={blog.title}
+              excerpt={blog.excerpt}
+              url={`/blog/${blog.id}`}
+              imageUrl={blog.imageUrl}
+            />
+          </div>
+
           {/* Author Info */}
           <div className="bg-muted/50 rounded-lg p-6 mb-8">
             <div className="flex items-start gap-4">
@@ -1671,7 +1705,7 @@ const BlogPost = () => {
           </div>
 
           {/* Navigation */}
-          <div className="flex justify-between items-center">
+          <div className="flex justify-center">
             <Button 
               variant="outline" 
               onClick={() => navigate('/resources')}
@@ -1679,12 +1713,6 @@ const BlogPost = () => {
               <ArrowLeft className="h-4 w-4 mr-2" />
               Back to Resources
             </Button>
-            
-            <div className="flex gap-2">
-              <Button variant="outline" size="sm">
-                Share Article
-              </Button>
-            </div>
           </div>
         </article>
 
