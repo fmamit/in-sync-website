@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X, User, LogOut, LogIn } from "lucide-react";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { useAuth } from "@/hooks/useAuth";
 import insyncLogo from "@/assets/insync-logo-color.png";
 import OnboardingModal from "./OnboardingModal";
@@ -24,8 +24,7 @@ export default function Header() {
   ];
 
   return (
-    <TooltipProvider>
-      <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-md">
+    <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-md">
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
@@ -169,6 +168,5 @@ export default function Header() {
         )}
       </div>
     </header>
-    </TooltipProvider>
   );
 }
