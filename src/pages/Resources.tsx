@@ -15,6 +15,7 @@ import { getResponseForQuery } from "@/data/faqKnowledgeBase";
 import { useLazyLoading } from "@/hooks/useLazyLoading";
 import { useBlogOperations, type BlogPost } from "@/hooks/useBlogOperations";
 import { useAuth } from "@/hooks/useAuth";
+import { supabase } from "@/integrations/supabase/client";
 import {
   Calendar,
   Clock,
@@ -662,6 +663,49 @@ const Resources = () => {
     
     const response = getResponseForQuery(faqQuery);
     setFaqResponse(response);
+  };
+
+  const handleAutoFillTags = async () => {
+    if (!newResource.title && !newResource.content && !newResource.metaDescription) {
+      toast({
+        title: "Error",
+        description: "Please add at least a title, content, or meta description before auto-filling tags.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    try {
+      const { data, error } = await supabase.functions.invoke('generate-blog-tags', {
+        body: {
+          title: newResource.title,
+          content: newResource.content,
+          metaDescription: newResource.metaDescription
+        }
+      });
+
+      if (error) throw error;
+
+      if (data?.tags || data?.keywords) {
+        setNewResource(prev => ({
+          ...prev,
+          tags: data.tags ? data.tags.join(', ') : prev.tags,
+          metaKeywords: data.keywords || prev.metaKeywords
+        }));
+        
+        toast({
+          title: "Success",
+          description: "Tags and keywords auto-filled successfully!",
+        });
+      }
+    } catch (error) {
+      console.error('Error auto-filling tags:', error);
+      toast({
+        title: "Error",
+        description: "Failed to auto-fill tags and keywords. Please try again.",
+        variant: "destructive"
+      });
+    }
   };
 
   // Component for Load More button
@@ -1334,7 +1378,21 @@ const Resources = () => {
             </div>
 
             <div>
-              <Label htmlFor="tags">Tags (comma separated)</Label>
+              <div className="flex justify-between items-center">
+                <Label htmlFor="tags">Tags (comma separated)</Label>
+                {newResourceType === "blog" && (
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={handleAutoFillTags}
+                    disabled={!newResource.title && !newResource.content && !newResource.metaDescription}
+                    className="text-xs"
+                  >
+                    Auto-fill Tags & Keywords
+                  </Button>
+                )}
+              </div>
               <Input
                 id="tags"
                 value={newResource.tags}
