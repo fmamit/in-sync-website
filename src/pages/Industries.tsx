@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Check, Sparkles, Lock } from "lucide-react";
 import Footer from "@/components/Footer";
-import OnboardingModal from "@/components/OnboardingModal";
 
 const Industries = () => {
   const industries = [

@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
-import OnboardingModal from "./OnboardingModal";
+import DemoRequestModal from "./DemoRequestModal";
 import { 
   TrendingUp, 
   DollarSign, 

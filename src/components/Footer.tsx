@@ -8,7 +8,6 @@ import {
   ArrowRight
 } from "lucide-react";
 import insyncLogo from "@/assets/insync-logo-color.png";
-import OnboardingModal from "./OnboardingModal";
 import DemoRequestModal from "./DemoRequestModal";
 
 const Footer = () => {

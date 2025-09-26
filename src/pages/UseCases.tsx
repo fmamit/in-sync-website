@@ -1,7 +1,6 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import OnboardingModal from "@/components/OnboardingModal";
 import DemoRequestModal from "@/components/DemoRequestModal";
 import { 
   Building2, 

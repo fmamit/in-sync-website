@@ -3,7 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import OnboardingModal from "./OnboardingModal";
+import DemoRequestModal from "./DemoRequestModal";
 import { 
   PlayCircle,
   Pause,
@@ -412,7 +412,7 @@ const InteractiveShowcase = ({ className = "" }: { className?: string }) => {
           Join hundreds of businesses that have already experienced these dramatic improvements
         </p>
         <div className="flex justify-center">
-          <OnboardingModal trigger={
+          <DemoRequestModal trigger={
             <Button size="lg">
               Start Your Transformation
             </Button>

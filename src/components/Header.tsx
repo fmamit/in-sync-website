@@ -5,7 +5,6 @@ import { Menu, X, User, LogOut, LogIn } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { useAuth } from "@/hooks/useAuth";
 import insyncLogo from "@/assets/insync-logo-color.png";
-import OnboardingModal from "./OnboardingModal";
 import DemoRequestModal from "./DemoRequestModal";
 
 export default function Header() {
@@ -50,11 +49,6 @@ export default function Header() {
 
           {/* Desktop CTAs */}
           <div className="hidden md:flex items-center space-x-4">
-            <OnboardingModal trigger={
-              <Button variant="ghost" size="sm">
-                Onboarding Form
-              </Button>
-            } />
             <DemoRequestModal trigger={
               <Button variant="default" size="sm" className="font-semibold">
                 Request Demo
@@ -128,11 +122,6 @@ export default function Header() {
                 <DemoRequestModal trigger={
                   <Button variant="default" size="sm" className="w-full">
                     Request Demo
-                  </Button>
-                } />
-                <OnboardingModal trigger={
-                  <Button variant="outline" size="sm" className="w-full">
-                    Onboarding Form
                   </Button>
                 } />
                 {user ? (

@@ -3,7 +3,6 @@ import { ArrowRight, Play, CheckCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import heroBanner from "@/assets/hero-banner-main.png";
 import heroBannerAlt from "@/assets/hero-banner-final-corrected.png";
-import OnboardingModal from "./OnboardingModal";
 import DemoRequestModal from "./DemoRequestModal";
 // ... keep existing imports ...
 import growthvineLogo from "@/assets/growthvine-logo-3.jpeg";
