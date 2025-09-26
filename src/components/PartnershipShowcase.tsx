@@ -134,13 +134,13 @@ export default function PartnershipShowcase({ onEnrollmentSuccess }: Partnership
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
             <Card className="h-fit">
-              <CardHeader className="text-center pb-4">
+              <CardHeader className="text-center pb-3">
                 <Users className="h-8 w-8 mx-auto text-primary" />
                 <CardTitle className="text-lg">Partnership Benefits</CardTitle>
               </CardHeader>
-              <CardContent className="pt-0">
+              <CardContent className="pt-0 px-4">
                 <ul className="space-y-2 text-sm text-muted-foreground">
                   <li>• Non-exclusive partnership</li>
                   <li>• Comprehensive marketing support</li>
@@ -152,11 +152,11 @@ export default function PartnershipShowcase({ onEnrollmentSuccess }: Partnership
             </Card>
 
             <Card className="h-fit">
-              <CardHeader className="text-center pb-4">
+              <CardHeader className="text-center pb-3">
                 <TrendingUp className="h-8 w-8 mx-auto text-primary" />
                 <CardTitle className="text-lg">Growth Support</CardTitle>
               </CardHeader>
-              <CardContent className="pt-0">
+              <CardContent className="pt-0 px-4">
                 <ul className="space-y-2 text-sm text-muted-foreground">
                   <li>• Market development funds</li>
                   <li>• Co-marketing opportunities</li>
