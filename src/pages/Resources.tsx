@@ -14,6 +14,7 @@ import Footer from "@/components/Footer";
 import { getResponseForQuery } from "@/data/faqKnowledgeBase";
 import { useLazyLoading } from "@/hooks/useLazyLoading";
 import { useBlogOperations, type BlogPost } from "@/hooks/useBlogOperations";
+import { useAuth } from "@/hooks/useAuth";
 import {
   Calendar,
   Clock,
@@ -32,8 +33,6 @@ import {
   ChevronDown,
   Loader2,
   Edit3,
-  LogIn,
-  LogOut,
   Trash2
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
@@ -381,6 +380,7 @@ const initialTutorials = [
 
 const Resources = () => {
   const navigate = useNavigate();
+  const { user, isAdmin } = useAuth();
   const [blogs, setBlogs] = useState<BlogPost[]>([]);
   const [whitepapers, setWhitepapers] = useState(initialWhitepapers);
   const [events, setEvents] = useState(initialEvents);
@@ -388,11 +388,6 @@ const Resources = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
-  
-  // Authentication state
-  const [isAuthDialogOpen, setIsAuthDialogOpen] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [credentials, setCredentials] = useState({ username: "", password: "" });
   
   // Edit blog state
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
@@ -440,43 +435,6 @@ const Resources = () => {
     };
     loadBlogs();
   }, []);
-
-  // Check authentication on component mount
-  useEffect(() => {
-    const authStatus = localStorage.getItem('blog-auth');
-    if (authStatus === 'true') {
-      setIsAuthenticated(true);
-    }
-  }, []);
-
-  // Authentication functions
-  const handleAuth = () => {
-    if (credentials.username === "asg" && credentials.password === "asg@987") {
-      setIsAuthenticated(true);
-      setIsAuthDialogOpen(false);
-      localStorage.setItem('blog-auth', 'true');
-      toast({
-        title: "Success",
-        description: "Successfully authenticated! You can now edit blogs.",
-      });
-      setCredentials({ username: "", password: "" });
-    } else {
-      toast({
-        title: "Error",
-        description: "Invalid credentials. Please try again.",
-        variant: "destructive"
-      });
-    }
-  };
-
-  const handleLogout = () => {
-    setIsAuthenticated(false);
-    localStorage.removeItem('blog-auth');
-    toast({
-      title: "Success",
-      description: "Logged out successfully.",
-    });
-  };
 
   // Edit blog functions
   const handleEditBlog = (blog: BlogPost) => {
@@ -668,8 +626,13 @@ const Resources = () => {
   };
 
   const handleAddClick = (resourceType: string) => {
-    if (!isAuthenticated) {
-      setIsAuthDialogOpen(true);
+    if (!user || !isAdmin) {
+      toast({
+        title: "Access Denied",
+        description: "Only admins can add resources. Please sign in with admin credentials.",
+        variant: "destructive"
+      });
+      navigate('/auth');
       return;
     }
     setNewResourceType(resourceType);
@@ -712,7 +675,7 @@ const Resources = () => {
           <div className="w-full h-48 bg-gradient-to-br from-primary/10 to-secondary/10" />
         )}
         <Badge className="absolute top-4 left-4">{blog.category}</Badge>
-        {isAuthenticated && (
+        {user && isAdmin && (
           <Button
             size="sm"
             variant="secondary"
@@ -755,7 +718,7 @@ const Resources = () => {
             Read More
             <ExternalLink className="h-4 w-4 ml-2" />
           </Button>
-          {isAuthenticated && (
+          {user && isAdmin && (
             <>
               <Button
                 variant="outline"
@@ -926,7 +889,7 @@ const Resources = () => {
           {description} ({count} available)
         </p>
       </div>
-      {isAuthenticated && (
+      {user && isAdmin && (
         <Button onClick={onAddClick} className="shrink-0">
           <Plus className="h-4 w-4 mr-2" />
           Add {title.slice(0, -1)}
@@ -947,19 +910,13 @@ const Resources = () => {
                   Learn & Grow with Our <span className="text-primary">Resources</span>
                 </h1>
               </div>
-              <div className="flex gap-2">
-                {isAuthenticated ? (
-                  <Button onClick={handleLogout} variant="outline">
-                    <LogOut className="h-4 w-4 mr-2" />
-                    Logout
+              {user && isAdmin && (
+                <div className="flex gap-2">
+                  <Button onClick={() => navigate('/auth')} variant="outline">
+                    Signed in as Admin
                   </Button>
-                ) : (
-                  <Button onClick={() => setIsAuthDialogOpen(true)} variant="outline">
-                    <LogIn className="h-4 w-4 mr-2" />
-                    Admin Login
-                  </Button>
-                )}
-              </div>
+                </div>
+              )}
             </div>
             <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
               Discover blogs, whitepapers, events, and tutorials to master customer engagement and boost your business success.
@@ -1123,50 +1080,6 @@ const Resources = () => {
           </div>
         </section>
       </div>
-
-      {/* Authentication Dialog */}
-      <Dialog open={isAuthDialogOpen} onOpenChange={setIsAuthDialogOpen}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Admin Login</DialogTitle>
-          </DialogHeader>
-          <div className="space-y-4">
-            <p className="text-sm text-muted-foreground">
-              Please enter admin credentials to edit blogs.
-            </p>
-            <div className="space-y-4">
-              <div>
-                <Label htmlFor="username">Username</Label>
-                <Input
-                  id="username"
-                  value={credentials.username}
-                  onChange={(e) => setCredentials({...credentials, username: e.target.value})}
-                  placeholder="Enter username"
-                />
-              </div>
-              <div>
-                <Label htmlFor="password">Password</Label>
-                <Input
-                  id="password"
-                  type="password"
-                  value={credentials.password}
-                  onChange={(e) => setCredentials({...credentials, password: e.target.value})}
-                  placeholder="Enter password"
-                />
-              </div>
-            </div>
-            <div className="flex gap-4">
-              <Button onClick={handleAuth} className="flex-1">
-                <LogIn className="h-4 w-4 mr-2" />
-                Login
-              </Button>
-              <Button variant="outline" onClick={() => setIsAuthDialogOpen(false)} className="flex-1">
-                Cancel
-              </Button>
-            </div>
-          </div>
-        </DialogContent>
-      </Dialog>
 
       {/* Edit Blog Dialog */}
       <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
