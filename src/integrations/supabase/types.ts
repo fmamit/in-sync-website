@@ -341,6 +341,57 @@ export type Database = {
         }
         Relationships: []
       }
+      whitepapers: {
+        Row: {
+          author: string
+          category: string
+          created_at: string
+          description: string
+          download_count: number | null
+          file_size_mb: number | null
+          id: string
+          pages: number | null
+          pdf_url: string | null
+          publication_date: string | null
+          tags: string[] | null
+          thumbnail_url: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          author?: string
+          category: string
+          created_at?: string
+          description: string
+          download_count?: number | null
+          file_size_mb?: number | null
+          id?: string
+          pages?: number | null
+          pdf_url?: string | null
+          publication_date?: string | null
+          tags?: string[] | null
+          thumbnail_url?: string | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          author?: string
+          category?: string
+          created_at?: string
+          description?: string
+          download_count?: number | null
+          file_size_mb?: number | null
+          id?: string
+          pages?: number | null
+          pdf_url?: string | null
+          publication_date?: string | null
+          tags?: string[] | null
+          thumbnail_url?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

@@ -17,6 +17,13 @@ import { useBlogOperations, type BlogPost } from "@/hooks/useBlogOperations";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import { uploadBlogImage, processQuillImages } from "@/utils/imageUpload";
+import { 
+  createWhitepaper, 
+  updateWhitepaper, 
+  deleteWhitepaper, 
+  fetchWhitepapers,
+  type WhitepaperData 
+} from "@/utils/whitepaperUpload";
 import {
   Calendar,
   Clock,
@@ -35,7 +42,8 @@ import {
   ChevronDown,
   Loader2,
   Edit3,
-  Trash2
+  Trash2,
+  Upload
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import ReactQuill from 'react-quill';
@@ -384,7 +392,7 @@ const Resources = () => {
   const navigate = useNavigate();
   const { user, isAdmin } = useAuth();
   const [blogs, setBlogs] = useState<BlogPost[]>([]);
-  const [whitepapers, setWhitepapers] = useState(initialWhitepapers);
+  const [whitepapers, setWhitepapers] = useState<any[]>([]);
   const [events, setEvents] = useState(initialEvents);
   const [tutorials, setTutorials] = useState(initialTutorials);
   const [searchTerm, setSearchTerm] = useState("");
@@ -444,6 +452,7 @@ const Resources = () => {
     type: "",
     content: "",
     image: null as File | null,
+    pdf: null as File | null,
     metaDescription: "",
     metaKeywords: "",
     geoRegion: "IN",
@@ -452,13 +461,16 @@ const Resources = () => {
     icbm: "20.5937, 78.9629"
   });
 
-  // Load blogs from Supabase on component mount
+  // Load blogs and whitepapers from Supabase on component mount
   useEffect(() => {
-    const loadBlogs = async () => {
+    const loadData = async () => {
       const blogData = await fetchBlogs();
       setBlogs(blogData);
+      
+      const whitepaperData = await fetchWhitepapers();
+      setWhitepapers(whitepaperData);
     };
-    loadBlogs();
+    loadData();
   }, []);
 
   // Edit blog functions
@@ -687,13 +699,40 @@ const Resources = () => {
 
       switch (resourceType) {
         case "whitepaper":
-          setWhitepapers([...whitepapers, {
-            ...resourceData,
-            pages: 20,
-            downloadCount: 0,
-            publishDate: resourceData.date,
-            fileUrl: "#"
-          }]);
+          if (!newResource.pdf) {
+            toast({
+              title: "Error",
+              description: "Please upload a PDF file for the whitepaper.",
+              variant: "destructive"
+            });
+            return;
+          }
+
+          const whitepaperData: WhitepaperData = {
+            title: newResource.title,
+            description: newResource.description,
+            category: newResource.category,
+            author: newResource.author || "In-Sync Team",
+            tags: newResource.tags.split(",").map(tag => tag.trim()).filter(tag => tag),
+            publicationDate: new Date().toISOString().split("T")[0]
+          };
+
+          const whitepaperResult = await createWhitepaper(whitepaperData, newResource.pdf);
+          if (whitepaperResult) {
+            const updatedWhitepapers = await fetchWhitepapers();
+            setWhitepapers(updatedWhitepapers);
+            toast({
+              title: "Success",
+              description: "Whitepaper uploaded successfully!",
+            });
+          } else {
+            toast({
+              title: "Error",
+              description: "Failed to upload whitepaper. Please try again.",
+              variant: "destructive"
+            });
+            return;
+          }
           break;
         case "event":
           setEvents([...events, {
@@ -736,6 +775,7 @@ const Resources = () => {
       type: "",
       content: "",
       image: null,
+      pdf: null,
       metaDescription: "",
       metaKeywords: "",
       geoRegion: "IN",
@@ -908,6 +948,19 @@ const Resources = () => {
 
   const WhitepaperCard = ({ whitepaper }: { whitepaper: any }) => (
     <Card className="group hover:shadow-lg transition-all duration-300">
+      {/* Thumbnail Image */}
+      {whitepaper.thumbnail_url && (
+        <div className="relative overflow-hidden rounded-t-lg">
+          <img 
+            src={whitepaper.thumbnail_url} 
+            alt={`${whitepaper.title} preview`}
+            className="w-full h-48 object-cover transition-transform group-hover:scale-105"
+            loading="lazy"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/20" />
+        </div>
+      )}
+      
       <CardHeader>
         <div className="flex items-center justify-between mb-2">
           <Badge>{whitepaper.category}</Badge>
@@ -941,11 +994,18 @@ const Resources = () => {
           ))}
         </div>
         <div className="flex items-center justify-between text-sm text-muted-foreground mb-4">
-          <span>Published: {whitepaper.publishDate}</span>
-          <span>{whitepaper.downloadCount} downloads</span>
+          <span>Published: {whitepaper.publication_date || whitepaper.publishDate}</span>
+          <span>{whitepaper.download_count || whitepaper.downloadCount} downloads</span>
         </div>
         <div className="flex gap-2">
-          <Button className="flex-1">
+          <Button 
+            className="flex-1"
+            onClick={() => {
+              if (whitepaper.pdf_url) {
+                window.open(whitepaper.pdf_url, '_blank');
+              }
+            }}
+          >
             <Download className="h-4 w-4 mr-2" />
             Download PDF
           </Button>
@@ -1650,6 +1710,21 @@ const Resources = () => {
                 placeholder="tag1, tag2, tag3"
               />
             </div>
+
+            {newResourceType === "whitepaper" && (
+              <div>
+                <Label htmlFor="pdf">Whitepaper PDF <span className="text-red-500">*</span></Label>
+                <Input
+                  id="pdf"
+                  type="file"
+                  accept="application/pdf"
+                  onChange={(e) => setNewResource({...newResource, pdf: e.target.files?.[0] || null})}
+                />
+                <p className="text-sm text-muted-foreground mt-1">
+                  Upload the PDF file for your whitepaper. The first page will be used as thumbnail.
+                </p>
+              </div>
+            )}
 
             {newResourceType === "blog" && (
               <div>
