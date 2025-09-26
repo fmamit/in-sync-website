@@ -1428,11 +1428,11 @@ const Resources = () => {
                        onChange={(e) => setNewResource({...newResource, metaDescription: e.target.value})}
                        placeholder="Learn how to master project deadlines with the precision of booking Tatkal tickets..."
                        rows={4}
-                       maxLength={250}
+                       maxLength={500}
                        className="resize-y min-h-[100px]"
                      />
                      <p className="text-xs text-muted-foreground mt-1">
-                       {newResource.metaDescription.length}/250 characters (recommended: 150-160 for SEO)
+                       {newResource.metaDescription.length}/500 characters (recommended: 150-160 for SEO)
                      </p>
                    </div>
                   
