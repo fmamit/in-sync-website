@@ -58,9 +58,9 @@ export default function Auth() {
         <CardContent>
           <form onSubmit={handleSignIn} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="email">User ID</Label>
+              <Label htmlFor="userId">User ID</Label>
               <Input
-                id="email"
+                id="userId"
                 type="text"
                 placeholder="Enter your user ID"
                 value={signInData.userId}

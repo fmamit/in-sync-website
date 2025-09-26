@@ -25,7 +25,7 @@ export function useAuth() {
                 .select('role')
                 .eq('user_id', session.user.id)
                 .eq('role', 'admin')
-                .single();
+                .maybeSingle();
               
               setIsAdmin(!error && data?.role === 'admin');
             } catch (error) {
@@ -52,7 +52,7 @@ export function useAuth() {
               .select('role')
               .eq('user_id', session.user.id)
               .eq('role', 'admin')
-              .single();
+              .maybeSingle();
             
             setIsAdmin(!error && data?.role === 'admin');
           } catch (error) {
