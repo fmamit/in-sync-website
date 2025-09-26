@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, User, LogOut } from "lucide-react";
+import { Menu, X, User, LogOut, LogIn } from "lucide-react";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useAuth } from "@/hooks/useAuth";
 import insyncLogo from "@/assets/insync-logo-color.png";
 import OnboardingModal from "./OnboardingModal";
@@ -23,7 +24,8 @@ export default function Header() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-md">
+    <TooltipProvider>
+      <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-md">
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
@@ -66,20 +68,35 @@ export default function Header() {
                   <span>{user.email}</span>
                   {isAdmin && <span className="text-primary font-medium">(Admin)</span>}
                 </div>
-                <Button 
-                  variant="outline" 
-                  size="sm" 
-                  onClick={signOut}
-                  className="flex items-center space-x-1"
-                >
-                  <LogOut className="h-4 w-4" />
-                  <span>Sign Out</span>
-                </Button>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      onClick={signOut}
+                      className="p-2"
+                    >
+                      <LogOut className="h-4 w-4" />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Sign Out</p>
+                  </TooltipContent>
+                </Tooltip>
               </div>
             ) : (
-              <Button asChild className="bg-primary hover:bg-primary/90">
-                <Link to="/auth">Sign In</Link>
-              </Button>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button asChild className="bg-primary hover:bg-primary/90 p-2">
+                    <Link to="/auth">
+                      <LogIn className="h-4 w-4" />
+                    </Link>
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Sign In</p>
+                </TooltipContent>
+              </Tooltip>
             )}
           </div>
 
@@ -134,15 +151,16 @@ export default function Header() {
                         signOut();
                         setIsMobileMenuOpen(false);
                       }}
-                      className="w-full flex items-center space-x-2"
+                      className="w-full flex items-center justify-center p-2"
                     >
                       <LogOut className="h-4 w-4" />
-                      <span>Sign Out</span>
                     </Button>
                   </div>
                 ) : (
-                  <Button asChild className="bg-primary hover:bg-primary/90 w-full">
-                    <Link to="/auth" onClick={() => setIsMobileMenuOpen(false)}>Sign In</Link>
+                  <Button asChild className="bg-primary hover:bg-primary/90 w-full p-2 flex justify-center">
+                    <Link to="/auth" onClick={() => setIsMobileMenuOpen(false)}>
+                      <LogIn className="h-4 w-4" />
+                    </Link>
                   </Button>
                 )}
               </div>
@@ -151,5 +169,6 @@ export default function Header() {
         )}
       </div>
     </header>
+    </TooltipProvider>
   );
 }
