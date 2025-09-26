@@ -22,6 +22,7 @@ import {
   updateWhitepaper, 
   deleteWhitepaper, 
   fetchWhitepapers,
+  fixWhitepaperPageCounts,
   type WhitepaperData 
 } from "@/utils/whitepaperUpload";
 import { ResourceCard } from "@/components/common/BusinessCard";
@@ -801,6 +802,54 @@ const Resources = () => {
     setIsAddDialogOpen(true);
   };
 
+  const handleFixWhitepaperPageCounts = async () => {
+    if (!user || !isAdmin) {
+      toast({
+        title: "Access Denied",
+        description: "Only admins can perform this action.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    toast({
+      title: "Processing...",
+      description: "Fixing whitepaper page counts. This may take a moment.",
+    });
+
+    try {
+      const result = await fixWhitepaperPageCounts();
+      
+      if (result.success) {
+        // Refresh the whitepapers list
+        const updatedWhitepapers = await fetchWhitepapers();
+        setWhitepapers(updatedWhitepapers);
+        
+        toast({
+          title: "Success!",
+          description: `Fixed ${result.fixed} whitepapers. ${result.errors.length > 0 ? `${result.errors.length} errors occurred.` : ''}`,
+        });
+        
+        if (result.errors.length > 0) {
+          console.warn('Errors during fix:', result.errors);
+        }
+      } else {
+        toast({
+          title: "Error",
+          description: "Failed to fix whitepaper page counts. Check console for details.",
+          variant: "destructive"
+        });
+      }
+    } catch (error) {
+      console.error('Error in handleFixWhitepaperPageCounts:', error);
+      toast({
+        title: "Error",
+        description: "An unexpected error occurred while fixing page counts.",
+        variant: "destructive"
+      });
+    }
+  };
+
   const handleFaqQuery = () => {
     if (!faqQuery.trim()) return;
     
@@ -1105,7 +1154,7 @@ const Resources = () => {
     </Card>
   );
 
-  const SectionHeader = ({ title, description, count, onAddClick }: any) => (
+  const SectionHeader = ({ title, description, count, onAddClick, onFixClick, showFixButton }: any) => (
     <div className="flex items-center justify-between mb-8">
       <div>
         <h2 className="text-3xl font-bold mb-2">{title}</h2>
@@ -1114,10 +1163,17 @@ const Resources = () => {
         </p>
       </div>
       {user && isAdmin && (
-        <Button onClick={onAddClick} className="shrink-0">
-          <Plus className="h-4 w-4 mr-2" />
-          Add {title.slice(0, -1)}
-        </Button>
+        <div className="flex gap-2 shrink-0">
+          {showFixButton && onFixClick && (
+            <Button onClick={onFixClick} variant="outline" size="sm">
+              Fix Page Counts
+            </Button>
+          )}
+          <Button onClick={onAddClick}>
+            <Plus className="h-4 w-4 mr-2" />
+            Add {title.slice(0, -1)}
+          </Button>
+        </div>
       )}
     </div>
   );
@@ -1208,6 +1264,8 @@ const Resources = () => {
             description="In-depth guides and industry analysis"
             count={filteredWhitepapers.length}
             onAddClick={() => handleAddClick("whitepaper")}
+            onFixClick={handleFixWhitepaperPageCounts}
+            showFixButton={true}
           />
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

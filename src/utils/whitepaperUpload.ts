@@ -304,3 +304,95 @@ export const fetchWhitepapers = async () => {
     return [];
   }
 };
+
+export const fixWhitepaperPageCounts = async (): Promise<{ success: boolean; fixed: number; errors: string[] }> => {
+  try {
+    console.log('Starting whitepaper page count fix...');
+    
+    // Get all whitepapers with 0 pages or null pages
+    const { data: whitepapers, error: fetchError } = await supabase
+      .from('whitepapers')
+      .select('*')
+      .or('pages.is.null,pages.eq.0');
+
+    if (fetchError) {
+      console.error('Error fetching whitepapers to fix:', fetchError);
+      return { success: false, fixed: 0, errors: [fetchError.message] };
+    }
+
+    if (!whitepapers || whitepapers.length === 0) {
+      console.log('No whitepapers found with 0 pages');
+      return { success: true, fixed: 0, errors: [] };
+    }
+
+    console.log(`Found ${whitepapers.length} whitepapers to fix`);
+    
+    let fixedCount = 0;
+    const errors: string[] = [];
+
+    for (const whitepaper of whitepapers) {
+      try {
+        console.log(`Processing whitepaper: ${whitepaper.title}`);
+        
+        if (!whitepaper.pdf_url) {
+          console.warn(`Whitepaper ${whitepaper.title} has no PDF URL, skipping`);
+          errors.push(`Whitepaper "${whitepaper.title}" has no PDF URL`);
+          continue;
+        }
+
+        // Fetch the PDF file from the URL
+        const response = await fetch(whitepaper.pdf_url);
+        if (!response.ok) {
+          throw new Error(`Failed to fetch PDF: ${response.statusText}`);
+        }
+
+        const blob = await response.blob();
+        const file = new File([blob], `${whitepaper.title}.pdf`, { type: 'application/pdf' });
+        
+        // Get the correct page count
+        const pageCount = await getPDFPageCount(file);
+        
+        if (pageCount > 0) {
+          // Update the whitepaper with the correct page count
+          const { error: updateError } = await supabase
+            .from('whitepapers')
+            .update({ 
+              pages: pageCount,
+              updated_at: new Date().toISOString()
+            })
+            .eq('id', whitepaper.id);
+
+          if (updateError) {
+            throw new Error(`Failed to update whitepaper: ${updateError.message}`);
+          }
+
+          console.log(`✅ Fixed ${whitepaper.title}: ${pageCount} pages`);
+          fixedCount++;
+        } else {
+          console.warn(`⚠️ Could not determine page count for ${whitepaper.title}`);
+          errors.push(`Could not determine page count for "${whitepaper.title}"`);
+        }
+        
+      } catch (error) {
+        console.error(`❌ Error processing ${whitepaper.title}:`, error);
+        errors.push(`Error processing "${whitepaper.title}": ${error.message}`);
+      }
+    }
+
+    console.log(`✅ Page count fix completed. Fixed: ${fixedCount}, Errors: ${errors.length}`);
+    
+    return {
+      success: true,
+      fixed: fixedCount,
+      errors
+    };
+    
+  } catch (error) {
+    console.error('Fatal error in fixWhitepaperPageCounts:', error);
+    return {
+      success: false,
+      fixed: 0,
+      errors: [error.message]
+    };
+  }
+};
