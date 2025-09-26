@@ -2,3 +2,6 @@ project_id = "hzkqrjzahurxhmembqrs"
 
 [functions.onboarding-submit]
 verify_jwt = false
+
+[functions.demo-request]
+verify_jwt = false
