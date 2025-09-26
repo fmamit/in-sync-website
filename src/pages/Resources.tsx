@@ -16,6 +16,7 @@ import { useLazyLoading } from "@/hooks/useLazyLoading";
 import { useBlogOperations, type BlogPost } from "@/hooks/useBlogOperations";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
+import { uploadBlogImage, processQuillImages } from "@/utils/imageUpload";
 import {
   Calendar,
   Clock,
@@ -471,10 +472,15 @@ const Resources = () => {
       return;
     }
 
+    let processedContent = editBlogData.content;
+    if (processedContent) {
+      processedContent = await processQuillImages(processedContent);
+    }
+
     const updatedBlogData = {
       title: editBlogData.title,
       excerpt: editBlogData.excerpt,
-      content: editBlogData.content,
+      content: processedContent,
       category: editBlogData.category,
       tags: editBlogData.tags.split(",").map(tag => tag.trim()).filter(tag => tag),
       imageUrl: editBlogData.imageUrl,
@@ -546,17 +552,31 @@ const Resources = () => {
     }
 
     if (resourceType === "blog") {
-      // Handle image upload
+      // Process content to upload any blob images
+      let processedContent = newResource.content;
+      if (processedContent) {
+        processedContent = await processQuillImages(processedContent);
+      }
+
+      // Handle main blog image upload
       let imageUrl = "/api/placeholder/400/250";
       if (newResource.image) {
-        // Create a local URL for the uploaded image
-        imageUrl = URL.createObjectURL(newResource.image);
+        const uploadedUrl = await uploadBlogImage(newResource.image);
+        if (uploadedUrl) {
+          imageUrl = uploadedUrl;
+        } else {
+          toast({
+            title: "Warning",
+            description: "Failed to upload image. Using default placeholder.",
+            variant: "destructive"
+          });
+        }
       }
 
       const blogData = {
         title: newResource.title,
         excerpt: newResource.description,
-        content: newResource.content,
+        content: processedContent,
         author: newResource.author || "In-Sync Team",
         category: newResource.category,
         readTime: "5 min read",
