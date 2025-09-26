@@ -134,7 +134,7 @@ export default function PartnershipShowcase({ onEnrollmentSuccess }: Partnership
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 gap-8">
             <Card>
               <CardHeader className="text-center">
                 <Users className="h-8 w-8 mx-auto text-primary" />
@@ -147,22 +147,6 @@ export default function PartnershipShowcase({ onEnrollmentSuccess }: Partnership
                   <li>• Dedicated training & resources</li>
                   <li>• Technical support team</li>
                   <li>• Sales enablement tools</li>
-                </ul>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader className="text-center">
-                <Award className="h-8 w-8 mx-auto text-primary" />
-                <CardTitle className="text-lg">Commission Structure</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li>• 40% commission on setup fees</li>
-                  <li>• 30% on recurring revenue</li>
-                  <li>• Monthly settlements</li>
-                  <li>• Performance bonuses</li>
-                  <li>• Transparent tracking</li>
                 </ul>
               </CardContent>
             </Card>
