@@ -55,7 +55,12 @@ serve(async (req) => {
             category: blogData.category,
             read_time: blogData.readTime,
             tags: blogData.tags,
-            image_url: blogData.imageUrl || '/api/placeholder/400/250'
+            meta_description: blogData.metaDescription,
+            meta_keywords: blogData.metaKeywords,
+            geo_region: blogData.geoRegion,
+            geo_placename: blogData.geoPlacename,
+            geo_position: blogData.geoPosition,
+            icbm: blogData.icbm
           })
           .select()
           .single()
@@ -96,6 +101,12 @@ serve(async (req) => {
             read_time: updateData.readTime,
             tags: updateData.tags,
             image_url: updateData.imageUrl,
+            meta_description: updateData.metaDescription,
+            meta_keywords: updateData.metaKeywords,
+            geo_region: updateData.geoRegion,
+            geo_placename: updateData.geoPlacename,
+            geo_position: updateData.geoPosition,
+            icbm: updateData.icbm,
             updated_at: new Date().toISOString()
           })
           .eq('id', blogId)

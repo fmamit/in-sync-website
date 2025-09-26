@@ -13,6 +13,12 @@ export type BlogPost = {
   readTime: string
   tags: string[]
   imageUrl?: string
+  metaDescription?: string
+  metaKeywords?: string
+  geoRegion?: string
+  geoPlacename?: string
+  geoPosition?: string
+  icbm?: string
   created_at?: string
   updated_at?: string
 }
@@ -75,7 +81,13 @@ export const useBlogOperations = () => {
         category: blog.category,
         readTime: blog.read_time || '5 min read',
         tags: blog.tags || [],
-        imageUrl: blog.image_url
+        imageUrl: blog.image_url,
+        metaDescription: blog.meta_description || '',
+        metaKeywords: blog.meta_keywords || '',
+        geoRegion: blog.geo_region || 'IN',
+        geoPlacename: blog.geo_placename || 'India',
+        geoPosition: blog.geo_position || '20.5937;78.9629',
+        icbm: blog.icbm || '20.5937, 78.9629'
       }))
     } catch (error) {
       console.error('Error fetching blogs:', error)
@@ -104,7 +116,13 @@ export const useBlogOperations = () => {
           category: blogData.category,
           read_time: blogData.readTime,
           tags: blogData.tags,
-          image_url: blogData.imageUrl || '/api/placeholder/400/250'
+          image_url: blogData.imageUrl || '/api/placeholder/400/250',
+          meta_description: blogData.metaDescription,
+          meta_keywords: blogData.metaKeywords,
+          geo_region: blogData.geoRegion,
+          geo_placename: blogData.geoPlacename,
+          geo_position: blogData.geoPosition,
+          icbm: blogData.icbm
         })
         .select()
         .single()
@@ -126,7 +144,13 @@ export const useBlogOperations = () => {
         category: data.category,
         readTime: data.read_time || '5 min read',
         tags: data.tags || [],
-        imageUrl: data.image_url
+        imageUrl: data.image_url,
+        metaDescription: data.meta_description || '',
+        metaKeywords: data.meta_keywords || '',
+        geoRegion: data.geo_region || 'IN',
+        geoPlacename: data.geo_placename || 'India',
+        geoPosition: data.geo_position || '20.5937;78.9629',
+        icbm: data.icbm || '20.5937, 78.9629'
       }
     } catch (error) {
       console.error('Error creating blog:', error)
@@ -156,6 +180,12 @@ export const useBlogOperations = () => {
           read_time: blogData.readTime,
           tags: blogData.tags,
           image_url: blogData.imageUrl,
+          meta_description: blogData.metaDescription,
+          meta_keywords: blogData.metaKeywords,
+          geo_region: blogData.geoRegion,
+          geo_placename: blogData.geoPlacename,
+          geo_position: blogData.geoPosition,
+          icbm: blogData.icbm,
           updated_at: new Date().toISOString()
         })
         .eq('id', id)
@@ -179,7 +209,13 @@ export const useBlogOperations = () => {
         category: data.category,
         readTime: data.read_time || '5 min read',
         tags: data.tags || [],
-        imageUrl: data.image_url
+        imageUrl: data.image_url,
+        metaDescription: data.meta_description || '',
+        metaKeywords: data.meta_keywords || '',
+        geoRegion: data.geo_region || 'IN',
+        geoPlacename: data.geo_placename || 'India',
+        geoPosition: data.geo_position || '20.5937;78.9629',
+        icbm: data.icbm || '20.5937, 78.9629'
       }
     } catch (error) {
       console.error('Error updating blog:', error)

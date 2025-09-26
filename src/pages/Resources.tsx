@@ -424,7 +424,13 @@ const Resources = () => {
     author: "",
     type: "",
     content: "",
-    image: null as File | null
+    image: null as File | null,
+    metaDescription: "",
+    metaKeywords: "",
+    geoRegion: "IN",
+    geoPlacename: "India",
+    geoPosition: "20.5937;78.9629",
+    icbm: "20.5937, 78.9629"
   });
 
   // Load blogs from Supabase on component mount
@@ -551,7 +557,13 @@ const Resources = () => {
         category: newResource.category,
         readTime: "5 min read",
         tags: newResource.tags.split(",").map(tag => tag.trim()).filter(tag => tag),
-        imageUrl: imageUrl
+        imageUrl: imageUrl,
+        metaDescription: newResource.metaDescription,
+        metaKeywords: newResource.metaKeywords,
+        geoRegion: newResource.geoRegion,
+        geoPlacename: newResource.geoPlacename,
+        geoPosition: newResource.geoPosition,
+        icbm: newResource.icbm
       };
 
       const result = await createBlog(blogData);
@@ -620,7 +632,13 @@ const Resources = () => {
       author: "",
       type: "",
       content: "",
-      image: null
+      image: null,
+      metaDescription: "",
+      metaKeywords: "",
+      geoRegion: "IN",
+      geoPlacename: "India",
+      geoPosition: "20.5937;78.9629",
+      icbm: "20.5937, 78.9629"
     });
     setIsAddDialogOpen(false);
   };
@@ -1337,6 +1355,83 @@ const Resources = () => {
                 <p className="text-sm text-muted-foreground mt-1">
                   Upload an image for your blog post (JPG, PNG, WebP supported)
                 </p>
+              </div>
+            )}
+
+            {newResourceType === "blog" && (
+              <div className="border border-border rounded-lg p-4 bg-card">
+                <h4 className="font-medium mb-3 text-card-foreground">SEO Meta Tags</h4>
+                <div className="space-y-4">
+                  <div>
+                    <Label htmlFor="metaDescription">Meta Description</Label>
+                    <Textarea
+                      id="metaDescription"
+                      value={newResource.metaDescription}
+                      onChange={(e) => setNewResource({...newResource, metaDescription: e.target.value})}
+                      placeholder="Learn how to master project deadlines with the precision of booking Tatkal tickets..."
+                      rows={2}
+                      maxLength={160}
+                    />
+                    <p className="text-xs text-muted-foreground mt-1">
+                      {newResource.metaDescription.length}/160 characters
+                    </p>
+                  </div>
+                  
+                  <div>
+                    <Label htmlFor="metaKeywords">Keywords (comma separated)</Label>
+                    <Textarea
+                      id="metaKeywords"
+                      value={newResource.metaKeywords}
+                      onChange={(e) => setNewResource({...newResource, metaKeywords: e.target.value})}
+                      placeholder="project management, Tatkal tickets, deadline management, critical path optimization..."
+                      rows={2}
+                    />
+                  </div>
+                  
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="geoRegion">Geo Region</Label>
+                      <Input
+                        id="geoRegion"
+                        value={newResource.geoRegion}
+                        onChange={(e) => setNewResource({...newResource, geoRegion: e.target.value})}
+                        placeholder="IN"
+                      />
+                    </div>
+                    
+                    <div>
+                      <Label htmlFor="geoPlacename">Geo Place Name</Label>
+                      <Input
+                        id="geoPlacename"
+                        value={newResource.geoPlacename}
+                        onChange={(e) => setNewResource({...newResource, geoPlacename: e.target.value})}
+                        placeholder="India"
+                      />
+                    </div>
+                  </div>
+                  
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="geoPosition">Geo Position</Label>
+                      <Input
+                        id="geoPosition"
+                        value={newResource.geoPosition}
+                        onChange={(e) => setNewResource({...newResource, geoPosition: e.target.value})}
+                        placeholder="20.5937;78.9629"
+                      />
+                    </div>
+                    
+                    <div>
+                      <Label htmlFor="icbm">ICBM</Label>
+                      <Input
+                        id="icbm"
+                        value={newResource.icbm}
+                        onChange={(e) => setNewResource({...newResource, icbm: e.target.value})}
+                        placeholder="20.5937, 78.9629"
+                      />
+                    </div>
+                  </div>
+                </div>
               </div>
             )}
 

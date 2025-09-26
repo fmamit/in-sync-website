@@ -21,8 +21,14 @@ export type Database = {
           content: string
           created_at: string
           excerpt: string
+          geo_placename: string | null
+          geo_position: string | null
+          geo_region: string | null
+          icbm: string | null
           id: number
           image_url: string | null
+          meta_description: string | null
+          meta_keywords: string | null
           read_time: string | null
           tags: string[] | null
           title: string
@@ -34,8 +40,14 @@ export type Database = {
           content: string
           created_at?: string
           excerpt: string
+          geo_placename?: string | null
+          geo_position?: string | null
+          geo_region?: string | null
+          icbm?: string | null
           id?: number
           image_url?: string | null
+          meta_description?: string | null
+          meta_keywords?: string | null
           read_time?: string | null
           tags?: string[] | null
           title: string
@@ -47,8 +59,14 @@ export type Database = {
           content?: string
           created_at?: string
           excerpt?: string
+          geo_placename?: string | null
+          geo_position?: string | null
+          geo_region?: string | null
+          icbm?: string | null
           id?: number
           image_url?: string | null
+          meta_description?: string | null
+          meta_keywords?: string | null
           read_time?: string | null
           tags?: string[] | null
           title?: string
