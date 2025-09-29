@@ -404,7 +404,6 @@ const UseCases = () => {
       <main>
         {/* Hero Section */}
         <section className="py-20 bg-primary/5 relative overflow-hidden">
-          <div className="absolute inset-0 bg-grid-black/[0.02] bg-[size:50px_50px]" />
           <div className="container mx-auto px-4 relative">
             <div className="text-center max-w-5xl mx-auto">
               <div className="flex items-center justify-center gap-3 mb-6">
@@ -463,15 +462,12 @@ const UseCases = () => {
                 const isEven = index % 2 === 0;
                 return (
                   <div key={study.id} className="relative">
-                    {/* Background Elements */}
-                    <div className="absolute inset-0 bg-primary/3 rounded-3xl blur-3xl"></div>
                     
                     <div className={`relative grid lg:grid-cols-12 gap-12 items-center ${isEven ? '' : 'lg:grid-flow-col-dense'}`}>
                       {/* Company Header & Challenge */}
                       <div className={`lg:col-span-5 space-y-8 ${isEven ? '' : 'lg:col-start-8'}`}>
                         {/* Company Header */}
                         <div className="relative">
-                          <div className="absolute -inset-4 bg-primary/20 rounded-3xl blur-lg"></div>
                           <div className="relative bg-white/80 backdrop-blur-md rounded-2xl p-8 border border-white/50 shadow-xl">
                             <div className="flex items-start gap-6">
                               <div className={`relative w-20 h-20 ${study.color} rounded-2xl flex items-center justify-center shadow-lg`}>
@@ -657,7 +653,6 @@ const UseCases = () => {
 
         {/* Success Metrics */}
         <section className="py-20 bg-primary text-primary-foreground relative overflow-hidden">
-          <div className="absolute inset-0 bg-grid-white/[0.05] bg-[size:50px_50px]" />
           <div className="container mx-auto px-4 relative">
             <div className="text-center mb-16">
               <h2 className="text-4xl lg:text-5xl font-bold mb-6">Industry-Leading Results</h2>

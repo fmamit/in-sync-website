@@ -51,8 +51,6 @@ const HeroSection = () => {
 
   return (
     <section className="relative overflow-hidden bg-background min-h-screen flex items-center justify-center py-20">
-      {/* Background Elements */}
-      <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
       
       <div className="container mx-auto px-4 relative z-10">
         <div className="flex justify-center items-center max-w-6xl mx-auto">

@@ -83,14 +83,6 @@ const IndustryResults = () => {
 
   return (
     <section className="py-20 relative overflow-hidden bg-muted/30">
-      {/* Subtle background pattern */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background/90" />
-      
-      {/* Minimal decoration */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-20 left-10 w-32 h-32 rounded-full bg-foreground animate-pulse" />
-        <div className="absolute bottom-20 right-20 w-48 h-48 rounded-full bg-foreground animate-pulse delay-1000" />
-      </div>
 
       <div className="container mx-auto px-4 relative z-10">
         
