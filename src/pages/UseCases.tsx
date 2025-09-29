@@ -411,7 +411,7 @@ const UseCases = () => {
                 <div className="w-12 h-12 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center">
                   <Sparkles className="h-6 w-6 text-white" />
                 </div>
-                <h1 className="text-5xl lg:text-6xl font-bold bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent">
+                <h1 className="text-5xl lg:text-6xl font-bold text-primary">
                   Success Stories
                 </h1>
                 <div className="w-12 h-12 bg-gradient-to-r from-secondary to-primary rounded-full flex items-center justify-center">

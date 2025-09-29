@@ -110,7 +110,7 @@ const CRMShowcase = () => {
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
             See{" "}
-            <span className="bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
+            <span className="text-primary">
               In-Sync CRM
             </span>{" "}
             Transform Your Business

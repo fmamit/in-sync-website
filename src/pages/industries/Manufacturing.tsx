@@ -21,7 +21,7 @@ const Manufacturing = () => {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-7xl mx-auto">
             <div>
-              <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
+              <h1 className="text-4xl md:text-6xl font-bold mb-6 text-primary">
                 Stop Production Delays That Cost You Crores
               </h1>
               <p className="text-xl text-muted-foreground mb-8 max-w-3xl">

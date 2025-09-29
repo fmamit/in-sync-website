@@ -21,7 +21,7 @@ const RealEstate = () => {
             <Badge variant="secondary" className="mb-6 px-4 py-2 text-sm">
               Real Estate CRM Solutions - India
             </Badge>
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-primary bg-clip-text text-transparent leading-tight">
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 text-primary leading-tight">
               Stop Watching Qualified Leads Buy from Your Competitors
             </h1>
             <p className="text-xl text-muted-foreground max-w-4xl mx-auto mb-8 leading-relaxed">
