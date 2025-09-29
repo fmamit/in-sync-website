@@ -50,8 +50,11 @@ const HeroSection = () => {
   ];
 
   return (
-    <section className="relative overflow-hidden bg-background min-h-screen flex items-center justify-center py-20">
-      {/* Background Elements */}
+    <section className="relative overflow-hidden bg-gradient-to-br from-teal-50 via-purple-50 to-blue-50 min-h-screen flex items-center justify-center py-20">
+      {/* Colorful Background Elements */}
+      <div className="absolute top-20 left-10 w-72 h-72 bg-teal-400/20 rounded-full blur-3xl animate-pulse"></div>
+      <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-400/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
+      <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-blue-400/10 rounded-full blur-3xl animate-pulse delay-500"></div>
       <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
       
       <div className="container mx-auto px-4 relative z-10">
@@ -75,14 +78,14 @@ const HeroSection = () => {
         {/* CTAs Below Banner */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center mt-12">
           <DemoRequestModal trigger={
-            <Button size="lg" className="text-lg px-8 py-4 bg-white text-primary hover:bg-gray-50 transition-all duration-300 transform hover:scale-105">
+            <Button size="lg" className="text-lg px-8 py-4 bg-gradient-to-r from-teal-500 to-teal-600 text-white hover:from-teal-600 hover:to-teal-700 shadow-lg shadow-teal-500/50 transition-all duration-300 transform hover:scale-105 hover:shadow-xl hover:shadow-teal-500/60">
               Request Demo
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           } />
           <Button 
             size="lg" 
-            className="bg-primary text-primary-foreground hover:bg-primary/90 transform hover:scale-105 transition-all text-lg px-8 py-4"
+            className="bg-gradient-to-r from-purple-600 to-blue-600 text-white hover:from-purple-700 hover:to-blue-700 shadow-lg shadow-purple-500/50 transform hover:scale-105 transition-all text-lg px-8 py-4 hover:shadow-xl hover:shadow-purple-500/60"
             onClick={() => navigate('/features')}
           >
             Explore Full Platform
@@ -100,28 +103,28 @@ const HeroSection = () => {
           <div className="max-w-4xl mx-auto">
             <div className="flex justify-center items-center space-x-4 mb-4">
               {customerLogos.slice(0, 4).map((logo, index) => (
-                <div key={index} className="w-20 h-20 bg-white/50 rounded-full p-3 hover:bg-white/80 transition-all duration-300 hover:scale-110 shadow-md">
+                <div key={index} className="w-20 h-20 bg-gradient-to-br from-white to-gray-50 rounded-full p-3 hover:from-teal-50 hover:to-purple-50 transition-all duration-300 hover:scale-110 shadow-lg hover:shadow-xl">
                   <img src={logo.src} alt={logo.alt} className="w-full h-full object-contain filter grayscale hover:grayscale-0 transition-all duration-300" />
                 </div>
               ))}
             </div>
             <div className="flex justify-center items-center space-x-4 mb-4 -translate-x-10">
               {customerLogos.slice(4, 9).map((logo, index) => (
-                <div key={index} className="w-20 h-20 bg-white/50 rounded-full p-3 hover:bg-white/80 transition-all duration-300 hover:scale-110 shadow-md">
+                <div key={index} className="w-20 h-20 bg-gradient-to-br from-white to-gray-50 rounded-full p-3 hover:from-teal-50 hover:to-purple-50 transition-all duration-300 hover:scale-110 shadow-lg hover:shadow-xl">
                   <img src={logo.src} alt={logo.alt} className="w-full h-full object-contain filter grayscale hover:grayscale-0 transition-all duration-300" />
                 </div>
               ))}
             </div>
             <div className="flex justify-center items-center space-x-4 mb-4">
               {customerLogos.slice(9, 14).map((logo, index) => (
-                <div key={index} className="w-20 h-20 bg-white/50 rounded-full p-3 hover:bg-white/80 transition-all duration-300 hover:scale-110 shadow-md">
+                <div key={index} className="w-20 h-20 bg-gradient-to-br from-white to-gray-50 rounded-full p-3 hover:from-teal-50 hover:to-purple-50 transition-all duration-300 hover:scale-110 shadow-lg hover:shadow-xl">
                   <img src={logo.src} alt={logo.alt} className="w-full h-full object-contain filter grayscale hover:grayscale-0 transition-all duration-300" />
                 </div>
               ))}
             </div>
             <div className="flex justify-center items-center space-x-4">
               {customerLogos.slice(14).map((logo, index) => (
-                <div key={index} className="w-20 h-20 bg-white/50 rounded-full p-3 hover:bg-white/80 transition-all duration-300 hover:scale-110 shadow-md">
+                <div key={index} className="w-20 h-20 bg-gradient-to-br from-white to-gray-50 rounded-full p-3 hover:from-teal-50 hover:to-purple-50 transition-all duration-300 hover:scale-110 shadow-lg hover:shadow-xl">
                   <img src={logo.src} alt={logo.alt} className="w-full h-full object-contain filter grayscale hover:grayscale-0 transition-all duration-300" />
                 </div>
               ))}
@@ -131,9 +134,9 @@ const HeroSection = () => {
 
         {/* Bottom Stats Section */}
         <div className="mt-20 text-center">
-          <div className="inline-flex items-center gap-2 px-6 py-3 bg-primary/10 rounded-full border border-primary/20">
-            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-            <span className="text-sm font-medium text-foreground">
+          <div className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-teal-500/10 to-purple-500/10 rounded-full border-2 border-teal-500/30 shadow-lg">
+            <div className="w-3 h-3 bg-gradient-to-r from-green-400 to-emerald-500 rounded-full animate-pulse shadow-lg shadow-green-500/50"></div>
+            <span className="text-sm font-medium bg-gradient-to-r from-teal-600 to-purple-600 bg-clip-text text-transparent font-semibold">
               20,000+ happy users wake up to In-Sync every morning ☀️
             </span>
           </div>
