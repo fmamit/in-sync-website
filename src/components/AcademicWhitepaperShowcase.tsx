@@ -100,11 +100,25 @@ const AcademicWhitepaperShowcase = () => {
                   />
                 ) : (
                   <div className="flex flex-col items-center justify-center text-muted-foreground">
-                    <div className="relative bg-white rounded-lg shadow-md border border-border w-24 h-32 flex items-center justify-center mb-3">
-                      <div className="text-sm text-gray-600 font-mono">PDF</div>
-                      <div className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full"></div>
+                    <div className="relative bg-white rounded-lg shadow-md border border-border w-32 h-40 flex flex-col p-3 text-xs text-gray-700">
+                      {/* PDF Header */}
+                      <div className="text-center font-bold text-gray-800 mb-2 text-sm">{whitepaper.title.slice(0, 20)}...</div>
+                      <div className="text-center text-gray-500 mb-3 text-xs">By {whitepaper.author}</div>
+                      
+                      {/* Mock content lines */}
+                      <div className="space-y-1 flex-1">
+                        <div className="h-1 bg-gray-300 rounded w-full"></div>
+                        <div className="h-1 bg-gray-300 rounded w-5/6"></div>
+                        <div className="h-1 bg-gray-300 rounded w-full"></div>
+                        <div className="h-1 bg-gray-300 rounded w-3/4"></div>
+                        <div className="h-1 bg-gray-300 rounded w-full"></div>
+                        <div className="h-1 bg-gray-300 rounded w-4/5"></div>
+                      </div>
+                      
+                      {/* PDF indicator */}
+                      <div className="absolute top-1 right-1 bg-red-500 text-white text-xs px-1 rounded">PDF</div>
                     </div>
-                    <p className="text-sm">Research Document</p>
+                    <p className="text-sm mt-2">Research Document</p>
                   </div>
                 )}
               </div>
