@@ -56,18 +56,18 @@ const Index = () => {
           <AcademicWhitepaperShowcase />
           <IndustryResults />
           
-          <section className="py-20 bg-gradient-to-br from-orange-50 via-pink-50 to-purple-50 relative overflow-hidden" id="features-overview">
+          <section className="py-24 bg-gradient-to-br from-orange-50/50 via-pink-50/50 to-accent/10 relative overflow-hidden" id="features-overview">
             {/* Decorative elements */}
-            <div className="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-orange-400/10 to-transparent rounded-full blur-3xl"></div>
-            <div className="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-tl from-purple-400/10 to-transparent rounded-full blur-3xl"></div>
+            <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-gradient-to-br from-orange-400/20 to-transparent rounded-full blur-3xl animate-pulse" style={{ animationDuration: '5s' }}></div>
+            <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-gradient-to-tl from-accent/30 to-transparent rounded-full blur-3xl animate-pulse" style={{ animationDuration: '5s', animationDelay: '2.5s' }}></div>
             <div className="container mx-auto px-4 relative z-10">
               <ROICalculator />
             </div>
           </section>
           
-          <section className="py-20 bg-gradient-to-br from-green-50 via-teal-50 to-blue-50 relative overflow-hidden">
-            <div className="absolute top-10 right-10 w-64 h-64 bg-gradient-to-br from-green-400/20 to-transparent rounded-full blur-3xl"></div>
-            <div className="absolute bottom-10 left-10 w-64 h-64 bg-gradient-to-tr from-blue-400/20 to-transparent rounded-full blur-3xl"></div>
+          <section className="py-24 bg-gradient-to-br from-green-50/50 via-primary/10 to-blue-50/50 relative overflow-hidden">
+            <div className="absolute top-10 right-10 w-96 h-96 bg-gradient-to-br from-primary/30 to-transparent rounded-full blur-3xl animate-pulse" style={{ animationDuration: '6s' }}></div>
+            <div className="absolute bottom-10 left-10 w-96 h-96 bg-gradient-to-tr from-blue-400/25 to-transparent rounded-full blur-3xl animate-pulse" style={{ animationDuration: '6s', animationDelay: '3s' }}></div>
             <div className="container mx-auto px-4 relative z-10">
               <BusinessAssessment />
             </div>
@@ -75,15 +75,16 @@ const Index = () => {
           
           <CRMShowcase />
           
-          <section className="py-20 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 relative overflow-hidden">
-            <div className="absolute top-0 left-1/4 w-72 h-72 bg-gradient-to-br from-blue-400/15 to-transparent rounded-full blur-3xl animate-pulse"></div>
-            <div className="absolute bottom-0 right-1/4 w-72 h-72 bg-gradient-to-tl from-purple-400/15 to-transparent rounded-full blur-3xl animate-pulse delay-1000"></div>
+          <section className="py-24 bg-gradient-to-br from-blue-50/50 via-indigo-50/50 to-accent/10 relative overflow-hidden">
+            <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-br from-blue-400/25 to-transparent rounded-full blur-3xl animate-pulse" style={{ animationDuration: '7s' }}></div>
+            <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-gradient-to-tl from-accent/25 to-transparent rounded-full blur-3xl animate-pulse" style={{ animationDuration: '7s', animationDelay: '3.5s' }}></div>
             <div className="container mx-auto px-4 relative z-10">
               <TestimonialsShowcase />
             </div>
           </section>
           
-          <section className="py-20 bg-gradient-to-br from-pink-50 via-rose-50 to-orange-50">
+          <section className="py-24 bg-gradient-to-br from-pink-50/50 via-rose-50/50 to-orange-50/50 relative overflow-hidden">
+            <div className="absolute top-1/4 right-1/4 w-80 h-80 bg-gradient-to-br from-pink-400/20 to-transparent rounded-full blur-3xl animate-pulse" style={{ animationDuration: '8s' }}></div>
             <div className="container mx-auto px-4">
               <StepByStepGuide />
             </div>

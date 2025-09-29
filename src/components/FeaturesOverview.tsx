@@ -128,23 +128,24 @@ const FeaturesOverview = () => {
   };
 
   return (
-    <section className="py-20 bg-gradient-to-b from-white via-blue-50/30 to-purple-50/30 relative overflow-hidden">
+    <section className="py-24 bg-gradient-to-b from-background via-primary/5 to-accent/5 relative overflow-hidden">
       {/* Decorative background elements */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-purple-400/10 to-transparent rounded-full blur-3xl"></div>
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-tr from-teal-400/10 to-transparent rounded-full blur-3xl"></div>
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-to-br from-accent/20 to-transparent rounded-full blur-3xl animate-pulse" style={{ animationDuration: '4s' }}></div>
+      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-gradient-to-tr from-primary/20 to-transparent rounded-full blur-3xl animate-pulse" style={{ animationDuration: '4s', animationDelay: '2s' }}></div>
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-gradient-to-br from-blue-500/10 to-transparent rounded-full blur-3xl"></div>
       
       <div className="container mx-auto px-4 relative z-10">
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <Badge variant="outline" className="px-4 py-2 text-sm font-medium border-teal-500/50 bg-teal-50/50 mb-4">
-            <BarChart3 className="h-4 w-4 mr-2 text-teal-600" />
+        <div className="text-center mb-20">
+          <Badge variant="outline" className="px-6 py-3 text-sm font-semibold border-primary/50 bg-gradient-to-r from-primary/10 to-accent/10 mb-6 shadow-primary">
+            <BarChart3 className="h-5 w-5 mr-2 text-primary" />
             Platform Overview
           </Badge>
-          <h2 className="text-3xl md:text-5xl font-bold mb-4">
+          <h2 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
             Everything you need.{" "}
-            <span className="bg-gradient-to-r from-teal-600 to-blue-600 bg-clip-text text-transparent">Nothing you don't.</span>
+            <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">Nothing you don't.</span>
           </h2>
-          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             See how all our tools play nice together to make your work life way easier
           </p>
         </div>
@@ -156,28 +157,32 @@ const FeaturesOverview = () => {
             return (
               <Card 
                 key={feature.id}
-                className="group cursor-pointer transition-all duration-300 hover:shadow-2xl hover:-translate-y-3 border-0 shadow-md bg-white/80 backdrop-blur-sm hover:bg-white"
+                className="group cursor-pointer transition-all duration-500 hover:shadow-glow hover:-translate-y-4 border-0 shadow-primary bg-white/90 backdrop-blur-md hover:bg-white relative overflow-hidden"
                 onClick={() => handleFeatureClick(feature.id)}
               >
-                <CardContent className="p-6">
+                {/* Shimmer effect on hover */}
+                <div className="absolute inset-0 bg-shimmer translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
+                
+                <CardContent className="p-8 relative z-10">
                   <div className="flex flex-col h-full">
                     {/* Icon with gradient background */}
-                    <div className={`w-14 h-14 rounded-2xl ${feature.bgColor} flex items-center justify-center mb-4 group-hover:scale-110 transition-all duration-300 shadow-md group-hover:shadow-lg relative overflow-hidden`}>
-                      <div className="absolute inset-0 bg-gradient-to-br from-white/40 to-transparent"></div>
-                      <IconComponent className={`h-7 w-7 ${feature.color} relative z-10`} />
+                    <div className={`w-16 h-16 rounded-3xl ${feature.bgColor} flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-md group-hover:shadow-xl relative overflow-hidden`}>
+                      <div className="absolute inset-0 bg-gradient-to-br from-white/60 to-transparent"></div>
+                      <div className="absolute inset-0 bg-gradient-to-tl from-transparent to-white/40"></div>
+                      <IconComponent className={`h-8 w-8 ${feature.color} relative z-10 group-hover:scale-110 transition-transform duration-500`} />
                     </div>
                     
                     {/* Title with gradient on hover */}
-                    <h3 className="font-bold text-lg mb-4 group-hover:bg-gradient-to-r group-hover:from-teal-600 group-hover:to-purple-600 group-hover:bg-clip-text group-hover:text-transparent transition-all duration-300">
+                    <h3 className="font-bold text-xl mb-5 group-hover:bg-gradient-to-r group-hover:from-primary group-hover:via-accent group-hover:to-primary group-hover:bg-clip-text group-hover:text-transparent transition-all duration-500">
                       {feature.title}
                     </h3>
                     
                     {/* Features List */}
-                    <ul className="space-y-2 flex-grow">
+                    <ul className="space-y-3 flex-grow">
                       {feature.items.map((item, index) => (
-                        <li key={index} className="flex items-center text-sm text-muted-foreground group-hover:text-foreground transition-colors">
-                          <div className={`w-2 h-2 rounded-full ${feature.color.replace('text-', 'bg-')} mr-3 flex-shrink-0 group-hover:scale-125 transition-transform`}></div>
-                          {item}
+                        <li key={index} className="flex items-start text-sm text-muted-foreground group-hover:text-foreground transition-colors duration-300">
+                          <div className={`w-2 h-2 rounded-full ${feature.color.replace('text-', 'bg-')} mr-3 mt-1.5 flex-shrink-0 group-hover:scale-150 transition-transform duration-500`}></div>
+                          <span>{item}</span>
                         </li>
                       ))}
                     </ul>
@@ -189,13 +194,13 @@ const FeaturesOverview = () => {
         </div>
 
         {/* CTA */}
-        <div className="text-center">
-          <p className="text-muted-foreground mb-4">
+        <div className="text-center mt-12">
+          <p className="text-lg text-muted-foreground mb-6">
             Click any card above to dive deeper (trust us, it gets even cooler) 
           </p>
-          <div className="flex items-center justify-center gap-2 text-sm">
-            <span className="bg-gradient-to-r from-teal-600 to-purple-600 bg-clip-text text-transparent font-semibold">More goodies below</span>
-            <div className="animate-bounce text-2xl">👇</div>
+          <div className="flex items-center justify-center gap-3">
+            <span className="text-lg bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent font-bold">More goodies below</span>
+            <div className="animate-bounce text-3xl">👇</div>
           </div>
         </div>
       </div>
