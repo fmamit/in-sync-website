@@ -9,7 +9,7 @@ const Healthcare = () => {
     heroTitle: "Stop Losing Patients to Hospitals That Respond Faster",
     heroDescription: "Transform appointment chaos and poor patient communication into a systematic care engine that increases patient retention by 70%, eliminates missed appointments that waste doctor time, and builds the trust that makes patients choose you for life.",
     heroIcon: "🏥",
-    heroGradient: "bg-gradient-to-r from-blue-600 to-blue-700",
+    heroGradient: "bg-blue-600",
     primaryCTAText: "See How Leading Hospitals Build Patient Loyalty - Schedule Demo",
     secondaryCTAText: "Calculate Your Patient Retention Value",
     

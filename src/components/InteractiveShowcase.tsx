@@ -342,7 +342,7 @@ const InteractiveShowcase = ({ className = "" }: { className?: string }) => {
 
               {/* Results Summary */}
               {showAfter && (
-                <Card className="bg-gradient-to-r from-green-50 to-green-100 border-green-200 animate-fade-in">
+                <Card className="bg-green-50 border-green-200 animate-fade-in">
                   <CardContent className="p-6">
                     <div className="text-center">
                       <h3 className="text-xl font-bold text-green-800 mb-2">

@@ -115,17 +115,17 @@ const Industries = () => {
         <Breadcrumbs items={[{ name: 'Industries', url: '/industries' }]} />
 
         {/* Hero Section */}
-        <section className="py-16 px-4 text-center bg-gradient-to-br from-primary/5 via-blue-50/30 to-accent/10" role="banner">
+        <section className="py-16 px-4 text-center bg-primary/5" role="banner">
         <div className="container mx-auto max-w-4xl">
           {/* Title with Icons */}
           <div className="flex items-center justify-center gap-4 mb-8">
-            <div className="w-12 h-12 rounded-full bg-gradient-to-r from-primary to-primary-glow flex items-center justify-center">
+            <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center">
               <Sparkles className="w-6 h-6 text-white" />
             </div>
             <h1 className="text-4xl md:text-5xl font-bold text-primary">
               Industry-Specific CRM Solutions
             </h1>
-            <div className="w-12 h-12 rounded-full bg-gradient-to-r from-primary to-primary-glow flex items-center justify-center">
+            <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center">
               <Lock className="w-6 h-6 text-white" />
             </div>
           </div>
@@ -239,7 +239,7 @@ const Industries = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 px-4 bg-gradient-to-r from-primary to-primary-glow text-primary-foreground">
+      <section className="py-16 px-4 bg-primary text-primary-foreground">
         <div className="container mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
             Ready to See In-sync in Action?

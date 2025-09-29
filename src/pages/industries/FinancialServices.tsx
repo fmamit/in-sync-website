@@ -13,7 +13,7 @@ const FinancialServices = () => {
       </div>
 
       {/* Hero Section */}
-      <section className="py-16 px-4 bg-gradient-to-br from-primary via-primary-glow to-primary text-primary-foreground">
+      <section className="py-16 px-4 bg-primary text-primary-foreground">
         <div className="container mx-auto max-w-6xl">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
@@ -149,7 +149,7 @@ const FinancialServices = () => {
 
           <div className="space-y-12">
             {/* Turn Every Lead into Revenue */}
-            <div className="bg-gradient-to-r from-green-50 to-blue-50 rounded-lg p-8 border-l-4 border-green-500">
+            <div className="bg-green-50 rounded-lg p-8 border-l-4 border-green-500">
               <div className="mb-6">
                 <h3 className="text-2xl font-bold text-green-700 mb-4">Turn Every Lead into Revenue</h3>
                 <h4 className="text-lg font-semibold text-gray-800 mb-4">From Chaos to Cash Flow</h4>
@@ -180,7 +180,7 @@ const FinancialServices = () => {
             </div>
 
             {/* Make Your Field Team Unstoppable */}
-            <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-8 border-l-4 border-blue-500">
+            <div className="bg-blue-50 rounded-lg p-8 border-l-4 border-blue-500">
               <div className="mb-6">
                 <h3 className="text-2xl font-bold text-blue-700 mb-4">Make Your Field Team Unstoppable</h3>
                 <h4 className="text-lg font-semibold text-gray-800 mb-4">From Guesswork to Guaranteed Results</h4>
@@ -211,7 +211,7 @@ const FinancialServices = () => {
             </div>
 
             {/* Transform Customer Experience */}
-            <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg p-8 border-l-4 border-purple-500">
+            <div className="bg-purple-50 rounded-lg p-8 border-l-4 border-purple-500">
               <div className="mb-6">
                 <h3 className="text-2xl font-bold text-purple-700 mb-4">Transform Customer Experience into Competitive Advantage</h3>
                 <h4 className="text-lg font-semibold text-gray-800 mb-4">From Manual Chaos to Automated Excellence</h4>
@@ -242,7 +242,7 @@ const FinancialServices = () => {
             </div>
 
             {/* See Everything, Control Everything */}
-            <div className="bg-gradient-to-r from-orange-50 to-red-50 rounded-lg p-8 border-l-4 border-orange-500">
+            <div className="bg-orange-50 rounded-lg p-8 border-l-4 border-orange-500">
               <div className="mb-6">
                 <h3 className="text-2xl font-bold text-orange-700 mb-4">See Everything, Control Everything</h3>
                 <h4 className="text-lg font-semibold text-gray-800 mb-4">From Flying Blind to Total Control</h4>
@@ -316,7 +316,7 @@ const FinancialServices = () => {
                 ))}
               </div>
 
-              <div className="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-lg border border-green-200">
+              <div className="bg-green-50 p-6 rounded-lg border border-green-200">
                 <blockquote className="text-lg italic mb-4 text-gray-700">
                   "We went from losing customers to competitors to having customers recommend us to their friends. The difference is like night and day."
                 </blockquote>
@@ -468,7 +468,7 @@ const FinancialServices = () => {
             ))}
           </div>
 
-          <div className="bg-gradient-to-r from-blue-50 to-green-50 rounded-lg p-8 mb-8">
+          <div className="bg-blue-50 rounded-lg p-8 mb-8">
             <h3 className="text-2xl font-bold mb-6 text-center">What You Get:</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {[
@@ -489,7 +489,7 @@ const FinancialServices = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 px-4 bg-gradient-to-br from-primary via-primary-glow to-primary text-primary-foreground">
+      <section className="py-16 px-4 bg-primary text-primary-foreground">
         <div className="container mx-auto max-w-4xl text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
             Ready to Stop Losing Revenue?

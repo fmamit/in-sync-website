@@ -410,7 +410,7 @@ const Features = () => {
       </section>
 
       {/* Interactive Feature Explorer */}
-      <section className="py-20 bg-gradient-to-b from-background to-slate-50/30">
+      <section className="py-20 bg-slate-50/30">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <Badge variant="outline" className="px-4 py-2 text-sm font-medium border-primary/30 mb-4">
@@ -443,7 +443,7 @@ const Features = () => {
                     <Card key={index} className="group cursor-pointer transition-all duration-300 hover:shadow-xl hover:-translate-y-2 border-0 shadow-lg"
                           onClick={() => setActiveTab(index === 0 ? 'crm' : index === 1 ? 'communication' : index === 2 ? 'field-force' : index === 3 ? 'ai' : 'no-code')}>
                       <CardContent className="p-8">
-                        <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-primary to-teal-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <div className="w-8 h-8 rounded-xl bg-primary flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                           <IconComponent className="h-8 w-8 text-white" />
                         </div>
                         
@@ -679,7 +679,7 @@ const Features = () => {
 
 
       {/* Interactive ROI Calculator */}
-      <section className="py-20 bg-gradient-to-br from-primary/10 via-background to-primary/5">
+      <section className="py-20 bg-primary/5">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <Badge variant="outline" className="px-4 py-2 text-sm font-medium border-primary/30 mb-4">
@@ -742,7 +742,7 @@ const Features = () => {
                   </div>
                 </div>
                 
-                <div className="bg-gradient-to-br from-primary/10 to-teal-600/10 rounded-xl p-6">
+                <div className="bg-primary/10 rounded-xl p-6">
                   <h3 className="text-xl font-bold mb-6">Your Potential Savings</h3>
                   {(() => {
                     const savings = calculateSavings();
@@ -789,7 +789,7 @@ const Features = () => {
       </section>
 
       {/* Step-by-Step Implementation */}
-      <section className="py-20 bg-gradient-to-b from-background to-slate-50/30">
+      <section className="py-20 bg-slate-50/30">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <Badge variant="outline" className="px-4 py-2 text-sm font-medium border-primary/30 mb-4">
@@ -838,7 +838,7 @@ const Features = () => {
       </section>
 
       {/* Stats Section */}
-      <section className="py-20 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
+      <section className="py-20 bg-slate-900 text-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
@@ -860,7 +860,7 @@ const Features = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-br from-primary via-primary/90 to-teal-600 text-white">
+      <section className="py-20 bg-primary text-white">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             Ready to Experience Every Feature?

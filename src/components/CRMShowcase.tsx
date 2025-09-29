@@ -204,7 +204,7 @@ const CRMShowcase = () => {
                           </div>
                           
                           {/* Overlay for interactivity */}
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                          <div className="absolute inset-0 bg-black/20 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                             <Button size="lg" className="shadow-2xl">
                               <Play className="w-6 h-6 mr-2" />
                               See {screen.title} Live

@@ -200,7 +200,7 @@ const Pricing = () => {
         <Breadcrumbs items={[{ name: 'Pricing', url: '/pricing' }]} />
         
         {/* Hero Section */}
-        <section className="pt-16 pb-16 px-4 bg-gradient-to-br from-primary/5 via-background to-secondary/5" role="banner">
+        <section className="pt-16 pb-16 px-4 bg-primary/5" role="banner">
         <div className="max-w-4xl mx-auto text-center">
           <Badge variant="secondary" className="mb-4">
             Simple Pricing
@@ -470,7 +470,7 @@ const Pricing = () => {
       </section>
 
       {/* Trust Section */}
-      <section className="py-16 px-4 bg-gradient-to-r from-primary/5 to-secondary/5">
+      <section className="py-16 px-4 bg-primary/5">
         <div className="max-w-4xl mx-auto text-center">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
             <div className="flex flex-col items-center">

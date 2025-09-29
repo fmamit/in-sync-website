@@ -930,7 +930,7 @@ const Resources = () => {
             className="w-full h-48 object-cover"
           />
         ) : (
-          <div className="w-full h-48 bg-gradient-to-br from-primary/10 to-secondary/10" />
+          <div className="w-full h-48 bg-primary/10" />
         )}
         <Badge className="absolute top-4 left-4">{blog.category}</Badge>
         {user && isAdmin && (
@@ -1205,7 +1205,7 @@ const Resources = () => {
         <Breadcrumbs items={[{ name: 'Resources', url: '/resources' }]} />
         
         {/* Header Section */}
-        <div className="relative bg-gradient-to-br from-primary/5 to-accent/10 py-16" role="banner">
+        <div className="relative bg-primary/5 py-16" role="banner">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <div className="flex justify-between items-start mb-6">

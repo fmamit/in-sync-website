@@ -91,7 +91,7 @@ const AcademicWhitepaperShowcase = () => {
           <Card className="overflow-hidden bg-card border shadow-lg">
             <div className="flex flex-col gap-0">
               {/* Thumbnail Top */}
-              <div className="relative bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center p-6">
+              <div className="relative bg-primary/10 flex items-center justify-center p-6">
                 {whitepaper.thumbnail_url ? (
                   <img
                     src={whitepaper.thumbnail_url}

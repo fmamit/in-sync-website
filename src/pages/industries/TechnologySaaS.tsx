@@ -19,7 +19,7 @@ const TechnologySaaS = () => {
       </div>
 
       {/* Hero Section */}
-      <section className="relative py-20 px-4 bg-gradient-to-br from-primary/10 via-background to-secondary/10">
+      <section className="relative py-20 px-4 bg-primary/5">
         <div className="container mx-auto max-w-6xl">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-8">

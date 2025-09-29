@@ -37,7 +37,7 @@ const UseCases = () => {
       company: "CarTrends", 
       industry: "Automobile Components Distribution",
       icon: Car,
-      color: "bg-gradient-to-br from-orange-600 to-red-700",
+      color: "bg-orange-600",
       challenge: "CarTrends, serving over 2,500 clients, needed digital transformation for sales, field operations, and customer engagement with real-time inventory visibility and scalable outreach beyond manual field visits.",
       solution: [
         "Unified CRM system with ERP integration",
@@ -73,7 +73,7 @@ const UseCases = () => {
       company: "UHC Staffing",
       industry: "Recruitment Services - US Operations", 
       icon: Users,
-      color: "bg-gradient-to-br from-purple-600 to-indigo-700",
+      color: "bg-purple-600",
       challenge: "US-based UHC Staffing needed to centralize job and candidate data, automate lead capture from website and bots, while integrating with ExcelHire ATS for real-time updates and AI-driven engagement.",
       solution: [
         "In-Sync as central marketing and recruitment hub",
@@ -109,7 +109,7 @@ const UseCases = () => {
       company: "RMPL (Redefine Marcom Pvt Ltd)",
       industry: "Demand Generation & Experiential Marketing",
       icon: Megaphone,
-      color: "bg-gradient-to-br from-green-600 to-teal-700",
+      color: "bg-green-600",
       challenge: "RMPL, specializing in integrated marketing across events and campaigns, needed centralized control to streamline workflows and improve collaboration across multiple teams and departments.",
       solution: [
         "Project & workflow automation across teams",
@@ -147,7 +147,7 @@ const UseCases = () => {
       company: "Ecofy",
       industry: "RBI Approved NBFC - Green Energy Lending",
       icon: Building2,
-      color: "bg-gradient-to-br from-green-600 to-emerald-700",
+      color: "bg-green-600",
       challenge: "Ecofy needed multi-channel communications on one platform that is simple to use and gives the kind of price advantage and versatile access to various channels for their green energy lending operations across 8 states.",
       solution: [
         "In-Sync multi-channel platform for communication",
@@ -183,7 +183,7 @@ const UseCases = () => {
       company: "BIMA LEAP",
       industry: "IRDA Approved Insurance Broker (Motherson Group)",
       icon: Shield,
-      color: "bg-gradient-to-br from-blue-600 to-blue-700",
+      color: "bg-blue-600",
       challenge: "BimaLeap needed to streamline their business process of client acquisition through digital campaigns, call center operations and business visibility for strategic decision making.",
       solution: [
         "Multi-service integration system",
@@ -219,7 +219,7 @@ const UseCases = () => {
       company: "AliceBlue",
       industry: "SEBI Approved Stockbrokers",
       icon: TrendingUp,
-      color: "bg-gradient-to-br from-purple-600 to-indigo-700",
+      color: "bg-purple-600",
       challenge: "AliceBlue needed to have an efficient and easy to use call center for their remotely located teams across several states, with complete WFH operations management.",
       solution: [
         "Complete WFH call center infrastructure",
@@ -255,7 +255,7 @@ const UseCases = () => {
       company: "RupeeBoss",
       industry: "RBI Approved NBFC - 12 States Operations",
       icon: Building2,
-      color: "bg-gradient-to-br from-orange-600 to-red-700",
+      color: "bg-orange-600",
       challenge: "RupeeBoss had a homegrown CRM system developed over 3 years that needed constant upgrades to match their expansion across 12 states, creating build vs buy decision challenges.",
       solution: [
         "Complete CRM system replacement",
@@ -291,7 +291,7 @@ const UseCases = () => {
       company: "Carportal",
       industry: "Digital Platform - Automobile Lead Generation",
       icon: Car,
-      color: "bg-gradient-to-br from-green-600 to-blue-700",
+      color: "bg-green-600",
       challenge: "Carportal generates verified leads for automobile companies and dealers. They needed a complete solution for lead generation, call-based verifications, and lead sharing processes.",
       solution: [
         "Zapier-based integrations with FB/Insta/Google/LinkedIn Ads",
@@ -327,7 +327,7 @@ const UseCases = () => {
       company: "Audi Kolkata",
       industry: "Authorized Audi Dealership - East",
       icon: Car,
-      color: "bg-gradient-to-br from-red-600 to-gray-700",
+      color: "bg-red-600",
       challenge: "With car servicing being at the heart of its success, Audi Kolkata was facing issues with streamlining automatic triggers for multi-channel service-related messaging.",
       solution: [
         "Automated logic-based messaging process",
@@ -403,18 +403,18 @@ const UseCases = () => {
     <div className="min-h-screen bg-background">      
       <main>
         {/* Hero Section */}
-        <section className="py-20 bg-gradient-to-br from-primary/10 via-background to-secondary/10 relative overflow-hidden">
+        <section className="py-20 bg-primary/5 relative overflow-hidden">
           <div className="absolute inset-0 bg-grid-black/[0.02] bg-[size:50px_50px]" />
           <div className="container mx-auto px-4 relative">
             <div className="text-center max-w-5xl mx-auto">
               <div className="flex items-center justify-center gap-3 mb-6">
-                <div className="w-12 h-12 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center">
+                <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center">
                   <Sparkles className="h-6 w-6 text-white" />
                 </div>
                 <h1 className="text-5xl lg:text-6xl font-bold text-primary">
                   Success Stories
                 </h1>
-                <div className="w-12 h-12 bg-gradient-to-r from-secondary to-primary rounded-full flex items-center justify-center">
+                <div className="w-12 h-12 bg-accent rounded-full flex items-center justify-center">
                   <Award className="h-6 w-6 text-white" />
                 </div>
               </div>
@@ -464,14 +464,14 @@ const UseCases = () => {
                 return (
                   <div key={study.id} className="relative">
                     {/* Background Elements */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary/3 via-transparent to-secondary/3 rounded-3xl blur-3xl"></div>
+                    <div className="absolute inset-0 bg-primary/3 rounded-3xl blur-3xl"></div>
                     
                     <div className={`relative grid lg:grid-cols-12 gap-12 items-center ${isEven ? '' : 'lg:grid-flow-col-dense'}`}>
                       {/* Company Header & Challenge */}
                       <div className={`lg:col-span-5 space-y-8 ${isEven ? '' : 'lg:col-start-8'}`}>
                         {/* Company Header */}
                         <div className="relative">
-                          <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-3xl blur-lg"></div>
+                          <div className="absolute -inset-4 bg-primary/20 rounded-3xl blur-lg"></div>
                           <div className="relative bg-white/80 backdrop-blur-md rounded-2xl p-8 border border-white/50 shadow-xl">
                             <div className="flex items-start gap-6">
                               <div className={`relative w-20 h-20 ${study.color} rounded-2xl flex items-center justify-center shadow-lg`}>
@@ -546,10 +546,10 @@ const UseCases = () => {
                         </Card>
                         
                         {/* Results Card */}
-                        <Card className="border-green-300 bg-gradient-to-br from-green-50 to-emerald-50/80 backdrop-blur-sm shadow-xl">
+                        <Card className="border-green-300 bg-green-50 backdrop-blur-sm shadow-xl">
                           <CardHeader className="pb-6">
                             <div className="flex items-center gap-3">
-                              <div className="w-12 h-12 bg-gradient-to-r from-green-600 to-emerald-600 rounded-xl flex items-center justify-center shadow-md">
+                              <div className="w-12 h-12 bg-green-600 rounded-xl flex items-center justify-center shadow-md">
                                 <TrendingUp className="h-6 w-6 text-white" />
                               </div>
                               <div>
@@ -578,7 +578,7 @@ const UseCases = () => {
                     
                     {/* Workflow Process */}
                     <div className="mt-16">
-                      <Card className="bg-gradient-to-r from-slate-50 to-blue-50/50 backdrop-blur-sm border-slate-200 shadow-lg">
+                      <Card className="bg-slate-50 backdrop-blur-sm border-slate-200 shadow-lg">
                         <CardHeader className="text-center pb-6">
                           <div className="flex items-center justify-center gap-3 mb-2">
                             <PlayCircle className="h-6 w-6 text-primary" />
@@ -592,7 +592,7 @@ const UseCases = () => {
                               {study.workflow.map((step, wIndex) => (
                                 <div key={wIndex} className="flex items-center gap-2">
                                   <div className="flex items-center gap-3 bg-white rounded-full px-6 py-3 border-2 border-primary/20 hover:border-primary/40 transition-colors shadow-sm min-w-max">
-                                    <div className="w-8 h-8 bg-gradient-to-r from-primary to-secondary text-white rounded-full flex items-center justify-center text-sm font-bold shadow-sm">
+                                    <div className="w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold shadow-sm">
                                       {wIndex + 1}
                                     </div>
                                     <span className="font-medium text-sm">{step}</span>
@@ -615,7 +615,7 @@ const UseCases = () => {
         </section>
 
         {/* Common Features */}
-        <section className="py-20 bg-gradient-to-b from-slate-50/50 to-background">
+        <section className="py-20 bg-slate-50/50">
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
               <h2 className="text-4xl font-bold mb-4">Platform Capabilities</h2>
@@ -629,10 +629,10 @@ const UseCases = () => {
                 const IconComponent = category.icon;
                 return (
                   <Card key={index} className="relative overflow-hidden group hover:shadow-xl transition-shadow">
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                     <CardHeader className="relative">
                       <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 bg-gradient-to-r from-primary to-secondary rounded-xl flex items-center justify-center shadow-md">
+                        <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center shadow-md">
                           <IconComponent className="h-6 w-6 text-white" />
                         </div>
                         <CardTitle className="text-xl">{category.category}</CardTitle>
@@ -656,7 +656,7 @@ const UseCases = () => {
         </section>
 
         {/* Success Metrics */}
-        <section className="py-20 bg-gradient-to-br from-primary via-primary/90 to-secondary text-primary-foreground relative overflow-hidden">
+        <section className="py-20 bg-primary text-primary-foreground relative overflow-hidden">
           <div className="absolute inset-0 bg-grid-white/[0.05] bg-[size:50px_50px]" />
           <div className="container mx-auto px-4 relative">
             <div className="text-center mb-16">

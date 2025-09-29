@@ -68,7 +68,7 @@ const IndustryTemplate = ({
   heroDescription,
   heroIcon,
   heroBenefits,
-  heroGradient = "bg-gradient-to-r from-primary to-primary-glow",
+  heroGradient = "bg-primary",
   primaryCTAText,
   secondaryCTAText,
   problemTitle,
@@ -195,7 +195,7 @@ const IndustryTemplate = ({
       {/* Dynamic Sections */}
       {sections.map((section, index) => {
         const bgClass = section.background === "muted" ? "bg-muted/20" : 
-                       section.background === "gradient" ? "bg-gradient-to-r from-primary/5 to-primary-glow/5" : 
+                       section.background === "gradient" ? "bg-primary/5" : 
                        "bg-background";
         
         return (

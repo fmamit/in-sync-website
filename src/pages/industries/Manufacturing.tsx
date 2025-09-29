@@ -17,7 +17,7 @@ const Manufacturing = () => {
       </div>
 
       {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-br from-primary/10 via-primary/5 to-secondary/10">
+      <section className="py-20 bg-primary/5">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-7xl mx-auto">
             <div>
@@ -442,7 +442,7 @@ const Manufacturing = () => {
       </section>
 
       {/* Transform Operations */}
-      <section className="py-20 bg-gradient-to-r from-primary/10 to-secondary/10">
+      <section className="py-20 bg-primary/10">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-4xl font-bold mb-8">Transform Your Manufacturing Operations</h2>

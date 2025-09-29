@@ -331,7 +331,7 @@ const Integrations = () => {
     <div className="min-h-screen bg-background">
       
       {/* Hero Section */}
-      <section className="pt-24 pb-16 px-4 bg-gradient-to-br from-primary/5 via-background to-secondary/5">
+      <section className="pt-24 pb-16 px-4 bg-primary/5">
         <div className="max-w-7xl mx-auto text-center">
           <Badge variant="secondary" className="mb-4">
             Proven Integrations

@@ -15,7 +15,7 @@ const RealEstate = () => {
       </div>
 
       {/* Hero Section */}
-      <section className="py-16 px-4 bg-gradient-to-b from-background via-muted/20 to-background">
+      <section className="py-16 px-4 bg-muted/20">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-12">
             <Badge variant="secondary" className="mb-6 px-4 py-2 text-sm">
@@ -129,7 +129,7 @@ const RealEstate = () => {
                 </ul>
               </CardContent>
             </Card>
-            <Card className="bg-gradient-to-br from-primary/5 to-primary/10 border-primary/20">
+            <Card className="bg-primary/5 border-primary/20">
               <CardHeader>
                 <CardTitle className="text-primary">The Solution is Clear:</CardTitle>
               </CardHeader>
@@ -335,7 +335,7 @@ const RealEstate = () => {
             </h2>
           </div>
 
-          <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-primary/10">
+          <Card className="border-primary/20 bg-primary/5">
             <CardHeader>
               <CardTitle className="text-2xl text-primary mb-4">
                 Bangalore Developer Increases Sales by 400% in 6 Months
@@ -418,7 +418,7 @@ const RealEstate = () => {
             RERA compliance, educated buyers, multiple options - today's customers research thoroughly and choose carefully. Only developers with systematic processes, transparent communication, and professional service will win their business.
           </p>
 
-          <Card className="bg-gradient-to-r from-destructive/10 to-primary/10 border-primary/20">
+          <Card className="bg-destructive/10 border-primary/20">
             <CardContent className="pt-8">
               <h3 className="text-xl font-semibold mb-6">Your Strategic Choice:</h3>
               <div className="grid md:grid-cols-2 gap-6">
@@ -595,7 +595,7 @@ const RealEstate = () => {
             </Card>
           </div>
 
-          <Card className="bg-gradient-to-r from-primary/5 to-primary/10 border-primary/20">
+          <Card className="bg-primary/5 border-primary/20">
             <CardHeader>
               <CardTitle className="text-xl text-center">What You Get:</CardTitle>
             </CardHeader>
