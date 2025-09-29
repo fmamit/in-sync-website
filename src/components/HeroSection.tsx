@@ -50,17 +50,9 @@ const HeroSection = () => {
   ];
 
   return (
-    <section className="relative overflow-hidden bg-[hsl(var(--teal-50))] min-h-screen flex items-center justify-center py-20">
-      {/* Dot Pattern Texture */}
-      <div className="absolute inset-0 opacity-30" style={{
-        backgroundImage: 'radial-gradient(circle, hsl(var(--primary)) 1.5px, transparent 1.5px)',
-        backgroundSize: '32px 32px'
-      }}></div>
-      
-      {/* Diagonal Stripes Texture */}
-      <div className="absolute inset-0 opacity-15" style={{
-        backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 40px, hsl(var(--accent)) 40px, hsl(var(--accent)) 42px)'
-      }}></div>
+    <section className="relative overflow-hidden bg-background min-h-screen flex items-center justify-center py-20">
+      {/* Background Elements */}
+      <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
       
       <div className="container mx-auto px-4 relative z-10">
         <div className="flex justify-center items-center max-w-6xl mx-auto">
@@ -81,74 +73,55 @@ const HeroSection = () => {
         </div>
 
         {/* CTAs Below Banner */}
-        <div className="flex flex-col sm:flex-row gap-6 justify-center mt-12">
+        <div className="flex flex-col sm:flex-row gap-4 justify-center mt-12">
           <DemoRequestModal trigger={
-            <Button 
-              size="lg" 
-              className="text-lg px-10 py-6 bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg hover:shadow-xl transition-all duration-300 border-0"
-            >
-              <span className="flex items-center">
-                Request Demo
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </span>
+            <Button size="lg" className="text-lg px-8 py-4 bg-white text-primary hover:bg-gray-50 transition-all duration-300 transform hover:scale-105">
+              Request Demo
+              <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           } />
           <Button 
             size="lg" 
-            className="text-lg px-10 py-6 bg-accent hover:bg-accent/90 text-accent-foreground shadow-lg hover:shadow-xl transition-all duration-300 border-0"
+            className="bg-primary text-primary-foreground hover:bg-primary/90 transform hover:scale-105 transition-all text-lg px-8 py-4"
             onClick={() => navigate('/features')}
           >
-            <span className="flex items-center">
-              Explore Full Platform
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </span>
+            Explore Full Platform
+            <ArrowRight className="ml-2 h-5 w-5" />
           </Button>
         </div>
 
         {/* Customer Logos Section - Hexagonal Grid */}
-        <div className="mt-20 text-center">
-          <h2 className="text-3xl font-bold mb-12 text-foreground">
-            Trusted by Industry Leaders ❤️
+        <div className="mt-16 text-center">
+          <h2 className="text-2xl font-semibold mb-8 text-foreground">
+            Some pretty cool companies already love us ❤️
           </h2>
           
           {/* Hexagonal Grid Layout */}
-          <div className="max-w-5xl mx-auto">
-            <div className="flex justify-center items-center gap-6 mb-6">
+          <div className="max-w-4xl mx-auto">
+            <div className="flex justify-center items-center space-x-4 mb-4">
               {customerLogos.slice(0, 4).map((logo, index) => (
-                <div 
-                  key={index} 
-                  className="w-24 h-24 bg-white rounded-2xl p-4 hover:bg-[hsl(var(--teal-50))] transition-all duration-300 hover:scale-105 shadow-md hover:shadow-lg border border-border"
-                >
+                <div key={index} className="w-20 h-20 bg-white/50 rounded-full p-3 hover:bg-white/80 transition-all duration-300 hover:scale-110 shadow-md">
                   <img src={logo.src} alt={logo.alt} className="w-full h-full object-contain filter grayscale hover:grayscale-0 transition-all duration-300" />
                 </div>
               ))}
             </div>
-            <div className="flex justify-center items-center gap-6 mb-6 -translate-x-12">
+            <div className="flex justify-center items-center space-x-4 mb-4 -translate-x-10">
               {customerLogos.slice(4, 9).map((logo, index) => (
-                <div 
-                  key={index} 
-                  className="w-24 h-24 bg-white rounded-2xl p-4 hover:bg-[hsl(var(--teal-50))] transition-all duration-300 hover:scale-105 shadow-md hover:shadow-lg border border-border"
-                >
+                <div key={index} className="w-20 h-20 bg-white/50 rounded-full p-3 hover:bg-white/80 transition-all duration-300 hover:scale-110 shadow-md">
                   <img src={logo.src} alt={logo.alt} className="w-full h-full object-contain filter grayscale hover:grayscale-0 transition-all duration-300" />
                 </div>
               ))}
             </div>
-            <div className="flex justify-center items-center gap-6 mb-6">
+            <div className="flex justify-center items-center space-x-4 mb-4">
               {customerLogos.slice(9, 14).map((logo, index) => (
-                <div 
-                  key={index} 
-                  className="w-24 h-24 bg-white rounded-2xl p-4 hover:bg-[hsl(var(--teal-50))] transition-all duration-300 hover:scale-105 shadow-md hover:shadow-lg border border-border"
-                >
+                <div key={index} className="w-20 h-20 bg-white/50 rounded-full p-3 hover:bg-white/80 transition-all duration-300 hover:scale-110 shadow-md">
                   <img src={logo.src} alt={logo.alt} className="w-full h-full object-contain filter grayscale hover:grayscale-0 transition-all duration-300" />
                 </div>
               ))}
             </div>
-            <div className="flex justify-center items-center gap-6">
+            <div className="flex justify-center items-center space-x-4">
               {customerLogos.slice(14).map((logo, index) => (
-                <div 
-                  key={index} 
-                  className="w-24 h-24 bg-white rounded-2xl p-4 hover:bg-[hsl(var(--teal-50))] transition-all duration-300 hover:scale-105 shadow-md hover:shadow-lg border border-border"
-                >
+                <div key={index} className="w-20 h-20 bg-white/50 rounded-full p-3 hover:bg-white/80 transition-all duration-300 hover:scale-110 shadow-md">
                   <img src={logo.src} alt={logo.alt} className="w-full h-full object-contain filter grayscale hover:grayscale-0 transition-all duration-300" />
                 </div>
               ))}
@@ -157,13 +130,10 @@ const HeroSection = () => {
         </div>
 
         {/* Bottom Stats Section */}
-        <div className="mt-24 text-center">
-          <div className="inline-flex items-center gap-3 px-8 py-4 bg-white rounded-full border-2 border-primary shadow-lg">
-            <div className="relative flex h-4 w-4">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-4 w-4 bg-primary"></span>
-            </div>
-            <span className="text-base font-semibold text-foreground">
+        <div className="mt-20 text-center">
+          <div className="inline-flex items-center gap-2 px-6 py-3 bg-primary/10 rounded-full border border-primary/20">
+            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+            <span className="text-sm font-medium text-foreground">
               20,000+ happy users wake up to In-Sync every morning ☀️
             </span>
           </div>

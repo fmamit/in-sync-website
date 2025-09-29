@@ -128,25 +128,19 @@ const FeaturesOverview = () => {
   };
 
   return (
-    <section className="py-24 bg-[hsl(var(--purple-50))] relative overflow-hidden">
-      {/* Grid Texture */}
-      <div className="absolute inset-0 opacity-20" style={{
-        backgroundImage: 'linear-gradient(hsl(var(--accent)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--accent)) 1px, transparent 1px)',
-        backgroundSize: '60px 60px'
-      }}></div>
-      
-      <div className="container mx-auto px-4 relative z-10">
+    <section className="py-20 bg-background">
+      <div className="container mx-auto px-4">
         {/* Section Header */}
-        <div className="text-center mb-20">
-          <Badge variant="outline" className="px-6 py-3 text-sm font-semibold border-primary bg-white mb-6">
-            <BarChart3 className="h-5 w-5 mr-2 text-primary" />
+        <div className="text-center mb-16">
+          <Badge variant="outline" className="px-4 py-2 text-sm font-medium border-primary/30 mb-4">
+            <BarChart3 className="h-4 w-4 mr-2 text-primary" />
             Platform Overview
           </Badge>
-          <h2 className="text-4xl md:text-6xl font-bold mb-6 leading-tight text-foreground">
+          <h2 className="text-3xl md:text-5xl font-bold mb-4">
             Everything you need.{" "}
-            <span className="text-primary">Nothing you don't.</span>
+            <span className="text-teal-600">Nothing you don't.</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
             See how all our tools play nice together to make your work life way easier
           </p>
         </div>
@@ -158,27 +152,27 @@ const FeaturesOverview = () => {
             return (
               <Card 
                 key={feature.id}
-                className="cursor-pointer transition-all duration-300 hover:shadow-xl hover:-translate-y-2 border-2 border-border hover:border-primary bg-white"
+                className="group cursor-pointer transition-all duration-300 hover:shadow-xl hover:-translate-y-2 border-0 shadow-lg"
                 onClick={() => handleFeatureClick(feature.id)}
               >
-                <CardContent className="p-8">
+                <CardContent className="p-6">
                   <div className="flex flex-col h-full">
-                    {/* Icon with solid background */}
-                    <div className={`w-16 h-16 rounded-3xl ${feature.bgColor} flex items-center justify-center mb-6 transition-all duration-300 shadow-md`}>
-                      <IconComponent className={`h-8 w-8 ${feature.color}`} />
+                    {/* Icon */}
+                    <div className={`w-12 h-12 rounded-xl ${feature.bgColor} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                      <IconComponent className={`h-6 w-6 ${feature.color}`} />
                     </div>
                     
                     {/* Title */}
-                    <h3 className="font-bold text-xl mb-5 text-foreground">
+                    <h3 className="font-bold text-lg mb-4 group-hover:text-primary transition-colors">
                       {feature.title}
                     </h3>
                     
                     {/* Features List */}
-                    <ul className="space-y-3 flex-grow">
+                    <ul className="space-y-2 flex-grow">
                       {feature.items.map((item, index) => (
-                        <li key={index} className="flex items-start text-sm text-muted-foreground">
-                          <div className={`w-2 h-2 rounded-full ${feature.color.replace('text-', 'bg-')} mr-3 mt-1.5 flex-shrink-0`}></div>
-                          <span>{item}</span>
+                        <li key={index} className="flex items-center text-sm text-muted-foreground">
+                          <div className="w-1.5 h-1.5 rounded-full bg-primary/60 mr-3 flex-shrink-0"></div>
+                          {item}
                         </li>
                       ))}
                     </ul>
@@ -190,13 +184,13 @@ const FeaturesOverview = () => {
         </div>
 
         {/* CTA */}
-        <div className="text-center mt-12">
-          <p className="text-lg text-muted-foreground mb-6">
+        <div className="text-center">
+          <p className="text-muted-foreground mb-4">
             Click any card above to dive deeper (trust us, it gets even cooler) 
           </p>
-          <div className="flex items-center justify-center gap-3">
-            <span className="text-lg text-primary font-bold">More goodies below</span>
-            <div className="animate-bounce text-3xl">👇</div>
+          <div className="flex items-center justify-center gap-2 text-sm text-primary">
+            <span>More goodies below</span>
+            <div className="animate-bounce">👇</div>
           </div>
         </div>
       </div>

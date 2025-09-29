@@ -16,17 +16,6 @@ export default {
       fontFamily: {
         'nunito': ['Nunito Sans', 'sans-serif'],
       },
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-primary': 'linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)))',
-        'gradient-hero': 'linear-gradient(135deg, hsl(var(--teal-50)), hsl(var(--purple-50)), hsl(var(--blue-50)))',
-        'shimmer': 'linear-gradient(90deg, transparent, hsl(var(--primary) / 0.1), transparent)',
-      },
-      boxShadow: {
-        'glow': 'var(--shadow-glow)',
-        'primary': 'var(--shadow-lg)',
-        'accent': 'var(--shadow-accent)',
-      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
