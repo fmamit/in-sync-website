@@ -8,6 +8,7 @@ import ROICalculator from "@/components/ROICalculator";
 import CRMShowcase from "@/components/CRMShowcase";
 import TestimonialsShowcase from "@/components/TestimonialsShowcase";
 import StepByStepGuide from "@/components/StepByStepGuide";
+import AcademicWhitepaperShowcase from "@/components/AcademicWhitepaperShowcase";
 import Footer from "@/components/Footer";
 
 const Index = () => {
@@ -35,6 +36,8 @@ const Index = () => {
         <HeroSection />
         
         <FeaturesOverview />
+        
+        <AcademicWhitepaperShowcase />
         
         <IndustryResults />
         
