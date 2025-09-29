@@ -100,7 +100,10 @@ const AcademicWhitepaperShowcase = () => {
                   />
                 ) : (
                   <div className="flex flex-col items-center justify-center p-4 text-muted-foreground">
-                    <FileText className="h-16 w-16 mb-2" />
+                    <div className="relative bg-white rounded-lg shadow-md border border-border w-20 h-24 flex items-center justify-center mb-2">
+                      <div className="text-xs text-gray-600 font-mono">PDF</div>
+                      <div className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></div>
+                    </div>
                     <p className="text-xs">Research Document</p>
                   </div>
                 )}
