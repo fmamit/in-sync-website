@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import SEOHelmet from "@/components/SEOHelmet";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import { Button } from "@/components/ui/button";
+import { defaultSEOConfig } from "@/utils/seo";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -1195,9 +1198,14 @@ const Resources = () => {
   );
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header Section */}
-      <div className="relative bg-gradient-to-br from-primary/5 to-accent/10 py-24">
+    <>
+      <SEOHelmet config={defaultSEOConfig.resources} />
+      
+      <div className="min-h-screen bg-background">
+        <Breadcrumbs items={[{ name: 'Resources', url: '/resources' }]} />
+        
+        {/* Header Section */}
+        <div className="relative bg-gradient-to-br from-primary/5 to-accent/10 py-16" role="banner">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <div className="flex justify-between items-start mb-6">
@@ -1876,8 +1884,9 @@ const Resources = () => {
         </DialogContent>
       </Dialog>
 
-      <Footer />
-    </div>
+        <Footer />
+      </div>
+    </>
   );
 };
 

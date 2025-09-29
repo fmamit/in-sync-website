@@ -1,5 +1,8 @@
 import { useState } from "react";
+import SEOHelmet from "@/components/SEOHelmet";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import { Button } from "@/components/ui/button";
+import { defaultSEOConfig } from "@/utils/seo";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -190,10 +193,14 @@ const Pricing = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
+    <>
+      <SEOHelmet config={defaultSEOConfig.pricing} />
       
-      {/* Hero Section */}
-      <section className="pt-24 pb-16 px-4 bg-gradient-to-br from-primary/5 via-background to-secondary/5">
+      <div className="min-h-screen bg-background">
+        <Breadcrumbs items={[{ name: 'Pricing', url: '/pricing' }]} />
+        
+        {/* Hero Section */}
+        <section className="pt-16 pb-16 px-4 bg-gradient-to-br from-primary/5 via-background to-secondary/5" role="banner">
         <div className="max-w-4xl mx-auto text-center">
           <Badge variant="secondary" className="mb-4">
             Simple Pricing
@@ -498,8 +505,9 @@ const Pricing = () => {
         </div>
       </section>
 
-      <Footer />
-    </div>
+        <Footer />
+      </div>
+    </>
   );
 };
 

@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import SEOHelmet from "@/components/SEOHelmet";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import Footer from "@/components/Footer";
+import { defaultSEOConfig, getProductSchema } from "@/utils/seo";
 import KeyFeatures from "@/components/KeyFeatures";
 import DemoRequestModal from "@/components/DemoRequestModal";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -342,23 +345,37 @@ const Features = () => {
     }
   ];
 
-  return (
-    <div className="min-h-screen bg-background">
-      
-      {/* Back Button */}
-      <div className="container mx-auto px-4 pt-20 pb-4">
-        <Button 
-          variant="outline" 
-          onClick={handleBackToHome}
-          className="mb-4 hover:bg-primary/10 bg-background border-primary/20"
-        >
-          <ArrowLeft className="h-4 w-4 mr-2" />
-          Back to Overview
-        </Button>
-      </div>
+  const structuredData = getProductSchema({
+    name: "In-Sync CRM Platform",
+    description: "Comprehensive CRM platform with AI-powered automation, multi-channel marketing, and field force management capabilities"
+  });
 
-      {/* Hero Section */}
-      <section className="relative py-24 bg-primary text-white overflow-hidden">
+  return (
+    <>
+      <SEOHelmet 
+        config={{
+          ...defaultSEOConfig.features,
+          structuredData
+        }}
+      />
+      
+      <div className="min-h-screen bg-background">
+        <Breadcrumbs items={[{ name: 'Features', url: '/features' }]} />
+        
+        {/* Back Button */}
+        <div className="container mx-auto px-4 pt-8 pb-4">
+          <Button 
+            variant="outline" 
+            onClick={handleBackToHome}
+            className="mb-4 hover:bg-primary/10 bg-background border-primary/20"
+          >
+            <ArrowLeft className="h-4 w-4 mr-2" />
+            Back to Overview
+          </Button>
+        </div>
+
+        {/* Hero Section */}
+        <section className="relative py-24 bg-primary text-white overflow-hidden" role="banner">
         <div className="absolute inset-0 bg-grid-white/[0.1] bg-[size:16px_16px]" />
         <div className="absolute inset-0 bg-primary/20" />
         
@@ -369,7 +386,7 @@ const Features = () => {
               Interactive Feature Experience
             </Badge>
             <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
-              Explore Cool Features Through Real Stories 📚
+              Explore In-Sync CRM Features Through Real Success Stories
             </h1>
             <p className="text-xl md:text-2xl text-primary-foreground/90 mb-8 max-w-3xl mx-auto leading-relaxed">
               Jump into interactive demos, real transformation stories, and handy calculators to see what we're all about
@@ -859,8 +876,9 @@ const Features = () => {
         </div>
       </section>
 
-      <Footer />
-    </div>
+        <Footer />
+      </div>
+    </>
   );
 };
 

@@ -1,8 +1,11 @@
+import SEOHelmet from "@/components/SEOHelmet";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Check, Sparkles, Lock } from "lucide-react";
 import Footer from "@/components/Footer";
+import { defaultSEOConfig } from "@/utils/seo";
 
 const Industries = () => {
   const industries = [
@@ -105,14 +108,14 @@ const Industries = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Breadcrumb */}
-      <div className="bg-muted/50 py-3 px-4 text-sm text-muted-foreground">
-        <a href="/" className="hover:text-primary transition-colors">Home</a> &gt; Industries
-      </div>
+    <>
+      <SEOHelmet config={defaultSEOConfig.industries} />
+      
+      <div className="min-h-screen bg-background">
+        <Breadcrumbs items={[{ name: 'Industries', url: '/industries' }]} />
 
-      {/* Hero Section */}
-      <section className="py-16 px-4 text-center bg-gradient-to-br from-primary/5 via-blue-50/30 to-accent/10">
+        {/* Hero Section */}
+        <section className="py-16 px-4 text-center bg-gradient-to-br from-primary/5 via-blue-50/30 to-accent/10" role="banner">
         <div className="container mx-auto max-w-4xl">
           {/* Title with Icons */}
           <div className="flex items-center justify-center gap-4 mb-8">
@@ -251,8 +254,9 @@ const Industries = () => {
           </div>
         </div>
       </section>
-      <Footer />
-    </div>
+        <Footer />
+      </div>
+    </>
   );
 };
 

@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
+import SEOHelmet from "@/components/SEOHelmet";
 import HeroSection from "@/components/HeroSection";
 import FeaturesOverview from "@/components/FeaturesOverview";
 import IndustryResults from "@/components/IndustryResults";
@@ -10,6 +11,7 @@ import TestimonialsShowcase from "@/components/TestimonialsShowcase";
 import StepByStepGuide from "@/components/StepByStepGuide";
 import AcademicWhitepaperShowcase from "@/components/AcademicWhitepaperShowcase";
 import Footer from "@/components/Footer";
+import { defaultSEOConfig, getOrganizationSchema, getSoftwareApplicationSchema } from "@/utils/seo";
 
 const Index = () => {
   const [searchParams] = useSearchParams();
@@ -17,7 +19,6 @@ const Index = () => {
   useEffect(() => {
     const scrollTo = searchParams.get('scrollTo');
     if (scrollTo === 'features-overview') {
-      // Small delay to ensure page is rendered
       setTimeout(() => {
         const element = document.getElementById('features-overview');
         if (element) {
@@ -30,49 +31,60 @@ const Index = () => {
       }, 100);
     }
   }, [searchParams]);
+  
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@graph": [
+      getOrganizationSchema(),
+      getSoftwareApplicationSchema()
+    ]
+  };
+
   return (
-    <div className="min-h-screen bg-background">
-      <main>
-        <HeroSection />
-        
-        <FeaturesOverview />
-        
-        <AcademicWhitepaperShowcase />
-        
-        <IndustryResults />
-        
-        {/* ROI Calculator */}
-        <section className="py-20 bg-background" id="features-overview">
-          <div className="container mx-auto px-4">
-            <ROICalculator />
-          </div>
-        </section>
-        
-        {/* Business Assessment Quiz */}
-        <section className="py-20 bg-background">
-          <div className="container mx-auto px-4">
-            <BusinessAssessment />
-          </div>
-        </section>
-        
-        <CRMShowcase />
-        
-        {/* Success Stories */}
-        <section className="py-20 bg-background">
-          <div className="container mx-auto px-4">
-            <TestimonialsShowcase />
-          </div>
-        </section>
-        
-        {/* Implementation Guide */}
-        <section className="py-20 bg-background">
-          <div className="container mx-auto px-4">
-            <StepByStepGuide />
-          </div>
-        </section>
-      </main>
-      <Footer />
-    </div>
+    <>
+      <SEOHelmet 
+        config={{
+          ...defaultSEOConfig.home,
+          structuredData
+        }}
+      />
+      
+      <div className="min-h-screen bg-background">
+        <main>
+          <HeroSection />
+          <FeaturesOverview />
+          <AcademicWhitepaperShowcase />
+          <IndustryResults />
+          
+          <section className="py-20 bg-background" id="features-overview">
+            <div className="container mx-auto px-4">
+              <ROICalculator />
+            </div>
+          </section>
+          
+          <section className="py-20 bg-background">
+            <div className="container mx-auto px-4">
+              <BusinessAssessment />
+            </div>
+          </section>
+          
+          <CRMShowcase />
+          
+          <section className="py-20 bg-background">
+            <div className="container mx-auto px-4">
+              <TestimonialsShowcase />
+            </div>
+          </section>
+          
+          <section className="py-20 bg-background">
+            <div className="container mx-auto px-4">
+              <StepByStepGuide />
+            </div>
+          </section>
+        </main>
+        <Footer />
+      </div>
+    </>
   );
 };
 
