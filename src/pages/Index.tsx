@@ -56,18 +56,22 @@ const Index = () => {
           <AcademicWhitepaperShowcase />
           <IndustryResults />
           
-          <section className="py-24 bg-gradient-to-br from-orange-50/50 via-pink-50/50 to-accent/10 relative overflow-hidden" id="features-overview">
-            {/* Decorative elements */}
-            <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-gradient-to-br from-orange-400/20 to-transparent rounded-full blur-3xl animate-pulse" style={{ animationDuration: '5s' }}></div>
-            <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-gradient-to-tl from-accent/30 to-transparent rounded-full blur-3xl animate-pulse" style={{ animationDuration: '5s', animationDelay: '2.5s' }}></div>
+          <section className="py-24 bg-[hsl(var(--orange-50))] relative overflow-hidden" id="features-overview">
+            {/* Horizontal Lines Texture */}
+            <div className="absolute inset-0 opacity-20" style={{
+              backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 60px, hsl(var(--primary)) 60px, hsl(var(--primary)) 61px)',
+            }}></div>
             <div className="container mx-auto px-4 relative z-10">
               <ROICalculator />
             </div>
           </section>
           
-          <section className="py-24 bg-gradient-to-br from-green-50/50 via-primary/10 to-blue-50/50 relative overflow-hidden">
-            <div className="absolute top-10 right-10 w-96 h-96 bg-gradient-to-br from-primary/30 to-transparent rounded-full blur-3xl animate-pulse" style={{ animationDuration: '6s' }}></div>
-            <div className="absolute bottom-10 left-10 w-96 h-96 bg-gradient-to-tr from-blue-400/25 to-transparent rounded-full blur-3xl animate-pulse" style={{ animationDuration: '6s', animationDelay: '3s' }}></div>
+          <section className="py-24 bg-primary/10 relative overflow-hidden">
+            {/* Circle Texture */}
+            <div className="absolute inset-0 opacity-25" style={{
+              backgroundImage: 'radial-gradient(circle, hsl(var(--accent)) 2px, transparent 2px)',
+              backgroundSize: '48px 48px'
+            }}></div>
             <div className="container mx-auto px-4 relative z-10">
               <BusinessAssessment />
             </div>
@@ -75,17 +79,24 @@ const Index = () => {
           
           <CRMShowcase />
           
-          <section className="py-24 bg-gradient-to-br from-blue-50/50 via-indigo-50/50 to-accent/10 relative overflow-hidden">
-            <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-br from-blue-400/25 to-transparent rounded-full blur-3xl animate-pulse" style={{ animationDuration: '7s' }}></div>
-            <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-gradient-to-tl from-accent/25 to-transparent rounded-full blur-3xl animate-pulse" style={{ animationDuration: '7s', animationDelay: '3.5s' }}></div>
+          <section className="py-24 bg-accent/10 relative overflow-hidden">
+            {/* Diagonal Stripes Texture */}
+            <div className="absolute inset-0 opacity-15" style={{
+              backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 70px, hsl(var(--primary)) 70px, hsl(var(--primary)) 72px)',
+            }}></div>
             <div className="container mx-auto px-4 relative z-10">
               <TestimonialsShowcase />
             </div>
           </section>
           
-          <section className="py-24 bg-gradient-to-br from-pink-50/50 via-rose-50/50 to-orange-50/50 relative overflow-hidden">
-            <div className="absolute top-1/4 right-1/4 w-80 h-80 bg-gradient-to-br from-pink-400/20 to-transparent rounded-full blur-3xl animate-pulse" style={{ animationDuration: '8s' }}></div>
-            <div className="container mx-auto px-4">
+          <section className="py-24 bg-[hsl(var(--pink-50))] relative overflow-hidden">
+            {/* Zigzag Pattern Texture */}
+            <div className="absolute inset-0 opacity-15" style={{
+              backgroundImage: 'linear-gradient(135deg, hsl(var(--accent)) 25%, transparent 25%), linear-gradient(225deg, hsl(var(--accent)) 25%, transparent 25%)',
+              backgroundSize: '80px 80px',
+              backgroundPosition: '0 0, 40px 40px'
+            }}></div>
+            <div className="container mx-auto px-4 relative z-10">
               <StepByStepGuide />
             </div>
           </section>
