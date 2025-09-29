@@ -8,6 +8,7 @@ import ROICalculator from "@/components/ROICalculator";
 import CRMShowcase from "@/components/CRMShowcase";
 import TestimonialsShowcase from "@/components/TestimonialsShowcase";
 import StepByStepGuide from "@/components/StepByStepGuide";
+import FeaturedWhitepaper from "@/components/FeaturedWhitepaper";
 import Footer from "@/components/Footer";
 
 const Index = () => {
@@ -53,6 +54,9 @@ const Index = () => {
         </section>
         
         <CRMShowcase />
+        
+        {/* Featured Whitepaper */}
+        <FeaturedWhitepaper />
         
         {/* Success Stories */}
         <section className="py-20 bg-background">
