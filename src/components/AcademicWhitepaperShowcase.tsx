@@ -89,27 +89,27 @@ const AcademicWhitepaperShowcase = () => {
 
         <div className="max-w-3xl mx-auto">
           <Card className="overflow-hidden bg-card border shadow-lg">
-            <div className="grid md:grid-cols-2 gap-0">
-              {/* Thumbnail Side */}
-              <div className="relative bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center p-4">
+            <div className="flex flex-col gap-0">
+              {/* Thumbnail Top */}
+              <div className="relative bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center p-6">
                 {whitepaper.thumbnail_url ? (
                   <img
                     src={whitepaper.thumbnail_url}
                     alt={`${whitepaper.title} thumbnail`}
-                    className="max-w-full max-h-32 object-contain rounded-lg shadow-md"
+                    className="max-w-full max-h-40 object-contain rounded-lg shadow-md"
                   />
                 ) : (
-                  <div className="flex flex-col items-center justify-center p-4 text-muted-foreground">
-                    <div className="relative bg-white rounded-lg shadow-md border border-border w-20 h-24 flex items-center justify-center mb-2">
-                      <div className="text-xs text-gray-600 font-mono">PDF</div>
-                      <div className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></div>
+                  <div className="flex flex-col items-center justify-center text-muted-foreground">
+                    <div className="relative bg-white rounded-lg shadow-md border border-border w-24 h-32 flex items-center justify-center mb-3">
+                      <div className="text-sm text-gray-600 font-mono">PDF</div>
+                      <div className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full"></div>
                     </div>
-                    <p className="text-xs">Research Document</p>
+                    <p className="text-sm">Research Document</p>
                   </div>
                 )}
               </div>
 
-              {/* Content Side */}
+              {/* Content Bottom */}
               <CardContent className="p-4">
                 <CardHeader className="p-0 mb-3">
                   <CardTitle className="text-lg font-bold text-foreground mb-2">
