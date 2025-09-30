@@ -906,6 +906,7 @@ const Resources = () => {
           
           // Fetch YouTube metadata if video URL is provided
           if (newResource.content) {
+            console.log('Fetching YouTube metadata for URL:', newResource.content);
             try {
               const { data: metadata, error: metadataError } = await supabase.functions.invoke(
                 'fetch-youtube-metadata',
@@ -914,18 +915,39 @@ const Resources = () => {
                 }
               );
 
+              console.log('YouTube metadata response:', { metadata, metadataError });
+
               if (metadataError) {
                 console.error('Error fetching YouTube metadata:', metadataError);
+                toast({
+                  title: "Warning",
+                  description: "Could not fetch thumbnail from YouTube. Tutorial will be added without thumbnail.",
+                  variant: "default"
+                });
               } else if (metadata && metadata.thumbnails) {
                 // Use the highest quality thumbnail available
                 thumbnailUrl = metadata.thumbnails.maxres?.url || 
                               metadata.thumbnails.high?.url || 
                               metadata.thumbnails.medium?.url ||
                               metadata.thumbnails.default?.url;
+                
+                console.log('Thumbnail URL extracted:', thumbnailUrl);
+                
+                toast({
+                  title: "Thumbnail Fetched",
+                  description: "YouTube thumbnail successfully retrieved!",
+                });
               }
             } catch (err) {
               console.error('Failed to fetch YouTube metadata:', err);
+              toast({
+                title: "Warning",
+                description: "Could not fetch thumbnail from YouTube. Tutorial will be added without thumbnail.",
+                variant: "default"
+              });
             }
+          } else {
+            console.log('No video URL provided for tutorial');
           }
 
           const { data: tutorialData, error: tutorialError } = await supabase
