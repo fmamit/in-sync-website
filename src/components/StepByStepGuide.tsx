@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
+import DemoRequestModal from "@/components/DemoRequestModal";
 import { 
   Play,
   CheckCircle2,
@@ -544,9 +545,11 @@ const StepByStepGuide = ({ className = "" }: { className?: string }) => {
           Our implementation experts will guide you through every step to ensure your success
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Button size="lg">
-            Schedule Implementation Call
-          </Button>
+          <DemoRequestModal trigger={
+            <Button size="lg">
+              Request Demo
+            </Button>
+          } />
           <Button variant="outline" size="lg">
             Download Implementation Checklist
           </Button>
