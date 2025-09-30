@@ -5,3 +5,6 @@ verify_jwt = false
 
 [functions.demo-request]
 verify_jwt = false
+
+[functions.fetch-youtube-metadata]
+verify_jwt = false

@@ -1978,7 +1978,48 @@ const Resources = () => {
             </div>
 
             <div>
-              <Label htmlFor="edit-tutorial-videoUrl">YouTube Video URL (Optional)</Label>
+              <div className="flex justify-between items-center mb-2">
+                <Label htmlFor="edit-tutorial-videoUrl">YouTube Video URL (Optional)</Label>
+                {editTutorialData.videoUrl && (
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={async () => {
+                      try {
+                        const { data, error } = await supabase.functions.invoke('fetch-youtube-metadata', {
+                          body: { videoUrl: editTutorialData.videoUrl }
+                        });
+
+                        if (error) throw error;
+
+                        if (data) {
+                          setEditTutorialData({
+                            ...editTutorialData,
+                            description: data.description || editTutorialData.description,
+                            tags: data.tags?.join(', ') || editTutorialData.tags
+                          });
+                          
+                          toast({
+                            title: "Success",
+                            description: "Video metadata fetched successfully!",
+                          });
+                        }
+                      } catch (error) {
+                        console.error('Error fetching YouTube metadata:', error);
+                        toast({
+                          title: "Error",
+                          description: "Failed to fetch video metadata. Please check the URL.",
+                          variant: "destructive"
+                        });
+                      }
+                    }}
+                    className="text-xs"
+                  >
+                    Fetch Video Details
+                  </Button>
+                )}
+              </div>
               <Input
                 id="edit-tutorial-videoUrl"
                 value={editTutorialData.videoUrl}
@@ -1987,7 +2028,7 @@ const Resources = () => {
                 type="url"
               />
               <p className="text-xs text-muted-foreground mt-1">
-                Add a YouTube video URL to allow users to watch the tutorial directly
+                Add a YouTube video URL and click "Fetch Video Details" to auto-fill description and tags
               </p>
             </div>
 
@@ -2256,7 +2297,48 @@ const Resources = () => {
               )}
               {newResourceType === "tutorial" && (
                 <div>
-                  <Label htmlFor="videoUrl">YouTube Video URL (Optional)</Label>
+                  <div className="flex justify-between items-center mb-2">
+                    <Label htmlFor="videoUrl">YouTube Video URL (Optional)</Label>
+                    {newResource.content && (
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        onClick={async () => {
+                          try {
+                            const { data, error } = await supabase.functions.invoke('fetch-youtube-metadata', {
+                              body: { videoUrl: newResource.content }
+                            });
+
+                            if (error) throw error;
+
+                            if (data) {
+                              setNewResource({
+                                ...newResource,
+                                description: data.description || newResource.description,
+                                tags: data.tags?.join(', ') || newResource.tags
+                              });
+                              
+                              toast({
+                                title: "Success",
+                                description: "Video metadata fetched successfully!",
+                              });
+                            }
+                          } catch (error) {
+                            console.error('Error fetching YouTube metadata:', error);
+                            toast({
+                              title: "Error",
+                              description: "Failed to fetch video metadata. Please check the URL.",
+                              variant: "destructive"
+                            });
+                          }
+                        }}
+                        className="text-xs"
+                      >
+                        Fetch Video Details
+                      </Button>
+                    )}
+                  </div>
                   <Input
                     id="videoUrl"
                     type="url"
@@ -2265,7 +2347,7 @@ const Resources = () => {
                     placeholder="https://www.youtube.com/watch?v=..."
                   />
                   <p className="text-xs text-muted-foreground mt-1">
-                    Add a YouTube video URL to allow users to watch the tutorial directly
+                    Add a YouTube video URL and click "Fetch Video Details" to auto-fill description and tags
                   </p>
                 </div>
               )}
