@@ -320,6 +320,51 @@ export type Database = {
         }
         Relationships: []
       }
+      tutorials: {
+        Row: {
+          category: string
+          created_at: string
+          description: string
+          duration: string
+          id: string
+          level: string
+          tags: string[] | null
+          title: string
+          type: string
+          updated_at: string
+          video_count: number | null
+          video_url: string | null
+        }
+        Insert: {
+          category: string
+          created_at?: string
+          description: string
+          duration?: string
+          id?: string
+          level?: string
+          tags?: string[] | null
+          title: string
+          type?: string
+          updated_at?: string
+          video_count?: number | null
+          video_url?: string | null
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          description?: string
+          duration?: string
+          id?: string
+          level?: string
+          tags?: string[] | null
+          title?: string
+          type?: string
+          updated_at?: string
+          video_count?: number | null
+          video_url?: string | null
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string

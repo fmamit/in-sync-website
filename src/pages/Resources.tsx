@@ -307,92 +307,7 @@ const initialEvents = [
   }
 ];
 
-const initialTutorials = [
-  {
-    id: 1,
-    title: "Getting Started with In-Sync CRM",
-    description: "Complete beginner's guide to setting up and using In-Sync CRM for your business.",
-    type: "Video Series",
-    duration: "45 minutes",
-    level: "Beginner",
-    category: "Setup & Configuration",
-    videoCount: 8,
-    tags: ["Getting Started", "Setup", "Basic Features"],
-    videoUrl: "#"
-  },
-  {
-    id: 2,
-    title: "Advanced Sales Pipeline Management",
-    description: "Learn to create sophisticated sales pipelines, set up automation, and track performance metrics.",
-    type: "Interactive Guide",
-    duration: "30 minutes",
-    level: "Advanced",
-    category: "Sales Management",
-    videoCount: 1,
-    tags: ["Sales Pipeline", "Automation", "Analytics"],
-    videoUrl: "#"
-  },
-  {
-    id: 3,
-    title: "WhatsApp Integration Step-by-Step",
-    description: "Detailed tutorial on integrating WhatsApp Business API with your In-Sync CRM system.",
-    type: "Written Tutorial",
-    duration: "20 minutes",
-    level: "Intermediate",
-    category: "Integrations",
-    videoCount: 0,
-    tags: ["WhatsApp", "Integration", "API Setup"],
-    videoUrl: "#"
-  },
-  {
-    id: 4,
-    title: "Field Force Management Best Practices",
-    description: "Comprehensive guide to managing field teams using GPS tracking, mobile CRM, and performance analytics.",
-    type: "Video Tutorial",
-    duration: "35 minutes",
-    level: "Intermediate",
-    category: "Field Management",
-    videoCount: 1,
-    tags: ["Field Force", "GPS", "Mobile CRM"],
-    videoUrl: "#"
-  },
-  {
-    id: 5,
-    title: "Customer Data Analytics Deep Dive",
-    description: "Master customer data analytics to uncover insights and drive business growth through data-driven decisions.",
-    type: "Video Series",
-    duration: "60 minutes",
-    level: "Advanced",
-    category: "Analytics",
-    videoCount: 12,
-    tags: ["Analytics", "Data", "Business Intelligence", "Reporting"],
-    videoUrl: "#"
-  },
-  {
-    id: 6,
-    title: "Automation Workflows for Beginners",
-    description: "Learn to create simple yet powerful automation workflows to streamline your business processes.",
-    type: "Interactive Tutorial",
-    duration: "25 minutes",
-    level: "Beginner",
-    category: "Automation",
-    videoCount: 1,
-    tags: ["Automation", "Workflows", "Process", "Efficiency"],
-    videoUrl: "#"
-  },
-  {
-    id: 7,
-    title: "Mobile CRM Usage Guide",
-    description: "Complete guide to using In-Sync mobile CRM app for field sales, customer visits, and remote work.",
-    type: "Video Tutorial",
-    duration: "40 minutes",
-    level: "Beginner",
-    category: "Mobile App",
-    videoCount: 1,
-    tags: ["Mobile", "App", "Field Sales", "Remote Work"],
-    videoUrl: "#"
-  }
-];
+const initialTutorials: any[] = [];
 
 const Resources = () => {
   const navigate = useNavigate();
@@ -503,7 +418,7 @@ const Resources = () => {
     icbm: "20.5937, 78.9629"
   });
 
-  // Load blogs and whitepapers from Supabase on component mount
+  // Load blogs, whitepapers, and tutorials from Supabase on component mount
   useEffect(() => {
     const loadData = async () => {
       const blogData = await fetchBlogs();
@@ -511,6 +426,27 @@ const Resources = () => {
       
       const whitepaperData = await fetchWhitepapers();
       setWhitepapers(whitepaperData);
+
+      // Fetch tutorials from Supabase
+      const { data: tutorialsData, error } = await supabase
+        .from('tutorials')
+        .select('*')
+        .order('created_at', { ascending: false });
+      
+      if (!error && tutorialsData) {
+        setTutorials(tutorialsData.map((t: any) => ({
+          id: t.id,
+          title: t.title,
+          description: t.description,
+          type: t.type,
+          duration: t.duration,
+          level: t.level,
+          category: t.category,
+          videoCount: t.video_count,
+          tags: t.tags || [],
+          videoUrl: t.video_url
+        })));
+      }
     };
     loadData();
   }, []);
@@ -673,16 +609,43 @@ const Resources = () => {
       return;
     }
 
+    const { data, error } = await supabase
+      .from('tutorials')
+      .update({
+        title: editTutorialData.title,
+        description: editTutorialData.description,
+        category: editTutorialData.category,
+        tags: editTutorialData.tags.split(",").map(tag => tag.trim()).filter(tag => tag),
+        type: editTutorialData.type,
+        duration: editTutorialData.duration,
+        level: editTutorialData.level,
+        video_url: editTutorialData.videoUrl
+      })
+      .eq('id', editingTutorial.id)
+      .select()
+      .single();
+
+    if (error) {
+      toast({
+        title: "Error",
+        description: "Failed to update tutorial. Please try again.",
+        variant: "destructive"
+      });
+      console.error('Error updating tutorial:', error);
+      return;
+    }
+
     const updatedTutorialData = {
-      ...editingTutorial,
-      title: editTutorialData.title,
-      description: editTutorialData.description,
-      category: editTutorialData.category,
-      tags: editTutorialData.tags.split(",").map(tag => tag.trim()).filter(tag => tag),
-      type: editTutorialData.type,
-      duration: editTutorialData.duration,
-      level: editTutorialData.level,
-      videoUrl: editTutorialData.videoUrl
+      id: data.id,
+      title: data.title,
+      description: data.description,
+      type: data.type,
+      duration: data.duration,
+      level: data.level,
+      category: data.category,
+      videoCount: data.video_count,
+      tags: data.tags || [],
+      videoUrl: data.video_url
     };
 
     setTutorials(tutorials.map(t => t.id === editingTutorial.id ? updatedTutorialData : t));
@@ -703,6 +666,21 @@ const Resources = () => {
 
   const confirmDeleteTutorial = async () => {
     if (deletingTutorial) {
+      const { error } = await supabase
+        .from('tutorials')
+        .delete()
+        .eq('id', deletingTutorial.id);
+
+      if (error) {
+        toast({
+          title: "Error",
+          description: "Failed to delete tutorial. Please try again.",
+          variant: "destructive"
+        });
+        console.error('Error deleting tutorial:', error);
+        return;
+      }
+
       setTutorials(tutorials.filter(t => t.id !== deletingTutorial.id));
       setIsDeleteTutorialDialogOpen(false);
       setDeletingTutorial(null);
@@ -924,14 +902,46 @@ const Resources = () => {
           }]);
           break;
         case "tutorial":
-          setTutorials([...tutorials, {
-            ...resourceData,
-            type: newResource.type || "Video Tutorial",
-            duration: "30 minutes",
-            level: "Beginner",
-            videoCount: 1,
-            videoUrl: newResource.content || "#"
-          }]);
+          const { data: tutorialData, error: tutorialError } = await supabase
+            .from('tutorials')
+            .insert({
+              title: newResource.title,
+              description: newResource.description,
+              category: newResource.category,
+              type: newResource.type || "Video Tutorial",
+              duration: "30 minutes",
+              level: "Beginner",
+              video_count: 1,
+              video_url: newResource.content || "#",
+              tags: newResource.tags.split(",").map(tag => tag.trim()).filter(tag => tag)
+            })
+            .select()
+            .single();
+
+          if (tutorialError) {
+            toast({
+              title: "Error",
+              description: "Failed to create tutorial. Please try again.",
+              variant: "destructive"
+            });
+            console.error('Error creating tutorial:', tutorialError);
+            return;
+          }
+
+          if (tutorialData) {
+            setTutorials([{
+              id: tutorialData.id,
+              title: tutorialData.title,
+              description: tutorialData.description,
+              type: tutorialData.type,
+              duration: tutorialData.duration,
+              level: tutorialData.level,
+              category: tutorialData.category,
+              videoCount: tutorialData.video_count,
+              tags: tutorialData.tags || [],
+              videoUrl: tutorialData.video_url
+            }, ...tutorials]);
+          }
           break;
       }
 
