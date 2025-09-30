@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, User, LogOut, LogIn } from "lucide-react";
+import { Menu, X, User, LogOut, LogIn, ArrowLeft } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { useAuth } from "@/hooks/useAuth";
 import insyncLogo from "@/assets/insync-logo-color.png";
@@ -81,7 +81,7 @@ export default function Header() {
                 <TooltipTrigger asChild>
                   <Button asChild className="bg-destructive hover:bg-destructive/90 text-destructive-foreground p-2">
                     <Link to="/auth">
-                      <LogOut className="h-4 w-4" />
+                      <ArrowLeft className="h-4 w-4" />
                     </Link>
                   </Button>
                 </TooltipTrigger>
@@ -146,7 +146,7 @@ export default function Header() {
                 ) : (
                   <Button asChild className="bg-destructive hover:bg-destructive/90 text-destructive-foreground w-full p-2 flex justify-center">
                     <Link to="/auth" onClick={() => setIsMobileMenuOpen(false)}>
-                      <LogOut className="h-4 w-4" />
+                      <ArrowLeft className="h-4 w-4" />
                     </Link>
                   </Button>
                 )}
