@@ -29,9 +29,9 @@ serve(async (req) => {
       );
     }
 
-    const GOOGLE_API_KEY = Deno.env.get('GOOGLE_API_KEY');
-    if (!GOOGLE_API_KEY) {
-      console.error('GOOGLE_API_KEY is not configured');
+    const YOUTUBE_API_KEY = Deno.env.get('YOUTUBE_API_KEY');
+    if (!YOUTUBE_API_KEY) {
+      console.error('YOUTUBE_API_KEY is not configured');
       return new Response(
         JSON.stringify({ error: 'API key not configured' }),
         { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
@@ -39,7 +39,7 @@ serve(async (req) => {
     }
 
     // Fetch video metadata from YouTube Data API
-    const youtubeApiUrl = `https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${videoId}&key=${GOOGLE_API_KEY}`;
+    const youtubeApiUrl = `https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${videoId}&key=${YOUTUBE_API_KEY}`;
     
     const response = await fetch(youtubeApiUrl);
     const data = await response.json();
