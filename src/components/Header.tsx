@@ -79,7 +79,7 @@ export default function Header() {
             ) : (
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Button asChild className="bg-primary hover:bg-primary/90 p-2">
+                  <Button asChild className="bg-destructive hover:bg-destructive/90 text-destructive-foreground p-2">
                     <Link to="/auth">
                       <LogIn className="h-4 w-4" />
                     </Link>
@@ -144,7 +144,7 @@ export default function Header() {
                     </Button>
                   </div>
                 ) : (
-                  <Button asChild className="bg-primary hover:bg-primary/90 w-full p-2 flex justify-center">
+                  <Button asChild className="bg-destructive hover:bg-destructive/90 text-destructive-foreground w-full p-2 flex justify-center">
                     <Link to="/auth" onClick={() => setIsMobileMenuOpen(false)}>
                       <LogIn className="h-4 w-4" />
                     </Link>
