@@ -440,6 +440,41 @@ const Resources = () => {
   const [isDeleteWhitepaperDialogOpen, setIsDeleteWhitepaperDialogOpen] = useState(false);
   const [deletingWhitepaper, setDeletingWhitepaper] = useState<any>(null);
   
+  // Edit tutorial state
+  const [isEditTutorialDialogOpen, setIsEditTutorialDialogOpen] = useState(false);
+  const [editingTutorial, setEditingTutorial] = useState<any>(null);
+  const [editTutorialData, setEditTutorialData] = useState({
+    title: "",
+    description: "",
+    category: "",
+    tags: "",
+    type: "",
+    duration: "",
+    level: ""
+  });
+  
+  // Delete tutorial state
+  const [isDeleteTutorialDialogOpen, setIsDeleteTutorialDialogOpen] = useState(false);
+  const [deletingTutorial, setDeletingTutorial] = useState<any>(null);
+  
+  // Edit event state
+  const [isEditEventDialogOpen, setIsEditEventDialogOpen] = useState(false);
+  const [editingEvent, setEditingEvent] = useState<any>(null);
+  const [editEventData, setEditEventData] = useState({
+    title: "",
+    description: "",
+    type: "",
+    date: "",
+    time: "",
+    duration: "",
+    location: "",
+    tags: ""
+  });
+  
+  // Delete event state
+  const [isDeleteEventDialogOpen, setIsDeleteEventDialogOpen] = useState(false);
+  const [deletingEvent, setDeletingEvent] = useState<any>(null);
+  
   const [faqQuery, setFaqQuery] = useState("");
   const [faqResponse, setFaqResponse] = useState("");
   const [newResourceType, setNewResourceType] = useState("blog");
@@ -607,6 +642,138 @@ const Resources = () => {
       toast({
         title: "Success",
         description: "Whitepaper deleted successfully!",
+      });
+    }
+  };
+
+  // Edit tutorial functions
+  const handleEditTutorial = (tutorial: any) => {
+    setEditingTutorial(tutorial);
+    setEditTutorialData({
+      title: tutorial.title,
+      description: tutorial.description,
+      category: tutorial.category,
+      tags: tutorial.tags.join(", "),
+      type: tutorial.type,
+      duration: tutorial.duration,
+      level: tutorial.level
+    });
+    setIsEditTutorialDialogOpen(true);
+  };
+
+  const handleSaveTutorialEdit = async () => {
+    if (!editTutorialData.title.trim() || !editTutorialData.description.trim() || !editingTutorial) {
+      toast({
+        title: "Error",
+        description: "Please fill in all required fields.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    const updatedTutorialData = {
+      ...editingTutorial,
+      title: editTutorialData.title,
+      description: editTutorialData.description,
+      category: editTutorialData.category,
+      tags: editTutorialData.tags.split(",").map(tag => tag.trim()).filter(tag => tag),
+      type: editTutorialData.type,
+      duration: editTutorialData.duration,
+      level: editTutorialData.level
+    };
+
+    setTutorials(tutorials.map(t => t.id === editingTutorial.id ? updatedTutorialData : t));
+    setIsEditTutorialDialogOpen(false);
+    setEditingTutorial(null);
+    
+    toast({
+      title: "Success",
+      description: "Tutorial updated successfully!",
+    });
+  };
+
+  // Delete tutorial functions
+  const handleDeleteTutorial = (tutorial: any) => {
+    setDeletingTutorial(tutorial);
+    setIsDeleteTutorialDialogOpen(true);
+  };
+
+  const confirmDeleteTutorial = async () => {
+    if (deletingTutorial) {
+      setTutorials(tutorials.filter(t => t.id !== deletingTutorial.id));
+      setIsDeleteTutorialDialogOpen(false);
+      setDeletingTutorial(null);
+      
+      toast({
+        title: "Success",
+        description: "Tutorial deleted successfully!",
+      });
+    }
+  };
+
+  // Edit event functions
+  const handleEditEvent = (event: any) => {
+    setEditingEvent(event);
+    setEditEventData({
+      title: event.title,
+      description: event.description,
+      type: event.type,
+      date: event.date,
+      time: event.time,
+      duration: event.duration,
+      location: event.location,
+      tags: event.tags.join(", ")
+    });
+    setIsEditEventDialogOpen(true);
+  };
+
+  const handleSaveEventEdit = async () => {
+    if (!editEventData.title.trim() || !editEventData.description.trim() || !editingEvent) {
+      toast({
+        title: "Error",
+        description: "Please fill in all required fields.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    const updatedEventData = {
+      ...editingEvent,
+      title: editEventData.title,
+      description: editEventData.description,
+      type: editEventData.type,
+      date: editEventData.date,
+      time: editEventData.time,
+      duration: editEventData.duration,
+      location: editEventData.location,
+      tags: editEventData.tags.split(",").map(tag => tag.trim()).filter(tag => tag)
+    };
+
+    setEvents(events.map(e => e.id === editingEvent.id ? updatedEventData : e));
+    setIsEditEventDialogOpen(false);
+    setEditingEvent(null);
+    
+    toast({
+      title: "Success",
+      description: "Event updated successfully!",
+    });
+  };
+
+  // Delete event functions
+  const handleDeleteEvent = (event: any) => {
+    setDeletingEvent(event);
+    setIsDeleteEventDialogOpen(true);
+  };
+
+  const confirmDeleteEvent = async () => {
+    if (deletingEvent) {
+      setEvents(events.filter(e => e.id !== deletingEvent.id));
+      setIsDeleteEventDialogOpen(false);
+      setDeletingEvent(null);
+      
+      toast({
+        title: "Success",
+        description: "Event deleted successfully!",
       });
     }
   };
@@ -1075,8 +1242,20 @@ const Resources = () => {
       <CardHeader>
         <div className="flex items-center justify-between mb-2">
           <Badge variant="outline">{event.type}</Badge>
-          <div className="text-sm text-muted-foreground">
-            {event.date}
+          <div className="flex items-center gap-2">
+            {user && isAdmin && (
+              <Button
+                size="sm"
+                variant="secondary"
+                className="opacity-0 group-hover:opacity-100 transition-opacity"
+                onClick={() => handleEditEvent(event)}
+              >
+                <Edit3 className="h-4 w-4" />
+              </Button>
+            )}
+            <div className="text-sm text-muted-foreground">
+              {event.date}
+            </div>
           </div>
         </div>
         <CardTitle className="group-hover:text-primary transition-colors">
@@ -1114,10 +1293,31 @@ const Resources = () => {
           ))}
         </div>
 
-        <Button className="w-full">
-          Register Now
-          <ExternalLink className="h-4 w-4 ml-2" />
-        </Button>
+        <div className="flex gap-2">
+          <Button className="flex-1">
+            Register Now
+            <ExternalLink className="h-4 w-4 ml-2" />
+          </Button>
+          {user && isAdmin && (
+            <>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => handleEditEvent(event)}
+              >
+                <Edit3 className="h-4 w-4" />
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => handleDeleteEvent(event)}
+                className="text-destructive hover:text-destructive hover:bg-destructive/10"
+              >
+                <Trash2 className="h-4 w-4" />
+              </Button>
+            </>
+          )}
+        </div>
       </CardContent>
     </Card>
   );
@@ -1127,13 +1327,25 @@ const Resources = () => {
       <CardHeader>
         <div className="flex items-center justify-between mb-2">
           <Badge variant="outline">{tutorial.level}</Badge>
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            {tutorial.type.includes("Video") ? (
-              <Video className="h-4 w-4" />
-            ) : (
-              <BookOpen className="h-4 w-4" />
+          <div className="flex items-center gap-2">
+            {user && isAdmin && (
+              <Button
+                size="sm"
+                variant="secondary"
+                className="opacity-0 group-hover:opacity-100 transition-opacity"
+                onClick={() => handleEditTutorial(tutorial)}
+              >
+                <Edit3 className="h-4 w-4" />
+              </Button>
             )}
-            <span>{tutorial.duration}</span>
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              {tutorial.type.includes("Video") ? (
+                <Video className="h-4 w-4" />
+              ) : (
+                <BookOpen className="h-4 w-4" />
+              )}
+              <span>{tutorial.duration}</span>
+            </div>
           </div>
         </div>
         <CardTitle className="group-hover:text-primary transition-colors">
@@ -1165,10 +1377,31 @@ const Resources = () => {
           ))}
         </div>
 
-        <Button className="w-full">
-          Start Learning
-          <ExternalLink className="h-4 w-4 ml-2" />
-        </Button>
+        <div className="flex gap-2">
+          <Button className="flex-1">
+            Start Learning
+            <ExternalLink className="h-4 w-4 ml-2" />
+          </Button>
+          {user && isAdmin && (
+            <>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => handleEditTutorial(tutorial)}
+              >
+                <Edit3 className="h-4 w-4" />
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => handleDeleteTutorial(tutorial)}
+                className="text-destructive hover:text-destructive hover:bg-destructive/10"
+              >
+                <Trash2 className="h-4 w-4" />
+              </Button>
+            </>
+          )}
+        </div>
       </CardContent>
     </Card>
   );
@@ -1643,6 +1876,264 @@ const Resources = () => {
             </AlertDialogCancel>
             <AlertDialogAction 
               onClick={confirmDeleteWhitepaper}
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+            >
+              Delete
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
+      {/* Edit Tutorial Dialog */}
+      <Dialog open={isEditTutorialDialogOpen} onOpenChange={setIsEditTutorialDialogOpen}>
+        <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>Edit Tutorial</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div>
+              <Label htmlFor="edit-tutorial-title">Title</Label>
+              <Input
+                id="edit-tutorial-title"
+                value={editTutorialData.title}
+                onChange={(e) => setEditTutorialData({...editTutorialData, title: e.target.value})}
+                placeholder="Tutorial title"
+              />
+            </div>
+
+            <div>
+              <Label htmlFor="edit-tutorial-description">Description</Label>
+              <Textarea
+                id="edit-tutorial-description"
+                value={editTutorialData.description}
+                onChange={(e) => setEditTutorialData({...editTutorialData, description: e.target.value})}
+                placeholder="Brief description..."
+                rows={3}
+              />
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <Label htmlFor="edit-tutorial-category">Category</Label>
+                <Input
+                  id="edit-tutorial-category"
+                  value={editTutorialData.category}
+                  onChange={(e) => setEditTutorialData({...editTutorialData, category: e.target.value})}
+                  placeholder="Category"
+                />
+              </div>
+              <div>
+                <Label htmlFor="edit-tutorial-type">Type</Label>
+                <Select value={editTutorialData.type} onValueChange={(value) => setEditTutorialData({...editTutorialData, type: value})}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select type" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Video Tutorial">Video Tutorial</SelectItem>
+                    <SelectItem value="Video Series">Video Series</SelectItem>
+                    <SelectItem value="Written Tutorial">Written Tutorial</SelectItem>
+                    <SelectItem value="Interactive Tutorial">Interactive Tutorial</SelectItem>
+                    <SelectItem value="Interactive Guide">Interactive Guide</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <Label htmlFor="edit-tutorial-duration">Duration</Label>
+                <Input
+                  id="edit-tutorial-duration"
+                  value={editTutorialData.duration}
+                  onChange={(e) => setEditTutorialData({...editTutorialData, duration: e.target.value})}
+                  placeholder="e.g. 30 minutes"
+                />
+              </div>
+              <div>
+                <Label htmlFor="edit-tutorial-level">Level</Label>
+                <Select value={editTutorialData.level} onValueChange={(value) => setEditTutorialData({...editTutorialData, level: value})}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select level" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Beginner">Beginner</SelectItem>
+                    <SelectItem value="Intermediate">Intermediate</SelectItem>
+                    <SelectItem value="Advanced">Advanced</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+
+            <div>
+              <Label htmlFor="edit-tutorial-tags">Tags (comma separated)</Label>
+              <Input
+                id="edit-tutorial-tags"
+                value={editTutorialData.tags}
+                onChange={(e) => setEditTutorialData({...editTutorialData, tags: e.target.value})}
+                placeholder="tag1, tag2, tag3"
+              />
+            </div>
+
+            <div className="flex gap-4 pt-4">
+              <Button onClick={handleSaveTutorialEdit} className="flex-1">
+                <Edit3 className="h-4 w-4 mr-2" />
+                Save Changes
+              </Button>
+              <Button variant="outline" onClick={() => setIsEditTutorialDialogOpen(false)} className="flex-1">
+                Cancel
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Delete Tutorial Confirmation Dialog */}
+      <AlertDialog open={isDeleteTutorialDialogOpen} onOpenChange={setIsDeleteTutorialDialogOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Delete Tutorial</AlertDialogTitle>
+            <AlertDialogDescription>
+              Are you sure you want to delete "{deletingTutorial?.title}"? This action cannot be undone.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel onClick={() => setIsDeleteTutorialDialogOpen(false)}>
+              Cancel
+            </AlertDialogCancel>
+            <AlertDialogAction 
+              onClick={confirmDeleteTutorial}
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+            >
+              Delete
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
+      {/* Edit Event Dialog */}
+      <Dialog open={isEditEventDialogOpen} onOpenChange={setIsEditEventDialogOpen}>
+        <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>Edit Event</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div>
+              <Label htmlFor="edit-event-title">Title</Label>
+              <Input
+                id="edit-event-title"
+                value={editEventData.title}
+                onChange={(e) => setEditEventData({...editEventData, title: e.target.value})}
+                placeholder="Event title"
+              />
+            </div>
+
+            <div>
+              <Label htmlFor="edit-event-description">Description</Label>
+              <Textarea
+                id="edit-event-description"
+                value={editEventData.description}
+                onChange={(e) => setEditEventData({...editEventData, description: e.target.value})}
+                placeholder="Brief description..."
+                rows={3}
+              />
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <Label htmlFor="edit-event-type">Type</Label>
+                <Select value={editEventData.type} onValueChange={(value) => setEditEventData({...editEventData, type: value})}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select type" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Webinar">Webinar</SelectItem>
+                    <SelectItem value="Workshop">Workshop</SelectItem>
+                    <SelectItem value="Conference">Conference</SelectItem>
+                    <SelectItem value="Training">Training</SelectItem>
+                    <SelectItem value="Seminar">Seminar</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div>
+                <Label htmlFor="edit-event-location">Location</Label>
+                <Input
+                  id="edit-event-location"
+                  value={editEventData.location}
+                  onChange={(e) => setEditEventData({...editEventData, location: e.target.value})}
+                  placeholder="Online or venue"
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <Label htmlFor="edit-event-date">Date</Label>
+                <Input
+                  id="edit-event-date"
+                  type="date"
+                  value={editEventData.date}
+                  onChange={(e) => setEditEventData({...editEventData, date: e.target.value})}
+                />
+              </div>
+              <div>
+                <Label htmlFor="edit-event-time">Time</Label>
+                <Input
+                  id="edit-event-time"
+                  value={editEventData.time}
+                  onChange={(e) => setEditEventData({...editEventData, time: e.target.value})}
+                  placeholder="e.g. 3:00 PM IST"
+                />
+              </div>
+            </div>
+
+            <div>
+              <Label htmlFor="edit-event-duration">Duration</Label>
+              <Input
+                id="edit-event-duration"
+                value={editEventData.duration}
+                onChange={(e) => setEditEventData({...editEventData, duration: e.target.value})}
+                placeholder="e.g. 2 hours"
+              />
+            </div>
+
+            <div>
+              <Label htmlFor="edit-event-tags">Tags (comma separated)</Label>
+              <Input
+                id="edit-event-tags"
+                value={editEventData.tags}
+                onChange={(e) => setEditEventData({...editEventData, tags: e.target.value})}
+                placeholder="tag1, tag2, tag3"
+              />
+            </div>
+
+            <div className="flex gap-4 pt-4">
+              <Button onClick={handleSaveEventEdit} className="flex-1">
+                <Edit3 className="h-4 w-4 mr-2" />
+                Save Changes
+              </Button>
+              <Button variant="outline" onClick={() => setIsEditEventDialogOpen(false)} className="flex-1">
+                Cancel
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Delete Event Confirmation Dialog */}
+      <AlertDialog open={isDeleteEventDialogOpen} onOpenChange={setIsDeleteEventDialogOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Delete Event</AlertDialogTitle>
+            <AlertDialogDescription>
+              Are you sure you want to delete "{deletingEvent?.title}"? This action cannot be undone.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel onClick={() => setIsDeleteEventDialogOpen(false)}>
+              Cancel
+            </AlertDialogCancel>
+            <AlertDialogAction 
+              onClick={confirmDeleteEvent}
               className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
             >
               Delete
