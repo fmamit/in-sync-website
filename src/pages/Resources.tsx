@@ -450,7 +450,8 @@ const Resources = () => {
     tags: "",
     type: "",
     duration: "",
-    level: ""
+    level: "",
+    videoUrl: ""
   });
   
   // Delete tutorial state
@@ -656,7 +657,8 @@ const Resources = () => {
       tags: tutorial.tags.join(", "),
       type: tutorial.type,
       duration: tutorial.duration,
-      level: tutorial.level
+      level: tutorial.level,
+      videoUrl: tutorial.videoUrl || ""
     });
     setIsEditTutorialDialogOpen(true);
   };
@@ -679,7 +681,8 @@ const Resources = () => {
       tags: editTutorialData.tags.split(",").map(tag => tag.trim()).filter(tag => tag),
       type: editTutorialData.type,
       duration: editTutorialData.duration,
-      level: editTutorialData.level
+      level: editTutorialData.level,
+      videoUrl: editTutorialData.videoUrl
     };
 
     setTutorials(tutorials.map(t => t.id === editingTutorial.id ? updatedTutorialData : t));
@@ -927,7 +930,7 @@ const Resources = () => {
             duration: "30 minutes",
             level: "Beginner",
             videoCount: 1,
-            videoUrl: "#"
+            videoUrl: newResource.content || "#"
           }]);
           break;
       }
@@ -1378,10 +1381,20 @@ const Resources = () => {
         </div>
 
         <div className="flex gap-2">
-          <Button className="flex-1">
-            Start Learning
-            <ExternalLink className="h-4 w-4 ml-2" />
-          </Button>
+          {tutorial.videoUrl && tutorial.videoUrl !== "#" ? (
+            <Button 
+              className="flex-1"
+              onClick={() => window.open(tutorial.videoUrl, '_blank')}
+            >
+              <Video className="h-4 w-4 mr-2" />
+              Watch Video
+            </Button>
+          ) : (
+            <Button className="flex-1">
+              Start Learning
+              <ExternalLink className="h-4 w-4 ml-2" />
+            </Button>
+          )}
           {user && isAdmin && (
             <>
               <Button
@@ -1965,6 +1978,20 @@ const Resources = () => {
             </div>
 
             <div>
+              <Label htmlFor="edit-tutorial-videoUrl">YouTube Video URL (Optional)</Label>
+              <Input
+                id="edit-tutorial-videoUrl"
+                value={editTutorialData.videoUrl}
+                onChange={(e) => setEditTutorialData({...editTutorialData, videoUrl: e.target.value})}
+                placeholder="https://www.youtube.com/watch?v=..."
+                type="url"
+              />
+              <p className="text-xs text-muted-foreground mt-1">
+                Add a YouTube video URL to allow users to watch the tutorial directly
+              </p>
+            </div>
+
+            <div>
               <Label htmlFor="edit-tutorial-tags">Tags (comma separated)</Label>
               <Input
                 id="edit-tutorial-tags"
@@ -2225,6 +2252,21 @@ const Resources = () => {
                     onChange={(e) => setNewResource({...newResource, type: e.target.value})}
                     placeholder={newResourceType === "event" ? "Webinar, Workshop, etc." : "Video, Interactive, etc."}
                   />
+                </div>
+              )}
+              {newResourceType === "tutorial" && (
+                <div>
+                  <Label htmlFor="videoUrl">YouTube Video URL (Optional)</Label>
+                  <Input
+                    id="videoUrl"
+                    type="url"
+                    value={newResource.content}
+                    onChange={(e) => setNewResource({...newResource, content: e.target.value})}
+                    placeholder="https://www.youtube.com/watch?v=..."
+                  />
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Add a YouTube video URL to allow users to watch the tutorial directly
+                  </p>
                 </div>
               )}
             </div>
