@@ -902,6 +902,32 @@ const Resources = () => {
           }]);
           break;
         case "tutorial":
+          let thumbnailUrl = null;
+          
+          // Fetch YouTube metadata if video URL is provided
+          if (newResource.content) {
+            try {
+              const { data: metadata, error: metadataError } = await supabase.functions.invoke(
+                'fetch-youtube-metadata',
+                {
+                  body: { videoUrl: newResource.content }
+                }
+              );
+
+              if (metadataError) {
+                console.error('Error fetching YouTube metadata:', metadataError);
+              } else if (metadata && metadata.thumbnails) {
+                // Use the highest quality thumbnail available
+                thumbnailUrl = metadata.thumbnails.maxres?.url || 
+                              metadata.thumbnails.high?.url || 
+                              metadata.thumbnails.medium?.url ||
+                              metadata.thumbnails.default?.url;
+              }
+            } catch (err) {
+              console.error('Failed to fetch YouTube metadata:', err);
+            }
+          }
+
           const { data: tutorialData, error: tutorialError } = await supabase
             .from('tutorials')
             .insert({
@@ -913,6 +939,7 @@ const Resources = () => {
               level: "Beginner",
               video_count: 1,
               video_url: newResource.content || "#",
+              thumbnail_url: thumbnailUrl,
               tags: newResource.tags.split(",").map(tag => tag.trim()).filter(tag => tag)
             })
             .select()
@@ -939,7 +966,8 @@ const Resources = () => {
               category: tutorialData.category,
               videoCount: tutorialData.video_count,
               tags: tutorialData.tags || [],
-              videoUrl: tutorialData.video_url
+              videoUrl: tutorialData.video_url,
+              thumbnailUrl: tutorialData.thumbnail_url
             }, ...tutorials]);
           }
           break;
@@ -1336,21 +1364,30 @@ const Resources = () => {
   );
 
   const TutorialCard = ({ tutorial }: { tutorial: any }) => (
-    <Card className="group hover:shadow-lg transition-all duration-300">
+    <Card className="group hover:shadow-lg transition-all duration-300 overflow-hidden">
+      {tutorial.thumbnailUrl && (
+        <div className="relative w-full aspect-video overflow-hidden">
+          <img 
+            src={tutorial.thumbnailUrl} 
+            alt={tutorial.title}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-4">
+            <Badge variant="secondary" className="bg-white/90 text-black">
+              {tutorial.level}
+            </Badge>
+          </div>
+          <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+            <div className="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center">
+              <Video className="h-8 w-8 text-primary" />
+            </div>
+          </div>
+        </div>
+      )}
       <CardHeader>
-        <div className="flex items-center justify-between mb-2">
-          <Badge variant="outline">{tutorial.level}</Badge>
-          <div className="flex items-center gap-2">
-            {user && isAdmin && (
-              <Button
-                size="sm"
-                variant="secondary"
-                className="opacity-0 group-hover:opacity-100 transition-opacity"
-                onClick={() => handleEditTutorial(tutorial)}
-              >
-                <Edit3 className="h-4 w-4" />
-              </Button>
-            )}
+        {!tutorial.thumbnailUrl && (
+          <div className="flex items-center justify-between mb-2">
+            <Badge variant="outline">{tutorial.level}</Badge>
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
               {tutorial.type.includes("Video") ? (
                 <Video className="h-4 w-4" />
@@ -1360,7 +1397,7 @@ const Resources = () => {
               <span>{tutorial.duration}</span>
             </div>
           </div>
-        </div>
+        )}
         <CardTitle className="group-hover:text-primary transition-colors">
           {tutorial.title}
         </CardTitle>

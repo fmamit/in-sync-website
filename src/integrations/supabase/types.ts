@@ -329,6 +329,7 @@ export type Database = {
           id: string
           level: string
           tags: string[] | null
+          thumbnail_url: string | null
           title: string
           type: string
           updated_at: string
@@ -343,6 +344,7 @@ export type Database = {
           id?: string
           level?: string
           tags?: string[] | null
+          thumbnail_url?: string | null
           title: string
           type?: string
           updated_at?: string
@@ -357,6 +359,7 @@ export type Database = {
           id?: string
           level?: string
           tags?: string[] | null
+          thumbnail_url?: string | null
           title?: string
           type?: string
           updated_at?: string
