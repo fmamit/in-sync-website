@@ -1664,7 +1664,10 @@ const Resources = () => {
           {event.videoUrl && event.videoUrl !== "#" ? (
             <Button 
               className="flex-1"
-              onClick={() => window.open(event.videoUrl, '_blank')}
+              onClick={(e) => {
+                e.preventDefault();
+                window.open(event.videoUrl, '_blank', 'noopener,noreferrer');
+              }}
             >
               <Video className="h-4 w-4 mr-2" />
               Watch Video
@@ -1767,7 +1770,10 @@ const Resources = () => {
           {tutorial.videoUrl && tutorial.videoUrl !== "#" ? (
             <Button 
               className="flex-1"
-              onClick={() => window.open(tutorial.videoUrl, '_blank')}
+              onClick={(e) => {
+                e.preventDefault();
+                window.open(tutorial.videoUrl, '_blank', 'noopener,noreferrer');
+              }}
             >
               <Video className="h-4 w-4 mr-2" />
               Watch Video
@@ -2741,62 +2747,6 @@ const Resources = () => {
                     onChange={(e) => setNewResource({...newResource, content: e.target.value})}
                     placeholder="https://www.youtube.com/watch?v=..."
                   />
-                </div>
-              )}
-              {newResourceType === "tutorial" && (
-                <div>
-                  <div className="flex justify-between items-center mb-2">
-                    <Label htmlFor="videoUrl">YouTube Video URL (Optional)</Label>
-                    {newResource.content && (
-                      <Button
-                        type="button"
-                        variant="outline"
-                        size="sm"
-                        onClick={async () => {
-                          try {
-                            const { data, error } = await supabase.functions.invoke('fetch-youtube-metadata', {
-                              body: { videoUrl: newResource.content }
-                            });
-
-                            if (error) throw error;
-
-                            if (data) {
-                              setNewResource({
-                                ...newResource,
-                                description: data.description || newResource.description,
-                                tags: data.tags?.join(', ') || newResource.tags
-                              });
-                              
-                              toast({
-                                title: "Success",
-                                description: "Video metadata fetched successfully!",
-                              });
-                            }
-                          } catch (error) {
-                            console.error('Error fetching YouTube metadata:', error);
-                            toast({
-                              title: "Error",
-                              description: "Failed to fetch video metadata. Please check the URL.",
-                              variant: "destructive"
-                            });
-                          }
-                        }}
-                        className="text-xs"
-                      >
-                        Fetch Video Details
-                      </Button>
-                    )}
-                  </div>
-                  <Input
-                    id="videoUrl"
-                    type="url"
-                    value={newResource.content}
-                    onChange={(e) => setNewResource({...newResource, content: e.target.value})}
-                    placeholder="https://www.youtube.com/watch?v=..."
-                  />
-                  <p className="text-xs text-muted-foreground mt-1">
-                    Add a YouTube video URL and click "Fetch Video Details" to auto-fill description and tags
-                  </p>
                 </div>
               )}
             </div>
