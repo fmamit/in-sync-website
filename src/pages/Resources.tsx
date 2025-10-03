@@ -1305,20 +1305,8 @@ const Resources = () => {
       <CardHeader>
         <div className="flex items-center justify-between mb-2">
           <Badge variant="outline">{event.type}</Badge>
-          <div className="flex items-center gap-2">
-            {user && isAdmin && (
-              <Button
-                size="sm"
-                variant="secondary"
-                className="opacity-0 group-hover:opacity-100 transition-opacity"
-                onClick={() => handleEditEvent(event)}
-              >
-                <Edit3 className="h-4 w-4" />
-              </Button>
-            )}
-            <div className="text-sm text-muted-foreground">
-              {event.date}
-            </div>
+          <div className="text-sm text-muted-foreground">
+            {event.date}
           </div>
         </div>
         <CardTitle className="group-hover:text-primary transition-colors">
