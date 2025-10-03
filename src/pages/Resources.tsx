@@ -1245,6 +1245,140 @@ const Resources = () => {
     }
   };
 
+  const handleFixThumbnails = async () => {
+    if (!user || !isAdmin) {
+      toast({
+        title: "Access Denied",
+        description: "Only admins can perform this action.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    toast({
+      title: "Processing...",
+      description: "Fetching thumbnails for videos. This may take a moment.",
+    });
+
+    let fixed = 0;
+    let errors = 0;
+
+    try {
+      // Fix tutorials
+      for (const tutorial of tutorials) {
+        if (tutorial.videoUrl && !tutorial.thumbnailUrl) {
+          try {
+            const { data: metadata, error } = await supabase.functions.invoke(
+              'fetch-youtube-metadata',
+              { body: { videoUrl: tutorial.videoUrl } }
+            );
+
+            if (!error && metadata?.thumbnail) {
+              const { error: updateError } = await supabase
+                .from('tutorials')
+                .update({ thumbnail_url: metadata.thumbnail })
+                .eq('id', tutorial.id);
+
+              if (!updateError) {
+                fixed++;
+              } else {
+                errors++;
+              }
+            }
+          } catch (err) {
+            console.error('Error fixing tutorial thumbnail:', err);
+            errors++;
+          }
+        }
+      }
+
+      // Fix events
+      for (const event of events) {
+        if (event.videoUrl && !event.thumbnailUrl) {
+          try {
+            const { data: metadata, error } = await supabase.functions.invoke(
+              'fetch-youtube-metadata',
+              { body: { videoUrl: event.videoUrl } }
+            );
+
+            if (!error && metadata?.thumbnail) {
+              const { error: updateError } = await supabase
+                .from('events')
+                .update({ thumbnail_url: metadata.thumbnail })
+                .eq('id', event.id);
+
+              if (!updateError) {
+                fixed++;
+              } else {
+                errors++;
+              }
+            }
+          } catch (err) {
+            console.error('Error fixing event thumbnail:', err);
+            errors++;
+          }
+        }
+      }
+
+      // Refresh data
+      const { data: tutorialsData } = await supabase
+        .from('tutorials')
+        .select('*')
+        .order('created_at', { ascending: false });
+      
+      if (tutorialsData) {
+        setTutorials(tutorialsData.map((t: any) => ({
+          id: t.id,
+          title: t.title,
+          description: t.description,
+          type: t.type,
+          duration: t.duration,
+          level: t.level,
+          category: t.category,
+          videoCount: t.video_count,
+          tags: t.tags || [],
+          videoUrl: t.video_url,
+          thumbnailUrl: t.thumbnail_url
+        })));
+      }
+
+      const { data: eventsData } = await supabase
+        .from('events')
+        .select('*')
+        .order('created_at', { ascending: false });
+      
+      if (eventsData) {
+        setEvents(eventsData.map((e: any) => ({
+          id: e.id,
+          title: e.title,
+          description: e.description,
+          type: e.type,
+          date: e.date,
+          time: e.time,
+          duration: e.duration,
+          location: e.location,
+          currentAttendees: e.current_attendees,
+          maxAttendees: e.max_attendees,
+          tags: e.tags || [],
+          videoUrl: e.video_url,
+          thumbnailUrl: e.thumbnail_url
+        })));
+      }
+
+      toast({
+        title: "Success!",
+        description: `Fixed ${fixed} thumbnails. ${errors > 0 ? `${errors} errors occurred.` : ''}`,
+      });
+    } catch (error) {
+      console.error('Error in handleFixThumbnails:', error);
+      toast({
+        title: "Error",
+        description: "An unexpected error occurred while fixing thumbnails.",
+        variant: "destructive"
+      });
+    }
+  };
+
   const handleFaqQuery = () => {
     if (!faqQuery.trim()) return;
     
@@ -1680,7 +1814,7 @@ const Resources = () => {
         <div className="flex gap-2 shrink-0">
           {showFixButton && onFixClick && (
             <Button onClick={onFixClick} variant="outline" size="sm">
-              Fix Page Counts
+              {title === "Whitepapers" ? "Fix Page Counts" : "Fix Thumbnails"}
             </Button>
           )}
           <Button onClick={onAddClick}>
@@ -1807,6 +1941,8 @@ const Resources = () => {
             description="Upcoming webinars, workshops, and conferences"
             count={filteredEvents.length}
             onAddClick={() => handleAddClick("event")}
+            onFixClick={handleFixThumbnails}
+            showFixButton={true}
           />
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -1829,6 +1965,8 @@ const Resources = () => {
             description="Step-by-step learning materials"
             count={filteredTutorials.length}
             onAddClick={() => handleAddClick("tutorial")}
+            onFixClick={handleFixThumbnails}
+            showFixButton={true}
           />
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

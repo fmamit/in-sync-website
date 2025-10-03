@@ -61,6 +61,14 @@ serve(async (req) => {
 
     const videoData = data.items[0].snippet;
     
+    // Get the highest quality thumbnail available
+    const thumbnails = videoData.thumbnails || {};
+    const thumbnailUrl = thumbnails.maxresdefault?.url || 
+                        thumbnails.high?.url || 
+                        thumbnails.medium?.url || 
+                        thumbnails.default?.url || 
+                        '';
+    
     // Extract title, description, and tags
     const metadata = {
       title: videoData.title || '',
@@ -68,10 +76,11 @@ serve(async (req) => {
       tags: videoData.tags || [],
       channelTitle: videoData.channelTitle || '',
       publishedAt: videoData.publishedAt || '',
+      thumbnail: thumbnailUrl,
       thumbnails: videoData.thumbnails || {}
     };
 
-    console.log('Successfully fetched YouTube metadata for video:', videoId);
+    console.log('Successfully fetched YouTube metadata for video:', videoId, 'Thumbnail:', thumbnailUrl);
 
     return new Response(
       JSON.stringify(metadata),
