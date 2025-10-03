@@ -77,6 +77,54 @@ export type Database = {
         }
         Relationships: []
       }
+      events: {
+        Row: {
+          created_at: string
+          current_attendees: number | null
+          date: string
+          description: string
+          duration: string
+          id: string
+          location: string
+          max_attendees: number | null
+          tags: string[] | null
+          time: string
+          title: string
+          type: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          current_attendees?: number | null
+          date: string
+          description: string
+          duration: string
+          id?: string
+          location: string
+          max_attendees?: number | null
+          tags?: string[] | null
+          time: string
+          title: string
+          type: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          current_attendees?: number | null
+          date?: string
+          description?: string
+          duration?: string
+          id?: string
+          location?: string
+          max_attendees?: number | null
+          tags?: string[] | null
+          time?: string
+          title?: string
+          type?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       onboarding_applications: {
         Row: {
           accent_color: string | null

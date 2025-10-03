@@ -314,7 +314,7 @@ const Resources = () => {
   const { user, isAdmin } = useAuth();
   const [blogs, setBlogs] = useState<BlogPost[]>([]);
   const [whitepapers, setWhitepapers] = useState<any[]>([]);
-  const [events, setEvents] = useState(initialEvents);
+  const [events, setEvents] = useState<any[]>([]);
   const [tutorials, setTutorials] = useState(initialTutorials);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
@@ -426,6 +426,31 @@ const Resources = () => {
       
       const whitepaperData = await fetchWhitepapers();
       setWhitepapers(whitepaperData);
+
+      // Fetch events from Supabase
+      const { data: eventsData, error: eventsError } = await supabase
+        .from('events')
+        .select('*')
+        .order('created_at', { ascending: false });
+      
+      if (!eventsError && eventsData) {
+        setEvents(eventsData.map((e: any) => ({
+          id: e.id,
+          title: e.title,
+          description: e.description,
+          type: e.type,
+          date: e.date,
+          time: e.time,
+          duration: e.duration,
+          location: e.location,
+          currentAttendees: e.current_attendees,
+          maxAttendees: e.max_attendees,
+          tags: e.tags || []
+        })));
+      } else {
+        // Fallback to initial events if table is empty
+        setEvents(initialEvents);
+      }
 
       // Fetch tutorials from Supabase
       const { data: tutorialsData, error } = await supabase
@@ -718,26 +743,47 @@ const Resources = () => {
       return;
     }
 
-    const updatedEventData = {
-      ...editingEvent,
-      title: editEventData.title,
-      description: editEventData.description,
-      type: editEventData.type,
-      date: editEventData.date,
-      time: editEventData.time,
-      duration: editEventData.duration,
-      location: editEventData.location,
-      tags: editEventData.tags.split(",").map(tag => tag.trim()).filter(tag => tag)
-    };
+    try {
+      const updatedEventData = {
+        title: editEventData.title,
+        description: editEventData.description,
+        type: editEventData.type,
+        date: editEventData.date,
+        time: editEventData.time,
+        duration: editEventData.duration,
+        location: editEventData.location,
+        tags: editEventData.tags.split(",").map(tag => tag.trim()).filter(tag => tag)
+      };
 
-    setEvents(events.map(e => e.id === editingEvent.id ? updatedEventData : e));
-    setIsEditEventDialogOpen(false);
-    setEditingEvent(null);
-    
-    toast({
-      title: "Success",
-      description: "Event updated successfully!",
-    });
+      const { error } = await supabase
+        .from('events')
+        .update(updatedEventData)
+        .eq('id', editingEvent.id);
+
+      if (error) throw error;
+
+      // Update local state
+      setEvents(events.map(e => 
+        e.id === editingEvent.id 
+          ? { ...e, ...updatedEventData, tags: updatedEventData.tags }
+          : e
+      ));
+      
+      setIsEditEventDialogOpen(false);
+      setEditingEvent(null);
+      
+      toast({
+        title: "Success",
+        description: "Event updated successfully!",
+      });
+    } catch (error) {
+      console.error('Error updating event:', error);
+      toast({
+        title: "Error",
+        description: "Failed to update event. Please try again.",
+        variant: "destructive",
+      });
+    }
   };
 
   // Delete event functions
@@ -748,14 +794,32 @@ const Resources = () => {
 
   const confirmDeleteEvent = async () => {
     if (deletingEvent) {
-      setEvents(events.filter(e => e.id !== deletingEvent.id));
-      setIsDeleteEventDialogOpen(false);
-      setDeletingEvent(null);
-      
-      toast({
-        title: "Success",
-        description: "Event deleted successfully!",
-      });
+      try {
+        // Delete from database
+        const { error } = await supabase
+          .from('events')
+          .delete()
+          .eq('id', deletingEvent.id);
+
+        if (error) throw error;
+
+        // Update local state
+        setEvents(events.filter(e => e.id !== deletingEvent.id));
+        setIsDeleteEventDialogOpen(false);
+        setDeletingEvent(null);
+        
+        toast({
+          title: "Success",
+          description: "Event deleted successfully!",
+        });
+      } catch (error) {
+        console.error('Error deleting event:', error);
+        toast({
+          title: "Error",
+          description: "Failed to delete event. Please try again.",
+          variant: "destructive",
+        });
+      }
     }
   };
 
@@ -889,17 +953,58 @@ const Resources = () => {
           }
           break;
         case "event":
-          setEvents([...events, {
-            ...resourceData,
-            type: newResource.type || "Webinar",
-            time: "3:00 PM IST",
-            duration: "1 hour",
-            location: "Online",
-            registrationUrl: "#",
-            maxAttendees: 500,
-            currentAttendees: 0,
-            speakers: [newResource.author || "In-Sync Team"]
-          }]);
+          try {
+            const eventData = {
+              title: resourceData.title,
+              description: resourceData.description,
+              type: newResource.type || "Webinar",
+              date: resourceData.date,
+              time: "3:00 PM IST",
+              duration: "1 hour",
+              location: "Online",
+              max_attendees: 500,
+              current_attendees: 0,
+              tags: resourceData.tags
+            };
+
+            const { data: newEvent, error } = await supabase
+              .from('events')
+              .insert([eventData])
+              .select()
+              .single();
+
+            if (error) throw error;
+
+            if (newEvent) {
+              setEvents([...events, {
+                id: newEvent.id,
+                title: newEvent.title,
+                description: newEvent.description,
+                type: newEvent.type,
+                date: newEvent.date,
+                time: newEvent.time,
+                duration: newEvent.duration,
+                location: newEvent.location,
+                maxAttendees: newEvent.max_attendees,
+                currentAttendees: newEvent.current_attendees,
+                tags: newEvent.tags,
+                registrationUrl: "#",
+                speakers: [newResource.author || "In-Sync Team"]
+              }]);
+
+              toast({
+                title: "Success",
+                description: "Event added successfully!",
+              });
+            }
+          } catch (error) {
+            console.error('Error adding event:', error);
+            toast({
+              title: "Error",
+              description: "Failed to add event. Please try again.",
+              variant: "destructive"
+            });
+          }
           break;
         case "tutorial":
           let thumbnailUrl = null;
