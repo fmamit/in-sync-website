@@ -6,7 +6,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { HelmetProvider } from 'react-helmet-async';
 import ChatbotEnhanced from "@/components/ChatbotEnhanced";
 import Header from "@/components/Header";
-import LogoTicker from "@/components/LogoTicker";
 import Index from "./pages/Index";
 import Auth from "./pages/Auth";
 import Features from "./pages/Features";
@@ -42,7 +41,6 @@ const App = () => (
         <ChatbotEnhanced />
         <BrowserRouter>
         <Header />
-        <LogoTicker />
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/features" element={<Features />} />

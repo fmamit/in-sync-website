@@ -2,208 +2,113 @@
 @tailwind components;
 @tailwind utilities;
 
-/* In-Sync Design System - Version 1.0
-   Based on In-Sync Brand Guidelines October 2025
-   All colors MUST be HSL format for proper theming
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
 */
 
 @layer base {
   :root {
-    /* ===== PRIMARY BRAND COLORS ===== */
-    /* Primary Teal - #01B8AA */
-    --primary: 175 99% 36%;
-    --primary-foreground: 0 0% 100%;
-    
-    /* Deep Teal - #359988 (hover states, active) */
-    --primary-hover: 171 48% 46%;
-    
-    /* Analytics Teal - #28738A */
-    --analytics: 193 53% 35%;
-    
-    /* Success Teal - #168980 */
-    --success: 174 73% 33%;
-    --success-bg: 166 57% 94%;
-    
-    /* ===== SECONDARY COLORS ===== */
-    /* Deep Slate - #374649 (primary text) */
-    --foreground: 191 14% 26%;
-    
-    /* Medium Gray - #5F6B6D (secondary text) */
-    --muted-foreground: 186 8% 40%;
-    
-    /* Charcoal - #475052 (disabled, tertiary) */
-    --muted: 186 8% 38%;
-    
-    /* ===== ACCENT COLORS - ENERGY ===== */
-    /* Coral - #FD625E (CTAs, alerts, urgency) */
-    --destructive: 1 98% 68%;
-    --destructive-foreground: 0 0% 100%;
-    
-    /* Soft Coral - #FB8281 (error states) */
-    --error: 0 94% 74%;
-    --error-bg: 0 100% 95%;
-    
-    /* Warm Coral - #FE9666 (Field features) */
-    --field: 16 99% 70%;
-    
-    /* Salmon - #FDAB89 */
-    --salmon: 16 97% 77%;
-    
-    /* Vibrant Yellow - #F2C80F (Connect features) */
-    --connect: 48 91% 50%;
-    
-    /* Soft Yellow - #F4D25A (warnings) */
-    --warning: 46 89% 65%;
-    --warning-bg: 51 100% 95%;
-    
-    /* ===== ACCENT COLORS - SUPPORTING ===== */
-    /* Purple - #A66999 (Gargi AI) */
-    --accent: 313 27% 53%;
-    --accent-foreground: 0 0% 100%;
-    
-    /* Lavender - #B687AC */
-    --lavender: 313 26% 60%;
-    
-    /* Sky Blue - #8AD4EB (info) */
-    --info: 193 69% 72%;
-    --info-bg: 193 74% 95%;
-    
-    /* Light Blue - #A4DDEE */
-    --light-blue: 191 70% 79%;
-    
-    /* ===== NEUTRALS ===== */
-    /* Background */
     --background: 0 0% 100%;
-    
-    /* Card backgrounds */
-    --card: 0 0% 100%;
-    --card-foreground: 191 14% 26%;
-    
-    /* Popovers */
-    --popover: 0 0% 100%;
-    --popover-foreground: 191 14% 26%;
-    
-    /* Secondary backgrounds */
-    --secondary: 186 8% 87%;
-    --secondary-foreground: 186 8% 40%;
-    
-    /* Light Neutral - #DFBFBF (borders, dividers) */
-    --border: 0 29% 81%;
-    
-    /* Input borders */
-    --input: 0 29% 81%;
-    
-    /* Focus ring */
-    --ring: 175 99% 36%;
-    
-    /* Surface background - #F8F9FA */
-    --surface: 210 17% 98%;
-    
-    /* ===== SPACING SCALE ===== */
-    --space-1: 0.25rem;    /* 4px - Micro */
-    --space-2: 0.5rem;     /* 8px - Tight */
-    --space-3: 1rem;       /* 16px - Base */
-    --space-4: 1.5rem;     /* 24px - Comfortable */
-    --space-5: 2rem;       /* 32px - Section */
-    --space-6: 3rem;       /* 48px - Major */
-    --space-7: 4rem;       /* 64px - Hero */
-    --space-8: 6rem;       /* 96px - Mega */
-    
-    /* ===== BORDER RADIUS ===== */
-    --radius-sm: 4px;      /* Tags, badges */
-    --radius-md: 8px;      /* Buttons, inputs, cards */
-    --radius-lg: 16px;     /* Modals, containers */
-    --radius-full: 9999px; /* Pills, avatars */
-    --radius: 8px;         /* Default */
-    
-    /* ===== ELEVATION / SHADOWS ===== */
-    --shadow-sm: 0 1px 3px rgba(55, 70, 73, 0.08);
-    --shadow-md: 0 4px 16px rgba(55, 70, 73, 0.12);
-    --shadow-lg: 0 8px 32px rgba(55, 70, 73, 0.16);
-    --shadow-xl: 0 12px 48px rgba(55, 70, 73, 0.24);
-    
-    /* ===== ANIMATION DURATIONS ===== */
-    --duration-instant: 100ms;
-    --duration-fast: 150ms;
-    --duration-base: 200ms;
-    --duration-medium: 300ms;
-    --duration-slow: 400ms;
-    
-    /* ===== TYPOGRAPHY ===== */
-    --font-primary: 'Nunito Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    --font-mono: 'JetBrains Mono', 'SF Mono', 'Consolas', monospace;
-    
-    /* ===== CHART COLORS ===== */
-    --chart-1: 175 99% 36%; /* Teal */
-    --chart-2: 174 73% 33%; /* Success Green */
-    --chart-3: 313 27% 53%; /* Purple */
-    --chart-4: 193 69% 72%; /* Sky Blue */
-    --chart-5: 1 98% 68%;   /* Coral */
+    --foreground: 200 15% 8%;
 
-    /* ===== SIDEBAR ===== */
-    --sidebar-background: 210 17% 98%;
-    --sidebar-foreground: 191 14% 26%;
-    --sidebar-primary: 175 99% 36%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 0 29% 81%;
-    --sidebar-accent-foreground: 191 14% 26%;
-    --sidebar-border: 0 29% 81%;
-    --sidebar-ring: 175 99% 36%;
+    --card: 0 0% 100%;
+    --card-foreground: 200 15% 8%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 200 15% 8%;
+
+    --primary: 175 100% 36%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 220 13% 91%;
+    --secondary-foreground: 220 9% 46%;
+
+    --muted: 210 40% 96%;
+    --muted-foreground: 200 10% 45%;
+
+    --accent: 262 83% 58%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 210 20% 90%;
+    --input: 210 20% 95%;
+    --ring: 262 83% 58%;
+
+    /* In-Sync Brand Colors */
+    --brand-teal: 175 100% 36%;
+    --brand-teal-light: 175 50% 85%;
+    --brand-teal-dark: 175 100% 25%;
+    --brand-accent: 4 89% 60%;
+    
+    /* Harmonious Gradients - Removed */
+    /* --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(262 83% 58% / 0.8));
+    --gradient-hero: linear-gradient(135deg, hsl(var(--primary) / 0.1), hsl(var(--accent) / 0.05));
+    --gradient-accent: linear-gradient(90deg, hsl(var(--accent)), hsl(var(--secondary) / 0.8)); */
+
+    /* Chart Colors */
+    --chart-1: 0 84% 60%; /* Red */
+    --chart-2: 142 76% 36%; /* Green */
+    --chart-3: 262 83% 58%; /* Purple */
+    --chart-4: 271 81% 56%; /* Violet */
+    --chart-5: 217 91% 60%; /* Blue */
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
   .dark {
-    /* ===== DARK MODE COLORS ===== */
-    --background: 191 20% 8%;
-    --foreground: 0 0% 95%;
-    
-    --card: 191 20% 10%;
-    --card-foreground: 0 0% 95%;
-    
-    --popover: 191 20% 10%;
-    --popover-foreground: 0 0% 95%;
-    
-    --primary: 175 99% 36%;
+    --background: 200 20% 5%;
+    --foreground: 210 40% 98%;
+
+    --card: 200 20% 8%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 200 20% 8%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 175 100% 36%;
     --primary-foreground: 0 0% 100%;
-    --primary-hover: 171 48% 46%;
-    
-    --secondary: 191 14% 18%;
-    --secondary-foreground: 186 8% 87%;
-    
-    --muted: 191 20% 15%;
-    --muted-foreground: 186 8% 60%;
-    
-    --accent: 313 27% 40%;
-    --accent-foreground: 0 0% 100%;
-    
-    --destructive: 1 98% 55%;
+
+    --secondary: 220 13% 18%;
+    --secondary-foreground: 220 13% 91%;
+
+    --muted: 200 20% 12%;
+    --muted-foreground: 210 20% 65%;
+
+    --accent: 262 83% 25%;
+    --accent-foreground: 262 83% 90%;
+
+    --destructive: 0 62% 50%;
     --destructive-foreground: 0 0% 100%;
-    
-    --border: 191 20% 20%;
-    --input: 191 20% 20%;
-    --ring: 175 99% 36%;
-    
-    --surface: 191 20% 12%;
-    
-    --success: 174 73% 33%;
-    --success-bg: 174 73% 15%;
-    
-    --warning: 46 89% 55%;
-    --warning-bg: 46 89% 15%;
-    
-    --error: 1 98% 55%;
-    --error-bg: 1 98% 15%;
-    
-    --info: 193 69% 60%;
-    --info-bg: 193 69% 15%;
-    
-    --sidebar-background: 191 20% 10%;
-    --sidebar-foreground: 0 0% 95%;
-    --sidebar-primary: 175 99% 36%;
+
+    --border: 200 20% 12%;
+    --input: 200 20% 12%;
+    --ring: 262 83% 58%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 191 20% 15%;
-    --sidebar-accent-foreground: 0 0% 95%;
-    --sidebar-border: 191 20% 20%;
-    --sidebar-ring: 175 99% 36%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
   }
 }
 
@@ -214,98 +119,22 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: var(--font-primary);
-    font-size: 16px;
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-  
-  /* Typography Scale */
-  h1 {
-    @apply text-5xl md:text-6xl font-extrabold leading-tight tracking-tight;
-    color: hsl(var(--foreground));
-  }
-  
-  h2 {
-    @apply text-3xl md:text-4xl font-bold leading-tight tracking-tight;
-    color: hsl(var(--foreground));
-  }
-  
-  h3 {
-    @apply text-2xl md:text-3xl font-bold leading-snug;
-    color: hsl(var(--foreground));
-  }
-  
-  h4 {
-    @apply text-xl font-semibold leading-normal;
-    color: hsl(var(--foreground));
-  }
-  
-  p {
-    @apply text-base leading-relaxed;
-    color: hsl(var(--foreground));
-  }
-  
-  code, pre {
-    font-family: var(--font-mono);
   }
 }
 
 @layer components {
-  /* ===== BUTTON MICRO-INTERACTIONS ===== */
-  .btn-press {
-    @apply active:scale-[0.98] transition-transform duration-100;
-  }
-  
-  /* ===== CARD HOVER EFFECTS ===== */
-  .card-hover {
-    @apply hover:-translate-y-1 hover:shadow-md transition-all duration-200;
-  }
-  
-  /* ===== LINK HOVER EFFECTS ===== */
-  .link-hover {
-    @apply hover:text-primary transition-colors duration-150;
-  }
-  
-  /* ===== STATUS BADGES ===== */
-  .badge-success {
-    @apply bg-[hsl(var(--success-bg))] text-[hsl(var(--success))];
-  }
-  
-  .badge-warning {
-    @apply bg-[hsl(var(--warning-bg))] text-[hsl(var(--warning))];
-  }
-  
-  .badge-error {
-    @apply bg-[hsl(var(--error-bg))] text-[hsl(var(--error))];
-  }
-  
-  .badge-info {
-    @apply bg-[hsl(var(--info-bg))] text-[hsl(var(--info))];
-  }
-  
-  /* ===== COMMON UTILITIES ===== */
-  .flex-center { @apply flex items-center justify-center; }
-  .flex-between { @apply flex items-center justify-between; }
-  .flex-start { @apply flex items-center justify-start; }
-  .flex-end { @apply flex items-center justify-end; }
-  .flex-col-center { @apply flex flex-col items-center justify-center; }
-  
-  /* ===== CARD LAYOUTS ===== */
-  .stat-card { 
-    @apply p-6 rounded-lg border bg-card shadow-sm hover:shadow-md transition-shadow duration-200;
-  }
-  
-  .feature-card { 
-    @apply p-4 rounded-lg border border-border/50 hover:border-primary/50 transition-colors duration-200;
-  }
-  
-  .metric-card { 
-    @apply text-center p-4 rounded-lg bg-surface;
+  /* Dynamic Progress Bar Colors */
+  .progress-indicator {
+    background-color: var(--progress-color, hsl(var(--primary)));
+    transition: background-color 0.3s ease;
   }
 
-  /* ===== ANIMATIONS ===== */
+  /* Progress component custom styling */
+  .progress[style*="--progress-color"] .progress-indicator {
+    background-color: var(--progress-color);
+  }
+
+  /* Hero Section Logo Animations */
   @keyframes float {
     0%, 100% {
       transform: translateY(0px) rotate(0deg);
@@ -335,13 +164,13 @@
     animation: ticker 30s linear infinite;
   }
 
-  /* ===== REACTQUILL EDITOR STYLING ===== */
+  /* ReactQuill Editor Styling */
   .ql-toolbar {
     border-top: 1px solid hsl(var(--border)) !important;
     border-left: 1px solid hsl(var(--border)) !important;
     border-right: 1px solid hsl(var(--border)) !important;
     border-bottom: none !important;
-    border-radius: var(--radius-md) var(--radius-md) 0 0 !important;
+    border-radius: calc(var(--radius)) calc(var(--radius)) 0 0 !important;
     background: hsl(var(--background)) !important;
   }
 
@@ -350,15 +179,27 @@
     border-left: 1px solid hsl(var(--border)) !important;
     border-right: 1px solid hsl(var(--border)) !important;
     border-top: none !important;
-    border-radius: 0 0 var(--radius-md) var(--radius-md) !important;
+    border-radius: 0 0 calc(var(--radius)) calc(var(--radius)) !important;
     background: hsl(var(--background)) !important;
     color: hsl(var(--foreground)) !important;
-    font-family: var(--font-primary) !important;
+    font-family: inherit !important;
   }
+
+  /* Common flex utility classes */
+  .flex-center { @apply flex items-center justify-center; }
+  .flex-between { @apply flex items-center justify-between; }
+  .flex-start { @apply flex items-center justify-start; }
+  .flex-end { @apply flex items-center justify-end; }
+  .flex-col-center { @apply flex flex-col items-center justify-center; }
+  
+  /* Common card layouts */
+  .stat-card { @apply p-6 rounded-lg border bg-card hover:shadow-lg transition-shadow; }
+  .feature-card { @apply p-4 rounded-lg border border-border/50 hover:border-primary/50 transition-colors; }
+  .metric-card { @apply text-center p-4 rounded-lg bg-muted/50; }
 
   .ql-editor {
     color: hsl(var(--foreground)) !important;
-    font-size: 16px !important;
+    font-size: 14px !important;
     line-height: 1.5 !important;
     padding: 12px !important;
   }
@@ -383,7 +224,7 @@
   .ql-snow .ql-picker-options {
     background: hsl(var(--popover)) !important;
     border: 1px solid hsl(var(--border)) !important;
-    border-radius: var(--radius-md) !important;
+    border-radius: calc(var(--radius)) !important;
   }
 
   .ql-snow .ql-picker-item:hover {
@@ -392,21 +233,11 @@
 
   .ql-snow .ql-active {
     background: hsl(var(--primary) / 0.1) !important;
-    border-radius: var(--radius-sm) !important;
+    border-radius: calc(var(--radius)) !important;
   }
 
   .ql-snow .ql-toolbar button:hover {
     background: hsl(var(--accent) / 0.1) !important;
-    border-radius: var(--radius-sm) !important;
-  }
-  
-  /* Dynamic Progress Bar Colors */
-  .progress-indicator {
-    background-color: var(--progress-color, hsl(var(--primary)));
-    transition: background-color 0.3s ease;
-  }
-
-  .progress[style*="--progress-color"] .progress-indicator {
-    background-color: var(--progress-color);
+    border-radius: calc(var(--radius)) !important;
   }
 }
