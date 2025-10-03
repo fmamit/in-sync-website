@@ -384,7 +384,8 @@ const Resources = () => {
     time: "",
     duration: "",
     location: "",
-    tags: ""
+    tags: "",
+    videoUrl: ""
   });
   
   // Delete event state
@@ -445,7 +446,9 @@ const Resources = () => {
           location: e.location,
           currentAttendees: e.current_attendees,
           maxAttendees: e.max_attendees,
-          tags: e.tags || []
+          tags: e.tags || [],
+          videoUrl: e.video_url,
+          thumbnailUrl: e.thumbnail_url
         })));
       } else {
         // Fallback to initial events if table is empty
@@ -728,7 +731,8 @@ const Resources = () => {
       time: event.time,
       duration: event.duration,
       location: event.location,
-      tags: event.tags.join(", ")
+      tags: event.tags.join(", "),
+      videoUrl: event.videoUrl || ""
     });
     setIsEditEventDialogOpen(true);
   };
@@ -752,7 +756,8 @@ const Resources = () => {
         time: editEventData.time,
         duration: editEventData.duration,
         location: editEventData.location,
-        tags: editEventData.tags.split(",").map(tag => tag.trim()).filter(tag => tag)
+        tags: editEventData.tags.split(",").map(tag => tag.trim()).filter(tag => tag),
+        video_url: editEventData.videoUrl || null
       };
 
       const { error } = await supabase
@@ -765,7 +770,12 @@ const Resources = () => {
       // Update local state
       setEvents(events.map(e => 
         e.id === editingEvent.id 
-          ? { ...e, ...updatedEventData, tags: updatedEventData.tags }
+          ? { 
+              ...e, 
+              ...updatedEventData, 
+              tags: updatedEventData.tags,
+              videoUrl: updatedEventData.video_url 
+            }
           : e
       ));
       
@@ -954,6 +964,48 @@ const Resources = () => {
           break;
         case "event":
           try {
+            let eventThumbnailUrl = null;
+            
+            // Fetch YouTube metadata if video URL is provided
+            if (newResource.content) {
+              console.log('Fetching YouTube metadata for event URL:', newResource.content);
+              try {
+                const { data: metadata, error: metadataError } = await supabase.functions.invoke(
+                  'fetch-youtube-metadata',
+                  {
+                    body: { videoUrl: newResource.content }
+                  }
+                );
+
+                console.log('YouTube metadata response for event:', { metadata, metadataError });
+
+                if (metadataError) {
+                  console.error('Error fetching YouTube metadata:', metadataError);
+                  toast({
+                    title: "Warning",
+                    description: "Could not fetch thumbnail from YouTube. Event will be added without thumbnail.",
+                    variant: "default"
+                  });
+                } else if (metadata?.thumbnail) {
+                  eventThumbnailUrl = metadata.thumbnail;
+                  console.log('YouTube thumbnail successfully retrieved:', eventThumbnailUrl);
+                  toast({
+                    title: "Success",
+                    description: "YouTube thumbnail successfully retrieved!",
+                  });
+                }
+              } catch (fetchError) {
+                console.error('Error in YouTube metadata fetch:', fetchError);
+                toast({
+                  title: "Warning",
+                  description: "Could not fetch thumbnail from YouTube. Event will be added without thumbnail.",
+                  variant: "default"
+                });
+              }
+            } else {
+              console.log('No video URL provided for event');
+            }
+
             const eventData = {
               title: resourceData.title,
               description: resourceData.description,
@@ -964,7 +1016,9 @@ const Resources = () => {
               location: "Online",
               max_attendees: 500,
               current_attendees: 0,
-              tags: resourceData.tags
+              tags: resourceData.tags,
+              video_url: newResource.content || null,
+              thumbnail_url: eventThumbnailUrl
             };
 
             const { data: newEvent, error } = await supabase
@@ -988,6 +1042,8 @@ const Resources = () => {
                 maxAttendees: newEvent.max_attendees,
                 currentAttendees: newEvent.current_attendees,
                 tags: newEvent.tags,
+                videoUrl: newEvent.video_url,
+                thumbnailUrl: newEvent.thumbnail_url,
                 registrationUrl: "#",
                 speakers: [newResource.author || "In-Sync Team"]
               }]);
@@ -1407,13 +1463,34 @@ const Resources = () => {
 
   const EventCard = ({ event }: { event: any }) => (
     <Card className="group hover:shadow-lg transition-all duration-300">
-      <CardHeader>
-        <div className="flex items-center justify-between mb-2">
-          <Badge variant="outline">{event.type}</Badge>
-          <div className="text-sm text-muted-foreground">
-            {event.date}
+      {event.thumbnailUrl && (
+        <div className="relative w-full aspect-video overflow-hidden">
+          <img 
+            src={event.thumbnailUrl} 
+            alt={event.title}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-4">
+            <Badge variant="secondary" className="bg-white/90 text-black">
+              {event.type}
+            </Badge>
+          </div>
+          <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+            <div className="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center">
+              <Video className="h-8 w-8 text-primary" />
+            </div>
           </div>
         </div>
+      )}
+      <CardHeader>
+        {!event.thumbnailUrl && (
+          <div className="flex items-center justify-between mb-2">
+            <Badge variant="outline">{event.type}</Badge>
+            <div className="text-sm text-muted-foreground">
+              {event.date}
+            </div>
+          </div>
+        )}
         <CardTitle className="group-hover:text-primary transition-colors">
           {event.title}
         </CardTitle>
@@ -1450,10 +1527,20 @@ const Resources = () => {
         </div>
 
         <div className="flex gap-2">
-          <Button className="flex-1">
-            Register Now
-            <ExternalLink className="h-4 w-4 ml-2" />
-          </Button>
+          {event.videoUrl && event.videoUrl !== "#" ? (
+            <Button 
+              className="flex-1"
+              onClick={() => window.open(event.videoUrl, '_blank')}
+            >
+              <Video className="h-4 w-4 mr-2" />
+              Watch Video
+            </Button>
+          ) : (
+            <Button className="flex-1">
+              Register Now
+              <ExternalLink className="h-4 w-4 ml-2" />
+            </Button>
+          )}
           {user && isAdmin && (
             <>
               <Button
@@ -2336,6 +2423,16 @@ const Resources = () => {
               />
             </div>
 
+            <div>
+              <Label htmlFor="edit-event-video">YouTube Video URL (Optional)</Label>
+              <Input
+                id="edit-event-video"
+                value={editEventData.videoUrl}
+                onChange={(e) => setEditEventData({...editEventData, videoUrl: e.target.value})}
+                placeholder="https://www.youtube.com/watch?v=..."
+              />
+            </div>
+
             <div className="flex gap-4 pt-4">
               <Button onClick={handleSaveEventEdit} className="flex-1">
                 <Edit3 className="h-4 w-4 mr-2" />
@@ -2454,6 +2551,57 @@ const Resources = () => {
                     value={newResource.type}
                     onChange={(e) => setNewResource({...newResource, type: e.target.value})}
                     placeholder={newResourceType === "event" ? "Webinar, Workshop, etc." : "Video, Interactive, etc."}
+                  />
+                </div>
+              )}
+              {(newResourceType === "event" || newResourceType === "tutorial") && (
+                <div>
+                  <div className="flex justify-between items-center mb-2">
+                    <Label htmlFor="videoUrl">YouTube Video URL (Optional)</Label>
+                    {newResource.content && (
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        onClick={async () => {
+                          try {
+                            const { data, error } = await supabase.functions.invoke('fetch-youtube-metadata', {
+                              body: { videoUrl: newResource.content }
+                            });
+
+                            if (error) throw error;
+
+                            if (data) {
+                              setNewResource({
+                                ...newResource,
+                                description: data.description || newResource.description,
+                                tags: data.tags?.join(', ') || newResource.tags
+                              });
+                              
+                              toast({
+                                title: "Success",
+                                description: "Video metadata fetched successfully!",
+                              });
+                            }
+                          } catch (error) {
+                            console.error('Error fetching YouTube metadata:', error);
+                            toast({
+                              title: "Error",
+                              description: "Failed to fetch video metadata.",
+                              variant: "destructive"
+                            });
+                          }
+                        }}
+                      >
+                        Auto-fill from YouTube
+                      </Button>
+                    )}
+                  </div>
+                  <Input
+                    id="videoUrl"
+                    value={newResource.content}
+                    onChange={(e) => setNewResource({...newResource, content: e.target.value})}
+                    placeholder="https://www.youtube.com/watch?v=..."
                   />
                 </div>
               )}

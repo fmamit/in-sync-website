@@ -88,10 +88,12 @@ export type Database = {
           location: string
           max_attendees: number | null
           tags: string[] | null
+          thumbnail_url: string | null
           time: string
           title: string
           type: string
           updated_at: string
+          video_url: string | null
         }
         Insert: {
           created_at?: string
@@ -103,10 +105,12 @@ export type Database = {
           location: string
           max_attendees?: number | null
           tags?: string[] | null
+          thumbnail_url?: string | null
           time: string
           title: string
           type: string
           updated_at?: string
+          video_url?: string | null
         }
         Update: {
           created_at?: string
@@ -118,10 +122,12 @@ export type Database = {
           location?: string
           max_attendees?: number | null
           tags?: string[] | null
+          thumbnail_url?: string | null
           time?: string
           title?: string
           type?: string
           updated_at?: string
+          video_url?: string | null
         }
         Relationships: []
       }
