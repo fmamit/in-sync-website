@@ -48,6 +48,16 @@ export default function Header() {
 
           {/* Desktop CTAs */}
           <div className="hidden md:flex items-center space-x-4">
+            <Button 
+              variant="outline" 
+              size="sm" 
+              className="font-semibold"
+              asChild
+            >
+              <a href="https://go.in-sync.co.in/login" target="_blank" rel="noopener noreferrer">
+                CRM
+              </a>
+            </Button>
             <DemoRequestModal trigger={
               <Button variant="default" size="sm" className="font-semibold">
                 Request Demo
@@ -118,6 +128,16 @@ export default function Header() {
                 </Link>
               ))}
               <div className="flex flex-col space-y-2 pt-4">
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="w-full font-semibold"
+                  asChild
+                >
+                  <a href="https://go.in-sync.co.in/login" target="_blank" rel="noopener noreferrer">
+                    CRM
+                  </a>
+                </Button>
                 <DemoRequestModal trigger={
                   <Button variant="default" size="sm" className="w-full">
                     Request Demo
