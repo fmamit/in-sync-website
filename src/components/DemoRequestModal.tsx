@@ -11,6 +11,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { toast } from "@/hooks/use-toast";
 import { X } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 const demoRequestSchema = z.object({
   name: z.string().min(2, "Name is required"),
@@ -95,17 +96,9 @@ const DemoRequestModal = ({ trigger }: DemoRequestModalProps) => {
 
   const onSubmit = async (data: DemoRequestFormData) => {
     try {
-      // Send data to webhook
-      const webhookUrl = "https://aizgpxaqvtvvqarzjmze.supabase.co/functions/v1/webhook-receiver/wh_a87b57ff8582c314b16829b97b93016c95aa0eff8bef89ac";
-      const webhookToken = "wh_a87b57ff8582c314b16829b97b93016c95aa0eff8bef89ac";
-
-      const response = await fetch(webhookUrl, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${webhookToken}`,
-        },
-        body: JSON.stringify({
+      // Call local edge function which saves to DB and forwards to external webhook
+      const { data: result, error } = await supabase.functions.invoke('submit-demo-request', {
+        body: {
           name: data.name,
           phone: data.phone,
           email: data.email,
@@ -113,12 +106,11 @@ const DemoRequestModal = ({ trigger }: DemoRequestModalProps) => {
           industry: data.industry,
           bestTimeToContact: data.bestTimeToContact,
           problemDescription: data.problemDescription,
-          submittedAt: new Date().toISOString(),
-        }),
+        },
       });
 
-      if (!response.ok) {
-        throw new Error(`Webhook request failed: ${response.statusText}`);
+      if (error) {
+        throw error;
       }
 
       setIsSubmitted(true);

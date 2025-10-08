@@ -77,6 +77,54 @@ export type Database = {
         }
         Relationships: []
       }
+      demo_requests: {
+        Row: {
+          best_time_to_contact: string
+          company: string
+          created_at: string | null
+          email: string
+          id: string
+          industry: string
+          name: string
+          phone: string
+          problem_description: string
+          updated_at: string | null
+          webhook_response: Json | null
+          webhook_sent: boolean | null
+          webhook_sent_at: string | null
+        }
+        Insert: {
+          best_time_to_contact: string
+          company: string
+          created_at?: string | null
+          email: string
+          id?: string
+          industry: string
+          name: string
+          phone: string
+          problem_description: string
+          updated_at?: string | null
+          webhook_response?: Json | null
+          webhook_sent?: boolean | null
+          webhook_sent_at?: string | null
+        }
+        Update: {
+          best_time_to_contact?: string
+          company?: string
+          created_at?: string | null
+          email?: string
+          id?: string
+          industry?: string
+          name?: string
+          phone?: string
+          problem_description?: string
+          updated_at?: string | null
+          webhook_response?: Json | null
+          webhook_sent?: boolean | null
+          webhook_sent_at?: string | null
+        }
+        Relationships: []
+      }
       events: {
         Row: {
           created_at: string
