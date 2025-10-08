@@ -95,16 +95,31 @@ const DemoRequestModal = ({ trigger }: DemoRequestModalProps) => {
 
   const onSubmit = async (data: DemoRequestFormData) => {
     try {
-      // Log the demo request data for reference
-      console.log("Demo request submitted:", {
-        company: data.company,
-        industry: data.industry,
-        name: data.name,
-        email: data.email,
-        phone: data.phone,
-        bestTimeToContact: data.bestTimeToContact,
-        problemDescription: data.problemDescription
+      // Send data to webhook
+      const webhookUrl = "https://aizgpxaqvtvvqarzjmze.supabase.co/functions/v1/webhook-receiver/wh_a87b57ff8582c314b16829b97b93016c95aa0eff8bef89ac";
+      const webhookToken = "wh_a87b57ff8582c314b16829b97b93016c95aa0eff8bef89ac";
+
+      const response = await fetch(webhookUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${webhookToken}`,
+        },
+        body: JSON.stringify({
+          name: data.name,
+          phone: data.phone,
+          email: data.email,
+          company: data.company,
+          industry: data.industry,
+          bestTimeToContact: data.bestTimeToContact,
+          problemDescription: data.problemDescription,
+          submittedAt: new Date().toISOString(),
+        }),
       });
+
+      if (!response.ok) {
+        throw new Error(`Webhook request failed: ${response.statusText}`);
+      }
 
       setIsSubmitted(true);
       toast({
