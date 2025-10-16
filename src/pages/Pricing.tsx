@@ -22,7 +22,8 @@ import {
   Globe,
   Calculator,
   ChevronDown,
-  ChevronUp
+  ChevronUp,
+  Wrench
 } from "lucide-react";
 import Footer from "@/components/Footer";
 
@@ -32,164 +33,69 @@ const Pricing = () => {
 
   const plans = [
     {
-      name: "Starter",
-      price: { monthly: 0, annual: 0 },
-      originalPrice: null,
-      description: "Perfect for small teams just getting started with CRM",
-      badge: "Free Forever",
-      badgeColor: "bg-green-500",
-      records: "Up to 1,000 records",
-      features: [
-        "Basic CRM & Contact Management",
-        "Task Reminders & Notifications", 
-        "Lead Status Tracking",
-        "Up to 1,000 active records",
-        "Unlimited users",
-        "Email support",
-        "Basic reporting",
-        "Mobile app access"
-      ],
-      cta: "Start Free",
-      popular: false
-    },
-    {
-      name: "Growth", 
-      price: { monthly: 12999, annual: 129470 }, // ₹12,999/month, 17% annual discount
-      originalPrice: { monthly: null, annual: 155988 },
-      description: "For growing businesses that need more power",
-      badge: "Most Popular",
+      name: "Standard",
+      price: { monthly: 500, annual: 5500 }, // ₹500/user/month, 11 months for annual (1 month free)
+      description: "Pay per user, scale as you grow",
+      badge: "15 Days Free Trial",
       badgeColor: "bg-primary",
-      records: "10,000 to 1,00,000 records",
+      pricePerUser: true,
+      minUsers: 10,
       features: [
-        "Everything in Starter",
+        "₹500 per user per month",
+        "Minimum 10 users (Monthly billing)",
+        "Quarterly billing for less than 10 users",
+        "Complete CRM & Contact Management",
         "Campaign Automation & Marketing",
         "WhatsApp, SMS & Email integration",
-        "Support Ticket Management", 
+        "Support Ticket Management",
         "Workflow Journeys & Automation",
         "Mobile app with offline sync",
-        "10,000 to 1,00,000 active records",
+        "Field Force Tracking",
+        "Inventory & Order Management",
+        "Custom BI Dashboards & Reports",
         "Priority support",
-        "Advanced analytics",
-        "Custom fields & forms"
+        "Advanced analytics"
       ],
-      cta: "Start Growth Plan",
+      cta: "Start 15 Days Free Trial",
       popular: true
     },
     {
-      name: "Scale",
-      price: { monthly: 37999, annual: 378710 }, // ₹37,999/month, 17% annual discount
-      originalPrice: { monthly: null, annual: 455988 },
-      description: "For larger teams that need all the bells and whistles",
-      badge: "Advanced",
-      badgeColor: "bg-blue-500",
-      records: "1,00,001 to 5,00,000 records",
-      features: [
-        "Everything in Growth",
-        "Custom BI Dashboards & Reports",
-        "Field Force Tracking & Management",
-        "Inventory & Order Management",
-        "Calling & IVR capabilities", 
-        "Advanced workflow builder",
-        "1,00,001 to 5,00,000 active records",
-        "24/7 premium support",
-        "Custom integrations",
-        "Dedicated account manager"
-      ],
-      cta: "Start Scale Plan",
-      popular: false
-    },
-    {
       name: "Enterprise",
-      price: { monthly: 75000, annual: 747000 }, // ₹75,000/month, 17% annual discount
-      originalPrice: { monthly: null, annual: 900000 },
-      description: "When you need everything + the kitchen sink",
-      badge: "Enterprise",
+      price: { monthly: null, annual: null },
+      description: "Custom solutions for large organizations",
+      badge: "Custom Pricing",
       badgeColor: "bg-purple-500",
-      records: "Above 5,00,000 records",
+      pricePerUser: false,
       features: [
-        "Everything in Scale",
-        "Unlimited active records",
+        "Everything in Standard Plan",
         "Custom development",
         "On-premise deployment options",
         "SLA guarantees",
         "24/7 dedicated support",
         "Custom training & onboarding",
-        "Multi-tenant architecture"
+        "Multi-tenant architecture",
+        "Dedicated account manager",
+        "Volume discounts available"
       ],
       cta: "Contact Sales",
       popular: false
     }
   ];
 
-  const additionalServices = [
-    {
-      name: "Voice Calling",
-      description: "High-quality voice calls with advanced features",
-      pricing: "₹1,500",
-      detail: "Per calling channel per month",
-      icon: Phone,
-      features: [
-        "HD voice quality",
-        "Call recording",
-        "IVR system", 
-        "Call analytics",
-        "Geographic routing"
-      ]
-    },
-    {
-      name: "SMS Services",
-      description: "SMS messaging with delivery tracking",
-      pricing: "₹0.12",
-      detail: "Per SMS message",
-      icon: MessageSquare,
-      features: [
-        "Bulk SMS delivery", 
-        "Delivery reports",
-        "Template management",
-        "Scheduled messaging",
-        "Two-way messaging"
-      ]
-    },
-    {
-      name: "WhatsApp Business",
-      description: "WhatsApp Business API integration",
-      pricing: "₹0.85",
-      detail: "Above Meta's published rate per message",
-      icon: MessageSquare,
-      features: [
-        "WhatsApp Business API",
-        "Rich media support",
-        "Template messages",
-        "Interactive buttons",
-        "Delivery tracking"
-      ]
-    },
-    {
-      name: "Email Services",
-      description: "Professional email marketing and automation",
-      pricing: "₹0.05",
-      detail: "Per email sent",
-      icon: MessageSquare,
-      features: [
-        "Email campaigns",
-        "Automated sequences",
-        "A/B testing",
-        "Analytics & reporting",
-        "Template library"
-      ]
-    }
-  ];
-
-  const addOnModules = [
-    { name: "Advanced Analytics", price: 1000, description: "Enhanced reporting and BI dashboards" },
-    { name: "Custom Workflow Builder", price: 1000, description: "Advanced automation capabilities" },
-    { name: "API Access & Webhooks", price: 1000, description: "Full API access and integrations" },
-    { name: "Field Force Management", price: 1000, description: "Track and manage field teams" }
-  ];
+  const communicationWallet = {
+    initialAmount: 10000,
+    rates: [
+      { service: "WhatsApp", rate: 0.93, unit: "per message", icon: MessageSquare },
+      { service: "Email", rate: 0.10, unit: "per message", icon: MessageSquare },
+      { service: "SMS", rate: 0.12, unit: "per message", icon: MessageSquare },
+      { service: "Calling", rate: 1.00, unit: "per minute", icon: Phone }
+    ]
+  };
 
   const oneTimeServices = [
-    { name: "Custom Report Development", price: 5000, description: "Tailored reports for your business needs" },
-    { name: "API Integration Setup", price: 10000, description: "Professional integration with third-party systems" }
+    { name: "Setup Fee", price: 15000, description: "One-time platform setup and configuration" },
+    { name: "Customization", price: 6000, description: "Per day of custom development", unit: "per day" },
+    { name: "Custom API Integration", price: 25000, description: "Per API integration", unit: "per API" }
   ];
 
   return (
@@ -206,15 +112,15 @@ const Pricing = () => {
             Simple Pricing
           </Badge>
           <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-6">
-            Honest Pricing.{" "}
-            <span className="text-primary">No Surprises.</span>
+            Simple Pricing.{" "}
+            <span className="text-primary">Pay Per User.</span>
             <br />
             <span className="text-2xl md:text-4xl text-muted-foreground">
-              Grows with you.
+              Start with 15 Days Free.
             </span>
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
-            No sneaky fees. No user limits. Just pick what you need and we'll grow together.
+            ₹500 per user per month. All features included. Scale as you grow.
           </p>
           
           {/* Billing Toggle */}
@@ -224,7 +130,7 @@ const Pricing = () => {
                 <TabsTrigger value="monthly">Monthly</TabsTrigger>
                 <TabsTrigger value="annual" className="relative">
                   Annual
-                  <Badge variant="secondary" className="ml-2 text-xs">Save 17%</Badge>
+                  <Badge variant="secondary" className="ml-2 text-xs">1 Month Free</Badge>
                 </TabsTrigger>
               </TabsList>
             </Tabs>
@@ -257,45 +163,43 @@ const Pricing = () => {
       {/* Main Pricing Plans */}
       <section className="py-16 px-4">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-            {plans.map((plan, index) => (
-              <Card key={plan.name} className={`relative ${plan.popular ? 'ring-2 ring-primary shadow-xl scale-105' : ''} hover:shadow-lg transition-all duration-300`}>
-                {plan.popular && (
-                  <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-                    <Badge className={plan.badgeColor}>
-                      <Star className="w-3 h-3 mr-1" />
-                      {plan.badge}
-                    </Badge>
-                  </div>
-                )}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto mb-16">
+            {plans.map((plan) => (
+              <Card key={plan.name} className={`relative ${plan.popular ? 'ring-2 ring-primary shadow-xl md:scale-105' : ''} hover:shadow-lg transition-all duration-300`}>
+                <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
+                  <Badge className={plan.badgeColor}>
+                    {plan.popular && <Star className="w-3 h-3 mr-1" />}
+                    {plan.badge}
+                  </Badge>
+                </div>
                 
-                <CardHeader className="text-center pb-4">
-                  {!plan.popular && (
-                    <Badge variant="outline" className="w-fit mx-auto mb-4" style={{backgroundColor: plan.badgeColor.includes('green') ? '#10b981' : plan.badgeColor.includes('purple') ? '#8b5cf6' : 'transparent'}}>
-                      {plan.badge}
-                    </Badge>
-                  )}
-                  <CardTitle className="text-xl font-bold">{plan.name}</CardTitle>
+                <CardHeader className="text-center pb-4 pt-6">
+                  <CardTitle className="text-2xl font-bold">{plan.name}</CardTitle>
                   <CardDescription className="text-sm mb-2">{plan.description}</CardDescription>
-                  <div className="text-xs text-muted-foreground font-medium">{plan.records}</div>
                   
                   <div className="mt-4">
-                    <div className="flex items-baseline justify-center gap-1">
-                      <span className="text-3xl font-bold text-foreground">
-                        ₹{plan.price[billingCycle].toLocaleString()}
-                      </span>
-                      {plan.price[billingCycle] > 0 && (
-                        <span className="text-muted-foreground text-sm">
-                          /{billingCycle === 'monthly' ? 'mo' : 'yr'}
-                        </span>
-                      )}
-                    </div>
-                    {billingCycle === 'annual' && plan.originalPrice?.annual && (
-                      <div className="text-xs text-muted-foreground mt-1">
-                        <span className="line-through">
-                          ₹{plan.originalPrice.annual.toLocaleString()}
-                        </span>
-                        <span className="ml-2 text-primary font-semibold">Save 17%</span>
+                    {plan.price.monthly !== null ? (
+                      <>
+                        <div className="flex items-baseline justify-center gap-1">
+                          <span className="text-4xl font-bold text-foreground">
+                            ₹{billingCycle === 'monthly' ? plan.price.monthly : plan.price.annual}
+                          </span>
+                          <span className="text-muted-foreground text-sm">
+                            /user/{billingCycle === 'monthly' ? 'month' : 'year'}
+                          </span>
+                        </div>
+                        {billingCycle === 'annual' && (
+                          <div className="text-sm text-primary font-semibold mt-2">
+                            1 Month Free with Annual Billing
+                          </div>
+                        )}
+                        <div className="text-xs text-muted-foreground mt-2">
+                          Minimum {plan.minUsers} users for monthly billing
+                        </div>
+                      </>
+                    ) : (
+                      <div className="text-2xl font-bold text-primary">
+                        Custom Pricing
                       </div>
                     )}
                   </div>
@@ -327,126 +231,84 @@ const Pricing = () => {
         </div>
       </section>
 
-      {/* Additional Services */}
+      {/* Communication Wallet */}
       <section className="py-16 px-4 bg-muted/30">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-foreground mb-4">
-              Communication Add-ons 📞
+              Communication Wallet 💬
             </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Want to chat with your customers? These are pretty handy for that.
+            <p className="text-muted-foreground max-w-2xl mx-auto mb-6">
+              Prepaid wallet system for all your communication needs. Start with ₹10,000 and top up anytime.
             </p>
+            <Badge variant="secondary" className="text-lg px-6 py-3">
+              ₹{communicationWallet.initialAmount.toLocaleString()} Initial Wallet Balance
+            </Badge>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-            {additionalServices.map((service, index) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            {communicationWallet.rates.map((item, index) => (
               <Card key={index} className="hover:shadow-lg transition-all duration-300">
-                <CardHeader>
-                  <div className="flex items-center gap-4 mb-4">
-                    <div className="p-3 rounded-lg bg-primary/10">
-                      <service.icon className="w-6 h-6 text-primary" />
-                    </div>
-                    <div>
-                      <CardTitle className="text-xl">{service.name}</CardTitle>
-                      <CardDescription>{service.description}</CardDescription>
-                    </div>
+                <CardHeader className="text-center">
+                  <div className="mx-auto p-4 rounded-full bg-primary/10 w-fit mb-4">
+                    <item.icon className="w-8 h-8 text-primary" />
                   </div>
-                  <div className="flex items-baseline gap-2">
-                    <span className="text-2xl font-bold text-primary">{service.pricing}</span>
-                    <span className="text-muted-foreground text-sm">{service.detail}</span>
+                  <CardTitle className="text-xl">{item.service}</CardTitle>
+                  <div className="mt-4">
+                    <div className="text-3xl font-bold text-primary">₹{item.rate.toFixed(2)}</div>
+                    <div className="text-sm text-muted-foreground mt-1">{item.unit}</div>
                   </div>
                 </CardHeader>
-                <CardContent>
-                  <ul className="space-y-2 mb-4">
-                    {service.features.map((feature, idx) => (
-                      <li key={idx} className="flex items-center gap-2">
-                        <Check className="w-4 h-4 text-primary" />
-                        <span className="text-sm text-muted-foreground">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <div className="flex items-center gap-2 pt-2 border-t">
-                    <label className="text-sm font-medium">Quantity:</label>
-                    <input 
-                      type="number" 
-                      min="0" 
-                      max="10000" 
-                      defaultValue="0"
-                      className="w-20 px-2 py-1 border border-input rounded-md text-sm" 
-                      placeholder="0"
-                    />
-                  </div>
-                </CardContent>
               </Card>
             ))}
           </div>
+
+          <Card className="bg-primary/5 border-primary/20">
+            <CardContent className="p-6">
+              <div className="flex items-start gap-4">
+                <div className="p-2 rounded-lg bg-primary/10">
+                  <Zap className="w-6 h-6 text-primary" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="font-semibold text-lg mb-2">How the Communication Wallet Works</h3>
+                  <ul className="space-y-2 text-sm text-muted-foreground">
+                    <li className="flex items-start gap-2">
+                      <Check className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                      <span>Start with ₹10,000 prepaid balance included in your setup</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <Check className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                      <span>All communication charges (WhatsApp, Email, SMS, Calling) deducted from wallet</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <Check className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                      <span>Easy top-up anytime to keep your communications flowing</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <Check className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                      <span>Real-time balance tracking and usage reports</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </section>
 
-      {/* Add-on Modules & One-time Services */}
+      {/* One-time Services */}
       <section className="py-16 px-4">
         <div className="max-w-6xl mx-auto">
-          {/* Add-on Modules */}
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-foreground mb-4">
-              Extra Cool Modules 🚀
-            </h2>
-            <p className="text-muted-foreground mb-8">
-              Want to supercharge your setup? Pick and choose what you need.
-            </p>
-            <div className="flex items-center justify-center gap-4">
-              <Badge variant="secondary" className="text-lg px-4 py-2">
-                ₹1,000 per module per month
-              </Badge>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-            {addOnModules.map((module, index) => (
-              <Card key={index} className="hover:shadow-md transition-all duration-200">
-                <CardContent className="p-6">
-                  <div className="flex items-start justify-between mb-3">
-                    <div className="flex items-center gap-3">
-                      <div className="w-2 h-2 bg-primary rounded-full mt-2"></div>
-                      <div>
-                        <div className="font-medium">{module.name}</div>
-                        <div className="text-sm text-muted-foreground">{module.description}</div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="space-y-3">
-                    <Badge variant="outline" className="w-full justify-center">
-                      ₹{module.price.toLocaleString()}/month per unit
-                    </Badge>
-                    <div className="flex items-center gap-2">
-                      <label className="text-sm font-medium">Quantity:</label>
-                      <input 
-                        type="number" 
-                        min="0" 
-                        max="100" 
-                        defaultValue="0"
-                        className="w-20 px-2 py-1 border border-input rounded-md text-sm" 
-                        placeholder="0"
-                      />
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-
-          {/* One-time Services */}
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-foreground mb-4">
-              One-time Help 🛠️
+              Setup & Professional Services 🛠️
             </h2>
             <p className="text-muted-foreground">
-              Need a pro to set things up? We've got your back.
+              One-time fees to get you up and running smoothly
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {oneTimeServices.map((service, index) => (
               <Card key={index} className="hover:shadow-md transition-all duration-200">
                 <CardContent className="p-6">
