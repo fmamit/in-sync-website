@@ -21,6 +21,7 @@ const demoRequestSchema = z.object({
   company: z.string().min(2, "Company name is required"),
   industry: z.string().min(1, "Please select an industry"),
   problemDescription: z.string().min(10, "Please describe the problem you're trying to solve"),
+  referredBy: z.string().optional(),
 });
 
 type DemoRequestFormData = z.infer<typeof demoRequestSchema>;
@@ -77,6 +78,7 @@ const DemoRequestModal = ({ trigger }: DemoRequestModalProps) => {
       company: "",
       industry: "",
       problemDescription: "",
+      referredBy: "",
     },
   });
 
@@ -282,6 +284,20 @@ const DemoRequestModal = ({ trigger }: DemoRequestModalProps) => {
                             ))}
                           </SelectContent>
                         </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="referredBy"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Referred By</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Enter referrer's name (optional)" {...field} />
+                        </FormControl>
                         <FormMessage />
                       </FormItem>
                     )}

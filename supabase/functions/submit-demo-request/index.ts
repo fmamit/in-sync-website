@@ -32,6 +32,7 @@ const handler = async (req: Request): Promise<Response> => {
         industry: requestData.industry,
         best_time_to_contact: requestData.bestTimeToContact,
         problem_description: requestData.problemDescription,
+        referred_by: requestData.referredBy || null,
         webhook_sent: false,
       })
       .select()
@@ -70,6 +71,7 @@ const handler = async (req: Request): Promise<Response> => {
           industry: requestData.industry,
           bestTimeToContact: requestData.bestTimeToContact,
           problemDescription: requestData.problemDescription,
+          referredBy: requestData.referredBy || null,
         }),
       });
 

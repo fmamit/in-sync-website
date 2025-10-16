@@ -88,6 +88,7 @@ export type Database = {
           name: string
           phone: string
           problem_description: string
+          referred_by: string | null
           updated_at: string | null
           webhook_response: Json | null
           webhook_sent: boolean | null
@@ -103,6 +104,7 @@ export type Database = {
           name: string
           phone: string
           problem_description: string
+          referred_by?: string | null
           updated_at?: string | null
           webhook_response?: Json | null
           webhook_sent?: boolean | null
@@ -118,6 +120,7 @@ export type Database = {
           name?: string
           phone?: string
           problem_description?: string
+          referred_by?: string | null
           updated_at?: string | null
           webhook_response?: Json | null
           webhook_sent?: boolean | null

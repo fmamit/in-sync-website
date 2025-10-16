@@ -23,20 +23,21 @@ interface QuoteData {
   selectedPlan: string;
   planPrice: number;
   billingCycle: "monthly" | "annual";
-  selectedModules: { name: string; quantity: number }[];
-  modulePrice: number;
+  selectedModules?: { name: string; quantity: number }[];
+  modulePrice?: number;
   smsVolume: number;
   smsCost: number;
   whatsappVolume: number;
   whatsappCost: number;
   emailVolume: number;
   emailCost: number;
-  callingChannels: number;
+  callingChannels?: number;
   callingCost: number;
   subtotal: number;
-  discount: number;
+  discount?: number;
   totalCost: number;
   teamSize: number;
+  perUserPrice: number;
 }
 
 interface QuoteGeneratorProps {
@@ -168,7 +169,7 @@ const QuoteGenerator = ({ quoteData, className = "" }: QuoteGeneratorProps) => {
                 <span>${formatCurrency(quoteData.planPrice)}</span>
             </div>
 
-            ${quoteData.selectedModules.length > 0 ? `
+            ${quoteData.selectedModules && quoteData.selectedModules.length > 0 ? `
             <div class="cost-item">
                 <div>
                     <strong>Add-on Modules (${quoteData.selectedModules.length})</strong>
@@ -176,7 +177,7 @@ const QuoteGenerator = ({ quoteData, className = "" }: QuoteGeneratorProps) => {
                         ${quoteData.selectedModules.map(module => `• ${module.name} (Quantity: ${module.quantity})`).join('<br>')}
                     </div>
                 </div>
-                <span>${formatCurrency(quoteData.modulePrice)}</span>
+                <span>${formatCurrency(quoteData.modulePrice || 0)}</span>
             </div>` : ''}
 
             ${(quoteData.smsVolume > 0 || quoteData.whatsappVolume > 0 || quoteData.emailVolume > 0) ? `
@@ -192,13 +193,13 @@ const QuoteGenerator = ({ quoteData, className = "" }: QuoteGeneratorProps) => {
                 <span>${formatCurrency(quoteData.smsCost + quoteData.whatsappCost + quoteData.emailCost)}</span>
             </div>` : ''}
 
-            ${quoteData.callingChannels > 0 ? `
+            ${quoteData.callingChannels && quoteData.callingChannels > 0 ? `
             <div class="cost-item">
                 <span>Voice Calling<br><small>${quoteData.callingChannels} channels ${quoteData.billingCycle === 'annual' ? '× 12 months' : 'per month'}</small></span>
                 <span>${formatCurrency(quoteData.callingCost)}</span>
             </div>` : ''}
 
-            ${quoteData.discount > 0 ? `
+            ${quoteData.discount && quoteData.discount > 0 ? `
             <div class="cost-item" style="color: #059669;">
                 <span><strong>Annual Discount (17%)</strong></span>
                 <span>-${formatCurrency(quoteData.discount)}</span>
