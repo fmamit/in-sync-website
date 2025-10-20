@@ -5,6 +5,31 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
+// Author profiles with email addresses
+const authorProfiles: Record<string, { name: string; email?: string }> = {
+  "Flt Lt Amit Sengupta": {
+    name: "Flt Lt Amit Sengupta",
+    email: "a@in-sync.co.in"
+  }
+};
+
+const getAuthorEmail = (authorName: string): string | null => {
+  const profile = authorProfiles[authorName];
+  if (profile?.email) {
+    return `${profile.email} (${profile.name})`;
+  }
+  return null;
+};
+
+const escapeXml = (unsafe: string): string => {
+  return unsafe
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&apos;');
+};
+
 Deno.serve(async (req) => {
   // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
@@ -31,29 +56,39 @@ Deno.serve(async (req) => {
     const siteUrl = 'https://www.insyncccaas.com';
     const siteTitle = 'In-Sync CRM Blog';
     const siteDescription = 'Latest insights on CRM, customer engagement, and business growth';
+    const rssFeedUrl = 'https://hzkqrjzahurxhmembqrs.supabase.co/functions/v1/rss-feed';
+    const managingEditor = 'a@in-sync.co.in (Flt Lt Amit Sengupta)';
+    const webMaster = 'a@in-sync.co.in (In-Sync Technical Team)';
 
     // Generate RSS XML
     const rssXml = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>${siteTitle}</title>
+    <title>${escapeXml(siteTitle)}</title>
     <link>${siteUrl}</link>
-    <description>${siteDescription}</description>
+    <description>${escapeXml(siteDescription)}</description>
     <language>en</language>
     <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
-    <atom:link href="${siteUrl}/rss" rel="self" type="application/rss+xml" />
-    ${blogs?.map(blog => `
+    <managingEditor>${managingEditor}</managingEditor>
+    <webMaster>${webMaster}</webMaster>
+    <atom:link href="${rssFeedUrl}" rel="self" type="application/rss+xml" />
+    ${blogs?.map(blog => {
+      const authorEmail = getAuthorEmail(blog.author);
+      const categoryEscaped = escapeXml(blog.category);
+      const tagsMarkup = blog.tags?.map(tag => `<category>${escapeXml(tag)}</category>`).join('\n      ') || '';
+      
+      return `
     <item>
       <title><![CDATA[${blog.title}]]></title>
       <link>${siteUrl}/blog/${blog.id}</link>
       <guid isPermaLink="true">${siteUrl}/blog/${blog.id}</guid>
       <description><![CDATA[${blog.excerpt || ''}]]></description>
-      <pubDate>${new Date(blog.created_at).toUTCString()}</pubDate>
-      <author>${blog.author}</author>
-      <category>${blog.category}</category>
-      ${blog.tags?.map(tag => `<category>${tag}</category>`).join('\n      ') || ''}
-      ${blog.image_url ? `<enclosure url="${blog.image_url}" type="image/jpeg" />` : ''}
-    </item>`).join('\n    ') || ''}
+      <pubDate>${new Date(blog.created_at).toUTCString()}</pubDate>${authorEmail ? `
+      <author>${authorEmail}</author>` : ''}
+      <category>${categoryEscaped}</category>
+      ${tagsMarkup}
+    </item>`;
+    }).join('\n    ') || ''}
   </channel>
 </rss>`;
 
