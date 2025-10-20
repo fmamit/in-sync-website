@@ -29,6 +29,14 @@ import Cookies from "./pages/Cookies";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
 import NotFound from "./pages/NotFound";
+import { useEffect } from "react";
+
+const RSSRedirect = () => {
+  useEffect(() => {
+    window.location.href = "https://hzkqrjzahurxhmembqrs.supabase.co/functions/v1/rss-feed";
+  }, []);
+  return null;
+};
 
 const queryClient = new QueryClient();
 
@@ -64,6 +72,7 @@ const App = () => (
           <Route path="/cookies" element={<Cookies />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
+          <Route path="/rss-feed" element={<RSSRedirect />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
