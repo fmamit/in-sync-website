@@ -54,7 +54,7 @@ export default function Header() {
               className="font-semibold"
               asChild
             >
-              <a href="https://crm.in-sync.co.in" target="_blank" rel="noopener noreferrer">
+              <a href="https://crm.in-sync.co.in/login" target="_blank" rel="noopener noreferrer">
                 CRM
               </a>
             </Button>
@@ -134,7 +134,7 @@ export default function Header() {
                   className="w-full font-semibold"
                   asChild
                 >
-                  <a href="https://crm.in-sync.co.in" target="_blank" rel="noopener noreferrer">
+                  <a href="https://crm.in-sync.co.in/login" target="_blank" rel="noopener noreferrer">
                     CRM
                   </a>
                 </Button>
