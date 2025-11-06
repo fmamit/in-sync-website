@@ -42,7 +42,7 @@ const CostCalculator = ({ className = "" }: CostCalculatorProps) => {
   ];
 
   // Pricing calculations
-  const effectiveUsers = Math.max(teamSize, minUsers);
+  const effectiveUsers = teamSize;
   const monthlyUserCost = effectiveUsers * perUserPrice;
   const annualUserCost = effectiveUsers * perUserPrice * 11; // 11 months (1 month free)
   const basePlanCost = billingCycle === "monthly" ? monthlyUserCost : annualUserCost;
@@ -213,7 +213,7 @@ const CostCalculator = ({ className = "" }: CostCalculatorProps) => {
                   </div>
                 )}
                 <div className="text-sm text-muted-foreground mt-2">
-                  Effective cost: <span className="font-semibold text-foreground">₹{(Math.max(teamSize, minUsers) * perUserPrice).toLocaleString()}/month</span>
+                  Effective cost: <span className="font-semibold text-foreground">₹{(teamSize * perUserPrice).toLocaleString()}/month</span>
                 </div>
               </div>
             </CardContent>
