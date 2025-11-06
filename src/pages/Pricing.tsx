@@ -322,7 +322,7 @@ const Pricing = () => {
                     </div>
                   </div>
                   <Badge variant="secondary" className="w-full justify-center">
-                    ₹{service.price.toLocaleString()} one-time
+                    {service.name === "Setup Fee" ? "Custom amount" : `₹${service.price.toLocaleString()} ${service.unit || 'one-time'}`}
                   </Badge>
                 </CardContent>
               </Card>
