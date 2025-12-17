@@ -103,12 +103,12 @@ const TestimonialsShowcase = ({ className = "" }: { className?: string }) => {
 
   return (
     <div className={`max-w-6xl mx-auto ${className}`}>
-      <div className="text-center mb-12">
-        <div className="flex items-center justify-center gap-2 mb-4">
+      <div className="text-center mb-16 lg:mb-20">
+        <div className="flex items-center justify-center gap-3 mb-6">
           <Quote className="w-8 h-8 text-accent" />
-          <h2 className="text-3xl font-bold text-foreground">Real Stories from Real People</h2>
+          <h2 className="heading-section text-foreground font-heading">Real Stories from Real People</h2>
         </div>
-        <p className="text-muted-foreground max-w-2xl mx-auto">
+        <p className="text-body-lg text-muted-foreground max-w-2xl mx-auto">
           Here's what folks are saying about us (spoiler: they're pretty happy!) 
         </p>
       </div>

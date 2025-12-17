@@ -48,7 +48,7 @@ const HeroSection = () => {
   ];
 
   return (
-    <section className="relative overflow-hidden gradient-hero min-h-screen flex items-center justify-center py-20">
+    <section className="relative overflow-hidden gradient-hero min-h-screen flex items-center justify-center py-28 lg:py-36">
       {/* Floating Decorative Blobs */}
       <div className="floating-blob floating-blob-primary w-[600px] h-[600px] -top-48 -left-48" />
       <div className="floating-blob floating-blob-accent w-[400px] h-[400px] top-1/4 -right-32" />
@@ -94,8 +94,8 @@ const HeroSection = () => {
         </div>
 
         {/* Customer Logos Section - Hexagonal Grid */}
-        <div className="mt-20 text-center">
-          <h2 className="text-2xl font-semibold mb-10 text-foreground">
+        <div className="mt-24 lg:mt-32 text-center">
+          <h2 className="heading-subsection mb-12 text-foreground font-heading">
             Some pretty cool companies already love us ❤️
           </h2>
           

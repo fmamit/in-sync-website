@@ -89,27 +89,27 @@ const IndustryResults = () => {
   };
 
   return (
-    <section className="py-24 relative overflow-hidden section-light">
+    <section className="py-28 lg:py-36 relative overflow-hidden section-light">
       {/* Background Elements */}
       <div className="absolute inset-0 dot-pattern opacity-20" />
       
       <div className="container mx-auto px-4 relative z-10">
         
         {/* Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-20 lg:mb-24">
           <div className="badge-premium mb-6">
             <Sparkles className="w-4 h-4 text-primary" />
-            <span className="text-foreground">Proven Track Record</span>
+            <span className="text-foreground font-body">Proven Track Record</span>
           </div>
           
-          <h2 className="text-4xl md:text-6xl font-bold text-foreground mb-6">
+          <h2 className="heading-section text-foreground mb-8 font-heading">
             Industry-Leading
             <span className="block text-muted-foreground mt-2">
               Results
             </span>
           </h2>
           
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+          <p className="text-body-lg text-muted-foreground max-w-3xl mx-auto">
             Join the ecosystem of successful businesses already transformed by In-Sync. 
             Real numbers, real results, real transformation.
           </p>
