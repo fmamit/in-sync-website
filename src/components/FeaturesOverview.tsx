@@ -135,7 +135,7 @@ const FeaturesOverview = () => {
   };
 
   return (
-    <section className="py-24 section-grey relative overflow-hidden">
+    <section className="py-28 lg:py-36 section-grey relative overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 grid-pattern opacity-30" />
       
@@ -145,16 +145,16 @@ const FeaturesOverview = () => {
       
       <div className="container mx-auto px-4 relative z-10">
         {/* Section Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-20 lg:mb-24">
           <div className="badge-premium mb-6">
             <BarChart3 className="h-4 w-4 text-primary" />
-            <span className="text-foreground">Platform Overview</span>
+            <span className="text-foreground font-body">Platform Overview</span>
           </div>
-          <h2 className="text-3xl md:text-5xl font-bold mb-6">
+          <h2 className="heading-section mb-8 font-heading">
             Everything you need.{" "}
             <span className="text-primary">Nothing you don't.</span>
           </h2>
-          <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+          <p className="text-body-lg text-muted-foreground max-w-3xl mx-auto">
             See how all our tools play nice together to make your work life way easier
           </p>
         </div>

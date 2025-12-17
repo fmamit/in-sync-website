@@ -300,21 +300,21 @@ const KeyFeatures = () => {
   ];
 
   return (
-    <section className="py-20 section-grey">
+    <section className="py-28 lg:py-36 section-grey">
       <div className="container mx-auto px-4">
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <Badge variant="outline" className="px-4 py-2 text-sm font-medium border-primary/30 mb-4">
+        <div className="text-center mb-20 lg:mb-24">
+          <Badge variant="outline" className="px-4 py-2 text-sm font-medium border-primary/30 mb-6 font-body">
             <Zap className="h-4 w-4 mr-2 text-primary" />
             Key Differentiators
           </Badge>
-          <h2 className="text-3xl md:text-5xl font-bold mb-4">
+          <h2 className="heading-section mb-6 font-heading">
             Why we're kinda{" "}
             <span className="text-primary">
               different? 🤔
             </span>
           </h2>
-          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-body-lg text-muted-foreground max-w-3xl mx-auto">
             Here's what makes us stand out from the boring CRM crowd
           </p>
         </div>
