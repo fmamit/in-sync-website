@@ -89,9 +89,9 @@ const IndustryResults = () => {
   };
 
   return (
-    <section className="py-24 relative overflow-hidden gradient-mesh">
+    <section className="py-24 relative overflow-hidden section-light">
       {/* Background Elements */}
-      <div className="absolute inset-0 dot-pattern opacity-30" />
+      <div className="absolute inset-0 dot-pattern opacity-20" />
       
       <div className="container mx-auto px-4 relative z-10">
         

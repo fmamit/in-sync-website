@@ -300,7 +300,7 @@ const KeyFeatures = () => {
   ];
 
   return (
-    <section className="py-20 bg-background">
+    <section className="py-20 section-grey">
       <div className="container mx-auto px-4">
         {/* Section Header */}
         <div className="text-center mb-16">

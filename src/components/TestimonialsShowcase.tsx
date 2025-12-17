@@ -105,8 +105,8 @@ const TestimonialsShowcase = ({ className = "" }: { className?: string }) => {
     <div className={`max-w-6xl mx-auto ${className}`}>
       <div className="text-center mb-12">
         <div className="flex items-center justify-center gap-2 mb-4">
-          <Quote className="w-8 h-8 text-primary" />
-          <h2 className="text-3xl font-bold">Real Stories from Real People</h2>
+          <Quote className="w-8 h-8 text-accent" />
+          <h2 className="text-3xl font-bold text-foreground">Real Stories from Real People</h2>
         </div>
         <p className="text-muted-foreground max-w-2xl mx-auto">
           Here's what folks are saying about us (spoiler: they're pretty happy!) 
@@ -184,16 +184,16 @@ const TestimonialsShowcase = ({ className = "" }: { className?: string }) => {
       </div>
 
       {/* CTA Section */}
-      <div className="text-center mt-12 p-8 bg-primary/5 rounded-2xl">
-        <h3 className="text-2xl font-bold mb-4">Want to be our next success story? 🚀</h3>
-        <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
+      <div className="text-center mt-12 p-8 bg-primary rounded-2xl">
+        <h3 className="text-2xl font-bold mb-4 text-primary-foreground">Want to be our next success story? 🚀</h3>
+        <p className="text-primary-foreground/80 mb-6 max-w-2xl mx-auto">
           Let's see how we can make your work life awesome in just 30 days
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Button size="lg">
+          <Button size="lg" variant="secondary" className="bg-white text-primary hover:bg-white/90">
             Let's Get Started!
           </Button>
-          <Button variant="outline" size="lg">
+          <Button variant="outline" size="lg" className="border-white/30 text-primary-foreground hover:bg-white/10">
             Show Me More Stories
           </Button>
         </div>

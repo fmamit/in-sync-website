@@ -135,13 +135,13 @@ const FeaturesOverview = () => {
   };
 
   return (
-    <section className="py-24 gradient-section-primary relative overflow-hidden">
+    <section className="py-24 section-grey relative overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 grid-pattern opacity-30" />
       
       {/* Floating Blobs */}
-      <div className="floating-blob floating-blob-accent w-[300px] h-[300px] top-20 -right-20 opacity-30" />
-      <div className="floating-blob floating-blob-primary w-[200px] h-[200px] bottom-40 -left-10 opacity-20" />
+      <div className="floating-blob floating-blob-accent w-[300px] h-[300px] top-20 -right-20 opacity-20" />
+      <div className="floating-blob floating-blob-primary w-[200px] h-[200px] bottom-40 -left-10 opacity-15" />
       
       <div className="container mx-auto px-4 relative z-10">
         {/* Section Header */}

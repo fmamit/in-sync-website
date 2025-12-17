@@ -47,9 +47,9 @@ const Footer = () => {
   };
 
   return (
-    <footer className="relative overflow-hidden bg-card border-t border-border/50">
-      {/* Gradient Background */}
-      <div className="absolute inset-0 gradient-section-alt opacity-50" />
+    <footer className="relative overflow-hidden section-navy">
+      {/* Subtle Pattern Overlay */}
+      <div className="absolute inset-0 dot-pattern opacity-10" />
       
       {/* Main Footer Content */}
       <div className="container mx-auto px-4 py-16 relative z-10">
@@ -57,29 +57,29 @@ const Footer = () => {
           {/* Company Info */}
           <div className="lg:col-span-2">
             <div className="flex items-center space-x-2 mb-6">
-              <img src={insyncLogo} alt="In-Sync" className="h-10 w-auto" />
+              <img src={insyncLogo} alt="In-Sync" className="h-10 w-auto brightness-0 invert" />
             </div>
-            <p className="text-muted-foreground mb-8 leading-relaxed max-w-sm">
+            <p className="text-white/70 mb-8 leading-relaxed max-w-sm">
               Making work life better with smart CRM that actually works. No fancy jargon, just results.
             </p>
 
             {/* Contact Information */}
             <div className="space-y-3 mb-8">
-              <div className="flex items-center gap-3 text-sm text-muted-foreground hover:text-foreground transition-colors">
-                <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
-                  <Phone className="h-4 w-4 text-primary" />
+              <div className="flex items-center gap-3 text-sm text-white/70 hover:text-white transition-colors">
+                <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center">
+                  <Phone className="h-4 w-4 text-accent" />
                 </div>
                 <span>+91 92288 24668</span>
               </div>
-              <div className="flex items-center gap-3 text-sm text-muted-foreground hover:text-foreground transition-colors">
-                <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
-                  <Mail className="h-4 w-4 text-primary" />
+              <div className="flex items-center gap-3 text-sm text-white/70 hover:text-white transition-colors">
+                <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center">
+                  <Mail className="h-4 w-4 text-accent" />
                 </div>
                 <span>delight@in-sync.co.in</span>
               </div>
-              <div className="flex items-start gap-3 text-sm text-muted-foreground hover:text-foreground transition-colors">
-                <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                  <MapPin className="h-4 w-4 text-primary" />
+              <div className="flex items-start gap-3 text-sm text-white/70 hover:text-white transition-colors">
+                <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center flex-shrink-0">
+                  <MapPin className="h-4 w-4 text-accent" />
                 </div>
                 <span>Gurgaon, Haryana, India - 122002</span>
               </div>
@@ -87,13 +87,13 @@ const Footer = () => {
 
             {/* Social Links */}
             <div className="flex gap-3">
-              <Button size="sm" variant="ghost" className="w-10 h-10 p-0 rounded-xl bg-muted/50 hover:bg-primary/10 hover:text-primary transition-all duration-300 hover:scale-110">
+              <Button size="sm" variant="ghost" className="w-10 h-10 p-0 rounded-xl bg-white/10 hover:bg-accent/20 text-white hover:text-accent transition-all duration-300 hover:scale-110">
                 <Linkedin className="h-4 w-4" />
               </Button>
-              <Button size="sm" variant="ghost" className="w-10 h-10 p-0 rounded-xl bg-muted/50 hover:bg-primary/10 hover:text-primary transition-all duration-300 hover:scale-110">
+              <Button size="sm" variant="ghost" className="w-10 h-10 p-0 rounded-xl bg-white/10 hover:bg-accent/20 text-white hover:text-accent transition-all duration-300 hover:scale-110">
                 <Twitter className="h-4 w-4" />
               </Button>
-              <Button size="sm" variant="ghost" className="w-10 h-10 p-0 rounded-xl bg-muted/50 hover:bg-primary/10 hover:text-primary transition-all duration-300 hover:scale-110">
+              <Button size="sm" variant="ghost" className="w-10 h-10 p-0 rounded-xl bg-white/10 hover:bg-accent/20 text-white hover:text-accent transition-all duration-300 hover:scale-110">
                 <Youtube className="h-4 w-4" />
               </Button>
             </div>
@@ -103,13 +103,13 @@ const Footer = () => {
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-8 lg:col-span-4">
             {/* Platform */}
             <div>
-              <h4 className="font-semibold mb-5 text-foreground">Platform</h4>
+              <h4 className="font-semibold mb-5 text-white">Platform</h4>
               <ul className="space-y-3">
                 {footerLinks.platform.map((link, index) => (
                   <li key={index}>
                     <Link
                       to={link.href}
-                      className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-1 group"
+                      className="text-sm text-white/60 hover:text-accent transition-colors inline-flex items-center gap-1 group"
                     >
                       {link.name}
                       <ArrowRight className="h-3 w-3 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
@@ -121,13 +121,13 @@ const Footer = () => {
 
             {/* Solutions */}
             <div>
-              <h4 className="font-semibold mb-5 text-foreground">Solutions</h4>
+              <h4 className="font-semibold mb-5 text-white">Solutions</h4>
               <ul className="space-y-3">
                 {footerLinks.solutions.map((link, index) => (
                   <li key={index}>
                     <Link
                       to={link.href}
-                      className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-1 group"
+                      className="text-sm text-white/60 hover:text-accent transition-colors inline-flex items-center gap-1 group"
                     >
                       {link.name}
                       <ArrowRight className="h-3 w-3 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
@@ -139,13 +139,13 @@ const Footer = () => {
 
             {/* Resources */}
             <div>
-              <h4 className="font-semibold mb-5 text-foreground">Resources</h4>
+              <h4 className="font-semibold mb-5 text-white">Resources</h4>
               <ul className="space-y-3">
                 {footerLinks.resources.map((link, index) => (
                   <li key={index}>
                     <Link
                       to={link.href}
-                      className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-1 group"
+                      className="text-sm text-white/60 hover:text-accent transition-colors inline-flex items-center gap-1 group"
                     >
                       {link.name}
                       <ArrowRight className="h-3 w-3 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
@@ -157,13 +157,13 @@ const Footer = () => {
 
             {/* Company */}
             <div>
-              <h4 className="font-semibold mb-5 text-foreground">Company</h4>
+              <h4 className="font-semibold mb-5 text-white">Company</h4>
               <ul className="space-y-3">
                 {footerLinks.company.map((link, index) => (
                   <li key={index}>
                     <Link
                       to={link.href}
-                      className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-1 group"
+                      className="text-sm text-white/60 hover:text-accent transition-colors inline-flex items-center gap-1 group"
                     >
                       {link.name}
                       <ArrowRight className="h-3 w-3 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
@@ -177,20 +177,20 @@ const Footer = () => {
       </div>
 
       {/* Section Divider */}
-      <div className="section-divider-accent" />
+      <div className="h-px bg-white/10" />
 
       {/* Bottom Bar */}
       <div className="container mx-auto px-4 py-6 relative z-10">
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="flex flex-col md:flex-row items-center gap-4 text-sm text-muted-foreground">
+          <div className="flex flex-col md:flex-row items-center gap-4 text-sm text-white/50">
             <span>© 2024 In-Sync Tech-Fin Solutions Ltd. All rights reserved.</span>
             <div className="flex gap-4">
-              <Link to="/privacy" className="hover:text-primary transition-colors">Privacy Policy</Link>
-              <Link to="/terms" className="hover:text-primary transition-colors">Terms of Service</Link>
-              <Link to="/cookies" className="hover:text-primary transition-colors">Cookie Policy</Link>
+              <Link to="/privacy" className="hover:text-accent transition-colors">Privacy Policy</Link>
+              <Link to="/terms" className="hover:text-accent transition-colors">Terms of Service</Link>
+              <Link to="/cookies" className="hover:text-accent transition-colors">Cookie Policy</Link>
             </div>
           </div>
-          <div className="text-sm text-muted-foreground">
+          <div className="text-sm text-white/50">
             <span>CIN: U67120WB1991PLC050740 | GST: 19AACCA2800R1ZI</span>
           </div>
         </div>
