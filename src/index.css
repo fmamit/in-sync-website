@@ -8,105 +8,121 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 200 15% 8%;
+    /* Light Background Shades - Off-white instead of pure white */
+    --background: 220 20% 98%;
+    --foreground: 222 20% 15%;
 
+    /* Cards use pure white for contrast */
     --card: 0 0% 100%;
-    --card-foreground: 200 15% 8%;
+    --card-foreground: 222 20% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 200 15% 8%;
+    --popover-foreground: 222 20% 15%;
 
-    --primary: 175 100% 36%;
+    /* Primary - Deep Navy Blue */
+    --primary: 222 47% 20%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 220 13% 91%;
-    --secondary-foreground: 220 9% 46%;
+    --secondary: 220 15% 94%;
+    --secondary-foreground: 222 30% 35%;
 
-    --muted: 210 40% 96%;
-    --muted-foreground: 200 10% 45%;
+    /* Muted - Light grey for sections */
+    --muted: 220 15% 94%;
+    --muted-foreground: 222 15% 45%;
 
-    --accent: 262 83% 58%;
+    /* Accent - Teal for vibrancy */
+    --accent: 175 100% 36%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 210 20% 90%;
-    --input: 210 20% 95%;
-    --ring: 262 83% 58%;
+    --border: 220 15% 88%;
+    --input: 220 15% 95%;
+    --ring: 222 47% 30%;
 
-    /* In-Sync Brand Colors */
+    /* Brand Colors - Navy Primary with Teal Accent */
+    --brand-navy: 222 47% 20%;
+    --brand-navy-light: 222 30% 45%;
+    --brand-navy-dark: 222 55% 12%;
     --brand-teal: 175 100% 36%;
     --brand-teal-light: 175 50% 85%;
-    --brand-teal-dark: 175 100% 25%;
-    --brand-accent: 4 89% 60%;
+    --brand-accent: 175 100% 36%;
     
     /* Premium Design Tokens */
-    --glow-primary: 175 100% 36%;
-    --glow-accent: 262 83% 58%;
+    --glow-primary: 222 47% 30%;
+    --glow-accent: 175 100% 36%;
     --surface-elevated: 0 0% 100%;
-    --surface-subtle: 210 40% 98%;
+    --surface-subtle: 220 20% 96%;
+    
+    /* Section backgrounds for color blocks */
+    --section-light: 220 20% 98%;
+    --section-alt: 220 15% 95%;
+    --section-navy: 222 47% 15%;
 
     /* Chart Colors */
-    --chart-1: 0 84% 60%;
-    --chart-2: 142 76% 36%;
+    --chart-1: 222 47% 25%;
+    --chart-2: 175 100% 36%;
     --chart-3: 262 83% 58%;
     --chart-4: 271 81% 56%;
     --chart-5: 217 91% 60%;
 
     --radius: 0.75rem;
 
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-background: 220 20% 98%;
+    --sidebar-foreground: 222 20% 20%;
+    --sidebar-primary: 222 47% 20%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 220 15% 95%;
+    --sidebar-accent-foreground: 222 47% 20%;
+    --sidebar-border: 220 15% 90%;
+    --sidebar-ring: 222 47% 30%;
   }
 
   .dark {
-    --background: 200 20% 5%;
-    --foreground: 210 40% 98%;
+    --background: 222 30% 8%;
+    --foreground: 220 20% 95%;
 
-    --card: 200 20% 8%;
-    --card-foreground: 210 40% 98%;
+    --card: 222 30% 12%;
+    --card-foreground: 220 20% 95%;
 
-    --popover: 200 20% 8%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 222 30% 12%;
+    --popover-foreground: 220 20% 95%;
 
-    --primary: 175 100% 36%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 175 100% 40%;
+    --primary-foreground: 222 47% 10%;
 
-    --secondary: 220 13% 18%;
-    --secondary-foreground: 220 13% 91%;
+    --secondary: 222 25% 18%;
+    --secondary-foreground: 220 15% 80%;
 
-    --muted: 200 20% 12%;
-    --muted-foreground: 210 20% 65%;
+    --muted: 222 25% 15%;
+    --muted-foreground: 220 15% 60%;
 
-    --accent: 262 83% 25%;
-    --accent-foreground: 262 83% 90%;
+    --accent: 175 100% 36%;
+    --accent-foreground: 222 30% 10%;
 
     --destructive: 0 62% 50%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 200 20% 12%;
-    --input: 200 20% 12%;
-    --ring: 262 83% 58%;
+    --border: 222 25% 18%;
+    --input: 222 25% 15%;
+    --ring: 175 100% 40%;
     
-    --surface-elevated: 200 20% 10%;
-    --surface-subtle: 200 20% 7%;
+    --surface-elevated: 222 30% 14%;
+    --surface-subtle: 222 30% 10%;
     
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --section-light: 222 30% 10%;
+    --section-alt: 222 25% 12%;
+    --section-navy: 222 40% 8%;
+    
+    --sidebar-background: 222 30% 10%;
+    --sidebar-foreground: 220 20% 95%;
+    --sidebar-primary: 175 100% 40%;
+    --sidebar-primary-foreground: 222 30% 10%;
+    --sidebar-accent: 222 25% 15%;
+    --sidebar-accent-foreground: 220 20% 95%;
+    --sidebar-border: 222 25% 18%;
+    --sidebar-ring: 175 100% 40%;
   }
 }
 
@@ -453,6 +469,38 @@
   .stat-card { @apply p-6 rounded-xl border bg-card shadow-premium-sm hover:shadow-premium transition-all duration-300; }
   .feature-card { @apply p-4 rounded-xl border border-border/50 hover:border-primary/50 transition-all duration-300 card-premium; }
   .metric-card { @apply text-center p-4 rounded-xl bg-muted/50; }
+
+  /* ============================================
+     SECTION COLOR BLOCKS
+     ============================================ */
+  .section-light {
+    background: hsl(var(--section-light));
+  }
+  
+  .section-grey {
+    background: hsl(var(--section-alt));
+  }
+  
+  .section-navy {
+    background: hsl(var(--section-navy));
+    color: hsl(0 0% 100%);
+  }
+  
+  .section-navy .text-foreground {
+    color: hsl(0 0% 100%);
+  }
+  
+  .section-navy .text-muted-foreground {
+    color: hsl(220 15% 75%);
+  }
+  
+  .section-gradient {
+    background: linear-gradient(180deg, hsl(var(--section-light)) 0%, hsl(var(--card)) 100%);
+  }
+  
+  .section-gradient-navy {
+    background: linear-gradient(180deg, hsl(var(--section-alt)) 0%, hsl(var(--section-navy)) 100%);
+  }
 
   /* ============================================
      REACTQUILL EDITOR STYLING
