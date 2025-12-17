@@ -19,6 +19,8 @@ const IndustryResults = () => {
       label: "Cities Served",
       description: "Multi-city Operations",
       color: "from-blue-500 to-blue-600",
+      iconBg: "bg-blue-500/10",
+      iconColor: "text-blue-600",
       delay: "delay-100"
     },
     {
@@ -27,6 +29,8 @@ const IndustryResults = () => {
       label: "Clients Managed",
       description: "CarTrends Distribution",
       color: "from-green-500 to-green-600",
+      iconBg: "bg-green-500/10",
+      iconColor: "text-green-600",
       delay: "delay-200"
     },
     {
@@ -35,6 +39,8 @@ const IndustryResults = () => {
       label: "Real-time Sync",
       description: "All Client Systems",
       color: "from-yellow-500 to-orange-500",
+      iconBg: "bg-orange-500/10",
+      iconColor: "text-orange-600",
       delay: "delay-300"
     },
     {
@@ -43,6 +49,8 @@ const IndustryResults = () => {
       label: "AI Automation",
       description: "Continuous Operations",
       color: "from-purple-500 to-purple-600",
+      iconBg: "bg-purple-500/10",
+      iconColor: "text-purple-600",
       delay: "delay-500"
     }
   ];
@@ -50,7 +58,6 @@ const IndustryResults = () => {
   const CountingNumber = ({ value, duration = 2000 }) => {
     const [count, setCount] = useState(0);
     
-    // Special case for "24/7" - don't animate, just display as is
     if (value === "24/7") {
       return <span>{value}</span>;
     }
@@ -82,20 +89,22 @@ const IndustryResults = () => {
   };
 
   return (
-    <section className="py-20 relative overflow-hidden bg-muted/30">
-
+    <section className="py-24 relative overflow-hidden gradient-mesh">
+      {/* Background Elements */}
+      <div className="absolute inset-0 dot-pattern opacity-30" />
+      
       <div className="container mx-auto px-4 relative z-10">
         
         {/* Header */}
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-muted border border-border mb-6">
-            <Sparkles className="w-4 h-4 text-muted-foreground" />
-            <span className="text-sm font-medium text-muted-foreground">Proven Track Record</span>
+          <div className="badge-premium mb-6">
+            <Sparkles className="w-4 h-4 text-primary" />
+            <span className="text-foreground">Proven Track Record</span>
           </div>
           
           <h2 className="text-4xl md:text-6xl font-bold text-foreground mb-6">
             Industry-Leading
-            <span className="block text-muted-foreground">
+            <span className="block text-muted-foreground mt-2">
               Results
             </span>
           </h2>
@@ -107,37 +116,42 @@ const IndustryResults = () => {
         </div>
 
         {/* Stats Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
           {stats.map((stat, index) => {
             const IconComponent = stat.icon;
             return (
               <Card 
                 key={index} 
-                className={`relative p-8 bg-card border border-border hover:bg-accent/10 transition-all duration-500 group ${stat.delay} ${
+                className={`relative overflow-hidden card-premium group ${stat.delay} ${
                   isVisible ? 'animate-fade-in translate-y-0' : 'translate-y-8 opacity-0'
                 }`}
               >
-                {/* Icon with subtle background */}
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-muted border border-border mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <IconComponent className="w-8 h-8 text-foreground" />
-                </div>
+                {/* Gradient Top Border */}
+                <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${stat.color} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
+                
+                <div className="p-8">
+                  {/* Icon with styled background */}
+                  <div className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl ${stat.iconBg} mb-6 group-hover:scale-110 transition-transform duration-300`}>
+                    <IconComponent className={`w-8 h-8 ${stat.iconColor}`} />
+                  </div>
 
-                {/* Stat Value */}
-                <div className="mb-4">
-                  <div className="text-4xl md:text-5xl font-bold text-foreground mb-2 font-mono">
-                    <CountingNumber value={stat.value} />
+                  {/* Stat Value */}
+                  <div className="mb-4">
+                    <div className="text-4xl md:text-5xl font-bold text-foreground mb-2 font-mono tracking-tight">
+                      <CountingNumber value={stat.value} />
+                    </div>
+                    <div className="text-lg font-semibold text-foreground mb-1">
+                      {stat.label}
+                    </div>
+                    <div className="text-sm text-muted-foreground">
+                      {stat.description}
+                    </div>
                   </div>
-                  <div className="text-lg font-semibold text-foreground mb-1">
-                    {stat.label}
-                  </div>
-                  <div className="text-sm text-muted-foreground">
-                    {stat.description}
-                  </div>
-                </div>
 
-                {/* Hover indicator */}
-                <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <ArrowRight className="w-5 h-5 text-muted-foreground" />
+                  {/* Hover indicator */}
+                  <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-2 group-hover:translate-x-0">
+                    <ArrowRight className="w-5 h-5 text-primary" />
+                  </div>
                 </div>
               </Card>
             );
@@ -146,42 +160,47 @@ const IndustryResults = () => {
 
         {/* Call to Action */}
         <div className="text-center">
-          <div className="inline-flex items-center gap-2 text-muted-foreground mb-6">
-            <Sparkles className="w-5 h-5" />
-            <span className="text-lg font-medium">Ready to transform your business?</span>
-          </div>
-          
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6">
-            <DemoRequestModal
-              trigger={
-                <Button 
-                  size="lg" 
-                  className="bg-primary text-primary-foreground hover:bg-primary/90 font-semibold px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group"
-                >
-                  <Clock className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform duration-300" />
-                  Schedule Demo
-                </Button>
-              }
-            />
-          </div>
-          
-          <div className="flex items-center justify-center gap-6 text-sm text-muted-foreground">
-            <div className="flex items-center gap-1">
-              <div className="w-2 h-2 bg-primary rounded-full" />
-              <span>Get started FREE</span>
+          <div className="glass-card inline-block rounded-2xl p-8 max-w-2xl mx-auto">
+            <div className="flex items-center justify-center gap-2 text-muted-foreground mb-6">
+              <Sparkles className="w-5 h-5 text-primary" />
+              <span className="text-lg font-medium">Ready to transform your business?</span>
             </div>
-            <div className="flex items-center gap-1">
-              <div className="w-2 h-2 bg-primary rounded-full" />
-              <span>No credit card required</span>
+            
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6">
+              <DemoRequestModal
+                trigger={
+                  <Button 
+                    size="lg" 
+                    className="bg-primary text-primary-foreground hover:bg-primary/90 font-semibold px-8 py-6 rounded-xl btn-glow btn-premium group"
+                  >
+                    <Clock className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform duration-300" />
+                    Schedule Demo
+                  </Button>
+                }
+              />
             </div>
-            <div className="flex items-center gap-1">
-              <div className="w-2 h-2 bg-primary rounded-full" />
-              <span>Setup in 1-2 days</span>
+            
+            <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-muted-foreground">
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 bg-green-500 rounded-full" />
+                <span>Get started FREE</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 bg-green-500 rounded-full" />
+                <span>No credit card required</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 bg-green-500 rounded-full" />
+                <span>Setup in 1-2 days</span>
+              </div>
             </div>
           </div>
         </div>
 
       </div>
+      
+      {/* Section Divider */}
+      <div className="absolute bottom-0 left-0 right-0 section-divider-accent" />
     </section>
   );
 };

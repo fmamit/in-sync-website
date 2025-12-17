@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import heroBanner from "@/assets/hero-banner-main.png";
 import heroBannerAlt from "@/assets/hero-banner-final-corrected.png";
 import DemoRequestModal from "./DemoRequestModal";
-// ... keep existing imports ...
 import growthvineLogo from "@/assets/growthvine-logo-3.jpeg";
 import audiLogo from "@/assets/audi-logo-transparent-2.png";
 import capitalIndiaLogo from "@/assets/capital-india-logo-3.webp";
@@ -22,7 +21,6 @@ import redefineLogo from "@/assets/redefine-logo-3.png";
 import seedsLogo from "@/assets/seeds-logo-3.png";
 import uhcLogo from "@/assets/uhc-logo-4.png";
 import zopperLogo from "@/assets/zopper-logo-2.png";
-// Additional partner logos
 import zolveLogo from "@/assets/zolve-logo-transparent.webp";
 
 const HeroSection = () => {
@@ -50,7 +48,14 @@ const HeroSection = () => {
   ];
 
   return (
-    <section className="relative overflow-hidden bg-background min-h-screen flex items-center justify-center py-20">
+    <section className="relative overflow-hidden gradient-hero min-h-screen flex items-center justify-center py-20">
+      {/* Floating Decorative Blobs */}
+      <div className="floating-blob floating-blob-primary w-[600px] h-[600px] -top-48 -left-48" />
+      <div className="floating-blob floating-blob-accent w-[400px] h-[400px] top-1/4 -right-32" />
+      <div className="floating-blob floating-blob-primary w-[300px] h-[300px] bottom-20 left-1/4 opacity-30" />
+      
+      {/* Subtle Grid Pattern */}
+      <div className="absolute inset-0 dot-pattern opacity-50" />
       
       <div className="container mx-auto px-4 relative z-10">
         <div className="flex justify-center items-center max-w-6xl mx-auto">
@@ -59,13 +64,13 @@ const HeroSection = () => {
             <img 
               src={heroBannerAlt}
               alt="Finally, a CRM that fits - In-Sync intelligent platform"
-              className="hidden md:block w-full h-auto object-cover"
+              className="hidden md:block w-full h-auto object-cover rounded-2xl shadow-premium-lg"
             />
             {/* Mobile Banner - Vertical Layout */}
             <img 
               src={heroBanner}
               alt="Finally, a CRM that fits - In-Sync intelligent platform"
-              className="block md:hidden w-full h-auto object-contain"
+              className="block md:hidden w-full h-auto object-contain rounded-xl shadow-premium"
             />
           </div>
         </div>
@@ -73,14 +78,14 @@ const HeroSection = () => {
         {/* CTAs Below Banner */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center mt-12">
           <DemoRequestModal trigger={
-            <Button size="lg" className="text-lg px-8 py-4 bg-white text-primary hover:bg-gray-50 transition-all duration-300 transform hover:scale-105">
+            <Button size="lg" className="text-lg px-8 py-6 bg-card text-primary border-2 border-primary/20 hover:bg-primary/5 hover:border-primary/40 transition-all duration-300 transform hover:scale-105 shadow-premium-sm btn-premium rounded-xl">
               Request Demo
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           } />
           <Button 
             size="lg" 
-            className="bg-primary text-primary-foreground hover:bg-primary/90 transform hover:scale-105 transition-all text-lg px-8 py-4"
+            className="bg-primary text-primary-foreground hover:bg-primary/90 transform hover:scale-105 transition-all duration-300 text-lg px-8 py-6 btn-glow btn-premium rounded-xl"
             onClick={() => navigate('/features')}
           >
             Explore Full Platform
@@ -89,37 +94,37 @@ const HeroSection = () => {
         </div>
 
         {/* Customer Logos Section - Hexagonal Grid */}
-        <div className="mt-16 text-center">
-          <h2 className="text-2xl font-semibold mb-8 text-foreground">
+        <div className="mt-20 text-center">
+          <h2 className="text-2xl font-semibold mb-10 text-foreground">
             Some pretty cool companies already love us ❤️
           </h2>
           
-          {/* Hexagonal Grid Layout */}
-          <div className="max-w-4xl mx-auto">
+          {/* Glass Card Container for Logos */}
+          <div className="max-w-4xl mx-auto glass-card rounded-3xl p-8">
             <div className="flex justify-center items-center space-x-4 mb-4">
               {customerLogos.slice(0, 4).map((logo, index) => (
-                <div key={index} className="w-20 h-20 bg-white/50 rounded-full p-3 hover:bg-white/80 transition-all duration-300 hover:scale-110 shadow-md">
+                <div key={index} className="w-20 h-20 bg-background/80 rounded-full p-3 hover:bg-background transition-all duration-300 hover:scale-110 shadow-premium-sm hover:shadow-premium">
                   <img src={logo.src} alt={logo.alt} className="w-full h-full object-contain filter grayscale hover:grayscale-0 transition-all duration-300" />
                 </div>
               ))}
             </div>
             <div className="flex justify-center items-center space-x-4 mb-4 -translate-x-10">
               {customerLogos.slice(4, 9).map((logo, index) => (
-                <div key={index} className="w-20 h-20 bg-white/50 rounded-full p-3 hover:bg-white/80 transition-all duration-300 hover:scale-110 shadow-md">
+                <div key={index} className="w-20 h-20 bg-background/80 rounded-full p-3 hover:bg-background transition-all duration-300 hover:scale-110 shadow-premium-sm hover:shadow-premium">
                   <img src={logo.src} alt={logo.alt} className="w-full h-full object-contain filter grayscale hover:grayscale-0 transition-all duration-300" />
                 </div>
               ))}
             </div>
             <div className="flex justify-center items-center space-x-4 mb-4">
               {customerLogos.slice(9, 14).map((logo, index) => (
-                <div key={index} className="w-20 h-20 bg-white/50 rounded-full p-3 hover:bg-white/80 transition-all duration-300 hover:scale-110 shadow-md">
+                <div key={index} className="w-20 h-20 bg-background/80 rounded-full p-3 hover:bg-background transition-all duration-300 hover:scale-110 shadow-premium-sm hover:shadow-premium">
                   <img src={logo.src} alt={logo.alt} className="w-full h-full object-contain filter grayscale hover:grayscale-0 transition-all duration-300" />
                 </div>
               ))}
             </div>
             <div className="flex justify-center items-center space-x-4">
               {customerLogos.slice(14).map((logo, index) => (
-                <div key={index} className="w-20 h-20 bg-white/50 rounded-full p-3 hover:bg-white/80 transition-all duration-300 hover:scale-110 shadow-md">
+                <div key={index} className="w-20 h-20 bg-background/80 rounded-full p-3 hover:bg-background transition-all duration-300 hover:scale-110 shadow-premium-sm hover:shadow-premium">
                   <img src={logo.src} alt={logo.alt} className="w-full h-full object-contain filter grayscale hover:grayscale-0 transition-all duration-300" />
                 </div>
               ))}
@@ -128,15 +133,18 @@ const HeroSection = () => {
         </div>
 
         {/* Bottom Stats Section */}
-        <div className="mt-20 text-center">
-          <div className="inline-flex items-center gap-2 px-6 py-3 bg-primary/10 rounded-full border border-primary/20">
-            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+        <div className="mt-16 text-center">
+          <div className="badge-glow">
+            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
             <span className="text-sm font-medium text-foreground">
               20,000+ happy users wake up to In-Sync every morning ☀️
             </span>
           </div>
         </div>
       </div>
+      
+      {/* Section Divider */}
+      <div className="absolute bottom-0 left-0 right-0 section-divider-accent" />
     </section>
   );
 };
