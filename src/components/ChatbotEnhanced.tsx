@@ -176,13 +176,26 @@ const ChatbotEnhanced = () => {
     <>
       {/* Floating Chat Button */}
       {!isOpen && (
-        <Button
-          onClick={() => setIsOpen(true)}
-          className="fixed bottom-6 right-6 h-14 w-14 rounded-full shadow-lg z-50 bg-primary hover:bg-primary/90"
-          size="icon"
-        >
-          <MessageCircle className="h-6 w-6" />
-        </Button>
+        <div className="fixed bottom-6 right-6 z-50 group">
+          {/* Pulse ring animation */}
+          <div className="absolute inset-0 rounded-full bg-primary/30 animate-ping" />
+          <div className="absolute inset-0 rounded-full bg-primary/20 animate-pulse" />
+          
+          <Button
+            onClick={() => setIsOpen(true)}
+            className="relative h-16 w-16 rounded-full shadow-premium-lg bg-primary hover:bg-primary/90 hover:scale-110 transition-all duration-300 btn-glow"
+            size="icon"
+          >
+            <MessageCircle className="h-7 w-7 group-hover:scale-110 transition-transform" />
+          </Button>
+          
+          {/* Tooltip */}
+          <div className="absolute bottom-full right-0 mb-3 opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-200">
+            <div className="bg-card text-card-foreground text-sm font-medium px-4 py-2 rounded-lg shadow-premium-sm whitespace-nowrap border border-border font-body">
+              💬 Chat with us!
+            </div>
+          </div>
+        </div>
       )}
 
       {/* Chat Window */}
