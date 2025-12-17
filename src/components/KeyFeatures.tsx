@@ -1,33 +1,38 @@
 
-import { useState, createElement } from "react";
+import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import DemoRequestModal from "./DemoRequestModal";
 import { 
-  Brain, 
-  Smartphone, 
-  Users, 
-  Wrench, 
   Zap, 
   ArrowRight,
   CheckCircle,
-  Infinity,
-  Shield,
+  Target,
+  Sparkles,
+  Headphones,
+  Send,
+  MapPin,
   BarChart3,
-  Headphones
+  Blocks,
+  Link2,
+  UsersRound,
+  ShieldCheck,
+  LucideIcon
 } from "lucide-react";
-import aiAssistantIcon from "@/assets/ai-assistant-icon.jpg";
-import fieldWorkerIcon from "@/assets/field-worker-icon.jpg";
-import analyticsIcon from "@/assets/analytics-icon.png";
-import integrationsIcon from "@/assets/integrations-icon.jpg";
-import multiChannelMarketingIcon from "@/assets/multi-channel-marketing-icon.jpg";
-import noCodeIcon from "@/assets/no-code-icon.png";
-import unlimitedUsersIcon from "@/assets/unlimited-users-icon.png";
-import securityComplianceIcon from "@/assets/security-compliance-icon.png";
-import crmSalesIcon from "@/assets/crm-sales-icon.png";
-import ccaasIcon from "@/assets/ccaas-icon.jpg";
+
+interface FeatureItem {
+  id: string;
+  icon: LucideIcon;
+  iconColor: string;
+  iconBg: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  features: string[];
+  badge: string;
+}
 
 const KeyFeatures = () => {
   const navigate = useNavigate();
@@ -45,21 +50,13 @@ const KeyFeatures = () => {
       return newSet;
     });
   };
-  const keyFeatures = [
+
+  const keyFeatures: FeatureItem[] = [
     {
       id: "crm-sales",
-      icon: () => (
-        <img 
-          src={crmSalesIcon} 
-          alt="CRM & Sales" 
-          className="w-full h-full object-contain"
-          style={{
-            backgroundColor: 'white',
-            borderRadius: '12px'
-          }}
-        />
-      ),
-      iconColor: "",
+      icon: Target,
+      iconColor: "text-blue-600",
+      iconBg: "bg-blue-500/10",
       title: "CRM & Sales",
       subtitle: "Complete Sales Management",
       description: "Comprehensive customer relationship management with advanced sales pipeline tracking, automated workflows, and integrated customer service tools.",
@@ -74,18 +71,9 @@ const KeyFeatures = () => {
     },
     {
       id: "ai-first",
-      icon: () => (
-        <img 
-          src={aiAssistantIcon} 
-          alt="AI Assistant" 
-          className="w-full h-full object-contain"
-          style={{
-            backgroundColor: 'white',
-            borderRadius: '12px'
-          }}
-        />
-      ),
-      iconColor: "",
+      icon: Sparkles,
+      iconColor: "text-purple-600",
+      iconBg: "bg-purple-500/10",
       title: "AI That Actually Works",
       subtitle: "Lead with Gargi's proven 99.8% cost reduction",
       description: "Revolutionary AI assistant that understands your business context, automates complex workflows, and provides intelligent insights to drive growth.",
@@ -99,18 +87,9 @@ const KeyFeatures = () => {
     },
     {
       id: "ccaas",
-      icon: () => (
-        <img 
-          src={ccaasIcon} 
-          alt="CCaaS Contact Center" 
-          className="w-full h-full object-contain"
-          style={{
-            backgroundColor: 'white',
-            borderRadius: '12px'
-          }}
-        />
-      ),
-      iconColor: "",
+      icon: Headphones,
+      iconColor: "text-teal-600",
+      iconBg: "bg-teal-500/10",
       title: "CCaaS - Contact Center",
       subtitle: "Cloud-Based Contact Center",
       description: "Over 1000 callers start their day on In-Sync. Complete inbound and outbound contact center solution with omnichannel support, automated call distribution, real-time monitoring, and advanced workforce management capabilities.",
@@ -124,18 +103,9 @@ const KeyFeatures = () => {
     },
     {
       id: "multi-channel-marketing",
-      icon: () => (
-        <img 
-          src={multiChannelMarketingIcon} 
-          alt="Multi-channel Marketing" 
-          className="w-full h-full object-contain"
-          style={{
-            backgroundColor: 'white',
-            borderRadius: '12px'
-          }}
-        />
-      ),
-      iconColor: "",
+      icon: Send,
+      iconColor: "text-pink-600",
+      iconBg: "bg-pink-500/10",
       title: "Multi-channel Marketing",
       subtitle: "Calling, Messaging & Automation",
       description: "Over 10 million messages sent through the platform and growing daily. Integrated marketing campaigns across multiple channels with automated calling, messaging, and workflow automation to engage customers effectively.",
@@ -149,18 +119,9 @@ const KeyFeatures = () => {
     },
     {
       id: "field-force",
-      icon: () => (
-        <img 
-          src={fieldWorkerIcon} 
-          alt="Field Worker" 
-          className="w-full h-full object-contain"
-          style={{
-            backgroundColor: 'white',
-            borderRadius: '12px'
-          }}
-        />
-      ),
-      iconColor: "",
+      icon: MapPin,
+      iconColor: "text-green-600",
+      iconBg: "bg-green-500/10",
       title: "Smart Field Operations",
       subtitle: "Mobile Operations & Tracking",
       description: "Real-time GPS tracking, mobile workforce management, and performance analytics for field sales teams, collection agents, site workers, and delivery personnel.",
@@ -174,18 +135,9 @@ const KeyFeatures = () => {
     },
     {
       id: "custom-analytics",
-      icon: () => (
-        <img 
-          src={analyticsIcon} 
-          alt="Analytics Dashboard" 
-          className="w-full h-full object-contain"
-          style={{
-            backgroundColor: 'white',
-            borderRadius: '12px'
-          }}
-        />
-      ),
-      iconColor: "",
+      icon: BarChart3,
+      iconColor: "text-indigo-600",
+      iconBg: "bg-indigo-500/10",
       title: "Adaptive Business Intelligence",
       subtitle: "Data-Driven Insights",
       description: "Powered by Microsoft PowerBI, Azure Databricks, Azure Data Factory, and Lakehouse architecture. Advanced analytics platform with customizable KPI dashboards, real-time reporting, and intelligent business intelligence to drive informed decision-making.",
@@ -199,18 +151,9 @@ const KeyFeatures = () => {
     },
     {
       id: "no-code",
-      icon: () => (
-        <img 
-          src={noCodeIcon} 
-          alt="No-Code Platform" 
-          className="w-full h-full object-contain"
-          style={{
-            backgroundColor: 'white',
-            borderRadius: '12px'
-          }}
-        />
-      ),
-      iconColor: "",
+      icon: Blocks,
+      iconColor: "text-amber-600",
+      iconBg: "bg-amber-500/10",
       title: "True No-Code Platform",
       subtitle: "Build Without Boundaries",
       description: "Drag-and-drop interface builder, visual workflow designer, and customizable modules. Create complex business processes without writing a single line of code.",
@@ -224,18 +167,9 @@ const KeyFeatures = () => {
     },
     {
       id: "integrations",
-      icon: () => (
-        <img 
-          src={integrationsIcon} 
-          alt="Integrations Dashboard" 
-          className="w-full h-full object-contain"
-          style={{
-            backgroundColor: 'white',
-            borderRadius: '12px'
-          }}
-        />
-      ),
-      iconColor: "",
+      icon: Link2,
+      iconColor: "text-cyan-600",
+      iconBg: "bg-cyan-500/10",
       title: "Proven Integrations",
       subtitle: "Seamless Connectivity",
       description: "Connect with 50+ essential business platforms including Tata Teleservices, Microsoft Azure, Kaleyra, ScoreMe, Google Suite, and accounting systems for complete business ecosystem synchronization.",
@@ -249,18 +183,9 @@ const KeyFeatures = () => {
     },
     {
       id: "unlimited-users",
-      icon: () => (
-        <img 
-          src={unlimitedUsersIcon} 
-          alt="Unlimited Users" 
-          className="w-full h-full object-contain"
-          style={{
-            backgroundColor: 'white',
-            borderRadius: '12px'
-          }}
-        />
-      ),
-      iconColor: "",
+      icon: UsersRound,
+      iconColor: "text-orange-600",
+      iconBg: "bg-orange-500/10",
       title: "Pricing That Breaks Every Rule",
       subtitle: "Scale Without Fear",
       description: "Revolutionary pricing model that grows with your success, not your team size. Add unlimited users across all departments without worrying about per-seat costs.",
@@ -274,18 +199,9 @@ const KeyFeatures = () => {
     },
     {
       id: "security-compliance",
-      icon: () => (
-        <img 
-          src={securityComplianceIcon} 
-          alt="Security & Compliance" 
-          className="w-full h-full object-contain"
-          style={{
-            backgroundColor: 'white',
-            borderRadius: '12px'
-          }}
-        />
-      ),
-      iconColor: "",
+      icon: ShieldCheck,
+      iconColor: "text-red-600",
+      iconBg: "bg-red-500/10",
       title: "Impenetrable Data Shield",
       subtitle: "Enterprise-Grade Protection",
       description: "Each client gets their own isolated Azure instance - your data never touches another company's environment. Plus private cloud hosting options for ultimate control and zero shared-server risks.",
@@ -329,14 +245,8 @@ const KeyFeatures = () => {
             >
               <CardContent className="p-8">
                 <div className="flex items-start gap-4 mb-6">
-                  <div className="w-16 h-16 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
-                    {typeof feature.icon === 'function' ? (
-                      <div className="w-8 h-8">
-                        {createElement(feature.icon)}
-                      </div>
-                    ) : (
-                      createElement(feature.icon, { className: `h-8 w-8 text-primary` })
-                    )}
+                  <div className={`w-16 h-16 rounded-xl ${feature.iconBg} flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300`}>
+                    <feature.icon className={`h-8 w-8 ${feature.iconColor}`} />
                   </div>
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-2">
