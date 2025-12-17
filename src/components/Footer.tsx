@@ -10,7 +10,7 @@ import {
   Phone,
   MapPin
 } from "lucide-react";
-import insyncLogo from "@/assets/insync-logo-white.png";
+import insyncLogo from "@/assets/insync-logo-color.png";
 import DemoRequestModal from "./DemoRequestModal";
 
 const Footer = () => {
@@ -64,7 +64,7 @@ const Footer = () => {
           {/* Company Info */}
           <div className="lg:col-span-2">
             <div className="flex items-center space-x-2 mb-6">
-              <img src={insyncLogo} alt="In-Sync" className="h-12 w-auto" />
+              <img src={insyncLogo} alt="In-Sync" className="h-12 w-auto brightness-0 invert" />
             </div>
             <p className="text-white/80 mb-8 leading-relaxed max-w-sm font-body text-base">
               Making work life better with smart CRM that actually works. No fancy jargon, just results.
