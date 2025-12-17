@@ -23,7 +23,7 @@ export default function Header() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-md">
+    <header className="sticky top-0 z-50 w-full border-b border-border/50 glass-section">
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
@@ -34,24 +34,25 @@ export default function Header() {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
+          <nav className="hidden lg:flex items-center space-x-6">
             {navigation.map((item) => (
               <Link
                 key={item.name}
                 to={item.href}
-                className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors"
+                className="relative text-sm font-medium text-foreground/70 hover:text-primary transition-colors py-2 group"
               >
                 {item.name}
+                <span className="absolute bottom-0 left-0 w-full h-0.5 bg-primary transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
               </Link>
             ))}
           </nav>
 
           {/* Desktop CTAs */}
-          <div className="hidden md:flex items-center space-x-4">
+          <div className="hidden lg:flex items-center space-x-3">
             <Button 
-              variant="outline" 
+              variant="ghost" 
               size="sm" 
-              className="font-semibold"
+              className="font-semibold text-foreground/70 hover:text-primary hover:bg-primary/5"
               asChild
             >
               <a href="https://crm.in-sync.co.in/login" target="_blank" rel="noopener noreferrer">
@@ -59,7 +60,7 @@ export default function Header() {
               </a>
             </Button>
             <DemoRequestModal trigger={
-              <Button variant="default" size="sm" className="font-semibold">
+              <Button variant="default" size="sm" className="font-semibold btn-glow rounded-lg">
                 Request Demo
               </Button>
             } />
@@ -67,16 +68,16 @@ export default function Header() {
               <div className="flex items-center space-x-2">
                 <div className="flex items-center space-x-1 text-sm text-muted-foreground">
                   <User className="h-4 w-4" />
-                  <span>{user.email}</span>
+                  <span className="max-w-[100px] truncate">{user.email}</span>
                   {isAdmin && <span className="text-primary font-medium">(Admin)</span>}
                 </div>
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <Button 
-                      variant="outline" 
+                      variant="ghost" 
                       size="sm" 
                       onClick={signOut}
-                      className="p-2"
+                      className="p-2 hover:bg-destructive/10 hover:text-destructive"
                     >
                       <LogOut className="h-4 w-4" />
                     </Button>
@@ -89,7 +90,7 @@ export default function Header() {
             ) : (
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Button asChild className="bg-destructive hover:bg-destructive/90 text-destructive-foreground p-2">
+                  <Button asChild variant="ghost" size="sm" className="p-2 hover:bg-primary/10 hover:text-primary">
                     <Link to="/auth">
                       <ArrowLeft className="h-4 w-4" />
                     </Link>
@@ -106,7 +107,7 @@ export default function Header() {
           <Button
             variant="ghost"
             size="sm"
-            className="md:hidden"
+            className="lg:hidden"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -115,19 +116,19 @@ export default function Header() {
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="md:hidden border-t bg-background/95 backdrop-blur-md">
-            <nav className="flex flex-col space-y-4 px-4 py-6">
+          <div className="lg:hidden border-t border-border/50 glass-card rounded-b-xl -mx-4 px-4">
+            <nav className="flex flex-col space-y-1 py-4">
               {navigation.map((item) => (
                 <Link
                   key={item.name}
                   to={item.href}
-                  className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors"
+                  className="text-sm font-medium text-foreground/70 hover:text-primary hover:bg-primary/5 transition-colors px-4 py-3 rounded-lg"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {item.name}
                 </Link>
               ))}
-              <div className="flex flex-col space-y-2 pt-4">
+              <div className="flex flex-col space-y-2 pt-4 border-t border-border/50 mt-2">
                 <Button 
                   variant="outline" 
                   size="sm" 
@@ -139,16 +140,16 @@ export default function Header() {
                   </a>
                 </Button>
                 <DemoRequestModal trigger={
-                  <Button variant="default" size="sm" className="w-full">
+                  <Button variant="default" size="sm" className="w-full btn-glow">
                     Request Demo
                   </Button>
                 } />
                 {user ? (
                   <div className="space-y-3">
-                    <div className="flex items-center space-x-2 p-2 bg-muted rounded-lg">
+                    <div className="flex items-center space-x-2 p-3 bg-muted/50 rounded-lg">
                       <User className="h-4 w-4" />
                       <div className="flex-1">
-                        <p className="text-sm font-medium">{user.email}</p>
+                        <p className="text-sm font-medium truncate">{user.email}</p>
                         {isAdmin && <p className="text-xs text-primary">Admin</p>}
                       </div>
                     </div>
@@ -158,15 +159,17 @@ export default function Header() {
                         signOut();
                         setIsMobileMenuOpen(false);
                       }}
-                      className="w-full flex items-center justify-center p-2"
+                      className="w-full flex items-center justify-center gap-2 hover:bg-destructive/10 hover:text-destructive hover:border-destructive/30"
                     >
                       <LogOut className="h-4 w-4" />
+                      Sign Out
                     </Button>
                   </div>
                 ) : (
-                  <Button asChild className="bg-destructive hover:bg-destructive/90 text-destructive-foreground w-full p-2 flex justify-center">
-                    <Link to="/auth" onClick={() => setIsMobileMenuOpen(false)}>
+                  <Button asChild variant="outline" className="w-full">
+                    <Link to="/auth" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center justify-center gap-2">
                       <ArrowLeft className="h-4 w-4" />
+                      Sign In
                     </Link>
                   </Button>
                 )}
