@@ -93,39 +93,39 @@ const HeroSection = () => {
           </Button>
         </div>
 
-        {/* Customer Logos Section - Hexagonal Grid */}
+        {/* Customer Logos Section - Colorful Grid */}
         <div className="mt-24 lg:mt-32 text-center">
           <h2 className="heading-subsection mb-12 text-foreground font-heading">
-            Some pretty cool companies already love us ❤️
+            Some pretty cool companies already love us <span className="text-rose-500">❤️</span>
           </h2>
           
-          {/* Glass Card Container for Logos */}
-          <div className="max-w-4xl mx-auto glass-card rounded-3xl p-8">
+          {/* Gradient Card Container for Logos */}
+          <div className="max-w-4xl mx-auto bg-gradient-to-br from-teal-50/80 via-white to-blue-50/80 dark:from-slate-800/80 dark:via-slate-900 dark:to-slate-800/80 rounded-3xl p-8 shadow-xl border border-white/20">
             <div className="flex justify-center items-center space-x-4 mb-4">
               {customerLogos.slice(0, 4).map((logo, index) => (
-                <div key={index} className="w-20 h-20 bg-background/80 rounded-full p-3 hover:bg-background transition-all duration-300 hover:scale-110 shadow-premium-sm hover:shadow-premium">
-                  <img src={logo.src} alt={logo.alt} className="w-full h-full object-contain filter grayscale hover:grayscale-0 transition-all duration-300" />
+                <div key={index} className="w-20 h-20 bg-white dark:bg-slate-800 rounded-full p-3 hover:shadow-lg hover:shadow-primary/20 transition-all duration-300 hover:scale-110 shadow-md border border-slate-100 dark:border-slate-700">
+                  <img src={logo.src} alt={logo.alt} className="w-full h-full object-contain transition-all duration-300" />
                 </div>
               ))}
             </div>
             <div className="flex justify-center items-center space-x-4 mb-4 -translate-x-10">
               {customerLogos.slice(4, 9).map((logo, index) => (
-                <div key={index} className="w-20 h-20 bg-background/80 rounded-full p-3 hover:bg-background transition-all duration-300 hover:scale-110 shadow-premium-sm hover:shadow-premium">
-                  <img src={logo.src} alt={logo.alt} className="w-full h-full object-contain filter grayscale hover:grayscale-0 transition-all duration-300" />
+                <div key={index} className="w-20 h-20 bg-white dark:bg-slate-800 rounded-full p-3 hover:shadow-lg hover:shadow-primary/20 transition-all duration-300 hover:scale-110 shadow-md border border-slate-100 dark:border-slate-700">
+                  <img src={logo.src} alt={logo.alt} className="w-full h-full object-contain transition-all duration-300" />
                 </div>
               ))}
             </div>
             <div className="flex justify-center items-center space-x-4 mb-4">
               {customerLogos.slice(9, 14).map((logo, index) => (
-                <div key={index} className="w-20 h-20 bg-background/80 rounded-full p-3 hover:bg-background transition-all duration-300 hover:scale-110 shadow-premium-sm hover:shadow-premium">
-                  <img src={logo.src} alt={logo.alt} className="w-full h-full object-contain filter grayscale hover:grayscale-0 transition-all duration-300" />
+                <div key={index} className="w-20 h-20 bg-white dark:bg-slate-800 rounded-full p-3 hover:shadow-lg hover:shadow-primary/20 transition-all duration-300 hover:scale-110 shadow-md border border-slate-100 dark:border-slate-700">
+                  <img src={logo.src} alt={logo.alt} className="w-full h-full object-contain transition-all duration-300" />
                 </div>
               ))}
             </div>
             <div className="flex justify-center items-center space-x-4">
               {customerLogos.slice(14).map((logo, index) => (
-                <div key={index} className="w-20 h-20 bg-background/80 rounded-full p-3 hover:bg-background transition-all duration-300 hover:scale-110 shadow-premium-sm hover:shadow-premium">
-                  <img src={logo.src} alt={logo.alt} className="w-full h-full object-contain filter grayscale hover:grayscale-0 transition-all duration-300" />
+                <div key={index} className="w-20 h-20 bg-white dark:bg-slate-800 rounded-full p-3 hover:shadow-lg hover:shadow-primary/20 transition-all duration-300 hover:scale-110 shadow-md border border-slate-100 dark:border-slate-700">
+                  <img src={logo.src} alt={logo.alt} className="w-full h-full object-contain transition-all duration-300" />
                 </div>
               ))}
             </div>
