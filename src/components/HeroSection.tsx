@@ -93,39 +93,27 @@ const HeroSection = () => {
           </Button>
         </div>
 
-        {/* Customer Logos Section - Colorful Grid */}
+        {/* Customer Logos Section - Clean Grid like TeleCRM */}
         <div className="mt-24 lg:mt-32 text-center">
           <h2 className="heading-subsection mb-12 text-foreground font-heading">
-            Some pretty cool companies already love us <span className="text-rose-500">❤️</span>
+            Trusted by Indian sales teams who sell to Indian customers
           </h2>
           
-          {/* Gradient Card Container for Logos */}
-          <div className="max-w-4xl mx-auto bg-gradient-to-br from-teal-50/80 via-white to-blue-50/80 dark:from-slate-800/80 dark:via-slate-900 dark:to-slate-800/80 rounded-3xl p-8 shadow-xl border border-white/20">
-            <div className="flex justify-center items-center space-x-4 mb-4">
-              {customerLogos.slice(0, 4).map((logo, index) => (
-                <div key={index} className="w-20 h-20 bg-white dark:bg-slate-800 rounded-full p-3 hover:shadow-lg hover:shadow-primary/20 transition-all duration-300 hover:scale-110 shadow-md border border-slate-100 dark:border-slate-700">
-                  <img src={logo.src} alt={logo.alt} className="w-full h-full object-contain transition-all duration-300" />
+          {/* Clean Logo Grid */}
+          <div className="max-w-5xl mx-auto">
+            {/* Row 1 */}
+            <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12 lg:gap-16 mb-8">
+              {customerLogos.slice(0, 6).map((logo, index) => (
+                <div key={index} className="h-10 md:h-12 hover:scale-110 transition-transform duration-300">
+                  <img src={logo.src} alt={logo.alt} className="h-full w-auto object-contain max-w-[120px] md:max-w-[140px]" />
                 </div>
               ))}
             </div>
-            <div className="flex justify-center items-center space-x-4 mb-4 -translate-x-10">
-              {customerLogos.slice(4, 9).map((logo, index) => (
-                <div key={index} className="w-20 h-20 bg-white dark:bg-slate-800 rounded-full p-3 hover:shadow-lg hover:shadow-primary/20 transition-all duration-300 hover:scale-110 shadow-md border border-slate-100 dark:border-slate-700">
-                  <img src={logo.src} alt={logo.alt} className="w-full h-full object-contain transition-all duration-300" />
-                </div>
-              ))}
-            </div>
-            <div className="flex justify-center items-center space-x-4 mb-4">
-              {customerLogos.slice(9, 14).map((logo, index) => (
-                <div key={index} className="w-20 h-20 bg-white dark:bg-slate-800 rounded-full p-3 hover:shadow-lg hover:shadow-primary/20 transition-all duration-300 hover:scale-110 shadow-md border border-slate-100 dark:border-slate-700">
-                  <img src={logo.src} alt={logo.alt} className="w-full h-full object-contain transition-all duration-300" />
-                </div>
-              ))}
-            </div>
-            <div className="flex justify-center items-center space-x-4">
-              {customerLogos.slice(14).map((logo, index) => (
-                <div key={index} className="w-20 h-20 bg-white dark:bg-slate-800 rounded-full p-3 hover:shadow-lg hover:shadow-primary/20 transition-all duration-300 hover:scale-110 shadow-md border border-slate-100 dark:border-slate-700">
-                  <img src={logo.src} alt={logo.alt} className="w-full h-full object-contain transition-all duration-300" />
+            {/* Row 2 */}
+            <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12 lg:gap-16">
+              {customerLogos.slice(6, 12).map((logo, index) => (
+                <div key={index} className="h-10 md:h-12 hover:scale-110 transition-transform duration-300">
+                  <img src={logo.src} alt={logo.alt} className="h-full w-auto object-contain max-w-[120px] md:max-w-[140px]" />
                 </div>
               ))}
             </div>
