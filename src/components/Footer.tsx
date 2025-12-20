@@ -205,7 +205,7 @@ const Footer = () => {
           <div className="container mx-auto px-4 py-8">
             <div className="flex flex-col md:flex-row items-center justify-between gap-6">
               <div className="flex flex-col md:flex-row items-center gap-6 text-sm text-white/70 font-body">
-                <span className="font-medium">© 2024 In-Sync Tech-Fin Solutions Ltd. All rights reserved.</span>
+                <span className="font-medium">© 2024 ECR Technical Innovations Pvt Ltd. All rights reserved.</span>
                 <div className="flex gap-6">
                   <Link to="/privacy" className="hover:text-accent transition-colors">Privacy Policy</Link>
                   <Link to="/terms" className="hover:text-accent transition-colors">Terms of Service</Link>
