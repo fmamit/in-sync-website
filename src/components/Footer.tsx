@@ -213,7 +213,7 @@ const Footer = () => {
                 </div>
               </div>
               <div className="text-sm text-white/60 font-body">
-                <span>CIN: U67120WB1991PLC050740 | GST: 19AACCA2800R1ZI</span>
+                <span>CIN: U67120WB1991PLC050740 | GST: 06AAHCE8667P1ZR</span>
               </div>
             </div>
           </div>
