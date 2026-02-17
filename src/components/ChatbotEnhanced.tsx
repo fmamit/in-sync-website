@@ -176,7 +176,7 @@ const ChatbotEnhanced = () => {
     <>
       {/* Floating Chat Button */}
       {!isOpen && (
-        <div className="fixed bottom-6 right-6 z-50 group">
+        <div className="fixed bottom-20 right-6 z-50 group">
           {/* Pulse ring animation */}
           <div className="absolute inset-0 rounded-full bg-primary/30 animate-ping" />
           <div className="absolute inset-0 rounded-full bg-primary/20 animate-pulse" />
@@ -200,7 +200,7 @@ const ChatbotEnhanced = () => {
 
       {/* Chat Window */}
       {isOpen && (
-        <Card className="fixed bottom-6 right-6 w-96 h-[500px] shadow-xl z-[100] flex flex-col bg-background border">
+        <Card className="fixed bottom-20 right-6 w-96 h-[500px] shadow-xl z-[100] flex flex-col bg-background border">
           <CardHeader className="flex flex-row items-center justify-between p-4 pb-2 border-b">
             <CardTitle className="text-lg font-semibold text-foreground">In-Sync Assistant</CardTitle>
             <Button
