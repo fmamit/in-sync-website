@@ -75,7 +75,7 @@ Deno.serve(async (req) => {
     ${blogs?.map(blog => {
       const authorEmail = getAuthorEmail(blog.author);
       const categoryEscaped = escapeXml(blog.category);
-      const tagsMarkup = blog.tags?.map(tag => `<category>${escapeXml(tag)}</category>`).join('\n      ') || '';
+      const tagsMarkup = blog.tags?.map((tag: string) => `<category>${escapeXml(tag)}</category>`).join('\n      ') || '';
       
       return `
     <item>
@@ -103,7 +103,7 @@ Deno.serve(async (req) => {
   } catch (error) {
     console.error('RSS feed error:', error);
     return new Response(
-      JSON.stringify({ error: error.message }),
+      JSON.stringify({ error: (error as Error).message }),
       {
         status: 500,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
