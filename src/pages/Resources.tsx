@@ -1840,8 +1840,9 @@ const Resources = () => {
         <Breadcrumbs items={[{ name: 'Resources', url: '/resources' }]} />
         
         {/* Header Section */}
-        <div className="relative bg-primary/5 py-16" role="banner">
-        <div className="container mx-auto px-4">
+        <div className="relative py-16" role="banner" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1481627834876-b7833e8f5570?auto=format&fit=crop&w=1920&q=80)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+        <div className="absolute inset-0 bg-background/50" />
+        <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
             <div className="flex justify-between items-start mb-6">
               <div className="flex-1">
@@ -1857,7 +1858,7 @@ const Resources = () => {
                 </div>
               )}
             </div>
-            <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+            <p className="text-xl text-foreground mb-8 max-w-2xl mx-auto">
               Discover blogs, whitepapers, events, and tutorials to master customer engagement and boost your business success.
             </p>
             

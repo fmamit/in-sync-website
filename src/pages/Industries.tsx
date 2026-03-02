@@ -115,8 +115,9 @@ const Industries = () => {
         <Breadcrumbs items={[{ name: 'Industries', url: '/industries' }]} />
 
         {/* Hero Section */}
-        <section className="py-16 px-4 text-center bg-primary/5" role="banner">
-        <div className="container mx-auto max-w-4xl">
+        <section className="relative py-16 px-4 text-center" role="banner" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1920&q=80)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+        <div className="absolute inset-0 bg-background/50" />
+        <div className="container mx-auto max-w-4xl relative z-10">
           {/* Title with Icons */}
           <div className="flex items-center justify-center gap-4 mb-8">
             <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center">
@@ -147,7 +148,7 @@ const Industries = () => {
           </div>
 
           {/* Description */}
-          <p className="text-lg text-muted-foreground max-w-3xl mx-auto mb-4">
+          <p className="text-lg text-foreground max-w-3xl mx-auto mb-4">
             Discover how In-sync adapts to your industry's unique challenges, compliance requirements, and business processes.
           </p>
 

@@ -106,8 +106,9 @@ const Pricing = () => {
         <Breadcrumbs items={[{ name: 'Pricing', url: '/pricing' }]} />
         
         {/* Hero Section */}
-        <section className="pt-16 pb-16 px-4 bg-primary/5" role="banner">
-        <div className="max-w-4xl mx-auto text-center">
+        <section className="relative pt-16 pb-16 px-4" role="banner" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=1920&q=80)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+        <div className="absolute inset-0 bg-background/50" />
+        <div className="max-w-4xl mx-auto text-center relative z-10">
           <Badge variant="secondary" className="mb-4">
             Simple Pricing
           </Badge>
@@ -115,11 +116,11 @@ const Pricing = () => {
             Simple Pricing.{" "}
             <span className="text-primary">Pay Per User.</span>
             <br />
-            <span className="text-2xl md:text-4xl text-muted-foreground">
+            <span className="text-2xl md:text-4xl text-foreground">
               Start with 15 Days Free.
             </span>
           </h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
+          <p className="text-xl text-foreground max-w-2xl mx-auto mb-8">
             ₹500 per user per month. All features included. Scale as you grow.
           </p>
           

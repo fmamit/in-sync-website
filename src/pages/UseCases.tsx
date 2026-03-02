@@ -403,8 +403,9 @@ const UseCases = () => {
     <div className="min-h-screen bg-background">      
       <main>
         {/* Hero Section */}
-        <section className="py-20 bg-primary/5 relative overflow-hidden">
-          <div className="container mx-auto px-4 relative">
+        <section className="py-20 relative overflow-hidden" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1920&q=80)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+          <div className="absolute inset-0 bg-background/50" />
+          <div className="container mx-auto px-4 relative z-10">
             <div className="text-center max-w-5xl mx-auto">
               <div className="flex items-center justify-center gap-3 mb-6">
                 <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center">
@@ -423,7 +424,7 @@ const UseCases = () => {
                 <Badge variant="outline" className="text-base px-4 py-2 bg-white/50 backdrop-blur-sm">Measurable ROI</Badge>
                 <Badge variant="outline" className="text-base px-4 py-2 bg-white/50 backdrop-blur-sm">Industry Leaders</Badge>
               </div>
-              <p className="text-xl lg:text-2xl text-muted-foreground leading-relaxed">
+              <p className="text-xl lg:text-2xl text-foreground leading-relaxed">
                 Discover how industry leaders transformed their operations with In-Sync's AI-powered platform.<br />
                 <span className="text-primary font-semibold">Real businesses. Real results. Real impact.</span>
               </p>

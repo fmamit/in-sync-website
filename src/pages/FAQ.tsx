@@ -100,8 +100,9 @@ const FAQ = () => {
 
       <main>
         {/* Hero Section */}
-        <section className="py-20 bg-background">
-          <div className="container mx-auto px-4">
+        <section className="relative py-20" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1920&q=80)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+          <div className="absolute inset-0 bg-background/50" />
+          <div className="container mx-auto px-4 relative z-10">
             <div className="text-center max-w-4xl mx-auto">
               <div className="flex items-center justify-center gap-3 mb-6">
                 <MessageCircleQuestion className="w-12 h-12 text-primary" />
@@ -109,8 +110,8 @@ const FAQ = () => {
                   Frequently Asked Questions
                 </h1>
               </div>
-              <p className="text-xl text-muted-foreground mb-8">
-                Find answers to common questions about In-Sync platform, features, and capabilities. 
+              <p className="text-xl text-foreground mb-8">
+                Find answers to common questions about In-Sync platform, features, and capabilities.
                 Get instant support from our comprehensive knowledge base.
               </p>
               

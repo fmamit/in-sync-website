@@ -331,8 +331,9 @@ const Integrations = () => {
     <div className="min-h-screen bg-background">
       
       {/* Hero Section */}
-      <section className="pt-24 pb-16 px-4 bg-primary/5">
-        <div className="max-w-7xl mx-auto text-center">
+      <section className="relative pt-24 pb-16 px-4" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1920&q=80)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+        <div className="absolute inset-0 bg-background/50" />
+        <div className="max-w-7xl mx-auto text-center relative z-10">
           <Badge variant="secondary" className="mb-4">
             Proven Integrations
           </Badge>
@@ -340,8 +341,8 @@ const Integrations = () => {
             Seamless Integration,{" "}
             <span className="text-primary">Boundless Possibilities</span>
           </h1>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
-            In-Sync integrates seamlessly with essential platforms, streamlining operations 
+          <p className="text-xl text-foreground max-w-3xl mx-auto mb-8">
+            In-Sync integrates seamlessly with essential platforms, streamlining operations
             and connecting your favorite tools into one powerful ecosystem.
           </p>
           <div className="flex items-center justify-center gap-4">

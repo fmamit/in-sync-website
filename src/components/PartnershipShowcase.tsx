@@ -64,12 +64,13 @@ export default function PartnershipShowcase({ onEnrollmentSuccess }: Partnership
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <section className="bg-primary/10 py-20">
-        <div className="container mx-auto px-4 text-center space-y-6">
+      <section className="relative py-20" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1920&q=80)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+        <div className="absolute inset-0 bg-background/50" />
+        <div className="container mx-auto px-4 text-center space-y-6 relative z-10">
           <h1 className="text-4xl md:text-6xl font-bold text-foreground">
             Our <span className="text-primary">Trusted</span> Partners
           </h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-xl text-foreground max-w-2xl mx-auto">
             Join a network of successful businesses growing with In-Sync's channel partnership program
           </p>
           <Dialog open={isEnrollmentOpen} onOpenChange={closeEnrollment}>
