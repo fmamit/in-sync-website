@@ -17,3 +17,24 @@ verify_jwt = false
 
 [functions.rss-feed]
 verify_jwt = false
+
+[functions.blog-operations]
+verify_jwt = false
+
+[functions.chatbot-query]
+verify_jwt = false
+
+[functions.generate-blog-tags]
+verify_jwt = false
+
+[functions.generate-client-agreement]
+verify_jwt = false
+
+[functions.generate-partnership-agreement]
+verify_jwt = false
+
+[functions.partnership-enroll]
+verify_jwt = false
+
+[functions.save-contact]
+verify_jwt = false

@@ -33,7 +33,7 @@ import { useEffect } from "react";
 
 const RSSRedirect = () => {
   useEffect(() => {
-    window.location.href = "https://hzkqrjzahurxhmembqrs.supabase.co/functions/v1/rss-feed";
+    window.location.href = "https://ljggjepqdqdffoejizpg.supabase.co/functions/v1/rss-feed";
   }, []);
   return null;
 };

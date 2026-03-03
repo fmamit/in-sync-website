@@ -56,7 +56,7 @@ Deno.serve(async (req) => {
     const siteUrl = 'https://www.insyncccaas.com';
     const siteTitle = 'In-Sync CRM Blog';
     const siteDescription = 'Latest insights on CRM, customer engagement, and business growth';
-    const rssFeedUrl = 'https://hzkqrjzahurxhmembqrs.supabase.co/functions/v1/rss-feed';
+    const rssFeedUrl = 'https://ljggjepqdqdffoejizpg.supabase.co/functions/v1/rss-feed';
     const managingEditor = 'a@in-sync.co.in (Flt Lt Amit Sengupta)';
     const webMaster = 'a@in-sync.co.in (In-Sync Technical Team)';
 
