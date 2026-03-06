@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Capital India Finance | Next-Gen NBFC Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #08090E;
+    --card: #0F1117;
+    --surface: #161821;
+    --border: rgba(255,255,255,0.06);
+    --green: #00D4AA;
+    --blue: #4F8CFF;
+    --amber: #FF8B3E;
+    --white: #FFFFFF;
+    --text-secondary: rgba(255,255,255,0.5);
+    --text-muted: rgba(255,255,255,0.3);
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Sora', sans-serif; color: var(--white); background: var(--bg); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  h1, h2, h3, h4 { font-family: 'Sora', sans-serif; font-weight: 700; line-height: 1.2; }
+  .serif-italic { font-family: 'Instrument Serif', serif; font-style: italic; }
+
+  /* ── HEADER ── */
+  .header {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    background: rgba(8,9,14,0.8); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+  .header-inner {
+    max-width: 1280px; margin: 0 auto; padding: 0 32px; height: 68px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .logo-box {
+    width: 36px; height: 36px; border: 1.5px solid var(--green); border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Sora', sans-serif; font-size: 13px; font-weight: 700; color: var(--green);
+  }
+  .logo-text { font-size: 17px; font-weight: 600; }
+  .logo-text span:first-child { color: var(--white); }
+  .logo-text span:last-child { color: var(--green); }
+  .nav { display: flex; gap: 28px; }
+  .nav a { font-size: 13px; font-weight: 500; color: var(--text-secondary); text-decoration: none; transition: color 0.3s; }
+  .nav a:hover { color: var(--white); }
+  .header-right { display: flex; align-items: center; gap: 12px; }
+  .btn-login-outline {
+    color: var(--text-secondary); border: 1px solid var(--border); padding: 7px 18px;
+    border-radius: 6px; font-size: 13px; font-weight: 500; text-decoration: none;
+    transition: all 0.3s;
+  }
+  .btn-login-outline:hover { color: var(--white); border-color: rgba(255,255,255,0.2); }
+  .btn-glow {
+    background: var(--green); color: var(--bg); border: none; padding: 9px 22px;
+    border-radius: 6px; font-family: 'Sora', sans-serif; font-size: 13px; font-weight: 700;
+    cursor: pointer; text-decoration: none; transition: all 0.3s;
+    box-shadow: 0 0 20px rgba(0,212,170,0.3);
+  }
+  .btn-glow:hover { box-shadow: 0 0 35px rgba(0,212,170,0.5); transform: translateY(-1px); }
+  .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 8px; }
+  .hamburger span { display: block; width: 22px; height: 2px; background: var(--white); margin: 5px 0; transition: all 0.3s; }
+  .mobile-menu {
+    display: none; position: fixed; top: 68px; left: 0; right: 0; bottom: 0;
+    background: var(--bg); padding: 16px 32px; z-index: 999;
+    flex-direction: column; gap: 4px;
+  }
+  .mobile-menu.active { display: flex; }
+  .mobile-menu a { font-size: 16px; font-weight: 500; color: var(--text-secondary); text-decoration: none; padding: 14px 0; border-bottom: 1px solid var(--border); transition: color 0.3s; }
+  .mobile-menu a:hover { color: var(--green); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh; display: flex; align-items: center; position: relative;
+    overflow: hidden; padding-top: 68px;
+  }
+  .hero-grid-bg {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black 30%, transparent 100%);
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black 30%, transparent 100%);
+  }
+  .hero-orb-green {
+    position: absolute; top: -10%; left: -5%; width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(0,212,170,0.08), transparent 70%);
+    border-radius: 50%; filter: blur(40px);
+  }
+  .hero-orb-blue {
+    position: absolute; top: 20%; right: 5%; width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(79,140,255,0.06), transparent 70%);
+    border-radius: 50%; filter: blur(40px);
+  }
+  .hero-inner {
+    max-width: 1280px; margin: 0 auto; padding: 80px 32px;
+    display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 64px; align-items: center;
+    position: relative; z-index: 1; width: 100%;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(0,212,170,0.08); border: 1px solid rgba(0,212,170,0.2);
+    border-radius: 999px; padding: 6px 16px 6px 10px;
+    font-size: 12px; font-weight: 500; color: var(--green); margin-bottom: 28px;
+  }
+  .pulse-dot {
+    width: 7px; height: 7px; border-radius: 50%; background: var(--green);
+    position: relative;
+  }
+  .pulse-dot::after {
+    content: ''; position: absolute; inset: -3px; border-radius: 50%;
+    border: 1.5px solid var(--green); animation: pulse 2s infinite;
+  }
+  @keyframes pulse { 0% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(2); } }
+  .hero h1 { font-size: clamp(34px, 4.5vw, 52px); margin-bottom: 20px; line-height: 1.15; }
+  .hero h1 .accent { color: var(--green); }
+  .hero-sub { font-size: 16px; color: var(--text-secondary); line-height: 1.8; margin-bottom: 36px; max-width: 500px; }
+  .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn-hero-dark {
+    background: transparent; color: var(--text-secondary); border: 1px solid var(--border);
+    padding: 14px 28px; border-radius: 8px; font-family: 'Sora', sans-serif;
+    font-size: 14px; font-weight: 600; cursor: pointer; text-decoration: none; transition: all 0.3s;
+  }
+  .btn-hero-dark:hover { border-color: rgba(255,255,255,0.2); color: var(--white); }
+  .btn-hero-green {
+    background: var(--green); color: var(--bg); border: none; padding: 14px 28px;
+    border-radius: 8px; font-family: 'Sora', sans-serif; font-size: 14px; font-weight: 700;
+    cursor: pointer; text-decoration: none; transition: all 0.3s;
+    box-shadow: 0 0 25px rgba(0,212,170,0.3);
+  }
+  .btn-hero-green:hover { box-shadow: 0 0 40px rgba(0,212,170,0.5); transform: translateY(-2px); }
+  .terminal-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+    overflow: hidden;
+  }
+  .terminal-bar {
+    display: flex; align-items: center; gap: 8px; padding: 14px 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .dot-green { background: var(--green); }
+  .dot-blue { background: var(--blue); }
+  .dot-amber { background: var(--amber); }
+  .terminal-label { font-size: 12px; color: var(--text-muted); font-weight: 500; margin-left: 8px; }
+  .terminal-body { padding: 24px 20px; }
+  .stat-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 16px 0; border-bottom: 1px solid var(--border);
+  }
+  .stat-row:last-child { border-bottom: none; }
+  .stat-row-label { font-size: 13px; color: var(--text-secondary); font-weight: 500; }
+  .stat-row-value { font-size: 20px; font-weight: 700; }
+
+  /* ── PRODUCTS ── */
+  .products { padding: 100px 32px; }
+  .products-inner { max-width: 1280px; margin: 0 auto; }
+  .section-label { font-size: 12px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--green); margin-bottom: 16px; }
+  .section-title { font-size: clamp(28px, 3.5vw, 42px); margin-bottom: 12px; }
+  .section-subtitle { font-size: 16px; color: var(--text-secondary); margin-bottom: 56px; max-width: 520px; }
+  .products-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .p-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+    padding: 32px; position: relative; overflow: hidden; transition: all 0.4s; cursor: pointer;
+  }
+  .p-card::before {
+    content: ''; position: absolute; top: -50px; right: -50px; width: 150px; height: 150px;
+    border-radius: 50%; opacity: 0; transition: opacity 0.4s;
+  }
+  .p-card:hover { border-color: rgba(0,212,170,0.3); box-shadow: 0 0 40px rgba(0,212,170,0.06); }
+  .p-card:hover::before { opacity: 1; }
+  .p-card.green-glow::before { background: radial-gradient(circle, rgba(0,212,170,0.08), transparent 70%); }
+  .p-card.blue-glow::before { background: radial-gradient(circle, rgba(79,140,255,0.08), transparent 70%); }
+  .p-card.amber-glow::before { background: radial-gradient(circle, rgba(255,139,62,0.08), transparent 70%); }
+  .p-badge {
+    display: inline-block; padding: 4px 12px; border-radius: 6px;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .p-badge-green { background: rgba(0,212,170,0.1); color: var(--green); border: 1px solid rgba(0,212,170,0.2); }
+  .p-badge-blue { background: rgba(79,140,255,0.1); color: var(--blue); border: 1px solid rgba(79,140,255,0.2); }
+  .p-badge-amber { background: rgba(255,139,62,0.1); color: var(--amber); border: 1px solid rgba(255,139,62,0.2); }
+  .p-card h3 { font-size: 20px; margin-bottom: 10px; }
+  .p-card p { font-size: 14px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 24px; }
+  .p-stats { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 20px; }
+  .p-stat {
+    background: var(--surface); border-radius: 8px; padding: 10px; text-align: center;
+    border: 1px solid var(--border);
+  }
+  .p-stat-value { font-size: 14px; font-weight: 700; color: var(--white); margin-bottom: 2px; }
+  .p-stat-label { font-size: 10px; color: var(--text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
+  .p-arrow {
+    width: 36px; height: 36px; border-radius: 8px; border: 1px solid var(--border);
+    background: transparent; display: flex; align-items: center; justify-content: center;
+    color: var(--text-muted); font-size: 16px; cursor: pointer; transition: all 0.3s;
+    margin-left: auto;
+  }
+  .p-card:hover .p-arrow { background: var(--green); color: var(--bg); border-color: var(--green); }
+
+  /* ── EMI CALCULATOR ── */
+  .emi-section { padding: 40px 32px 100px; }
+  .emi-card {
+    max-width: 1280px; margin: 0 auto; background: var(--card);
+    border: 1px solid var(--border); border-radius: 24px; padding: 56px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center;
+  }
+  .emi-left h2 { font-size: clamp(28px, 3.5vw, 40px); margin-bottom: 16px; }
+  .emi-left h2 .accent { color: var(--green); }
+  .emi-left p { font-size: 15px; color: var(--text-secondary); line-height: 1.8; margin-bottom: 32px; }
+  .emi-sliders { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 32px; }
+  .slider-group { margin-bottom: 24px; }
+  .slider-label { display: flex; justify-content: space-between; margin-bottom: 10px; }
+  .slider-label span:first-child { font-size: 13px; color: var(--text-secondary); font-weight: 500; }
+  .slider-label span:last-child { font-size: 15px; color: var(--white); font-weight: 700; }
+  input[type="range"] {
+    width: 100%; height: 4px; -webkit-appearance: none; appearance: none;
+    background: rgba(255,255,255,0.08); border-radius: 2px; outline: none; cursor: pointer;
+  }
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%;
+    background: var(--green); border: 3px solid var(--bg);
+    box-shadow: 0 0 12px rgba(0,212,170,0.4); cursor: pointer; transition: transform 0.2s;
+  }
+  input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.2); }
+  input[type="range"]::-moz-range-thumb {
+    width: 18px; height: 18px; border-radius: 50%; background: var(--green);
+    border: 3px solid var(--bg); box-shadow: 0 0 12px rgba(0,212,170,0.4); cursor: pointer;
+  }
+  .emi-result-box {
+    margin-top: 24px; background: rgba(0,212,170,0.06); border: 1px solid rgba(0,212,170,0.15);
+    border-radius: 12px; padding: 24px; text-align: center;
+  }
+  .emi-result-label { font-size: 12px; color: var(--text-secondary); font-weight: 500; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
+  .emi-result-value { font-size: 40px; font-weight: 800; color: var(--green); }
+  .emi-result-sub { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
+
+  /* ── ELIGIBILITY CTA ── */
+  .elig-cta { padding: 0 32px 100px; }
+  .elig-banner {
+    max-width: 1280px; margin: 0 auto;
+    background: rgba(0,212,170,0.04); border: 1px solid rgba(0,212,170,0.15);
+    border-radius: 20px; padding: 48px 56px;
+    display: flex; align-items: center; justify-content: space-between; gap: 32px;
+  }
+  .elig-banner h2 { font-size: clamp(22px, 2.5vw, 28px); margin-bottom: 8px; }
+  .elig-banner p { font-size: 14px; color: var(--text-secondary); }
+
+  /* ── FOOTER ── */
+  .footer { padding: 64px 32px 32px; border-top: 1px solid var(--border); }
+  .footer-inner { max-width: 1280px; margin: 0 auto; }
+  .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+  .footer-brand .logo { margin-bottom: 16px; }
+  .footer-brand p { font-size: 13px; color: var(--text-muted); line-height: 1.7; }
+  .footer-col h4 { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--green); margin-bottom: 16px; }
+  .footer-col a { display: block; color: var(--text-secondary); text-decoration: none; font-size: 13px; padding: 5px 0; transition: color 0.3s; }
+  .footer-col a:hover { color: var(--white); }
+  .footer-bottom {
+    border-top: 1px solid var(--border); padding-top: 24px;
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+  }
+  .footer-bottom p { font-size: 12px; color: var(--text-muted); }
+  .footer-links { display: flex; gap: 20px; }
+  .footer-links a { font-size: 12px; color: var(--text-muted); text-decoration: none; transition: color 0.3s; }
+  .footer-links a:hover { color: var(--white); }
+
+  /* ── FLOATING ── */
+  .whatsapp-btn {
+    position: fixed; bottom: 28px; right: 28px; z-index: 900;
+    width: 52px; height: 52px; border-radius: 14px;
+    background: #25D366; border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 26px; box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+    transition: all 0.3s; text-decoration: none;
+  }
+  .whatsapp-btn:hover { transform: scale(1.08); box-shadow: 0 6px 30px rgba(37,211,102,0.5); }
+  .concept-badge {
+    position: fixed; bottom: 28px; left: 28px; z-index: 900;
+    background: var(--green); color: var(--bg); padding: 8px 16px;
+    border-radius: 8px; font-size: 11px; font-weight: 700; letter-spacing: 0.5px;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1024px) {
+    .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+    .terminal-card { max-width: 480px; }
+    .products-grid { grid-template-columns: 1fr 1fr; }
+    .emi-card { grid-template-columns: 1fr; gap: 40px; padding: 40px; }
+    .elig-banner { flex-direction: column; text-align: center; padding: 36px 32px; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 768px) {
+    .nav { display: none; }
+    .btn-login-outline { display: none; }
+    .hamburger { display: block; }
+    .hero-inner { padding: 48px 20px; }
+    .products { padding: 60px 20px; }
+    .products-grid { grid-template-columns: 1fr; }
+    .emi-section { padding: 20px 20px 60px; }
+    .emi-card { padding: 28px; }
+    .emi-sliders { padding: 24px; }
+    .elig-cta { padding: 0 20px 60px; }
+    .footer { padding: 40px 20px 24px; }
+    .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    .footer-bottom { flex-direction: column; text-align: center; }
+    .hero-ctas { flex-direction: column; }
+    .btn-hero-green, .btn-hero-dark { text-align: center; }
+  }
+  @media (max-width: 480px) {
+    .p-stats { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<header class="header">
+  <div class="header-inner">
+    <a href="#" class="logo">
+      <div class="logo-box">CI</div>
+      <div class="logo-text"><span>Capital </span><span>India</span></div>
+    </a>
+    <nav class="nav">
+      <a href="#about">About Us</a>
+      <a href="#products">Our Businesses</a>
+      <a href="#investors">Investors</a>
+      <a href="#media">Media</a>
+      <a href="#careers">Careers</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="header-right">
+      <a href="#" class="btn-login-outline">Login</a>
+      <a href="#" class="btn-glow">Apply Now</a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#about">About Us</a>
+    <a href="#products">Our Businesses</a>
+    <a href="#investors">Investors</a>
+    <a href="#media">Media</a>
+    <a href="#careers">Careers</a>
+    <a href="#contact">Contact</a>
+    <a href="#">Login</a>
+  </div>
+</header>
+
+<!-- ── HERO ── -->
+<section class="hero" id="home">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-orb-green"></div>
+  <div class="hero-orb-blue"></div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-badge">
+        <span class="pulse-dot"></span>
+        RBI Registered &middot; BSE Listed
+      </div>
+      <h1>Finance that <span class="accent serif-italic">moves</span> as fast as your business</h1>
+      <p class="hero-sub">Technology-enabled lending for India's ambitious SMEs and mid-corporates. Fast underwriting, transparent rates, and institutional-grade processes.</p>
+      <div class="hero-ctas">
+        <a href="#" class="btn-hero-green">Check Eligibility &rarr;</a>
+        <a href="#products" class="btn-hero-dark">View Products</a>
+      </div>
+    </div>
+    <div class="terminal-card">
+      <div class="terminal-bar">
+        <span class="dot dot-green"></span>
+        <span class="dot dot-blue"></span>
+        <span class="dot dot-amber"></span>
+        <span class="terminal-label">Company Snapshot</span>
+      </div>
+      <div class="terminal-body">
+        <div class="stat-row">
+          <span class="stat-row-label">Assets Under Management</span>
+          <span class="stat-row-value" style="color: var(--green);">&#8377;500Cr+</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-row-label">Businesses Served</span>
+          <span class="stat-row-value" style="color: var(--blue);">3,000+</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-row-label">Avg Turnaround Time</span>
+          <span class="stat-row-value" style="color: var(--amber);">7 Days</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-row-label">Operating Since</span>
+          <span class="stat-row-value">15+ Years</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PRODUCTS ── -->
+<section class="products" id="products">
+  <div class="products-inner">
+    <div class="section-label">Our Businesses</div>
+    <h2 class="section-title">Lending <span class="serif-italic accent">solutions</span> built for growth</h2>
+    <p class="section-subtitle">Purpose-built financial products that help Indian businesses scale with confidence.</p>
+    <div class="products-grid">
+      <div class="p-card green-glow">
+        <span class="p-badge p-badge-green">Secured</span>
+        <h3>SME Secured Loans</h3>
+        <p>Collateral-backed term loans for enterprises seeking growth capital, working capital, or business expansion.</p>
+        <div class="p-stats">
+          <div class="p-stat">
+            <div class="p-stat-value">&#8377;5 Cr</div>
+            <div class="p-stat-label">Max Amount</div>
+          </div>
+          <div class="p-stat">
+            <div class="p-stat-value">13%</div>
+            <div class="p-stat-label">From Rate</div>
+          </div>
+          <div class="p-stat">
+            <div class="p-stat-value">15 Yr</div>
+            <div class="p-stat-label">Tenure</div>
+          </div>
+        </div>
+        <div class="p-arrow">&rarr;</div>
+      </div>
+      <div class="p-card blue-glow">
+        <span class="p-badge p-badge-blue">Asset</span>
+        <h3>Equipment Finance</h3>
+        <p>Asset-backed financing for machinery, equipment, and capital goods with flexible repayment structures.</p>
+        <div class="p-stats">
+          <div class="p-stat">
+            <div class="p-stat-value">&#8377;1 Cr</div>
+            <div class="p-stat-label">Max Amount</div>
+          </div>
+          <div class="p-stat">
+            <div class="p-stat-value">13%</div>
+            <div class="p-stat-label">From Rate</div>
+          </div>
+          <div class="p-stat">
+            <div class="p-stat-value">5 Yr</div>
+            <div class="p-stat-label">Tenure</div>
+          </div>
+        </div>
+        <div class="p-arrow">&rarr;</div>
+      </div>
+      <div class="p-card amber-glow">
+        <span class="p-badge p-badge-amber">Unsecured</span>
+        <h3>Supply Chain Finance</h3>
+        <p>Revolving credit for vendors and dealers. Unlock working capital tied up in receivables and inventory.</p>
+        <div class="p-stats">
+          <div class="p-stat">
+            <div class="p-stat-value">&#8377;5 Cr</div>
+            <div class="p-stat-label">Max Amount</div>
+          </div>
+          <div class="p-stat">
+            <div class="p-stat-value">13%</div>
+            <div class="p-stat-label">From Rate</div>
+          </div>
+          <div class="p-stat">
+            <div class="p-stat-value">Annual</div>
+            <div class="p-stat-label">Revolving</div>
+          </div>
+        </div>
+        <div class="p-arrow">&rarr;</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── EMI CALCULATOR ── -->
+<section class="emi-section" id="calculator">
+  <div class="emi-card">
+    <div class="emi-left">
+      <div class="section-label">Plan Ahead</div>
+      <h2>EMI <span class="serif-italic accent">Calculator</span></h2>
+      <p>Estimate your monthly repayment before you apply. Transparent calculations, no hidden charges.</p>
+      <a href="#" class="btn-glow">Apply for a Loan &rarr;</a>
+    </div>
+    <div class="emi-sliders">
+      <div class="slider-group">
+        <div class="slider-label">
+          <span>Loan Amount</span>
+          <span id="loanAmtDisplay">&#8377;25,00,000</span>
+        </div>
+        <input type="range" id="loanAmount" min="100000" max="50000000" step="100000" value="2500000">
+      </div>
+      <div class="slider-group">
+        <div class="slider-label">
+          <span>Interest Rate</span>
+          <span id="interestDisplay">13%</span>
+        </div>
+        <input type="range" id="interestRate" min="10" max="24" step="0.5" value="13">
+      </div>
+      <div class="slider-group">
+        <div class="slider-label">
+          <span>Tenure (Years)</span>
+          <span id="tenureDisplay">10 Years</span>
+        </div>
+        <input type="range" id="tenure" min="1" max="15" step="1" value="10">
+      </div>
+      <div class="emi-result-box">
+        <div class="emi-result-label">Estimated Monthly EMI</div>
+        <div class="emi-result-value" id="emiValue">&#8377;37,532</div>
+        <div class="emi-result-sub">*Indicative only. Actual terms may vary.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── ELIGIBILITY CTA ── -->
+<section class="elig-cta">
+  <div class="elig-banner">
+    <div>
+      <h2>Check Your Loan Eligibility in 60 Seconds</h2>
+      <p>Quick, paperless check. No impact on your credit score.</p>
+    </div>
+    <a href="#" class="btn-hero-green">Start Now &rarr;</a>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer class="footer" id="contact">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="logo">
+          <div class="logo-box">CI</div>
+          <div class="logo-text"><span>Capital </span><span>India</span></div>
+        </a>
+        <p style="margin-top: 16px;">Capital India Finance Limited is an RBI registered Non-Banking Financial Company listed on BSE.</p>
+        <p style="margin-top: 10px; font-size: 12px; color: var(--text-muted);">CIN: L65910DL1994PLC128577<br>NBFC Reg: N-14.03370</p>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="#">About Us</a>
+        <a href="#">Leadership</a>
+        <a href="#">Investor Relations</a>
+        <a href="#">Media Centre</a>
+        <a href="#">Careers</a>
+        <a href="#">Contact Us</a>
+      </div>
+      <div class="footer-col">
+        <h4>Products</h4>
+        <a href="#">SME Secured Loans</a>
+        <a href="#">Equipment Finance</a>
+        <a href="#">Supply Chain Finance</a>
+        <a href="#">Structured Credit</a>
+        <a href="#">Advisory</a>
+      </div>
+      <div class="footer-col">
+        <h4>Compliance</h4>
+        <a href="#">Fair Practices Code</a>
+        <a href="#">Grievance Redressal</a>
+        <a href="#">Interest Rate Policy</a>
+        <a href="#">KYC Policy</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">DPDP Compliance</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Capital India Finance Limited. All rights reserved.</p>
+      <div class="footer-links">
+        <a href="#">Terms</a>
+        <a href="#">Privacy</a>
+        <a href="#">Sitemap</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ── FLOATING ── -->
+<a href="https://wa.me/919999999999" class="whatsapp-btn" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">&#128172;</a>
+<div class="concept-badge">Concept 3 &mdash; Bold Tech-Forward</div>
+
+<script>
+// Mobile menu
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobileMenu');
+hamburger.addEventListener('click', () => {
+  mobileMenu.classList.toggle('active');
+  const spans = hamburger.querySelectorAll('span');
+  if (mobileMenu.classList.contains('active')) {
+    spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+    spans[1].style.opacity = '0';
+    spans[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
+  } else {
+    spans[0].style.transform = 'none'; spans[1].style.opacity = '1'; spans[2].style.transform = 'none';
+  }
+});
+mobileMenu.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => {
+    mobileMenu.classList.remove('active');
+    const spans = hamburger.querySelectorAll('span');
+    spans[0].style.transform = 'none'; spans[1].style.opacity = '1'; spans[2].style.transform = 'none';
+  });
+});
+
+// EMI Calculator
+function formatINR(num) {
+  const str = Math.round(num).toString();
+  let result = ''; let count = 0;
+  for (let i = str.length - 1; i >= 0; i--) {
+    if (count === 3 || (count > 3 && (count - 3) % 2 === 0)) result = ',' + result;
+    result = str[i] + result; count++;
+  }
+  return '\u20B9' + result;
+}
+function calcEMI() {
+  const P = parseFloat(document.getElementById('loanAmount').value);
+  const annualRate = parseFloat(document.getElementById('interestRate').value);
+  const years = parseInt(document.getElementById('tenure').value);
+  const r = annualRate / 12 / 100; const n = years * 12;
+  const emi = P * r * Math.pow(1 + r, n) / (Math.pow(1 + r, n) - 1);
+  document.getElementById('loanAmtDisplay').textContent = formatINR(P);
+  document.getElementById('interestDisplay').textContent = annualRate + '%';
+  document.getElementById('tenureDisplay').textContent = years + (years === 1 ? ' Year' : ' Years');
+  document.getElementById('emiValue').textContent = formatINR(emi);
+}
+document.getElementById('loanAmount').addEventListener('input', calcEMI);
+document.getElementById('interestRate').addEventListener('input', calcEMI);
+document.getElementById('tenure').addEventListener('input', calcEMI);
+calcEMI();
+</script>
+</body>
+</html>
