@@ -114,15 +114,15 @@ body {
 .mobile-menu-actions { display: flex; gap: 12px; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--gray-200); }
 
 /* ─── HERO ─── */
-.hero { background: linear-gradient(135deg, var(--navy-deep) 0%, var(--navy) 60%, #143755 100%); position: relative; overflow: hidden; }
+.hero { background: var(--navy-deep); position: relative; overflow: hidden; }
 .hero::before {
   content: ''; position: absolute; inset: 0;
-  background: url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h60v60H0z' fill='none'/%3E%3Cpath d='M0 60L60 0' stroke='rgba(255,255,255,0.03)' stroke-width='1'/%3E%3C/svg%3E") repeat;
+  background: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+  opacity: 0.15;
 }
 .hero::after {
-  content: ''; position: absolute; top: -200px; right: -200px; width: 600px; height: 600px;
-  background: radial-gradient(circle, rgba(46,134,193,0.12), transparent 70%);
-  border-radius: 50%;
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(10,31,55,0.92) 0%, rgba(15,43,76,0.85) 50%, rgba(20,55,85,0.9) 100%);
 }
 .hero-inner {
   display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
@@ -247,7 +247,8 @@ body {
 .why-us { padding: 80px 0; background: var(--navy); position: relative; overflow: hidden; }
 .why-us::before {
   content: ''; position: absolute; inset: 0;
-  background: url("data:image/svg+xml,%3Csvg width='40' height='40' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='1' cy='1' r='1' fill='rgba(255,255,255,0.04)'/%3E%3C/svg%3E") repeat;
+  background: url('https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+  opacity: 0.06;
 }
 .why-us-inner { position: relative; z-index: 1; }
 .why-us-header { text-align: center; margin-bottom: 56px; }
@@ -361,7 +362,7 @@ input[type="range"]::-moz-range-thumb {
 /* ─── CTA BANNER ─── */
 .cta-banner { padding: 0 24px; margin-bottom: 80px; }
 .cta-banner-inner {
-  background: linear-gradient(135deg, var(--navy-deep), var(--navy));
+  background: linear-gradient(135deg, rgba(10,31,55,0.93), rgba(15,43,76,0.93)), url('https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=1400&q=80') center/cover no-repeat;
   border-radius: var(--radius-xl); padding: 56px 64px;
   display: flex; align-items: center; justify-content: space-between; gap: 40px;
   position: relative; overflow: hidden; max-width: 1200px; margin: 0 auto;
@@ -613,10 +614,15 @@ input[type="range"]::-moz-range-thumb {
 <!-- ─── PRODUCTS ─── -->
 <section class="products" id="products">
   <div class="container">
-    <div class="products-header">
-      <div class="section-label">Our Businesses</div>
-      <h2 class="section-title">Lending Solutions</h2>
-      <p class="section-subtitle">Purpose-built financial products that help Indian businesses grow with confidence, speed, and institutional backing.</p>
+    <div class="products-header" style="display:flex;align-items:center;gap:48px;text-align:left;margin-bottom:56px;">
+      <div style="flex:1;">
+        <div class="section-label">Our Businesses</div>
+        <h2 class="section-title">Lending Solutions</h2>
+        <p class="section-subtitle">Purpose-built financial products that help Indian businesses grow with confidence, speed, and institutional backing.</p>
+      </div>
+      <div style="flex:0 0 360px;border-radius:var(--radius-xl);overflow:hidden;box-shadow:var(--shadow-lg);">
+        <img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?auto=format&fit=crop&w=720&q=80" alt="Business growth analytics" style="width:100%;height:220px;object-fit:cover;display:block;">
+      </div>
     </div>
     <div class="products-grid">
       <div class="product-card">
@@ -690,7 +696,7 @@ input[type="range"]::-moz-range-thumb {
 </section>
 
 <!-- ─── STATS ─── -->
-<section class="stats-section">
+<section class="stats-section" style="background:linear-gradient(rgba(248,250,252,0.92),rgba(248,250,252,0.92)),url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;">
   <div class="container">
     <div class="stats-grid">
       <div>
@@ -728,6 +734,9 @@ input[type="range"]::-moz-range-thumb {
           <li>Completely free to use</li>
         </ul>
         <a href="#" class="btn-gold">Apply for a Loan</a>
+        <div style="margin-top:28px;border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-md);">
+          <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=600&q=80" alt="Financial markets" style="width:100%;height:160px;object-fit:cover;display:block;">
+        </div>
       </div>
       <div class="emi-box">
         <h3>Calculate Your EMI</h3>
