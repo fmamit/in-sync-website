@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Capital India Finance Limited | RBI Registered NBFC | BSE: 530879</title>
+<meta name="description" content="Capital India Finance Limited — RBI Registered NBFC providing SME loans, equipment finance, and supply chain finance. BSE Listed (530879).">
+<link rel="icon" type="image/jpeg" href="capital-india-favicon.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════
+   RESET & VARIABLES
+   ═══════════════════════════════════ */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0A0A0A;--surface:#111;--card:#161616;
+  --card-hover:#1C1C1C;--card-border:rgba(255,255,255,.06);
+  --gold:#C9A96E;--gold-dark:#A88B55;--gold-glow:rgba(201,169,110,.12);
+  --text:#F0ECE3;--text-2:#A09A90;--text-3:#5C5955;
+  --white:#FFF;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'Plus Jakarta Sans',-apple-system,sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);color:var(--text-2);background:var(--bg);line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3,h4{font-family:var(--serif);color:var(--text);font-weight:400}
+img{display:block;max-width:100%}
+a{text-decoration:none}
+
+/* ═══════════════════
+   GRAIN OVERLAY
+   ═══════════════════ */
+.grain{position:fixed;inset:0;pointer-events:none;z-index:9998;opacity:.04}
+
+/* ═══════════════════
+   SCROLL PROGRESS
+   ═══════════════════ */
+.scroll-progress{position:fixed;top:0;left:0;height:2px;width:0%;background:linear-gradient(90deg,var(--gold),var(--gold-dark));z-index:10000;transition:none}
+
+/* ═══════════════════
+   PRELOADER
+   ═══════════════════ */
+.preloader{position:fixed;inset:0;background:var(--bg);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .6s ease,transform .8s cubic-bezier(.77,0,.175,1)}
+.preloader.done{opacity:0;transform:translateY(-100%);pointer-events:none}
+.preloader-logo{height:48px;opacity:0;transform:scale(.85);animation:preLogoIn .8s ease forwards .3s}
+.preloader-line{width:48px;height:1.5px;background:var(--gold);margin-top:20px;transform:scaleX(0);animation:preLineIn .6s ease forwards .9s}
+.preloader-text{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--text-3);margin-top:16px;opacity:0;animation:preFadeIn .5s ease forwards 1.3s}
+@keyframes preLogoIn{to{opacity:1;transform:scale(1)}}
+@keyframes preLineIn{to{transform:scaleX(1)}}
+@keyframes preFadeIn{to{opacity:1}}
+
+/* ═══════════════════
+   FIXED NAV
+   ═══════════════════ */
+.fixed-nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:24px 40px;pointer-events:none}
+.fixed-nav>*{pointer-events:auto}
+.nav-logo{height:36px;opacity:.85;transition:opacity .3s}
+.nav-logo:hover{opacity:1}
+.menu-btn{font-family:var(--sans);font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--text-2);background:none;border:1px solid var(--card-border);padding:10px 20px;border-radius:100px;cursor:pointer;transition:all .3s}
+.menu-btn:hover{color:var(--gold);border-color:var(--gold)}
+
+/* ═══════════════════
+   OVERLAY NAV
+   ═══════════════════ */
+.nav-overlay{position:fixed;inset:0;background:var(--bg);z-index:998;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .5s ease}
+.nav-overlay.active{opacity:1;pointer-events:auto}
+.nav-overlay-close{position:absolute;top:24px;right:40px;font-family:var(--sans);font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--text-2);background:none;border:1px solid var(--card-border);padding:10px 20px;border-radius:100px;cursor:pointer;transition:all .3s}
+.nav-overlay-close:hover{color:var(--gold);border-color:var(--gold)}
+.nav-overlay-content{text-align:center}
+.nav-overlay-links{display:flex;flex-direction:column;gap:8px;margin-bottom:48px}
+.nav-overlay-links a{font-family:var(--serif);font-size:clamp(36px,5vw,56px);color:var(--text-3);padding:8px 0;transition:color .3s,transform .3s;display:inline-block}
+.nav-overlay-links a:hover{color:var(--gold);transform:translateX(8px)}
+.nav-overlay-sub{font-size:12px;color:var(--text-3);letter-spacing:2px;text-transform:uppercase}
+.nav-overlay-sub a{color:var(--text-3);margin:0 12px;transition:color .3s}
+.nav-overlay-sub a:hover{color:var(--gold)}
+
+/* ═══════════════════════════════════
+   HERO — Cinematic full-viewport
+   ═══════════════════════════════════ */
+.hero{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:120px 40px 0;overflow:hidden}
+.hero-blob{position:absolute;width:900px;height:900px;border-radius:50%;background:radial-gradient(circle,rgba(201,169,110,.07),transparent 70%);filter:blur(120px);top:50%;left:50%;transform:translate(-50%,-50%);animation:blobPulse 20s ease-in-out infinite alternate;pointer-events:none}
+@keyframes blobPulse{0%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-40%,-55%) scale(1.15)}100%{transform:translate(-55%,-45%) scale(.9)}}
+.hero-eyebrow{font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--text-3);margin-bottom:32px;display:flex;align-items:center;gap:12px}
+.hero-eyebrow::before,.hero-eyebrow::after{content:'';width:20px;height:1px;background:var(--text-3)}
+.hero h1{font-family:var(--serif);font-size:clamp(48px,8vw,96px);line-height:1;letter-spacing:-2px;text-align:center;color:var(--text);max-width:900px;margin-bottom:32px}
+.hero h1 em{font-style:italic;color:var(--gold)}
+.hero-sub{font-size:16px;color:var(--text-2);text-align:center;max-width:480px;line-height:1.8;margin-bottom:48px}
+.hero-cta{display:flex;gap:16px;flex-wrap:wrap;justify-content:center}
+.btn-gold{font-family:var(--sans);font-size:13px;font-weight:600;letter-spacing:1px;color:var(--bg);background:var(--gold);padding:16px 40px;border-radius:100px;border:none;cursor:pointer;transition:all .3s;text-transform:uppercase}
+.btn-gold:hover{background:var(--gold-dark);transform:translateY(-2px);box-shadow:0 12px 32px rgba(201,169,110,.2)}
+.btn-outline{font-family:var(--sans);font-size:13px;font-weight:600;letter-spacing:1px;color:var(--text-2);background:none;padding:16px 40px;border-radius:100px;border:1px solid var(--card-border);cursor:pointer;transition:all .3s;text-transform:uppercase}
+.btn-outline:hover{color:var(--text);border-color:var(--text-2)}
+
+/* Hero stats strip */
+.hero-stats{position:absolute;bottom:0;left:0;right:0;border-top:1px solid var(--card-border);display:flex}
+.hero-stat{flex:1;padding:28px 32px;text-align:center;border-right:1px solid var(--card-border)}
+.hero-stat:last-child{border-right:none}
+.hero-stat-val{font-family:var(--serif);font-size:24px;color:var(--text);margin-bottom:2px}
+.hero-stat-lbl{font-size:10px;color:var(--text-3);text-transform:uppercase;letter-spacing:1.5px;font-weight:600}
+
+/* ═══════════════════════════════════
+   ABOUT — Asymmetric editorial
+   ═══════════════════════════════════ */
+.about{padding:140px 40px;max-width:1200px;margin:0 auto}
+.about-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:80px;align-items:center}
+.about-eyebrow{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;display:flex;align-items:center;gap:12px}
+.about-eyebrow::before{content:'';width:32px;height:1px;background:var(--gold)}
+.about h2{font-size:clamp(32px,4vw,48px);line-height:1.15;margin-bottom:28px;letter-spacing:-1px}
+.about p{font-size:15px;color:var(--text-2);line-height:1.85;margin-bottom:20px}
+.about-img-wrap{position:relative}
+.about-img-wrap img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:4px}
+.about-img-wrap::before{content:'';position:absolute;top:-16px;right:-16px;width:120px;height:120px;border-top:1.5px solid var(--gold);border-right:1.5px solid var(--gold);border-radius:0 4px 0 0;pointer-events:none}
+.about-mini-stats{display:flex;gap:40px;margin-top:24px}
+.ams{text-align:center}
+.ams-val{font-family:var(--serif);font-size:28px;color:var(--text)}
+.ams-lbl{font-size:10px;color:var(--text-3);text-transform:uppercase;letter-spacing:1px;font-weight:600;margin-top:2px}
+
+/* ═══════════════════════════════════════════
+   PRODUCTS — Horizontal scroll gallery
+   ═══════════════════════════════════════════ */
+.products-section{position:relative}
+.products-trigger{height:300vh}
+.products-sticky{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;justify-content:center;overflow:hidden;padding:0 40px}
+.products-header{margin-bottom:48px}
+.products-header .about-eyebrow{margin-bottom:12px}
+.products-header h2{font-size:clamp(28px,3.5vw,42px);letter-spacing:-1px}
+.products-track{display:flex;gap:32px;will-change:transform}
+.product-card{flex-shrink:0;width:420px;background:var(--card);border:1px solid var(--card-border);border-radius:16px;overflow:hidden;transition:transform .4s ease,box-shadow .4s ease}
+.product-card:hover{transform:translateY(-8px);box-shadow:0 24px 48px rgba(0,0,0,.3)}
+.pc-img{width:100%;height:240px;object-fit:cover}
+.pc-body{padding:32px}
+.pc-num{font-family:var(--serif);font-size:56px;color:var(--card-border);line-height:1;margin-bottom:8px;font-weight:300}
+.pc-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.pc-title{font-family:var(--serif);font-size:28px;color:var(--text);margin-bottom:12px}
+.pc-desc{font-size:14px;color:var(--text-2);line-height:1.75;margin-bottom:24px}
+.pc-metrics{display:flex;gap:24px;margin-bottom:28px}
+.pcm{text-align:center;flex:1;padding:16px 0;background:var(--bg);border-radius:8px}
+.pcm-val{font-family:var(--serif);font-size:22px;color:var(--text)}
+.pcm-lbl{font-size:9px;color:var(--text-3);text-transform:uppercase;letter-spacing:1px;font-weight:600;margin-top:2px}
+.pc-cta{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--gold);transition:gap .3s}
+.pc-cta:hover{gap:14px}
+.pc-cta svg{width:16px;height:16px;fill:none;stroke:var(--gold);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;transition:transform .3s}
+
+/* ═══════════════════════════════════
+   NUMBERS — Editorial staggered
+   ═══════════════════════════════════ */
+.numbers{padding:120px 40px;max-width:1200px;margin:0 auto}
+.numbers-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:32px}
+.num-block{padding:40px 0;border-top:1.5px solid var(--card-border);transition:border-color .3s}
+.num-block:nth-child(even){padding-top:80px}
+.num-block:hover{border-color:var(--gold)}
+.nb-val{font-family:var(--serif);font-size:clamp(40px,5vw,64px);color:var(--text);line-height:1;margin-bottom:8px;letter-spacing:-2px}
+.nb-lbl{font-size:12px;color:var(--text-3);text-transform:uppercase;letter-spacing:1.5px;font-weight:600;line-height:1.5}
+
+/* ═══════════════════════════════════
+   PROCESS — Vertical timeline
+   ═══════════════════════════════════ */
+.process{padding:120px 40px;background:var(--surface)}
+.process-inner{max-width:900px;margin:0 auto}
+.process-header{text-align:center;margin-bottom:80px}
+.process-header .about-eyebrow{justify-content:center}
+.process-header h2{font-size:clamp(28px,3.5vw,42px);letter-spacing:-1px}
+.timeline{position:relative;padding-left:80px}
+.timeline::before{content:'';position:absolute;left:30px;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,var(--card-border),var(--gold),var(--card-border))}
+.tl-item{position:relative;padding:0 0 72px}
+.tl-item:last-child{padding-bottom:0}
+.tl-dot{position:absolute;left:-54px;top:4px;width:12px;height:12px;border-radius:50%;border:2px solid var(--gold);background:var(--bg);z-index:2;transition:background .3s}
+.tl-item:hover .tl-dot{background:var(--gold)}
+.tl-num{font-family:var(--serif);font-size:14px;color:var(--gold);margin-bottom:8px}
+.tl-title{font-family:var(--serif);font-size:24px;color:var(--text);margin-bottom:10px}
+.tl-desc{font-size:14px;color:var(--text-2);line-height:1.85;max-width:560px}
+
+/* ═══════════════════════════════════
+   CALCULATOR — Glassmorphism
+   ═══════════════════════════════════ */
+.calc{padding:120px 40px}
+.calc-inner{max-width:580px;margin:0 auto}
+.calc-header{text-align:center;margin-bottom:48px}
+.calc-header .about-eyebrow{justify-content:center}
+.calc-header h2{font-size:clamp(28px,3.5vw,42px);letter-spacing:-1px;margin-bottom:12px}
+.calc-header p{font-size:15px;color:var(--text-2)}
+.calc-card{background:rgba(22,22,22,.8);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid var(--card-border);border-radius:20px;overflow:hidden}
+.calc-card-top{background:linear-gradient(135deg,var(--gold-dark),var(--gold));padding:20px 28px;display:flex;justify-content:space-between;align-items:center}
+.calc-card-top h3{font-family:var(--sans);font-size:14px;font-weight:600;color:var(--bg)}
+.calc-card-top span{font-size:10px;color:rgba(10,10,10,.5);text-transform:uppercase;letter-spacing:1px;font-weight:600}
+.calc-body{padding:32px 28px}
+.sg{margin-bottom:24px}
+.sg-top{display:flex;justify-content:space-between;margin-bottom:10px}
+.sg-top label{font-size:13px;color:var(--text-2);font-weight:500}
+.sg-top output{font-size:13px;font-weight:700;color:var(--gold);background:var(--gold-glow);padding:2px 10px;border-radius:6px}
+input[type="range"]{width:100%;height:3px;-webkit-appearance:none;appearance:none;background:var(--card-border);border-radius:2px;outline:none;cursor:pointer}
+input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--gold);border:3px solid var(--bg);box-shadow:0 0 12px var(--gold-glow);cursor:pointer}
+input[type="range"]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:var(--gold);border:3px solid var(--bg);box-shadow:0 0 12px var(--gold-glow);cursor:pointer}
+.calc-result{margin-top:28px;background:var(--bg);border:1px solid var(--card-border);border-radius:14px;padding:28px;text-align:center}
+.calc-emi-val{font-family:var(--serif);font-size:40px;color:var(--gold);margin-bottom:4px}
+.calc-emi-lbl{font-size:10px;color:var(--text-3);text-transform:uppercase;letter-spacing:1.5px;font-weight:600;margin-bottom:20px}
+.calc-result-row{display:flex;justify-content:center;gap:48px}
+.cr{text-align:center}
+.cr-val{font-size:15px;font-weight:600;color:var(--text)}
+.cr-lbl{font-size:9px;color:var(--text-3);text-transform:uppercase;letter-spacing:1px;font-weight:600;margin-top:3px}
+.calc-note{font-size:11px;color:var(--text-3);text-align:center;margin-top:14px;font-style:italic}
+.calc-cta{text-align:center;margin-top:32px}
+
+/* ═══════════════════════════════════
+   TESTIMONIALS — Dual marquee
+   ═══════════════════════════════════ */
+.testimonials{padding:100px 0;background:var(--surface);overflow:hidden}
+.testimonials-header{text-align:center;padding:0 40px;margin-bottom:56px}
+.testimonials-header .about-eyebrow{justify-content:center}
+.testimonials-header h2{font-size:clamp(28px,3.5vw,42px);letter-spacing:-1px}
+.marquee-row{display:flex;gap:24px;margin-bottom:24px;width:max-content}
+.marquee-row.left{animation:marqueeL 35s linear infinite}
+.marquee-row.right{animation:marqueeR 35s linear infinite}
+@keyframes marqueeL{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+@keyframes marqueeR{0%{transform:translateX(-50%)}100%{transform:translateX(0)}}
+.tm-card{flex-shrink:0;width:400px;padding:32px;background:var(--card);border:1px solid var(--card-border);border-radius:16px}
+.tm-quote{font-family:var(--serif);font-size:18px;font-style:italic;color:var(--text);line-height:1.55;margin-bottom:20px}
+.tm-quote::before{content:'\201C';font-size:32px;color:var(--gold);line-height:0;vertical-align:-8px;margin-right:4px}
+.tm-author{display:flex;align-items:center;gap:12px}
+.tm-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--gold-dark),var(--gold));display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:15px;color:var(--bg);font-weight:600}
+.tm-name{font-size:13px;font-weight:600;color:var(--text)}
+.tm-role{font-size:11px;color:var(--text-3)}
+
+/* ═══════════════════════════════════
+   CTA — Dramatic full-screen
+   ═══════════════════════════════════ */
+.final-cta{position:relative;min-height:80vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:80px 40px;overflow:hidden}
+.cta-blob{position:absolute;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(201,169,110,.06),transparent 70%);filter:blur(100px);top:50%;left:50%;transform:translate(-50%,-50%);animation:blobPulse 18s ease-in-out infinite alternate-reverse;pointer-events:none}
+.final-cta h2{font-size:clamp(36px,6vw,64px);line-height:1.05;letter-spacing:-2px;max-width:700px;margin-bottom:20px}
+.final-cta h2 em{font-style:italic;color:var(--gold)}
+.final-cta p{font-size:16px;color:var(--text-2);margin-bottom:40px;max-width:420px;margin-left:auto;margin-right:auto}
+.cta-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+
+/* ═══════════════════════════════════
+   FOOTER — Elegant minimal
+   ═══════════════════════════════════ */
+.footer{background:var(--surface);border-top:1px solid var(--card-border)}
+.footer-inner{max-width:1200px;margin:0 auto;padding:64px 40px 0}
+.footer-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.footer-brand img{height:32px;filter:brightness(0) invert(1);opacity:.5;margin-bottom:14px}
+.footer-brand p{font-size:13px;color:var(--text-3);line-height:1.7}
+.footer-brand .lic{font-size:10px;color:rgba(255,255,255,.15);margin-top:14px;line-height:1.7}
+.fc h4{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-3);margin-bottom:16px}
+.fc a{display:block;color:rgba(255,255,255,.25);font-size:13px;padding:4px 0;transition:color .3s}
+.fc a:hover{color:var(--gold)}
+.footer-btm{border-top:1px solid var(--card-border);padding:20px 0;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.footer-btm p{font-size:11px;color:rgba(255,255,255,.15)}
+.fb-links{display:flex;gap:20px}
+.fb-links a{font-size:11px;color:rgba(255,255,255,.15);transition:color .3s}
+.fb-links a:hover{color:var(--gold)}
+
+/* ═══════════════════
+   WHATSAPP FAB
+   ═══════════════════ */
+.wa{position:fixed;bottom:28px;right:28px;z-index:200;width:52px;height:52px;border-radius:50%;background:#25D366;border:none;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 18px rgba(37,211,102,.25);transition:all .3s;cursor:pointer}
+.wa:hover{transform:scale(1.08);box-shadow:0 8px 24px rgba(37,211,102,.35)}
+.wa svg{width:24px;height:24px;fill:var(--white)}
+
+/* ═══════════════════════════════════
+   SCROLL REVEAL ANIMATION
+   ═══════════════════════════════════ */
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .8s ease,transform .8s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-delay-1{transition-delay:.1s}
+.reveal-delay-2{transition-delay:.2s}
+.reveal-delay-3{transition-delay:.3s}
+.reveal-delay-4{transition-delay:.4s}
+
+/* Hero text animation */
+.hero-word{display:inline-block;opacity:0;transform:translateY(30px);animation:heroWordIn .7s ease forwards}
+@keyframes heroWordIn{to{opacity:1;transform:translateY(0)}}
+
+/* ═══════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════ */
+@media(max-width:1024px){
+  .about-grid{grid-template-columns:1fr;gap:48px}
+  .about-img-wrap::before{display:none}
+  .numbers-grid{grid-template-columns:1fr 1fr}
+  .num-block:nth-child(even){padding-top:40px}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .product-card{width:360px}
+  .hero-stats{flex-wrap:wrap}
+  .hero-stat{flex:1 1 50%;border-bottom:1px solid var(--card-border)}
+}
+@media(max-width:768px){
+  .fixed-nav{padding:16px 24px}
+  .hero{padding:100px 24px 0;min-height:100svh}
+  .hero h1{font-size:clamp(36px,10vw,52px);letter-spacing:-1px}
+  .hero-sub{font-size:14px}
+  .hero-stats{position:relative;flex-direction:column;border-top:1px solid var(--card-border);margin-top:48px}
+  .hero-stat{border-right:none;border-bottom:1px solid var(--card-border);padding:20px 24px}
+  .hero-stat:last-child{border-bottom:none}
+  .about{padding:80px 24px}
+  .about-grid{gap:32px}
+  .about-mini-stats{gap:24px}
+  .products-sticky{padding:0 24px}
+  .products-header h2 br{display:none}
+  .product-card{width:320px}
+  .pc-img{height:180px}
+  .pc-body{padding:24px}
+  .pc-metrics{flex-direction:column;gap:8px}
+  .numbers{padding:80px 24px}
+  .numbers-grid{grid-template-columns:1fr 1fr;gap:24px}
+  .process{padding:80px 24px}
+  .timeline{padding-left:56px}
+  .timeline::before{left:18px}
+  .tl-dot{left:-42px}
+  .calc{padding:80px 24px}
+  .calc-body{padding:24px 20px}
+  .calc-result-row{flex-direction:column;gap:16px}
+  .testimonials{padding:64px 0}
+  .tm-card{width:300px;padding:24px}
+  .final-cta{min-height:60vh;padding:64px 24px}
+  .footer-inner{padding:48px 24px 0}
+  .footer-grid{grid-template-columns:1fr;gap:28px}
+  .footer-btm{flex-direction:column;text-align:center;align-items:center}
+  .nav-overlay-links a{font-size:32px}
+  .cta-btns{flex-direction:column;align-items:center}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ GRAIN TEXTURE ═══ -->
+<svg class="grain" width="100%" height="100%">
+  <filter id="grain-filter"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter>
+  <rect width="100%" height="100%" filter="url(#grain-filter)" opacity="1"/>
+</svg>
+
+<!-- ═══ SCROLL PROGRESS ═══ -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- ═══ PRELOADER ═══ -->
+<div class="preloader" id="preloader">
+  <img src="capital-india-logo.png" alt="Capital India" class="preloader-logo">
+  <div class="preloader-line"></div>
+  <div class="preloader-text">Establishing trust since 2009</div>
+</div>
+
+<!-- ═══ FIXED NAV ═══ -->
+<header class="fixed-nav">
+  <a href="#"><img src="capital-india-logo.png" alt="Capital India" class="nav-logo"></a>
+  <button class="menu-btn" id="menuBtn">Menu</button>
+</header>
+
+<!-- ═══ OVERLAY NAV ═══ -->
+<div class="nav-overlay" id="navOverlay">
+  <button class="nav-overlay-close" id="navClose">Close</button>
+  <div class="nav-overlay-content">
+    <nav class="nav-overlay-links">
+      <a href="#about" data-nav-link>About</a>
+      <a href="#products" data-nav-link>Solutions</a>
+      <a href="#process" data-nav-link>Process</a>
+      <a href="#calculator" data-nav-link>Calculator</a>
+      <a href="#contact" data-nav-link>Contact</a>
+    </nav>
+    <div class="nav-overlay-sub">
+      <a href="#">Login</a>
+      <a href="#">Investor Relations</a>
+      <a href="#">Careers</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════
+     HERO — Cinematic
+     ═══════════════════════════════ -->
+<section class="hero" id="hero">
+  <div class="hero-blob"></div>
+  <div class="hero-eyebrow">RBI Registered NBFC &middot; BSE: 530879</div>
+  <h1 id="heroHeading">Where ambition<br>meets <em>capital</em></h1>
+  <p class="hero-sub">Structured credit for India's most ambitious enterprises. Institutional credibility, digital speed, absolute transparency.</p>
+  <div class="hero-cta">
+    <a href="#" class="btn-gold">Check Eligibility</a>
+    <a href="#" class="btn-outline">Explore Solutions</a>
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="hero-stat-val" data-count="500">0</div><div class="hero-stat-lbl">₹ Crore AUM</div></div>
+    <div class="hero-stat"><div class="hero-stat-val" data-count="3000">0</div><div class="hero-stat-lbl">Businesses Served</div></div>
+    <div class="hero-stat"><div class="hero-stat-val" data-count="15">0</div><div class="hero-stat-lbl">Years of Excellence</div></div>
+    <div class="hero-stat"><div class="hero-stat-val" data-count="7">0</div><div class="hero-stat-lbl">Day Avg. Turnaround</div></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════
+     ABOUT — Asymmetric editorial
+     ═══════════════════════════════ -->
+<section class="about" id="about">
+  <div class="about-grid">
+    <div class="reveal">
+      <div class="about-eyebrow">About Us</div>
+      <h2>An institution built for India's growing enterprises</h2>
+      <p>Capital India Finance Limited is an RBI-registered, BSE-listed Non-Banking Financial Company serving the backbone of India's economy since 2009.</p>
+      <p>We combine institutional-grade underwriting with digital-first execution to deliver structured credit — transparently, quickly, and at scale. From SME secured loans to supply chain finance, we design lending products that move at the speed of business.</p>
+    </div>
+    <div class="reveal reveal-delay-2">
+      <div class="about-img-wrap">
+        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80" alt="Modern office space">
+      </div>
+      <div class="about-mini-stats">
+        <div class="ams"><div class="ams-val">BSE: 530879</div><div class="ams-lbl">Listed Since</div></div>
+        <div class="ams"><div class="ams-val">340+</div><div class="ams-lbl">Channel Partners</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     PRODUCTS — Horizontal scroll gallery
+     ═══════════════════════════════════════ -->
+<section class="products-section" id="products">
+  <div class="products-trigger">
+    <div class="products-sticky">
+      <div class="products-header">
+        <div class="about-eyebrow">Our Solutions</div>
+        <h2>Lending products designed<br>for real businesses</h2>
+      </div>
+      <div class="products-track" id="productsTrack">
+        <!-- Card 1 -->
+        <div class="product-card">
+          <img class="pc-img" src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?auto=format&fit=crop&w=840&q=80" alt="Business professionals">
+          <div class="pc-body">
+            <div class="pc-num">01</div>
+            <div class="pc-label">Secured Lending</div>
+            <h3 class="pc-title">SME Secured Loans</h3>
+            <p class="pc-desc">Collateral-backed term loans for expansion, infrastructure investment, and working capital. Competitive rates, tenures up to 15 years.</p>
+            <div class="pc-metrics">
+              <div class="pcm"><div class="pcm-val">₹5 Cr</div><div class="pcm-lbl">Max Amount</div></div>
+              <div class="pcm"><div class="pcm-val">13%</div><div class="pcm-lbl">Starting Rate</div></div>
+              <div class="pcm"><div class="pcm-val">15 Yrs</div><div class="pcm-lbl">Max Tenure</div></div>
+            </div>
+            <a href="#" class="pc-cta">Apply Now <svg viewBox="0 0 16 16"><path d="M1 8h13M9 3l5 5-5 5"/></svg></a>
+          </div>
+        </div>
+        <!-- Card 2 -->
+        <div class="product-card">
+          <img class="pc-img" src="https://images.unsplash.com/photo-1565043666747-69f6646db940?auto=format&fit=crop&w=840&q=80" alt="Industrial equipment">
+          <div class="pc-body">
+            <div class="pc-num">02</div>
+            <div class="pc-label">Asset Finance</div>
+            <h3 class="pc-title">Equipment Finance</h3>
+            <p class="pc-desc">Asset-backed financing for machinery and capital goods. Repayments structured to match your cash flow cycles.</p>
+            <div class="pc-metrics">
+              <div class="pcm"><div class="pcm-val">₹1 Cr</div><div class="pcm-lbl">Max Amount</div></div>
+              <div class="pcm"><div class="pcm-val">13%</div><div class="pcm-lbl">Starting Rate</div></div>
+              <div class="pcm"><div class="pcm-val">5 Yrs</div><div class="pcm-lbl">Max Tenure</div></div>
+            </div>
+            <a href="#" class="pc-cta">Apply Now <svg viewBox="0 0 16 16"><path d="M1 8h13M9 3l5 5-5 5"/></svg></a>
+          </div>
+        </div>
+        <!-- Card 3 -->
+        <div class="product-card">
+          <img class="pc-img" src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=840&q=80" alt="Shipping logistics">
+          <div class="pc-body">
+            <div class="pc-num">03</div>
+            <div class="pc-label">Working Capital</div>
+            <h3 class="pc-title">Supply Chain Finance</h3>
+            <p class="pc-desc">Revolving credit for vendors and dealers. Unlock capital locked in receivables and inventory with annual revolving facilities.</p>
+            <div class="pc-metrics">
+              <div class="pcm"><div class="pcm-val">₹5 Cr</div><div class="pcm-lbl">Max Amount</div></div>
+              <div class="pcm"><div class="pcm-val">13%</div><div class="pcm-lbl">Starting Rate</div></div>
+              <div class="pcm"><div class="pcm-val">Annual</div><div class="pcm-lbl">Revolving</div></div>
+            </div>
+            <a href="#" class="pc-cta">Apply Now <svg viewBox="0 0 16 16"><path d="M1 8h13M9 3l5 5-5 5"/></svg></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════
+     NUMBERS — Editorial staggered
+     ═══════════════════════════════ -->
+<section class="numbers">
+  <div class="numbers-grid">
+    <div class="num-block reveal">
+      <div class="nb-val" data-count-up="500">0</div>
+      <div class="nb-lbl">Crore+ Assets Under<br>Management</div>
+    </div>
+    <div class="num-block reveal reveal-delay-1">
+      <div class="nb-val" data-count-up="3000">0</div>
+      <div class="nb-lbl">Businesses<br>Empowered</div>
+    </div>
+    <div class="num-block reveal reveal-delay-2">
+      <div class="nb-val" data-count-up="15">0</div>
+      <div class="nb-lbl">Years of<br>Excellence</div>
+    </div>
+    <div class="num-block reveal reveal-delay-3">
+      <div class="nb-val" data-count-up="7">0</div>
+      <div class="nb-lbl">Day Average<br>Turnaround</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════
+     PROCESS — Vertical timeline
+     ═══════════════════════════════ -->
+<section class="process" id="process">
+  <div class="process-inner">
+    <div class="process-header reveal">
+      <div class="about-eyebrow">How It Works</div>
+      <h2>From enquiry to disbursal</h2>
+    </div>
+    <div class="timeline">
+      <div class="tl-item reveal">
+        <div class="tl-dot"></div>
+        <div class="tl-num">Step 01</div>
+        <h3 class="tl-title">Apply online in under 10 minutes</h3>
+        <p class="tl-desc">Fill a simple application with your basic business details and KYC information. Entirely digital — no branch visits, no paperwork, no phone calls.</p>
+      </div>
+      <div class="tl-item reveal reveal-delay-1">
+        <div class="tl-dot"></div>
+        <div class="tl-num">Step 02</div>
+        <h3 class="tl-title">Upload documents digitally</h3>
+        <p class="tl-desc">Upload business financials, KYC documents, and collateral details through our secure portal. Scanned copies accepted — no originals needed.</p>
+      </div>
+      <div class="tl-item reveal reveal-delay-2">
+        <div class="tl-dot"></div>
+        <div class="tl-num">Step 03</div>
+        <h3 class="tl-title">Credit assessment with transparent criteria</h3>
+        <p class="tl-desc">Our credit team evaluates your application using clearly-defined criteria. You're informed at every stage. No black boxes, no unexplained rejections.</p>
+      </div>
+      <div class="tl-item reveal reveal-delay-3">
+        <div class="tl-dot"></div>
+        <div class="tl-num">Step 04</div>
+        <h3 class="tl-title">Funds in your account within 7 days</h3>
+        <p class="tl-desc">Upon approval, the loan amount is credited directly to your bank account. Average turnaround from application to disbursal is just 7 working days.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════
+     CALCULATOR — Glassmorphism
+     ═══════════════════════════════ -->
+<section class="calc" id="calculator">
+  <div class="calc-inner">
+    <div class="calc-header reveal">
+      <div class="about-eyebrow">Plan Your Finances</div>
+      <h2>EMI Calculator</h2>
+      <p>Estimate your monthly repayment instantly. Zero credit score impact.</p>
+    </div>
+    <div class="calc-card reveal reveal-delay-1">
+      <div class="calc-card-top"><h3>Calculate EMI</h3><span>Instant</span></div>
+      <div class="calc-body">
+        <div class="sg"><div class="sg-top"><label>Loan Amount</label><output id="loanAmtDisplay">₹25,00,000</output></div><input type="range" id="loanAmount" min="100000" max="50000000" step="100000" value="2500000"></div>
+        <div class="sg"><div class="sg-top"><label>Interest Rate (% p.a.)</label><output id="interestDisplay">13%</output></div><input type="range" id="interestRate" min="10" max="24" step="0.5" value="13"></div>
+        <div class="sg"><div class="sg-top"><label>Tenure</label><output id="tenureDisplay">10 Years</output></div><input type="range" id="tenure" min="1" max="15" step="1" value="10"></div>
+        <div class="calc-result">
+          <div class="calc-emi-val" id="emiValue">₹37,532</div>
+          <div class="calc-emi-lbl">per month</div>
+          <div class="calc-result-row">
+            <div class="cr"><div class="cr-val" id="totalInterest">₹20,03,840</div><div class="cr-lbl">Total Interest</div></div>
+            <div class="cr"><div class="cr-val" id="totalPayment">₹45,03,840</div><div class="cr-lbl">Total Payment</div></div>
+          </div>
+        </div>
+        <div class="calc-note">*Indicative. Actual terms may vary based on credit assessment.</div>
+      </div>
+    </div>
+    <div class="calc-cta reveal reveal-delay-2"><a href="#" class="btn-gold">Apply for a Loan</a></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════
+     TESTIMONIALS — Dual marquee
+     ═══════════════════════════════ -->
+<section class="testimonials">
+  <div class="testimonials-header reveal">
+    <div class="about-eyebrow">Client Stories</div>
+    <h2>Trusted by India's<br>growth leaders</h2>
+  </div>
+  <!-- Row 1 — scrolls left -->
+  <div class="marquee-row left">
+    <div class="tm-card"><div class="tm-quote">Capital India processed our loan in just 5 days. Transparent, digital, and completely hassle-free. The experience was nothing short of exceptional.</div><div class="tm-author"><div class="tm-avatar">RK</div><div><div class="tm-name">Rajesh Kumar</div><div class="tm-role">Director, Kumar Textiles Pvt. Ltd.</div></div></div></div>
+    <div class="tm-card"><div class="tm-quote">Their understanding of supply chain financing is unmatched. The revolving facility has transformed how we manage vendor payments.</div><div class="tm-author"><div class="tm-avatar">AP</div><div><div class="tm-name">Anita Prakash</div><div class="tm-role">CFO, Prakash Logistics</div></div></div></div>
+    <div class="tm-card"><div class="tm-quote">Quick turnaround and flexible terms made our production deadline possible. A true financial partner, not just a lender.</div><div class="tm-author"><div class="tm-avatar">SP</div><div><div class="tm-name">Sunita Patel</div><div class="tm-role">CEO, Patel Manufacturing</div></div></div></div>
+    <div class="tm-card"><div class="tm-quote">As an SME, finding affordable secured credit was always a challenge. Capital India made it simple, fast, and dignified.</div><div class="tm-author"><div class="tm-avatar">VM</div><div><div class="tm-name">Vikram Mehta</div><div class="tm-role">Founder, Mehta Auto Components</div></div></div></div>
+    <!-- Duplicate for infinite loop -->
+    <div class="tm-card"><div class="tm-quote">Capital India processed our loan in just 5 days. Transparent, digital, and completely hassle-free. The experience was nothing short of exceptional.</div><div class="tm-author"><div class="tm-avatar">RK</div><div><div class="tm-name">Rajesh Kumar</div><div class="tm-role">Director, Kumar Textiles Pvt. Ltd.</div></div></div></div>
+    <div class="tm-card"><div class="tm-quote">Their understanding of supply chain financing is unmatched. The revolving facility has transformed how we manage vendor payments.</div><div class="tm-author"><div class="tm-avatar">AP</div><div><div class="tm-name">Anita Prakash</div><div class="tm-role">CFO, Prakash Logistics</div></div></div></div>
+    <div class="tm-card"><div class="tm-quote">Quick turnaround and flexible terms made our production deadline possible. A true financial partner, not just a lender.</div><div class="tm-author"><div class="tm-avatar">SP</div><div><div class="tm-name">Sunita Patel</div><div class="tm-role">CEO, Patel Manufacturing</div></div></div></div>
+    <div class="tm-card"><div class="tm-quote">As an SME, finding affordable secured credit was always a challenge. Capital India made it simple, fast, and dignified.</div><div class="tm-author"><div class="tm-avatar">VM</div><div><div class="tm-name">Vikram Mehta</div><div class="tm-role">Founder, Mehta Auto Components</div></div></div></div>
+  </div>
+  <!-- Row 2 — scrolls right -->
+  <div class="marquee-row right">
+    <div class="tm-card"><div class="tm-quote">The digital process was seamless. From application to disbursal, everything was handled online. We never had to visit a branch.</div><div class="tm-author"><div class="tm-avatar">NS</div><div><div class="tm-name">Neha Sharma</div><div class="tm-role">MD, Sharma Exports</div></div></div></div>
+    <div class="tm-card"><div class="tm-quote">Equipment financing from Capital India helped us upgrade our entire production line. Repayment terms perfectly matched our revenue cycles.</div><div class="tm-author"><div class="tm-avatar">AJ</div><div><div class="tm-name">Arjun Joshi</div><div class="tm-role">Director, Joshi Precision Tools</div></div></div></div>
+    <div class="tm-card"><div class="tm-quote">What sets Capital India apart is transparency. We knew exactly where our application stood at every stage. No surprises, no hidden charges.</div><div class="tm-author"><div class="tm-avatar">PG</div><div><div class="tm-name">Priya Gupta</div><div class="tm-role">CEO, GreenTech Industries</div></div></div></div>
+    <div class="tm-card"><div class="tm-quote">They understood our seasonal cash flow needs and designed a repayment structure accordingly. That's real partnership.</div><div class="tm-author"><div class="tm-avatar">DK</div><div><div class="tm-name">Deepak Kapoor</div><div class="tm-role">Owner, Kapoor Agro Pvt. Ltd.</div></div></div></div>
+    <!-- Duplicate for infinite loop -->
+    <div class="tm-card"><div class="tm-quote">The digital process was seamless. From application to disbursal, everything was handled online. We never had to visit a branch.</div><div class="tm-author"><div class="tm-avatar">NS</div><div><div class="tm-name">Neha Sharma</div><div class="tm-role">MD, Sharma Exports</div></div></div></div>
+    <div class="tm-card"><div class="tm-quote">Equipment financing from Capital India helped us upgrade our entire production line. Repayment terms perfectly matched our revenue cycles.</div><div class="tm-author"><div class="tm-avatar">AJ</div><div><div class="tm-name">Arjun Joshi</div><div class="tm-role">Director, Joshi Precision Tools</div></div></div></div>
+    <div class="tm-card"><div class="tm-quote">What sets Capital India apart is transparency. We knew exactly where our application stood at every stage. No surprises, no hidden charges.</div><div class="tm-author"><div class="tm-avatar">PG</div><div><div class="tm-name">Priya Gupta</div><div class="tm-role">CEO, GreenTech Industries</div></div></div></div>
+    <div class="tm-card"><div class="tm-quote">They understood our seasonal cash flow needs and designed a repayment structure accordingly. That's real partnership.</div><div class="tm-author"><div class="tm-avatar">DK</div><div><div class="tm-name">Deepak Kapoor</div><div class="tm-role">Owner, Kapoor Agro Pvt. Ltd.</div></div></div></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════
+     CTA — Dramatic
+     ═══════════════════════════════ -->
+<section class="final-cta">
+  <div class="cta-blob"></div>
+  <div class="reveal">
+    <h2>Ready to unlock your<br>business <em>potential?</em></h2>
+    <p>Check eligibility in 60 seconds. No paperwork, no credit score impact.</p>
+    <div class="cta-btns">
+      <a href="#" class="btn-gold">Check Eligibility</a>
+      <a href="#" class="btn-outline">Talk to an Expert</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════
+     FOOTER — Elegant minimal
+     ═══════════════════════════════ -->
+<footer class="footer" id="contact">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="capital-india-logo.png" alt="Capital India">
+        <p>Capital India Finance Limited is an RBI registered NBFC listed on BSE, providing customised lending to India's SME sector.</p>
+        <div class="lic">CIN: L65910DL1994PLC128577<br>NBFC Reg: N-14.03370 &middot; BSE: 530879</div>
+      </div>
+      <div class="fc"><h4>Company</h4><a href="#">About Us</a><a href="#">Leadership</a><a href="#">Investors</a><a href="#">Media</a><a href="#">Careers</a><a href="#">Contact</a></div>
+      <div class="fc"><h4>Products</h4><a href="#">SME Secured Loans</a><a href="#">Equipment Finance</a><a href="#">Supply Chain Finance</a><a href="#">Loan Against Property</a><a href="#">Advisory</a></div>
+      <div class="fc"><h4>Compliance</h4><a href="#">Fair Practices Code</a><a href="#">Grievance Redressal</a><a href="#">Interest Rate Policy</a><a href="#">KYC Policy</a><a href="#">Privacy Policy</a><a href="#">DPDP Compliance</a></div>
+    </div>
+    <div class="footer-btm">
+      <p>&copy; 2026 Capital India Finance Limited. All rights reserved.</p>
+      <div class="fb-links"><a href="#">Terms</a><a href="#">Privacy</a><a href="#">Disclaimer</a><a href="#">Sitemap</a></div>
+    </div>
+  </div>
+</footer>
+
+<!-- WhatsApp -->
+<a href="https://wa.me/919999999999" class="wa" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 32 32"><path d="M16 2.667A13.26 13.26 0 002.72 15.893a13.16 13.16 0 001.803 6.667L2.667 29.333l7.013-1.84a13.28 13.28 0 006.307 1.6h.017A13.28 13.28 0 0029.333 15.92 13.22 13.22 0 0016 2.667zm0 24.266a11.01 11.01 0 01-5.613-1.533l-.4-.24-4.187 1.1 1.12-4.08-.267-.413A10.95 10.95 0 015 15.9 11.01 11.01 0 0116 4.92 11.01 11.01 0 0127.08 15.92 11.07 11.07 0 0116 26.933zm6.053-8.24c-.333-.167-1.96-.967-2.267-1.08-.307-.107-.527-.167-.747.167-.22.333-.86 1.08-1.053 1.3-.193.22-.387.247-.72.08-.333-.167-1.407-.52-2.68-1.653-.99-.88-1.66-1.967-1.853-2.3-.193-.333-.02-.513.147-.68.147-.147.333-.387.5-.58.167-.193.22-.333.333-.553.113-.22.06-.413-.027-.58-.087-.167-.747-1.8-1.027-2.467-.267-.64-.54-.553-.747-.567h-.64a1.23 1.23 0 00-.893.42c-.307.333-1.167 1.14-1.167 2.78s1.193 3.223 1.36 3.443c.167.22 2.347 3.58 5.687 5.02.793.347 1.413.553 1.9.707.8.253 1.527.22 2.1.133.64-.1 1.96-.8 2.24-1.573.28-.773.28-1.44.193-1.573-.08-.14-.3-.22-.633-.387z"/></svg></a>
+
+<script>
+/* ═══════════════════════════════
+   PRELOADER
+   ═══════════════════════════════ */
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('preloader').classList.add('done');
+    document.body.style.overflow = '';
+    animateHero();
+  }, 2200);
+});
+document.body.style.overflow = 'hidden';
+
+/* ═══════════════════════════════
+   HERO TEXT ANIMATION
+   ═══════════════════════════════ */
+function animateHero() {
+  const heading = document.getElementById('heroHeading');
+  const html = heading.innerHTML;
+  // Wrap each word in a span for animation
+  const words = html.replace(/<br\s*\/?>/gi, '|||BR|||').split(/\s+/);
+  heading.innerHTML = words.map((w, i) => {
+    if (w.includes('|||BR|||')) {
+      return w.replace('|||BR|||', '') ? `<br><span class="hero-word" style="animation-delay:${i * 0.08 + 0.2}s">${w.replace(/\|\|\|BR\|\|\|/g, '')}</span>` : '<br>';
+    }
+    return `<span class="hero-word" style="animation-delay:${i * 0.08 + 0.2}s">${w} </span>`;
+  }).join('');
+  // Animate hero stats
+  document.querySelectorAll('.hero-stat-val[data-count]').forEach(el => {
+    countUp(el, +el.dataset.count, 1800, 500);
+  });
+}
+
+/* ═══════════════════════════════
+   OVERLAY NAV
+   ═══════════════════════════════ */
+const menuBtn = document.getElementById('menuBtn');
+const navOverlay = document.getElementById('navOverlay');
+const navClose = document.getElementById('navClose');
+menuBtn.addEventListener('click', () => navOverlay.classList.add('active'));
+navClose.addEventListener('click', () => navOverlay.classList.remove('active'));
+document.querySelectorAll('[data-nav-link]').forEach(a => {
+  a.addEventListener('click', () => navOverlay.classList.remove('active'));
+});
+
+/* ═══════════════════════════════
+   SCROLL PROGRESS
+   ═══════════════════════════════ */
+const scrollBar = document.getElementById('scrollProgress');
+window.addEventListener('scroll', () => {
+  const pct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100;
+  scrollBar.style.width = pct + '%';
+}, { passive: true });
+
+/* ═══════════════════════════════
+   HORIZONTAL SCROLL PRODUCTS
+   ═══════════════════════════════ */
+const productsSection = document.querySelector('.products-trigger');
+const productsTrack = document.getElementById('productsTrack');
+
+function updateHorizontalScroll() {
+  if (!productsSection || !productsTrack) return;
+  const rect = productsSection.getBoundingClientRect();
+  const scrollRange = productsSection.offsetHeight - window.innerHeight;
+  const progress = Math.max(0, Math.min(1, -rect.top / scrollRange));
+  const maxTranslate = productsTrack.scrollWidth - window.innerWidth + 80;
+  productsTrack.style.transform = `translateX(-${progress * Math.max(0, maxTranslate)}px)`;
+}
+window.addEventListener('scroll', updateHorizontalScroll, { passive: true });
+window.addEventListener('resize', updateHorizontalScroll);
+
+/* ═══════════════════════════════
+   SCROLL REVEAL
+   ═══════════════════════════════ */
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('visible');
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+/* ═══════════════════════════════
+   COUNT UP
+   ═══════════════════════════════ */
+function countUp(el, target, duration, delay) {
+  setTimeout(() => {
+    const start = performance.now();
+    const suffix = target >= 500 ? 'Cr+' : target >= 100 ? '+' : '';
+    function tick(now) {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = Math.round(eased * target);
+      el.textContent = current.toLocaleString('en-IN') + (progress >= 1 ? suffix : '');
+      if (progress < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }, delay);
+}
+
+/* Numbers section count-up on scroll */
+const numbersObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting && !entry.target.dataset.counted) {
+      entry.target.dataset.counted = 'true';
+      const target = +entry.target.dataset.countUp;
+      const suffix = target >= 500 ? 'Cr+' : target >= 100 ? '+' : '';
+      countUp(entry.target, target, 2000, 0);
+    }
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('[data-count-up]').forEach(el => numbersObserver.observe(el));
+
+/* ═══════════════════════════════
+   EMI CALCULATOR
+   ═══════════════════════════════ */
+function fmt(n) {
+  const s = Math.round(n).toString();
+  let r = '', c = 0;
+  for (let i = s.length - 1; i >= 0; i--) {
+    if (c === 3 || (c > 3 && (c - 3) % 2 === 0)) r = ',' + r;
+    r = s[i] + r; c++;
+  }
+  return '\u20B9' + r;
+}
+function calcEMI() {
+  const P = +document.getElementById('loanAmount').value;
+  const ar = +document.getElementById('interestRate').value;
+  const y = +document.getElementById('tenure').value;
+  const r = ar / 12 / 100, n = y * 12;
+  const emi = P * r * Math.pow(1 + r, n) / (Math.pow(1 + r, n) - 1);
+  const tp = emi * n, ti = tp - P;
+  document.getElementById('loanAmtDisplay').textContent = fmt(P);
+  document.getElementById('interestDisplay').textContent = ar + '%';
+  document.getElementById('tenureDisplay').textContent = y + (y === 1 ? ' Year' : ' Years');
+  document.getElementById('emiValue').textContent = fmt(emi);
+  document.getElementById('totalInterest').textContent = fmt(ti);
+  document.getElementById('totalPayment').textContent = fmt(tp);
+}
+['loanAmount', 'interestRate', 'tenure'].forEach(id =>
+  document.getElementById(id).addEventListener('input', calcEMI)
+);
+calcEMI();
+</script>
+</body>
+</html>
