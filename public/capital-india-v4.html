@@ -652,14 +652,14 @@ document.body.style.overflow = 'hidden';
    ═══════════════════════════════ */
 function animateHero() {
   const heading = document.getElementById('heroHeading');
-  const html = heading.innerHTML;
-  // Wrap each word in a span for animation
-  const words = html.replace(/<br\s*\/?>/gi, '|||BR|||').split(/\s+/);
-  heading.innerHTML = words.map((w, i) => {
-    if (w.includes('|||BR|||')) {
-      return w.replace('|||BR|||', '') ? `<br><span class="hero-word" style="animation-delay:${i * 0.08 + 0.2}s">${w.replace(/\|\|\|BR\|\|\|/g, '')}</span>` : '<br>';
-    }
-    return `<span class="hero-word" style="animation-delay:${i * 0.08 + 0.2}s">${w} </span>`;
+  // Split into tokens preserving HTML tags and <br>
+  const tokens = heading.innerHTML.match(/<br\s*\/?>|<[^>]+>[^<]*<\/[^>]+>|[^\s<]+/gi) || [];
+  let idx = 0;
+  heading.innerHTML = tokens.map(t => {
+    if (/^<br/i.test(t)) return '<br>';
+    const delay = idx * 0.08 + 0.2;
+    idx++;
+    return `<span class="hero-word" style="animation-delay:${delay}s">${t} </span>`;
   }).join('');
   // Animate hero stats
   document.querySelectorAll('.hero-stat-val[data-count]').forEach(el => {
