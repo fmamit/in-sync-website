@@ -8,399 +8,454 @@
 <link rel="shortcut icon" type="image/jpeg" href="capital-india-favicon.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --navy:#0F2B4C;--navy-deep:#071A30;--blue:#2E86C1;--blue-light:#3BB3D0;
-  --green:#4AAF50;--gold:#E8A435;--gold-dark:#CF8F2A;
-  --white:#FFFFFF;--cream:#FBF9F6;--warm-gray:#F4F1EC;
-  --gray-100:#EDE9E3;--gray-200:#DDD8D0;--gray-300:#B8B0A4;
-  --gray-500:#7A7265;--gray-600:#5C554A;--gray-700:#3D3832;
-  --radius:8px;--radius-lg:14px;--radius-xl:20px;
+  --black:#111;--charcoal:#1C1C1C;--dark:#2A2A2A;
+  --cream:#FAF9F6;--warm:#F3F1EC;--sand:#E8E4DD;
+  --accent:#2C5F2D;--accent-light:#E9F0E9;
+  --gold:#B8860B;--gold-light:#FDF6E3;
+  --text:#111;--body:#555;--muted:#999;--light:#CCC;
+  --border:#E2DFD9;--white:#FFF;
+  --serif:'DM Serif Display',Georgia,serif;
+  --sans:'Instrument Sans',-apple-system,sans-serif;
 }
 html{scroll-behavior:smooth}
-body{font-family:'Manrope',sans-serif;color:var(--gray-600);background:var(--cream);line-height:1.6;-webkit-font-smoothing:antialiased}
-h1,h2,h3,h4{font-family:'Lora',serif;color:var(--navy);line-height:1.25}
-.container{max-width:1180px;margin:0 auto;padding:0 24px}
+body{font-family:var(--sans);color:var(--body);background:var(--cream);line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3{font-family:var(--serif);color:var(--text);font-weight:400}
 
-/* ── HEADER ── */
-.header{position:sticky;top:0;z-index:100;background:rgba(251,249,246,.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--gray-100);transition:box-shadow .3s}
-.header.scrolled{box-shadow:0 2px 24px rgba(15,43,76,.06)}
-.header-inner{display:flex;align-items:center;justify-content:space-between;height:70px}
-.logo-img{height:46px}
-.nav{display:flex;gap:4px}
-.nav a{font-size:13.5px;font-weight:600;color:var(--gray-500);text-decoration:none;padding:8px 14px;border-radius:var(--radius);transition:all .2s;letter-spacing:.2px}
-.nav a:hover{color:var(--navy);background:var(--warm-gray)}
-.header-right{display:flex;align-items:center;gap:10px}
-.btn-text{font-size:13px;font-weight:600;color:var(--gray-500);text-decoration:none;padding:8px 12px;transition:color .2s}
-.btn-text:hover{color:var(--navy)}
-.btn-solid{font-size:13px;font-weight:700;color:var(--white);background:var(--navy);padding:10px 24px;border-radius:var(--radius);text-decoration:none;border:none;cursor:pointer;font-family:inherit;transition:all .25s}
-.btn-solid:hover{background:#1A3D63;transform:translateY(-1px);box-shadow:0 4px 16px rgba(15,43,76,.15)}
+/* ══════════════════
+   NAV - Ultra-minimal
+   ══════════════════ */
+.nav{position:sticky;top:0;z-index:100;background:rgba(250,249,246,.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);transition:box-shadow .3s}
+.nav.scrolled{box-shadow:0 1px 0 var(--border)}
+.nav-inner{max-width:1200px;margin:0 auto;padding:0 32px;display:flex;align-items:center;justify-content:space-between;height:64px}
+.nav-logo{height:38px}
+.nav-links{display:flex;gap:0}
+.nav-links a{font-size:13px;font-weight:500;color:var(--muted);text-decoration:none;padding:8px 16px;transition:color .2s}
+.nav-links a:hover{color:var(--text)}
+.nav-right{display:flex;align-items:center;gap:6px}
+.nav-login{font-size:13px;font-weight:500;color:var(--muted);text-decoration:none;padding:8px 14px;transition:color .2s}
+.nav-login:hover{color:var(--text)}
+.nav-apply{font-size:13px;font-weight:600;color:var(--white);background:var(--text);padding:9px 22px;border-radius:6px;text-decoration:none;transition:all .2s}
+.nav-apply:hover{background:var(--charcoal)}
 .hamburger{display:none;background:none;border:none;cursor:pointer;padding:8px}
-.hamburger span{display:block;width:20px;height:2px;background:var(--navy);margin:4px 0;border-radius:1px;transition:all .3s}
-.mobile-menu{display:none;position:absolute;top:100%;left:0;right:0;background:var(--cream);box-shadow:0 12px 40px rgba(0,0,0,.06);padding:16px 24px;z-index:99;border-top:1px solid var(--gray-100)}
-.mobile-menu.active{display:block}
-.mobile-menu a{display:block;padding:12px 0;color:var(--gray-600);text-decoration:none;font-size:15px;font-weight:600;border-bottom:1px solid var(--gray-100)}
+.hamburger span{display:block;width:18px;height:1.5px;background:var(--text);margin:4px 0;transition:all .3s}
+.mob-menu{display:none;position:absolute;top:100%;left:0;right:0;background:var(--cream);border-bottom:1px solid var(--border);padding:12px 32px}
+.mob-menu.active{display:block}
+.mob-menu a{display:block;padding:14px 0;color:var(--body);text-decoration:none;font-size:15px;font-weight:500;border-bottom:1px solid var(--border)}
 
-/* ── HERO ── */
-.hero{padding:72px 0 0;position:relative;background:linear-gradient(rgba(251,249,246,0.9),rgba(251,249,246,0.95)),url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat}
-.hero-inner{text-align:center;max-width:760px;margin:0 auto;padding-bottom:60px}
-.hero-chip{display:inline-flex;align-items:center;gap:8px;background:var(--white);border:1px solid var(--gray-100);border-radius:999px;padding:6px 18px 6px 10px;font-size:12px;font-weight:700;color:var(--navy);margin-bottom:24px;box-shadow:0 1px 4px rgba(0,0,0,.03)}
-.hero-chip-dot{width:7px;height:7px;border-radius:50%;background:var(--green)}
-.hero h1{font-size:48px;margin-bottom:20px;line-height:1.15}
-.hero h1 span{color:var(--blue);font-style:italic}
-.hero-desc{font-size:17px;color:var(--gray-500);max-width:580px;margin:0 auto 36px;line-height:1.75}
-.hero-ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:48px}
-.btn-main{font-size:15px;font-weight:700;padding:15px 36px;border-radius:var(--radius);cursor:pointer;text-decoration:none;font-family:inherit;transition:all .25s;border:none;display:inline-flex;align-items:center;gap:8px}
-.btn-navy{background:var(--navy);color:var(--white);box-shadow:0 4px 20px rgba(15,43,76,.2)}
-.btn-navy:hover{background:#1A3D63;transform:translateY(-2px);box-shadow:0 8px 28px rgba(15,43,76,.25)}
-.btn-warm{background:var(--white);color:var(--navy);border:1.5px solid var(--gray-200)}
-.btn-warm:hover{border-color:var(--navy);background:var(--warm-gray)}
-.hero-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;max-width:900px;margin:0 auto}
-.hero-card{background:var(--white);border:1px solid var(--gray-100);border-radius:var(--radius-lg);padding:24px 20px;text-align:center;transition:all .35s;position:relative;overflow:hidden}
-.hero-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;transition:background .35s}
-.hero-card:nth-child(1)::before{background:var(--blue)}
-.hero-card:nth-child(2)::before{background:var(--gold)}
-.hero-card:nth-child(3)::before{background:var(--green)}
-.hero-card:nth-child(4)::before{background:var(--blue-light)}
-.hero-card:hover{transform:translateY(-4px);box-shadow:0 8px 28px rgba(15,43,76,.06)}
-.hc-val{font-family:'Lora',serif;font-size:30px;font-weight:700;color:var(--navy);margin-bottom:4px}
-.hc-lbl{font-size:12px;color:var(--gray-500);font-weight:600}
+/* ══════════════════════════════════
+   HERO - Pure oversized typography
+   ══════════════════════════════════ */
+.hero{padding:120px 32px 80px;max-width:1200px;margin:0 auto}
+.hero-eyebrow{font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:32px;display:flex;align-items:center;gap:10px}
+.hero-eyebrow::before{content:'';width:24px;height:1px;background:var(--muted)}
+.hero h1{font-size:clamp(42px,7vw,84px);line-height:1.05;letter-spacing:-2px;max-width:900px;margin-bottom:32px}
+.hero h1 em{font-style:italic;color:var(--accent)}
+.hero-bottom{display:flex;align-items:flex-end;justify-content:space-between;gap:40px;flex-wrap:wrap}
+.hero-desc{font-size:17px;color:var(--body);max-width:420px;line-height:1.75}
+.hero-cta{flex-shrink:0}
+.hero-cta a{font-size:15px;font-weight:600;color:var(--white);background:var(--text);padding:16px 40px;border-radius:6px;text-decoration:none;display:inline-flex;align-items:center;gap:10px;transition:all .25s}
+.hero-cta a:hover{background:var(--charcoal);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.1)}
 
-/* ── DIVIDER ── */
-.section-divider{height:1px;background:var(--gray-100);margin:0}
+/* ═══════════════════════════
+   FULL-BLEED PHOTO DIVIDER
+   ═══════════════════════════ */
+.photo-band{width:100%;height:45vh;min-height:320px;overflow:hidden;position:relative}
+.photo-band img{width:100%;height:100%;object-fit:cover;display:block}
+.photo-band::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,var(--cream) 0%,transparent 15%,transparent 85%,var(--cream) 100%)}
 
-/* ── PRODUCTS ── */
-.products{padding:80px 0}
-.section-header{margin-bottom:48px}
-.section-header.center{text-align:center}
-.section-header.center .s-sub{margin-left:auto;margin-right:auto}
-.s-eyebrow{font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--gold-dark);margin-bottom:10px}
-.s-title{font-size:34px;margin-bottom:12px}
-.s-sub{font-size:15px;color:var(--gray-500);max-width:520px;line-height:1.7}
-.prod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.prod-card{background:var(--white);border:1px solid var(--gray-100);border-radius:var(--radius-lg);overflow:hidden;transition:all .35s}
-.prod-card:hover{transform:translateY(-5px);box-shadow:0 14px 44px rgba(15,43,76,.07);border-color:transparent}
-.prod-header{padding:28px 24px 20px}
-.prod-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:16px}
-.prod-icon.i-blue{background:rgba(46,134,193,.08)}
-.prod-icon.i-green{background:rgba(74,175,80,.08)}
-.prod-icon.i-gold{background:rgba(232,164,53,.08)}
-.prod-card h3{font-size:19px;margin-bottom:8px}
-.prod-card p{font-size:13px;color:var(--gray-500);line-height:1.65}
-.prod-metrics{display:grid;grid-template-columns:1fr 1fr 1fr;background:var(--warm-gray);border-top:1px solid var(--gray-100)}
-.pm{padding:14px;text-align:center;border-right:1px solid var(--gray-100)}
-.pm:last-child{border-right:none}
-.pm-val{font-size:15px;font-weight:800;color:var(--navy);margin-bottom:1px}
-.pm-lbl{font-size:10px;color:var(--gray-500);text-transform:uppercase;letter-spacing:.5px;font-weight:700}
-.prod-foot{padding:14px 24px;display:flex;justify-content:space-between;align-items:center}
-.prod-link{font-size:13px;font-weight:700;color:var(--blue);text-decoration:none;transition:opacity .2s}
-.prod-link:hover{opacity:.7}
-.prod-apply{font-size:12px;font-weight:700;background:var(--gold);color:var(--navy-deep);padding:7px 18px;border-radius:6px;text-decoration:none;transition:all .2s;box-shadow:0 2px 8px rgba(232,164,53,.2)}
-.prod-apply:hover{background:var(--gold-dark);transform:translateY(-1px)}
+/* ══════════════════════════════════════
+   NARRATIVE INTRO - Narrow reading column
+   ══════════════════════════════════════ */
+.narrative{max-width:640px;margin:0 auto;padding:80px 32px;text-align:center}
+.narrative h2{font-size:32px;margin-bottom:20px;line-height:1.25}
+.narrative p{font-size:16px;color:var(--body);line-height:1.85}
+.narrative-stats{display:flex;justify-content:center;gap:48px;margin-top:40px;flex-wrap:wrap}
+.ns{text-align:center}
+.ns-val{font-family:var(--serif);font-size:36px;color:var(--text)}
+.ns-lbl{font-size:12px;color:var(--muted);margin-top:2px;font-weight:500}
 
-/* ── WHY US ── */
-.why{padding:80px 0;background:var(--navy);position:relative;overflow:hidden}
-.why::before{content:'';position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;opacity:.07}
-.why-inner{position:relative;z-index:1}
-.why .s-eyebrow{color:var(--gold)}
-.why .s-title{color:var(--white)}
-.why .s-sub{color:rgba(255,255,255,.55)}
-.why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:48px}
-.why-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:var(--radius-lg);padding:28px 22px;text-align:center;transition:all .3s}
-.why-card:hover{background:rgba(255,255,255,.07);transform:translateY(-4px)}
-.why-card-icon{width:52px;height:52px;border-radius:50%;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;font-size:22px}
-.why-card h4{font-family:'Manrope',sans-serif;font-size:15px;font-weight:700;color:var(--white);margin-bottom:6px}
-.why-card p{font-size:12px;color:rgba(255,255,255,.45);line-height:1.6}
+/* ══════════════════════════════════════════
+   PRODUCT SHOWCASES - Each full-viewport
+   ══════════════════════════════════════════ */
+.showcase{min-height:100vh;display:grid;grid-template-columns:1fr 1fr}
+.showcase.flip .sc-text{order:2}
+.showcase.flip .sc-img{order:1}
 
-/* ── EMI ── */
-.emi{padding:80px 0}
-.emi-wrap{display:grid;grid-template-columns:1fr 1.1fr;gap:48px;align-items:start}
-.emi-info p{font-size:15px;color:var(--gray-500);line-height:1.7;margin-bottom:20px}
-.emi-points{list-style:none;margin-bottom:28px}
-.emi-points li{font-size:14px;color:var(--gray-600);padding:5px 0;display:flex;align-items:center;gap:10px}
-.emi-points li::before{content:'';width:18px;height:18px;border-radius:50%;flex-shrink:0;background:rgba(74,175,80,.1) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10'%3E%3Cpath d='M8 3L4 7 2 5' stroke='%234AAF50' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center}
-.emi-calc{background:var(--white);border:1px solid var(--gray-100);border-radius:var(--radius-xl);overflow:hidden;box-shadow:0 8px 32px rgba(15,43,76,.05)}
-.emi-calc-head{background:linear-gradient(135deg,var(--navy-deep),var(--navy));padding:20px 28px;display:flex;align-items:center;justify-content:space-between}
-.emi-calc-head h3{font-family:'Manrope',sans-serif;font-size:14px;font-weight:700;color:var(--white);letter-spacing:.3px}
-.emi-calc-head span{font-size:11px;color:rgba(255,255,255,.5)}
-.emi-calc-body{padding:28px}
+.sc-text{display:flex;flex-direction:column;justify-content:center;padding:80px 64px}
+.sc-label{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+.sc-text h2{font-size:38px;line-height:1.15;margin-bottom:16px}
+.sc-text>p{font-size:16px;color:var(--body);line-height:1.8;margin-bottom:32px;max-width:420px}
+.sc-metrics{display:flex;gap:32px;margin-bottom:36px}
+.scm-val{font-family:var(--serif);font-size:28px;color:var(--text)}
+.scm-lbl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;font-weight:600;margin-top:2px}
+.sc-cta-row{display:flex;gap:14px;align-items:center}
+.sc-btn{font-size:14px;font-weight:600;color:var(--white);background:var(--text);padding:14px 32px;border-radius:6px;text-decoration:none;transition:all .2s}
+.sc-btn:hover{background:var(--charcoal);transform:translateY(-1px)}
+.sc-link{font-size:14px;font-weight:600;color:var(--accent);text-decoration:none;transition:opacity .2s}
+.sc-link:hover{opacity:.6}
+
+.sc-img{position:relative;overflow:hidden}
+.sc-img img{width:100%;height:100%;object-fit:cover;display:block;min-height:500px}
+
+/* Alternate backgrounds */
+.showcase:nth-child(even) .sc-text{background:var(--warm)}
+.showcase:nth-child(odd) .sc-text{background:var(--cream)}
+
+/* ═══════════════════════
+   PULL QUOTES between sections
+   ═══════════════════════ */
+.pull-quote{padding:80px 32px;text-align:center;background:var(--charcoal)}
+.pull-quote blockquote{font-family:var(--serif);font-size:clamp(22px,3.5vw,32px);color:var(--white);line-height:1.45;max-width:760px;margin:0 auto 24px;font-style:italic}
+.pull-quote cite{font-style:normal;font-size:14px;color:rgba(255,255,255,.4);display:block}
+.pull-quote cite strong{color:rgba(255,255,255,.7);font-weight:600}
+
+/* ═════════════════════════
+   ACCORDION FAQ / PROCESS
+   ═════════════════════════ */
+.faq-section{padding:100px 32px;max-width:760px;margin:0 auto}
+.faq-section .section-eyebrow{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:12px;text-align:center}
+.faq-section h2{font-family:var(--serif);font-size:36px;color:var(--text);text-align:center;margin-bottom:48px}
+.accordion{border-top:1px solid var(--border)}
+.accordion-item{border-bottom:1px solid var(--border)}
+.accordion-trigger{width:100%;background:none;border:none;padding:24px 0;font-family:var(--sans);font-size:16px;font-weight:600;color:var(--text);text-align:left;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:16px;transition:color .2s}
+.accordion-trigger:hover{color:var(--accent)}
+.accordion-icon{width:24px;height:24px;border-radius:50%;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .3s;font-size:14px;color:var(--muted);line-height:1}
+.accordion-item.open .accordion-icon{transform:rotate(45deg);border-color:var(--accent);color:var(--accent)}
+.accordion-body{max-height:0;overflow:hidden;transition:max-height .35s ease}
+.accordion-body-inner{padding:0 0 24px;font-size:15px;color:var(--body);line-height:1.75;max-width:580px}
+.accordion-item.open .accordion-body{max-height:300px}
+.acc-step-tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--accent);background:var(--accent-light);padding:3px 8px;border-radius:4px;margin-bottom:8px}
+
+/* ═════════════════════════
+   NUMBERS TICKER STRIP
+   ═════════════════════════ */
+.numbers-strip{padding:64px 0;background:var(--text);overflow:hidden}
+.numbers-marquee{display:flex;gap:80px;animation:numScroll 20s linear infinite;white-space:nowrap}
+.nm-item{flex-shrink:0;display:flex;align-items:baseline;gap:12px}
+.nm-val{font-family:var(--serif);font-size:48px;color:var(--white);letter-spacing:-2px}
+.nm-lbl{font-size:13px;color:rgba(255,255,255,.35);font-weight:500}
+@keyframes numScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ══════════════════════════
+   EMI - Compact centered
+   ══════════════════════════ */
+.calc{padding:100px 32px;background:var(--warm)}
+.calc-inner{max-width:600px;margin:0 auto}
+.calc .section-eyebrow{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:12px;text-align:center}
+.calc h2{font-family:var(--serif);font-size:36px;color:var(--text);text-align:center;margin-bottom:12px}
+.calc-sub{font-size:15px;color:var(--body);text-align:center;margin-bottom:40px}
+.calc-card{background:var(--white);border:1px solid var(--border);border-radius:16px;overflow:hidden}
+.calc-card-head{background:var(--text);padding:20px 28px;display:flex;align-items:center;justify-content:space-between}
+.calc-card-head h3{font-family:var(--sans);font-size:14px;font-weight:600;color:var(--white)}
+.calc-card-head span{font-size:10px;color:rgba(255,255,255,.4)}
+.calc-card-body{padding:32px 28px}
 .sg{margin-bottom:22px}
-.sg-row{display:flex;justify-content:space-between;margin-bottom:8px}
-.sg-row label{font-size:13px;color:var(--gray-500);font-weight:500}
-.sg-row output{font-size:14px;font-weight:700;color:var(--navy);background:var(--warm-gray);padding:3px 10px;border-radius:4px;border:1px solid var(--gray-100)}
-input[type="range"]{width:100%;height:5px;-webkit-appearance:none;appearance:none;background:var(--gray-200);border-radius:3px;outline:none;cursor:pointer}
-input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--navy);border:3px solid var(--white);box-shadow:0 1px 6px rgba(15,43,76,.2)}
-input[type="range"]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--navy);border:3px solid var(--white);box-shadow:0 1px 6px rgba(15,43,76,.2)}
-.emi-res{margin-top:24px;background:linear-gradient(135deg,var(--navy-deep),var(--navy));border-radius:var(--radius-lg);padding:24px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px;text-align:center}
-.er-lbl{font-size:10px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.5px;font-weight:600;margin-bottom:3px}
-.er-val{font-size:20px;font-weight:800;color:var(--gold)}
-.er-val.wh{color:var(--white)}
-.emi-note{font-size:11px;color:var(--gray-500);text-align:center;margin-top:12px;font-style:italic}
+.sg-top{display:flex;justify-content:space-between;margin-bottom:8px}
+.sg-top label{font-size:13px;color:var(--body);font-weight:500}
+.sg-top output{font-size:13px;font-weight:700;color:var(--accent);background:var(--accent-light);padding:2px 10px;border-radius:5px}
+input[type="range"]{width:100%;height:3px;-webkit-appearance:none;appearance:none;background:var(--sand);border-radius:2px;outline:none;cursor:pointer}
+input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--text);border:3px solid var(--white);box-shadow:0 1px 4px rgba(0,0,0,.15)}
+input[type="range"]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:var(--text);border:3px solid var(--white);box-shadow:0 1px 4px rgba(0,0,0,.15)}
+.calc-result{margin-top:24px;background:var(--text);border-radius:12px;padding:28px;text-align:center}
+.calc-emi-val{font-family:var(--serif);font-size:36px;color:var(--white);margin-bottom:4px}
+.calc-emi-lbl{font-size:11px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;font-weight:600;margin-bottom:20px}
+.calc-result-row{display:flex;justify-content:center;gap:40px}
+.cr{text-align:center}
+.cr-val{font-size:16px;font-weight:700;color:rgba(255,255,255,.8)}
+.cr-lbl{font-size:10px;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.5px;font-weight:600;margin-top:2px}
+.calc-note{font-size:11px;color:var(--muted);text-align:center;margin-top:12px;font-style:italic}
+.calc-cta{text-align:center;margin-top:32px}
+.calc-cta a{font-size:15px;font-weight:600;color:var(--white);background:var(--text);padding:16px 44px;border-radius:6px;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all .2s}
+.calc-cta a:hover{background:var(--charcoal);transform:translateY(-1px)}
 
-/* ── PROCESS ── */
-.process{padding:80px 0;background:linear-gradient(rgba(244,241,236,.93),rgba(244,241,236,.93)),url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat}
-.proc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:48px}
-.proc-step{background:var(--white);border:1px solid var(--gray-100);border-radius:var(--radius-lg);padding:28px 22px;text-align:center;transition:all .3s;position:relative}
-.proc-step:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(15,43,76,.05)}
-.proc-num{font-family:'Lora',serif;font-size:32px;font-weight:700;color:var(--gray-200);margin-bottom:12px}
-.proc-step h4{font-family:'Manrope',sans-serif;font-size:15px;font-weight:700;color:var(--navy);margin-bottom:6px}
-.proc-step p{font-size:12px;color:var(--gray-500);line-height:1.5}
-
-/* ── TESTIMONIALS ── */
-.testi{padding:80px 0}
-.t-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:48px}
-.t-card{background:var(--white);border:1px solid var(--gray-100);border-radius:var(--radius-lg);padding:28px;position:relative;transition:all .3s}
-.t-card:hover{box-shadow:0 8px 28px rgba(15,43,76,.05);border-color:transparent}
-.t-quote{font-family:'Lora',serif;font-size:40px;color:var(--gold);line-height:1;margin-bottom:8px}
-.t-card blockquote{font-size:14px;color:var(--gray-600);line-height:1.7;font-style:italic;margin-bottom:20px}
-.t-auth{display:flex;align-items:center;gap:12px;border-top:1px solid var(--gray-100);padding-top:16px}
-.t-av{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--navy),var(--blue));display:flex;align-items:center;justify-content:center;color:var(--white);font-weight:700;font-size:13px;flex-shrink:0}
-.t-nm{font-size:13px;font-weight:700;color:var(--navy)}
-.t-rl{font-size:11px;color:var(--gray-500)}
-
-/* ── CTA ── */
-.final-cta{padding:0 24px;margin-bottom:80px}
-.cta-box{max-width:1180px;margin:0 auto;background:var(--white);border:1px solid var(--gray-100);border-radius:var(--radius-xl);padding:56px;text-align:center;position:relative;overflow:hidden;box-shadow:0 8px 40px rgba(15,43,76,.04)}
-.cta-box::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--blue),var(--gold),var(--green),var(--blue-light))}
-.cta-box::after{content:'';position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=1400&q=80') center/cover no-repeat;opacity:.04;border-radius:var(--radius-xl)}
-.cta-box h2{font-size:30px;margin-bottom:10px}
-.cta-box p{font-size:15px;color:var(--gray-500);margin-bottom:28px}
-.cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-.btn-gold-lg{font-size:15px;font-weight:700;background:var(--gold);color:var(--navy-deep);padding:14px 36px;border-radius:var(--radius);text-decoration:none;border:none;cursor:pointer;font-family:inherit;transition:all .25s;box-shadow:0 4px 16px rgba(232,164,53,.25)}
-.btn-gold-lg:hover{background:var(--gold-dark);transform:translateY(-2px)}
-.btn-out-lg{font-size:15px;font-weight:600;background:transparent;color:var(--navy);padding:14px 36px;border-radius:var(--radius);border:1.5px solid var(--gray-200);text-decoration:none;transition:all .25s}
-.btn-out-lg:hover{border-color:var(--navy)}
+/* ═══════════════════
+   CTA - Text only
+   ═══════════════════ */
+.final-cta{padding:120px 32px;text-align:center;background:var(--cream)}
+.final-cta h2{font-family:var(--serif);font-size:clamp(32px,5vw,52px);color:var(--text);margin-bottom:20px;letter-spacing:-1px;line-height:1.1}
+.final-cta p{font-size:16px;color:var(--body);margin-bottom:40px}
+.final-cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.btn-dark{font-size:15px;font-weight:600;color:var(--white);background:var(--text);padding:16px 44px;border-radius:6px;text-decoration:none;transition:all .2s}
+.btn-dark:hover{background:var(--charcoal);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.1)}
+.btn-border{font-size:15px;font-weight:500;color:var(--text);background:none;border:1.5px solid var(--border);padding:16px 44px;border-radius:6px;text-decoration:none;transition:all .2s}
+.btn-border:hover{border-color:var(--text)}
 
 /* ── FOOTER ── */
-.footer{background:var(--navy-deep);padding:56px 0 0;color:rgba(255,255,255,.55)}
-.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:36px;margin-bottom:36px}
-.footer-brand img{height:38px;filter:brightness(0) invert(1);opacity:.85;margin-bottom:14px}
+.footer{background:var(--charcoal);padding:64px 0 0;color:rgba(255,255,255,.45)}
+.footer-inner{max-width:1200px;margin:0 auto;padding:0 32px}
+.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px}
+.footer-brand img{height:36px;filter:brightness(0) invert(1);opacity:.6;margin-bottom:14px}
 .footer-brand p{font-size:13px;line-height:1.7}
-.footer-brand .lic{font-size:11px;color:rgba(255,255,255,.3);margin-top:10px;line-height:1.6}
-.fc h4{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
-.fc a{display:block;color:rgba(255,255,255,.45);text-decoration:none;font-size:13px;padding:4px 0;transition:color .2s}
+.footer-brand .lic{font-size:10px;color:rgba(255,255,255,.2);margin-top:12px;line-height:1.6}
+.fc h4{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:14px}
+.fc a{display:block;color:rgba(255,255,255,.35);text-decoration:none;font-size:13px;padding:4px 0;transition:color .2s}
 .fc a:hover{color:var(--white)}
 .footer-btm{border-top:1px solid rgba(255,255,255,.06);padding:18px 0;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
-.footer-btm p{font-size:11px;color:rgba(255,255,255,.25)}
+.footer-btm p{font-size:11px;color:rgba(255,255,255,.2)}
 .fb-links{display:flex;gap:16px}
-.fb-links a{font-size:11px;color:rgba(255,255,255,.3);text-decoration:none;transition:color .2s}
+.fb-links a{font-size:11px;color:rgba(255,255,255,.2);text-decoration:none;transition:color .2s}
 .fb-links a:hover{color:rgba(255,255,255,.6)}
 
-/* ── WHATSAPP ── */
-.wa{position:fixed;bottom:24px;right:24px;z-index:200;width:52px;height:52px;border-radius:50%;background:#25D366;border:none;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(37,211,102,.35);text-decoration:none;transition:all .3s}
-.wa:hover{transform:scale(1.08);box-shadow:0 6px 24px rgba(37,211,102,.5)}
-.wa svg{width:26px;height:26px;fill:var(--white)}
+/* ── WA ── */
+.wa{position:fixed;bottom:24px;right:24px;z-index:200;width:50px;height:50px;border-radius:50%;background:#25D366;border:none;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(37,211,102,.3);text-decoration:none;transition:all .3s}
+.wa:hover{transform:scale(1.08)}
+.wa svg{width:24px;height:24px;fill:var(--white)}
 
 /* ── RESPONSIVE ── */
 @media(max-width:1024px){
-  .hero h1{font-size:38px}.hero-cards{grid-template-columns:1fr 1fr;max-width:480px}
-  .prod-grid{grid-template-columns:1fr 1fr}.why-grid{grid-template-columns:1fr 1fr}
-  .emi-wrap{grid-template-columns:1fr}.t-grid{grid-template-columns:1fr 1fr}
-  .proc-grid{grid-template-columns:1fr 1fr}
-  .cta-box{padding:40px 28px}
+  .showcase{grid-template-columns:1fr;min-height:auto}
+  .sc-text{padding:56px 32px}
+  .sc-img img{min-height:360px}
+  .showcase.flip .sc-text{order:1}.showcase.flip .sc-img{order:2}
   .footer-grid{grid-template-columns:1fr 1fr}
 }
 @media(max-width:768px){
-  .nav{display:none}.hamburger{display:block}.btn-text{display:none}
-  .hero{padding:48px 0 0}.hero h1{font-size:30px}.hero-cards{grid-template-columns:1fr 1fr;gap:10px}
-  .hc-val{font-size:24px}
-  .s-title{font-size:26px}
-  .prod-grid{grid-template-columns:1fr}.why-grid{grid-template-columns:1fr}
-  .emi-res{grid-template-columns:1fr}.t-grid{grid-template-columns:1fr}
-  .proc-grid{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr;gap:24px}
+  .nav-links{display:none}.hamburger{display:block}.nav-login{display:none}
+  .hero{padding:80px 24px 56px}
+  .hero-bottom{flex-direction:column;align-items:flex-start}
+  .photo-band{height:30vh;min-height:200px}
+  .narrative{padding:56px 24px}
+  .narrative-stats{gap:24px}.ns-val{font-size:28px}
+  .sc-text{padding:40px 24px}
+  .sc-metrics{flex-wrap:wrap;gap:20px}
+  .sc-cta-row{flex-direction:column;align-items:flex-start}
+  .pull-quote{padding:56px 24px}
+  .faq-section{padding:72px 24px}
+  .nm-val{font-size:36px}
+  .calc{padding:72px 24px}
+  .calc-card-body{padding:24px 20px}
+  .calc-result-row{flex-direction:column;gap:16px}
+  .final-cta{padding:80px 24px}
+  .final-cta-btns{flex-direction:column;align-items:center}
+  .footer-grid{grid-template-columns:1fr;gap:24px}
   .footer-btm{flex-direction:column;text-align:center}
-  .hero-ctas{flex-direction:column}.btn-main{text-align:center;justify-content:center}
-  .cta-btns{flex-direction:column}
 }
 </style>
 </head>
 <body>
 
-<!-- ── HEADER ── -->
-<header class="header" id="header">
-  <div class="container">
-    <div class="header-inner">
-      <a href="#"><img src="capital-india-logo.png" alt="Capital India" class="logo-img"></a>
-      <nav class="nav">
-        <a href="#">Home</a><a href="#about">About</a><a href="#products">Products</a><a href="#investors">Investors</a><a href="#media">Media</a><a href="#contact">Contact</a>
-      </nav>
-      <div class="header-right">
-        <a href="#" class="btn-text">Login</a>
-        <a href="#" class="btn-solid">Apply Now</a>
-      </div>
-      <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+<!-- NAV -->
+<header class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#"><img src="CI.webp" alt="Capital India" class="nav-logo"></a>
+    <nav class="nav-links">
+      <a href="#products">Products</a>
+      <a href="#about">About</a>
+      <a href="#process">Process</a>
+      <a href="#calculator">Calculator</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="nav-right">
+      <a href="#" class="nav-login">Login</a>
+      <a href="#" class="nav-apply">Apply Now</a>
     </div>
-    <div class="mobile-menu" id="mobileMenu">
-      <a href="#">Home</a><a href="#about">About</a><a href="#products">Products</a><a href="#investors">Investors</a><a href="#media">Media</a><a href="#contact">Contact</a>
-    </div>
+    <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mob-menu" id="mobMenu">
+    <a href="#products">Products</a><a href="#about">About</a><a href="#process">Process</a><a href="#calculator">Calculator</a><a href="#contact">Contact</a>
   </div>
 </header>
 
-<!-- ── HERO ── -->
+<!-- ═══ HERO - Pure typography ═══ -->
 <section class="hero">
-  <div class="container">
-    <div class="hero-inner">
-      <div class="hero-chip"><span class="hero-chip-dot"></span> RBI Registered NBFC &middot; BSE: 530879</div>
-      <h1>Customised Finance for India's <span>Ambitious Businesses</span></h1>
-      <p class="hero-desc">Technology-enabled lending for SMEs, MSMEs and mid-corporates. Structured credit, transparent processes, and institutional-grade underwriting since 2009.</p>
-      <div class="hero-ctas">
-        <a href="#" class="btn-main btn-navy">Apply for a Loan &rarr;</a>
-        <a href="#calculator" class="btn-main btn-warm">EMI Calculator</a>
-      </div>
-      <div class="hero-cards">
-        <div class="hero-card"><div class="hc-val">&#8377;500Cr+</div><div class="hc-lbl">Assets Under Management</div></div>
-        <div class="hero-card"><div class="hc-val">3,000+</div><div class="hc-lbl">Businesses Served</div></div>
-        <div class="hero-card"><div class="hc-val">15+ Yrs</div><div class="hc-lbl">Industry Experience</div></div>
-        <div class="hero-card"><div class="hc-val">7 Days</div><div class="hc-lbl">Average Turnaround</div></div>
-      </div>
+  <div class="hero-eyebrow">RBI Registered NBFC &middot; BSE: 530879</div>
+  <h1>Lending that moves<br>at the speed of<br><em>your ambition</em></h1>
+  <div class="hero-bottom">
+    <p class="hero-desc">Structured credit for India's SMEs and mid-corporates. Institutional credibility, fintech speed, transparent terms. Since 2009.</p>
+    <div class="hero-cta">
+      <a href="#">Check Eligibility &rarr;</a>
     </div>
   </div>
 </section>
 
-<hr class="section-divider">
+<!-- ═══ FULL-BLEED PHOTO ═══ -->
+<div class="photo-band">
+  <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1920&q=80" alt="Modern architecture">
+</div>
 
-<!-- ── PRODUCTS ── -->
-<section class="products" id="products">
-  <div class="container">
-    <div class="section-header center" style="margin-bottom:56px;">
-      <div class="s-eyebrow">Our Businesses</div>
-      <h2 class="s-title">Lending Solutions</h2>
-      <p class="s-sub" style="margin-left:auto;margin-right:auto;">Purpose-built financial products designed for India's business landscape.</p>
-      <div style="display:flex;justify-content:center;gap:12px;margin-top:28px;">
-        <div style="border-radius:var(--radius-lg);overflow:hidden;width:180px;height:120px;box-shadow:0 4px 16px rgba(15,43,76,.06);"><img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?auto=format&fit=crop&w=360&q=80" alt="Analytics" style="width:100%;height:100%;object-fit:cover;"></div>
-        <div style="border-radius:var(--radius-lg);overflow:hidden;width:180px;height:120px;box-shadow:0 4px 16px rgba(15,43,76,.06);"><img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=360&q=80" alt="Business success" style="width:100%;height:100%;object-fit:cover;"></div>
-        <div style="border-radius:var(--radius-lg);overflow:hidden;width:180px;height:120px;box-shadow:0 4px 16px rgba(15,43,76,.06);"><img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=360&q=80" alt="Business planning" style="width:100%;height:100%;object-fit:cover;"></div>
-      </div>
+<!-- ═══ NARRATIVE ═══ -->
+<section class="narrative" id="about">
+  <h2>We believe every Indian business deserves access to structured, transparent credit</h2>
+  <p>Capital India Finance Limited is an RBI-registered, BSE-listed NBFC serving India's growth engine since 2009. We combine institutional-grade underwriting with digital speed to deliver loans in 7 days.</p>
+  <div class="narrative-stats">
+    <div class="ns"><div class="ns-val">&#8377;500Cr+</div><div class="ns-lbl">AUM</div></div>
+    <div class="ns"><div class="ns-val">3,000+</div><div class="ns-lbl">Businesses</div></div>
+    <div class="ns"><div class="ns-val">15+</div><div class="ns-lbl">Years</div></div>
+    <div class="ns"><div class="ns-val">7 Days</div><div class="ns-lbl">Avg. Turnaround</div></div>
+  </div>
+</section>
+
+<!-- ═══ PRODUCT 1 - Full viewport ═══ -->
+<section class="showcase" id="products">
+  <div class="sc-text">
+    <div class="sc-label">Secured Lending</div>
+    <h2>SME Secured Loans</h2>
+    <p>Collateral-backed term loans built for growth. Whether you're expanding operations, investing in infrastructure, or bridging a capital gap, our secured loans offer competitive rates and tenures up to 15 years.</p>
+    <div class="sc-metrics">
+      <div><div class="scm-val">&#8377;5 Cr</div><div class="scm-lbl">Max Amount</div></div>
+      <div><div class="scm-val">13%</div><div class="scm-lbl">Starting Rate</div></div>
+      <div><div class="scm-val">15 Yrs</div><div class="scm-lbl">Max Tenure</div></div>
     </div>
-    <div class="prod-grid">
-      <div class="prod-card">
-        <div class="prod-header">
-          <div class="prod-icon i-blue">&#127970;</div>
-          <h3>SME Secured Loans</h3>
-          <p>Collateral-backed term loans for growth capital, working capital, or business expansion across India.</p>
-        </div>
-        <div class="prod-metrics"><div class="pm"><div class="pm-val">&#8377;5 Cr</div><div class="pm-lbl">Max Amount</div></div><div class="pm"><div class="pm-val">13%</div><div class="pm-lbl">From Rate</div></div><div class="pm"><div class="pm-val">15 Yrs</div><div class="pm-lbl">Tenure</div></div></div>
-        <div class="prod-foot"><a href="#" class="prod-link">Learn More &rarr;</a><a href="#" class="prod-apply">Apply Now</a></div>
-      </div>
-      <div class="prod-card">
-        <div class="prod-header">
-          <div class="prod-icon i-green">&#9881;&#65039;</div>
-          <h3>Equipment Finance</h3>
-          <p>Asset-backed financing for machinery and capital goods with flexible repayment structures.</p>
-        </div>
-        <div class="prod-metrics"><div class="pm"><div class="pm-val">&#8377;1 Cr</div><div class="pm-lbl">Max Amount</div></div><div class="pm"><div class="pm-val">13%</div><div class="pm-lbl">From Rate</div></div><div class="pm"><div class="pm-val">5 Yrs</div><div class="pm-lbl">Tenure</div></div></div>
-        <div class="prod-foot"><a href="#" class="prod-link">Learn More &rarr;</a><a href="#" class="prod-apply">Apply Now</a></div>
-      </div>
-      <div class="prod-card">
-        <div class="prod-header">
-          <div class="prod-icon i-gold">&#128279;</div>
-          <h3>Supply Chain Finance</h3>
-          <p>Revolving credit for vendors and dealers. Unlock capital tied up in receivables and inventory.</p>
-        </div>
-        <div class="prod-metrics"><div class="pm"><div class="pm-val">&#8377;5 Cr</div><div class="pm-lbl">Max Amount</div></div><div class="pm"><div class="pm-val">13%</div><div class="pm-lbl">From Rate</div></div><div class="pm"><div class="pm-val">Annual</div><div class="pm-lbl">Revolving</div></div></div>
-        <div class="prod-foot"><a href="#" class="prod-link">Learn More &rarr;</a><a href="#" class="prod-apply">Apply Now</a></div>
-      </div>
+    <div class="sc-cta-row">
+      <a href="#" class="sc-btn">Apply Now</a>
+      <a href="#" class="sc-link">Learn More &rarr;</a>
+    </div>
+  </div>
+  <div class="sc-img">
+    <img src="https://images.unsplash.com/photo-1664575602554-2087b04935a5?auto=format&fit=crop&w=960&q=80" alt="Business owner">
+  </div>
+</section>
+
+<!-- ═══ PULL QUOTE 1 ═══ -->
+<div class="pull-quote">
+  <blockquote>&ldquo;Capital India processed our loan in just 5 days. Transparent, digital, and hassle-free.&rdquo;</blockquote>
+  <cite><strong>Rajesh Kumar</strong> &mdash; Director, Kumar Textiles Pvt. Ltd.</cite>
+</div>
+
+<!-- ═══ PRODUCT 2 ═══ -->
+<section class="showcase flip">
+  <div class="sc-text">
+    <div class="sc-label">Asset Finance</div>
+    <h2>Equipment Finance</h2>
+    <p>Asset-backed financing for machinery, production lines, and capital goods. We structure repayments to match your cash flow cycles, so your equipment pays for itself as it earns.</p>
+    <div class="sc-metrics">
+      <div><div class="scm-val">&#8377;1 Cr</div><div class="scm-lbl">Max Amount</div></div>
+      <div><div class="scm-val">13%</div><div class="scm-lbl">Starting Rate</div></div>
+      <div><div class="scm-val">5 Yrs</div><div class="scm-lbl">Max Tenure</div></div>
+    </div>
+    <div class="sc-cta-row">
+      <a href="#" class="sc-btn">Apply Now</a>
+      <a href="#" class="sc-link">Learn More &rarr;</a>
+    </div>
+  </div>
+  <div class="sc-img">
+    <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=960&q=80" alt="Manufacturing equipment">
+  </div>
+</section>
+
+<!-- ═══ PULL QUOTE 2 ═══ -->
+<div class="pull-quote">
+  <blockquote>&ldquo;Quick turnaround and flexible terms made our production deadline possible.&rdquo;</blockquote>
+  <cite><strong>Sunita Patel</strong> &mdash; CEO, Patel Manufacturing</cite>
+</div>
+
+<!-- ═══ PRODUCT 3 ═══ -->
+<section class="showcase">
+  <div class="sc-text">
+    <div class="sc-label">Working Capital</div>
+    <h2>Supply Chain Finance</h2>
+    <p>Revolving credit designed for vendors and dealers. Unlock capital locked in receivables and inventory. Annual revolving facilities that flex with your supply chain cycles.</p>
+    <div class="sc-metrics">
+      <div><div class="scm-val">&#8377;5 Cr</div><div class="scm-lbl">Max Amount</div></div>
+      <div><div class="scm-val">13%</div><div class="scm-lbl">Starting Rate</div></div>
+      <div><div class="scm-val">Annual</div><div class="scm-lbl">Revolving</div></div>
+    </div>
+    <div class="sc-cta-row">
+      <a href="#" class="sc-btn">Apply Now</a>
+      <a href="#" class="sc-link">Learn More &rarr;</a>
+    </div>
+  </div>
+  <div class="sc-img">
+    <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=960&q=80" alt="Supply chain">
+  </div>
+</section>
+
+<!-- ═══ NUMBERS TICKER ═══ -->
+<section class="numbers-strip">
+  <div class="numbers-marquee">
+    <div class="nm-item"><div class="nm-val">&#8377;500Cr+</div><div class="nm-lbl">AUM</div></div>
+    <div class="nm-item"><div class="nm-val">3,000+</div><div class="nm-lbl">Businesses</div></div>
+    <div class="nm-item"><div class="nm-val">340+</div><div class="nm-lbl">Partners</div></div>
+    <div class="nm-item"><div class="nm-val">15+</div><div class="nm-lbl">Years</div></div>
+    <div class="nm-item"><div class="nm-val">7 Days</div><div class="nm-lbl">Turnaround</div></div>
+    <div class="nm-item"><div class="nm-val">&#8377;500Cr+</div><div class="nm-lbl">AUM</div></div>
+    <div class="nm-item"><div class="nm-val">3,000+</div><div class="nm-lbl">Businesses</div></div>
+    <div class="nm-item"><div class="nm-val">340+</div><div class="nm-lbl">Partners</div></div>
+    <div class="nm-item"><div class="nm-val">15+</div><div class="nm-lbl">Years</div></div>
+    <div class="nm-item"><div class="nm-val">7 Days</div><div class="nm-lbl">Turnaround</div></div>
+  </div>
+</section>
+
+<!-- ═══ ACCORDION - Process + FAQ ═══ -->
+<section class="faq-section" id="process">
+  <div class="section-eyebrow">How It Works</div>
+  <h2>From enquiry to disbursal</h2>
+
+  <div class="accordion">
+    <div class="accordion-item open">
+      <button class="accordion-trigger">Apply online in under 10 minutes <span class="accordion-icon">+</span></button>
+      <div class="accordion-body"><div class="accordion-body-inner"><div class="acc-step-tag">Step 01</div><br>Fill out a simple application with your basic business details and KYC information. The entire process is digital - no branch visits, no phone calls, no paperwork. You'll receive an acknowledgement within minutes.</div></div>
+    </div>
+    <div class="accordion-item">
+      <button class="accordion-trigger">Upload documents digitally <span class="accordion-icon">+</span></button>
+      <div class="accordion-body"><div class="accordion-body-inner"><div class="acc-step-tag">Step 02</div><br>Upload your business financials, KYC documents, and collateral details through our secure portal. We accept scanned copies - no originals needed, no couriers, no waiting.</div></div>
+    </div>
+    <div class="accordion-item">
+      <button class="accordion-trigger">Credit assessment with transparent criteria <span class="accordion-icon">+</span></button>
+      <div class="accordion-body"><div class="accordion-body-inner"><div class="acc-step-tag">Step 03</div><br>Our credit team evaluates your application using clearly-defined criteria. You're kept informed at every stage. No black boxes, no unexplained rejections.</div></div>
+    </div>
+    <div class="accordion-item">
+      <button class="accordion-trigger">Funds in your account within 7 days <span class="accordion-icon">+</span></button>
+      <div class="accordion-body"><div class="accordion-body-inner"><div class="acc-step-tag">Step 04</div><br>Upon approval, loan amount is credited directly to your bank account. Average turnaround from application to disbursal is just 7 working days.</div></div>
+    </div>
+    <div class="accordion-item">
+      <button class="accordion-trigger">What collateral is required? <span class="accordion-icon">+</span></button>
+      <div class="accordion-body"><div class="accordion-body-inner">For secured loans, we accept property (residential or commercial), plant &amp; machinery, and other fixed assets as collateral. Equipment finance is secured against the equipment being financed. Supply chain finance may be partially secured or backed by receivables.</div></div>
+    </div>
+    <div class="accordion-item">
+      <button class="accordion-trigger">What are the eligibility criteria? <span class="accordion-icon">+</span></button>
+      <div class="accordion-body"><div class="accordion-body-inner">Business must be registered in India with a minimum vintage of 1 year. We serve sole proprietorships, partnerships, LLPs, and private limited companies. Specific criteria vary by product - use our eligibility checker for instant results.</div></div>
     </div>
   </div>
 </section>
 
-<!-- ── WHY US ── -->
-<section class="why" id="about">
-  <div class="container why-inner">
-    <div class="section-header center">
-      <div class="s-eyebrow">Why Capital India</div>
-      <h2 class="s-title">Built for India's Business Ambitions</h2>
-      <p class="s-sub">Institutional credibility meets fintech agility.</p>
-    </div>
-    <div class="why-grid">
-      <div class="why-card"><div class="why-card-icon" style="background:rgba(46,134,193,.12)">&#9889;</div><h4>Fast Disbursals</h4><p>Loans disbursed within 7 working days with digital workflows.</p></div>
-      <div class="why-card"><div class="why-card-icon" style="background:rgba(74,175,80,.12)">&#128737;&#65039;</div><h4>RBI Regulated</h4><p>Systemically important NBFC with highest governance standards.</p></div>
-      <div class="why-card"><div class="why-card-icon" style="background:rgba(232,164,53,.12)">&#128202;</div><h4>Transparent Rates</h4><p>No hidden charges. Clear terms communicated upfront.</p></div>
-      <div class="why-card"><div class="why-card-icon" style="background:rgba(59,179,208,.12)">&#129309;</div><h4>Dedicated Support</h4><p>Relationship manager for personalised service throughout.</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- ── EMI CALCULATOR ── -->
-<section class="emi" id="calculator">
-  <div class="container">
-    <div class="emi-wrap">
-      <div class="emi-info">
-        <div class="s-eyebrow">Plan Your Finances</div>
-        <h2 class="s-title">EMI Calculator</h2>
-        <p>Estimate monthly repayment before you apply. Transparent calculations, no hidden charges.</p>
-        <ul class="emi-points"><li>Instant EMI calculation</li><li>No credit score impact</li><li>Compare across tenures</li><li>100% free to use</li></ul>
-        <a href="#" class="btn-solid" style="display:inline-block;padding:12px 28px;font-size:14px;">Apply for a Loan &rarr;</a>
-        <div style="margin-top:24px;border-radius:var(--radius-lg);overflow:hidden;box-shadow:0 4px 16px rgba(15,43,76,.05);">
-          <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=600&q=80" alt="Financial markets" style="width:100%;height:150px;object-fit:cover;display:block;">
-        </div>
-      </div>
-      <div class="emi-calc">
-        <div class="emi-calc-head"><h3>Calculate Your EMI</h3><span>Instant Results</span></div>
-        <div class="emi-calc-body">
-          <div class="sg"><div class="sg-row"><label>Loan Amount</label><output id="loanAmtDisplay">&#8377;25,00,000</output></div><input type="range" id="loanAmount" min="100000" max="50000000" step="100000" value="2500000"></div>
-          <div class="sg"><div class="sg-row"><label>Interest Rate (% p.a.)</label><output id="interestDisplay">13%</output></div><input type="range" id="interestRate" min="10" max="24" step="0.5" value="13"></div>
-          <div class="sg"><div class="sg-row"><label>Tenure</label><output id="tenureDisplay">10 Years</output></div><input type="range" id="tenure" min="1" max="15" step="1" value="10"></div>
-          <div class="emi-res">
-            <div><div class="er-lbl">Monthly EMI</div><div class="er-val" id="emiValue">&#8377;37,532</div></div>
-            <div><div class="er-lbl">Total Interest</div><div class="er-val wh" id="totalInterest">&#8377;20,03,840</div></div>
-            <div><div class="er-lbl">Total Payment</div><div class="er-val wh" id="totalPayment">&#8377;45,03,840</div></div>
+<!-- ═══ CALCULATOR ═══ -->
+<section class="calc" id="calculator">
+  <div class="calc-inner">
+    <div class="section-eyebrow">Plan Your Finances</div>
+    <h2>EMI Calculator</h2>
+    <p class="calc-sub">Estimate your monthly repayment. No credit score impact.</p>
+    <div class="calc-card">
+      <div class="calc-card-head"><h3>Calculate EMI</h3><span>Instant</span></div>
+      <div class="calc-card-body">
+        <div class="sg"><div class="sg-top"><label>Loan Amount</label><output id="loanAmtDisplay">&#8377;25,00,000</output></div><input type="range" id="loanAmount" min="100000" max="50000000" step="100000" value="2500000"></div>
+        <div class="sg"><div class="sg-top"><label>Interest Rate (% p.a.)</label><output id="interestDisplay">13%</output></div><input type="range" id="interestRate" min="10" max="24" step="0.5" value="13"></div>
+        <div class="sg"><div class="sg-top"><label>Tenure</label><output id="tenureDisplay">10 Years</output></div><input type="range" id="tenure" min="1" max="15" step="1" value="10"></div>
+        <div class="calc-result">
+          <div class="calc-emi-val" id="emiValue">&#8377;37,532</div>
+          <div class="calc-emi-lbl">per month</div>
+          <div class="calc-result-row">
+            <div class="cr"><div class="cr-val" id="totalInterest">&#8377;20,03,840</div><div class="cr-lbl">Total Interest</div></div>
+            <div class="cr"><div class="cr-val" id="totalPayment">&#8377;45,03,840</div><div class="cr-lbl">Total Payment</div></div>
           </div>
-          <div class="emi-note">*Indicative calculation. Actual terms may vary based on credit assessment.</div>
         </div>
+        <div class="calc-note">*Indicative. Actual terms may vary based on credit assessment.</div>
       </div>
     </div>
+    <div class="calc-cta"><a href="#">Apply for a Loan &rarr;</a></div>
   </div>
 </section>
 
-<!-- ── PROCESS ── -->
-<section class="process">
-  <div class="container">
-    <div class="section-header center">
-      <div class="s-eyebrow">How It Works</div>
-      <h2 class="s-title">Simple 4-Step Process</h2>
-    </div>
-    <div class="proc-grid">
-      <div class="proc-step"><div class="proc-num">01</div><h4>Apply Online</h4><p>Simple form with basic business &amp; KYC details</p></div>
-      <div class="proc-step"><div class="proc-num">02</div><h4>Upload Documents</h4><p>Digital upload, no physical paperwork needed</p></div>
-      <div class="proc-step"><div class="proc-num">03</div><h4>Credit Assessment</h4><p>Quick evaluation with transparent criteria</p></div>
-      <div class="proc-step"><div class="proc-num">04</div><h4>Loan Disbursal</h4><p>Funds in your account within 7 working days</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- ── TESTIMONIALS ── -->
-<section class="testi">
-  <div class="container">
-    <div class="section-header center">
-      <div class="s-eyebrow">Client Stories</div>
-      <h2 class="s-title">Trusted by Businesses Across India</h2>
-    </div>
-    <div class="t-grid">
-      <div class="t-card"><div class="t-quote">&ldquo;</div><blockquote>Capital India processed our SME loan in 5 days. Transparent, digital, hassle-free. Highly recommended for growing businesses.</blockquote><div class="t-auth"><div class="t-av">RK</div><div><div class="t-nm">Rajesh Kumar</div><div class="t-rl">Director, Kumar Textiles Pvt. Ltd.</div></div></div></div>
-      <div class="t-card"><div class="t-quote">&ldquo;</div><blockquote>Equipment finance urgently needed for a production line. Quick turnaround and flexible terms made our deadline possible.</blockquote><div class="t-auth"><div class="t-av">SP</div><div><div class="t-nm">Sunita Patel</div><div class="t-rl">CEO, Patel Manufacturing</div></div></div></div>
-      <div class="t-card"><div class="t-quote">&ldquo;</div><blockquote>Supply chain finance unlocked working capital stuck in receivables. The revolving facility gives us exactly the flexibility we need.</blockquote><div class="t-auth"><div class="t-av">AM</div><div><div class="t-nm">Anand Mehta</div><div class="t-rl">CFO, Mehta Trading Co.</div></div></div></div>
-    </div>
-  </div>
-</section>
-
-<!-- ── CTA ── -->
+<!-- ═══ CTA ═══ -->
 <section class="final-cta">
-  <div class="cta-box">
-    <h2>Ready to Grow Your Business?</h2>
-    <p>Check eligibility in 60 seconds. No paperwork, no credit score impact.</p>
-    <div class="cta-btns"><a href="#" class="btn-gold-lg">Check Eligibility &rarr;</a><a href="#" class="btn-out-lg">Talk to an Expert</a></div>
+  <h2>Ready to rediscover<br>business growth?</h2>
+  <p>Check eligibility in 60 seconds. No paperwork, no credit score impact.</p>
+  <div class="final-cta-btns">
+    <a href="#" class="btn-dark">Check Eligibility &rarr;</a>
+    <a href="#" class="btn-border">Talk to an Expert</a>
   </div>
 </section>
 
-<!-- ── FOOTER ── -->
+<!-- FOOTER -->
 <footer class="footer" id="contact">
-  <div class="container">
+  <div class="footer-inner">
     <div class="footer-grid">
       <div class="footer-brand">
-        <img src="capital-india-logo.png" alt="Capital India">
+        <img src="CI.webp" alt="Capital India">
         <p>Capital India Finance Limited is an RBI registered NBFC listed on BSE, providing customised lending to India's SME sector.</p>
         <div class="lic">CIN: L65910DL1994PLC128577<br>NBFC Reg: N-14.03370 &middot; BSE: 530879</div>
       </div>
@@ -418,18 +473,33 @@ input[type="range"]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;b
 <a href="https://wa.me/919999999999" class="wa" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 32 32"><path d="M16 2.667A13.26 13.26 0 002.72 15.893a13.16 13.16 0 001.803 6.667L2.667 29.333l7.013-1.84a13.28 13.28 0 006.307 1.6h.017A13.28 13.28 0 0029.333 15.92 13.22 13.22 0 0016 2.667zm0 24.266a11.01 11.01 0 01-5.613-1.533l-.4-.24-4.187 1.1 1.12-4.08-.267-.413A10.95 10.95 0 015 15.9 11.01 11.01 0 0116 4.92 11.01 11.01 0 0127.08 15.92 11.07 11.07 0 0116 26.933zm6.053-8.24c-.333-.167-1.96-.967-2.267-1.08-.307-.107-.527-.167-.747.167-.22.333-.86 1.08-1.053 1.3-.193.22-.387.247-.72.08-.333-.167-1.407-.52-2.68-1.653-.99-.88-1.66-1.967-1.853-2.3-.193-.333-.02-.513.147-.68.147-.147.333-.387.5-.58.167-.193.22-.333.333-.553.113-.22.06-.413-.027-.58-.087-.167-.747-1.8-1.027-2.467-.267-.64-.54-.553-.747-.567h-.64a1.23 1.23 0 00-.893.42c-.307.333-1.167 1.14-1.167 2.78s1.193 3.223 1.36 3.443c.167.22 2.347 3.58 5.687 5.02.793.347 1.413.553 1.9.707.8.253 1.527.22 2.1.133.64-.1 1.96-.8 2.24-1.573.28-.773.28-1.44.193-1.573-.08-.14-.3-.22-.633-.387z"/></svg></a>
 
 <script>
-const header=document.getElementById('header');
-window.addEventListener('scroll',()=>header.classList.toggle('scrolled',window.scrollY>10));
-const hb=document.getElementById('hamburger'),mm=document.getElementById('mobileMenu');
-hb.addEventListener('click',()=>{mm.classList.toggle('active');const s=hb.querySelectorAll('span');if(mm.classList.contains('active')){s[0].style.transform='rotate(45deg) translate(4px,4px)';s[1].style.opacity='0';s[2].style.transform='rotate(-45deg) translate(4px,-4px)'}else{s[0].style.transform='';s[1].style.opacity='';s[2].style.transform=''}});
-mm.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{mm.classList.remove('active');const s=hb.querySelectorAll('span');s[0].style.transform='';s[1].style.opacity='';s[2].style.transform=''}));
+// Nav
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>10));
+const hb=document.getElementById('hamburger'),mm=document.getElementById('mobMenu');
+hb.addEventListener('click',()=>{mm.classList.toggle('active');const s=hb.querySelectorAll('span');if(mm.classList.contains('active')){s[0].style.transform='rotate(45deg) translate(3px,3px)';s[1].style.opacity='0';s[2].style.transform='rotate(-45deg) translate(3px,-3px)'}else{s.forEach(el=>{el.style.transform='';el.style.opacity=''})}});
+mm.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{mm.classList.remove('active');hb.querySelectorAll('span').forEach(el=>{el.style.transform='';el.style.opacity=''})}));
 
+// Accordion
+document.querySelectorAll('.accordion-trigger').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const item=btn.parentElement;
+    const wasOpen=item.classList.contains('open');
+    // Close all
+    document.querySelectorAll('.accordion-item').forEach(i=>i.classList.remove('open'));
+    // Toggle clicked
+    if(!wasOpen) item.classList.add('open');
+  });
+});
+
+// EMI Calculator
 function f(n){const s=Math.round(n).toString();let r='',c=0;for(let i=s.length-1;i>=0;i--){if(c===3||(c>3&&(c-3)%2===0))r=','+r;r=s[i]+r;c++}return'\u20B9'+r}
 function calc(){const P=+document.getElementById('loanAmount').value,ar=+document.getElementById('interestRate').value,y=+document.getElementById('tenure').value,r=ar/12/100,n=y*12;const emi=P*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1),tp=emi*n,ti=tp-P;document.getElementById('loanAmtDisplay').textContent=f(P);document.getElementById('interestDisplay').textContent=ar+'%';document.getElementById('tenureDisplay').textContent=y+(y===1?' Year':' Years');document.getElementById('emiValue').textContent=f(emi);document.getElementById('totalInterest').textContent=f(ti);document.getElementById('totalPayment').textContent=f(tp)}
 ['loanAmount','interestRate','tenure'].forEach(id=>document.getElementById(id).addEventListener('input',calc));calc();
 
-const obs=new IntersectionObserver(e=>e.forEach(el=>{if(el.isIntersecting){el.target.style.opacity='1';el.target.style.transform='translateY(0)'}}),{threshold:.1});
-document.querySelectorAll('.prod-card,.why-card,.t-card,.proc-step,.hero-card').forEach(el=>{el.style.opacity='0';el.style.transform='translateY(16px)';el.style.transition='opacity .5s,transform .5s';obs.observe(el)});
+// Scroll reveal
+const obs=new IntersectionObserver(e=>e.forEach(el=>{if(el.isIntersecting){el.target.style.opacity='1';el.target.style.transform='translateY(0)'}}),{threshold:.08});
+document.querySelectorAll('.showcase,.pull-quote,.narrative,.accordion-item,.calc-card,.ns').forEach(el=>{el.style.opacity='0';el.style.transform='translateY(28px)';el.style.transition='opacity .7s ease,transform .7s ease';obs.observe(el)});
 </script>
 </body>
 </html>
