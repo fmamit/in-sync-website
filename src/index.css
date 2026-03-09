@@ -1,0 +1,651 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Premium SaaS Design System
+   All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Light Background Shades - Off-white instead of pure white */
+    --background: 220 20% 98%;
+    --foreground: 222 20% 15%;
+
+    /* Cards use pure white for contrast */
+    --card: 0 0% 100%;
+    --card-foreground: 222 20% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 20% 15%;
+
+    /* Primary - Deep Navy Blue */
+    --primary: 222 47% 20%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 220 15% 94%;
+    --secondary-foreground: 222 30% 35%;
+
+    /* Muted - Light grey for sections */
+    --muted: 220 15% 94%;
+    --muted-foreground: 222 15% 45%;
+
+    /* Accent - Teal for vibrancy */
+    --accent: 175 100% 36%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 15% 88%;
+    --input: 220 15% 95%;
+    --ring: 222 47% 30%;
+
+    /* Brand Colors - Navy Primary with Teal Accent */
+    --brand-navy: 222 47% 20%;
+    --brand-navy-light: 222 30% 45%;
+    --brand-navy-dark: 222 55% 12%;
+    --brand-teal: 175 100% 36%;
+    --brand-teal-light: 175 50% 85%;
+    --brand-accent: 175 100% 36%;
+    
+    /* Premium Design Tokens */
+    --glow-primary: 222 47% 30%;
+    --glow-accent: 175 100% 36%;
+    --surface-elevated: 0 0% 100%;
+    --surface-subtle: 220 20% 96%;
+    
+    /* Section backgrounds for color blocks */
+    --section-light: 220 20% 98%;
+    --section-alt: 220 15% 95%;
+    --section-navy: 222 47% 15%;
+
+    /* Chart Colors */
+    --chart-1: 222 47% 25%;
+    --chart-2: 175 100% 36%;
+    --chart-3: 262 83% 58%;
+    --chart-4: 271 81% 56%;
+    --chart-5: 217 91% 60%;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 220 20% 98%;
+    --sidebar-foreground: 222 20% 20%;
+    --sidebar-primary: 222 47% 20%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 220 15% 95%;
+    --sidebar-accent-foreground: 222 47% 20%;
+    --sidebar-border: 220 15% 90%;
+    --sidebar-ring: 222 47% 30%;
+  }
+
+  .dark {
+    --background: 222 30% 8%;
+    --foreground: 220 20% 95%;
+
+    --card: 222 30% 12%;
+    --card-foreground: 220 20% 95%;
+
+    --popover: 222 30% 12%;
+    --popover-foreground: 220 20% 95%;
+
+    --primary: 175 100% 40%;
+    --primary-foreground: 222 47% 10%;
+
+    --secondary: 222 25% 18%;
+    --secondary-foreground: 220 15% 80%;
+
+    --muted: 222 25% 15%;
+    --muted-foreground: 220 15% 60%;
+
+    --accent: 175 100% 36%;
+    --accent-foreground: 222 30% 10%;
+
+    --destructive: 0 62% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 222 25% 18%;
+    --input: 222 25% 15%;
+    --ring: 175 100% 40%;
+    
+    --surface-elevated: 222 30% 14%;
+    --surface-subtle: 222 30% 10%;
+    
+    --section-light: 222 30% 10%;
+    --section-alt: 222 25% 12%;
+    --section-navy: 222 40% 8%;
+    
+    --sidebar-background: 222 30% 10%;
+    --sidebar-foreground: 220 20% 95%;
+    --sidebar-primary: 175 100% 40%;
+    --sidebar-primary-foreground: 222 30% 10%;
+    --sidebar-accent: 222 25% 15%;
+    --sidebar-accent-foreground: 220 20% 95%;
+    --sidebar-border: 222 25% 18%;
+    --sidebar-ring: 175 100% 40%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Open Sans', sans-serif;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Inter', sans-serif;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* ============================================
+     TYPOGRAPHY SYSTEM - Readable from 6 feet
+     ============================================ */
+  
+  /* Hero heading - Extra large for impact */
+  .heading-hero {
+    @apply text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight tracking-tight;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* Section heading - Clear hierarchy */
+  .heading-section {
+    @apply text-3xl md:text-4xl lg:text-5xl font-bold leading-tight;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* Sub-section heading */
+  .heading-subsection {
+    @apply text-xl md:text-2xl font-semibold;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* Body text - Easy reading */
+  .text-body {
+    @apply text-base md:text-lg leading-relaxed;
+    font-family: 'Open Sans', sans-serif;
+  }
+
+  /* Large body text for important descriptions */
+  .text-body-lg {
+    @apply text-lg md:text-xl leading-relaxed;
+    font-family: 'Open Sans', sans-serif;
+  }
+
+  /* Section spacing utilities */
+  .section-spacing {
+    @apply py-28 md:py-32 lg:py-40;
+  }
+
+  .section-spacing-sm {
+    @apply py-20 md:py-24 lg:py-28;
+  }
+
+  /* Content spacing within sections */
+  .content-spacing {
+    @apply mb-12 md:mb-16 lg:mb-20;
+  }
+
+  /* Card/element spacing */
+  .element-spacing {
+    @apply gap-6 md:gap-8 lg:gap-10;
+  }
+}
+
+@layer components {
+  /* ============================================
+     PREMIUM GLASS MORPHISM EFFECTS
+     ============================================ */
+  .glass-card {
+    @apply bg-card/70 backdrop-blur-xl border border-border/50;
+    box-shadow: 
+      0 4px 6px -1px hsl(var(--foreground) / 0.05),
+      0 2px 4px -2px hsl(var(--foreground) / 0.05),
+      inset 0 1px 0 0 hsl(var(--background) / 0.5);
+  }
+  
+  .glass-section {
+    @apply bg-background/80 backdrop-blur-md;
+  }
+
+  /* ============================================
+     PREMIUM SHADOW SYSTEM
+     ============================================ */
+  .shadow-premium {
+    box-shadow: 
+      0 1px 2px hsl(var(--foreground) / 0.03),
+      0 4px 8px hsl(var(--foreground) / 0.04),
+      0 12px 24px hsl(var(--foreground) / 0.05),
+      0 24px 48px hsl(var(--foreground) / 0.06);
+  }
+  
+  .shadow-premium-sm {
+    box-shadow: 
+      0 1px 2px hsl(var(--foreground) / 0.02),
+      0 2px 4px hsl(var(--foreground) / 0.03),
+      0 4px 8px hsl(var(--foreground) / 0.04);
+  }
+  
+  .shadow-premium-lg {
+    box-shadow: 
+      0 2px 4px hsl(var(--foreground) / 0.02),
+      0 8px 16px hsl(var(--foreground) / 0.04),
+      0 24px 48px hsl(var(--foreground) / 0.06),
+      0 48px 96px hsl(var(--foreground) / 0.08);
+  }
+
+  /* ============================================
+     GLOW EFFECTS
+     ============================================ */
+  .glow-primary {
+    box-shadow: 0 0 40px hsl(var(--glow-primary) / 0.3);
+  }
+  
+  .glow-primary-sm {
+    box-shadow: 0 0 20px hsl(var(--glow-primary) / 0.2);
+  }
+  
+  .glow-accent {
+    box-shadow: 0 0 40px hsl(var(--glow-accent) / 0.3);
+  }
+  
+  .hover-glow-primary {
+    @apply transition-shadow duration-300;
+  }
+  
+  .hover-glow-primary:hover {
+    box-shadow: 0 0 30px hsl(var(--glow-primary) / 0.25);
+  }
+
+  /* ============================================
+     GRADIENT BACKGROUNDS
+     ============================================ */
+  .gradient-hero {
+    background: 
+      radial-gradient(ellipse 80% 50% at 50% -20%, hsl(var(--primary) / 0.15), transparent),
+      radial-gradient(ellipse 60% 40% at 80% 50%, hsl(var(--accent) / 0.08), transparent),
+      hsl(var(--background));
+  }
+  
+  .gradient-section-alt {
+    background: 
+      linear-gradient(180deg, hsl(var(--muted) / 0.3) 0%, hsl(var(--background)) 100%);
+  }
+  
+  .gradient-section-primary {
+    background: 
+      linear-gradient(135deg, hsl(var(--primary) / 0.03) 0%, hsl(var(--accent) / 0.02) 100%);
+  }
+  
+  .gradient-mesh {
+    background: 
+      radial-gradient(at 40% 20%, hsl(var(--primary) / 0.1) 0px, transparent 50%),
+      radial-gradient(at 80% 0%, hsl(var(--accent) / 0.08) 0px, transparent 50%),
+      radial-gradient(at 0% 50%, hsl(var(--primary) / 0.05) 0px, transparent 50%),
+      radial-gradient(at 80% 50%, hsl(var(--accent) / 0.05) 0px, transparent 50%),
+      radial-gradient(at 0% 100%, hsl(var(--primary) / 0.08) 0px, transparent 50%),
+      hsl(var(--background));
+  }
+
+  /* ============================================
+     GRADIENT BORDERS (Animated)
+     ============================================ */
+  .gradient-border {
+    position: relative;
+    background: hsl(var(--card));
+    border-radius: var(--radius);
+  }
+  
+  .gradient-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, hsl(var(--primary) / 0.5), hsl(var(--accent) / 0.5));
+    -webkit-mask: 
+      linear-gradient(#fff 0 0) content-box, 
+      linear-gradient(#fff 0 0);
+    mask: 
+      linear-gradient(#fff 0 0) content-box, 
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .gradient-border:hover::before {
+    opacity: 1;
+  }
+
+  /* ============================================
+     PREMIUM CARD STYLES
+     ============================================ */
+  .card-premium {
+    @apply bg-card rounded-xl border border-border/50 transition-all duration-300;
+    box-shadow: 
+      0 1px 3px hsl(var(--foreground) / 0.02),
+      0 4px 12px hsl(var(--foreground) / 0.04);
+  }
+  
+  .card-premium:hover {
+    @apply border-primary/30;
+    box-shadow: 
+      0 4px 12px hsl(var(--foreground) / 0.04),
+      0 12px 32px hsl(var(--foreground) / 0.06),
+      0 0 0 1px hsl(var(--primary) / 0.1);
+    transform: translateY(-4px);
+  }
+  
+  .card-interactive {
+    @apply card-premium cursor-pointer;
+  }
+
+  /* ============================================
+     PREMIUM BUTTON EFFECTS
+     ============================================ */
+  .btn-premium {
+    @apply relative overflow-hidden transition-all duration-300;
+  }
+  
+  .btn-premium::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, transparent 0%, hsl(0 0% 100% / 0.1) 50%, transparent 100%);
+    transform: translateX(-100%);
+    transition: transform 0.5s ease;
+  }
+  
+  .btn-premium:hover::before {
+    transform: translateX(100%);
+  }
+  
+  .btn-glow {
+    @apply transition-all duration-300;
+  }
+  
+  .btn-glow:hover {
+    box-shadow: 
+      0 0 20px hsl(var(--primary) / 0.4),
+      0 4px 12px hsl(var(--primary) / 0.3);
+  }
+
+  /* ============================================
+     SECTION DIVIDERS
+     ============================================ */
+  .section-divider {
+    @apply w-full h-px bg-gradient-to-r from-transparent via-border to-transparent;
+  }
+  
+  .section-divider-accent {
+    @apply w-full h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent;
+  }
+
+  /* ============================================
+     FLOATING DECORATIVE ELEMENTS
+     ============================================ */
+  .floating-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.5;
+    pointer-events: none;
+  }
+  
+  .floating-blob-primary {
+    background: hsl(var(--primary) / 0.3);
+  }
+  
+  .floating-blob-accent {
+    background: hsl(var(--accent) / 0.2);
+  }
+
+  /* ============================================
+     DOT PATTERN BACKGROUND
+     ============================================ */
+  .dot-pattern {
+    background-image: radial-gradient(hsl(var(--foreground) / 0.05) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+  
+  .grid-pattern {
+    background-image: 
+      linear-gradient(hsl(var(--foreground) / 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--foreground) / 0.03) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  /* ============================================
+     PREMIUM BADGE STYLES
+     ============================================ */
+  .badge-premium {
+    @apply inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium;
+    background: linear-gradient(135deg, hsl(var(--primary) / 0.1), hsl(var(--accent) / 0.05));
+    border: 1px solid hsl(var(--primary) / 0.2);
+  }
+  
+  .badge-glow {
+    @apply badge-premium;
+    box-shadow: 0 0 20px hsl(var(--primary) / 0.15);
+  }
+
+  /* ============================================
+     ANIMATIONS
+     ============================================ */
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px) rotate(0deg);
+    }
+    33% {
+      transform: translateY(-10px) rotate(1deg);
+    }
+    66% {
+      transform: translateY(5px) rotate(-1deg);
+    }
+  }
+
+  @keyframes ticker {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+  
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+  
+  @keyframes pulse-glow {
+    0%, 100% {
+      box-shadow: 0 0 20px hsl(var(--primary) / 0.2);
+    }
+    50% {
+      box-shadow: 0 0 40px hsl(var(--primary) / 0.4);
+    }
+  }
+  
+  @keyframes gradient-shift {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  .animate-float {
+    animation: float 4s ease-in-out infinite;
+  }
+
+  .animate-ticker {
+    animation: ticker 30s linear infinite;
+  }
+  
+  .animate-shimmer {
+    animation: shimmer 2s linear infinite;
+    background: linear-gradient(90deg, transparent, hsl(var(--primary) / 0.1), transparent);
+    background-size: 200% 100%;
+  }
+  
+  .animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+  
+  .animate-gradient {
+    animation: gradient-shift 3s ease infinite;
+    background-size: 200% 200%;
+  }
+
+  /* ============================================
+     UTILITY CLASSES
+     ============================================ */
+  .flex-center { @apply flex items-center justify-center; }
+  .flex-between { @apply flex items-center justify-between; }
+  .flex-start { @apply flex items-center justify-start; }
+  .flex-end { @apply flex items-center justify-end; }
+  .flex-col-center { @apply flex flex-col items-center justify-center; }
+  
+  /* Common card layouts */
+  .stat-card { @apply p-6 rounded-xl border bg-card shadow-premium-sm hover:shadow-premium transition-all duration-300; }
+  .feature-card { @apply p-4 rounded-xl border border-border/50 hover:border-primary/50 transition-all duration-300 card-premium; }
+  .metric-card { @apply text-center p-4 rounded-xl bg-muted/50; }
+
+  /* ============================================
+     SECTION COLOR BLOCKS
+     ============================================ */
+  .section-light {
+    background: hsl(var(--section-light));
+  }
+  
+  .section-grey {
+    background: hsl(var(--section-alt));
+  }
+  
+  .section-navy {
+    background: hsl(var(--section-navy));
+    color: hsl(0 0% 100%);
+  }
+  
+  .section-navy .text-foreground {
+    color: hsl(0 0% 100%);
+  }
+  
+  .section-navy .text-muted-foreground {
+    color: hsl(220 15% 75%);
+  }
+  
+  .section-gradient {
+    background: linear-gradient(180deg, hsl(var(--section-light)) 0%, hsl(var(--card)) 100%);
+  }
+  
+  .section-gradient-navy {
+    background: linear-gradient(180deg, hsl(var(--section-alt)) 0%, hsl(var(--section-navy)) 100%);
+  }
+
+  /* ============================================
+     FOOTER STYLES
+     ============================================ */
+  .footer-gradient {
+    background: linear-gradient(180deg, hsl(222 47% 16%) 0%, hsl(222 47% 10%) 100%);
+    color: hsl(0 0% 100%);
+  }
+  
+  .footer-bottom-bar {
+    background: hsl(222 47% 7%);
+  }
+
+  /* ============================================
+     REACTQUILL EDITOR STYLING
+     ============================================ */
+  .ql-toolbar {
+    border-top: 1px solid hsl(var(--border)) !important;
+    border-left: 1px solid hsl(var(--border)) !important;
+    border-right: 1px solid hsl(var(--border)) !important;
+    border-bottom: none !important;
+    border-radius: calc(var(--radius)) calc(var(--radius)) 0 0 !important;
+    background: hsl(var(--background)) !important;
+  }
+
+  .ql-container {
+    border-bottom: 1px solid hsl(var(--border)) !important;
+    border-left: 1px solid hsl(var(--border)) !important;
+    border-right: 1px solid hsl(var(--border)) !important;
+    border-top: none !important;
+    border-radius: 0 0 calc(var(--radius)) calc(var(--radius)) !important;
+    background: hsl(var(--background)) !important;
+    color: hsl(var(--foreground)) !important;
+    font-family: inherit !important;
+  }
+
+  /* Dynamic Progress Bar Colors */
+  .progress-indicator {
+    background-color: var(--progress-color, hsl(var(--primary)));
+    transition: background-color 0.3s ease;
+  }
+
+  .progress[style*="--progress-color"] .progress-indicator {
+    background-color: var(--progress-color);
+  }
+
+  .ql-editor {
+    color: hsl(var(--foreground)) !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    padding: 12px !important;
+  }
+
+  .ql-editor.ql-blank::before {
+    color: hsl(var(--muted-foreground)) !important;
+    font-style: normal !important;
+  }
+
+  .ql-snow .ql-stroke {
+    stroke: hsl(var(--foreground)) !important;
+  }
+
+  .ql-snow .ql-fill {
+    fill: hsl(var(--foreground)) !important;
+  }
+
+  .ql-snow .ql-picker {
+    color: hsl(var(--foreground)) !important;
+  }
+
+  .ql-snow .ql-picker-options {
+    background: hsl(var(--popover)) !important;
+    border: 1px solid hsl(var(--border)) !important;
+    border-radius: calc(var(--radius)) !important;
+  }
+
+  .ql-snow .ql-picker-item:hover {
+    background: hsl(var(--accent) / 0.1) !important;
+  }
+
+  .ql-snow .ql-active {
+    background: hsl(var(--primary) / 0.1) !important;
+    border-radius: calc(var(--radius)) !important;
+  }
+
+  .ql-snow .ql-toolbar button:hover {
+    background: hsl(var(--accent) / 0.1) !important;
+    border-radius: calc(var(--radius)) !important;
+  }
+}

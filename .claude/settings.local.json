@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(xargs grep:*)",
+      "Bash(npx supabase:*)",
+      "Bash(echo:*)",
+      "Bash(export:*)",
+      "Bash(curl:*)"
+    ]
+  }
+}

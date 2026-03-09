@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Capital India Finance Limited | RBI Registered NBFC | BSE: 530879</title>
+<link rel="icon" type="image/jpeg" href="capital-india-favicon.jpg">
+<link rel="shortcut icon" type="image/jpeg" href="capital-india-favicon.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#06090F;--surface:#0D1117;--card:#141B27;--card-hover:#1A2333;
+  --teal:#00E5A0;--teal-dim:rgba(0,229,160,.07);--teal-mid:rgba(0,229,160,.15);
+  --cyan:#00B4D8;--blue:#2E86C1;--gold:#F0B429;--green:#34D399;
+  --white:#FFF;--t1:rgba(255,255,255,.93);--t2:rgba(255,255,255,.55);--t3:rgba(255,255,255,.28);
+  --border:rgba(255,255,255,.06);--border-h:rgba(255,255,255,.12);
+  --r:10px;--rl:16px;--rxl:24px;
+  --f:'Space Grotesk',system-ui,sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--f);color:var(--t2);background:var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3,h4{color:var(--t1);line-height:1.12;font-weight:700}
+.wrap{max-width:1200px;margin:0 auto;padding:0 28px}
+
+/* ── NAV ── */
+.nav-bar{position:fixed;top:0;left:0;right:0;z-index:100;transition:all .4s}
+.nav-bar.scrolled{background:rgba(6,9,15,.85);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid var(--border)}
+.nav-inner{max-width:1200px;margin:0 auto;padding:0 28px;display:flex;align-items:center;justify-content:space-between;height:68px}
+.logo-img{height:48px;filter:brightness(0) invert(1);opacity:.85}
+.nav-links{display:flex;gap:4px}
+.nav-links a{font-size:13.5px;font-weight:500;color:var(--t3);text-decoration:none;padding:7px 14px;border-radius:var(--r);transition:all .2s}
+.nav-links a:hover{color:var(--t1);background:rgba(255,255,255,.04)}
+.nav-right{display:flex;align-items:center;gap:8px}
+.nav-login{font-size:13px;font-weight:500;color:var(--t3);text-decoration:none;padding:8px 14px;transition:color .2s}
+.nav-login:hover{color:var(--t1)}
+.nav-cta{font-size:13px;font-weight:600;color:var(--bg);background:var(--teal);padding:9px 22px;border-radius:var(--r);text-decoration:none;transition:all .25s;box-shadow:0 0 16px rgba(0,229,160,.15)}
+.nav-cta:hover{box-shadow:0 0 28px rgba(0,229,160,.25);transform:translateY(-1px)}
+.hamburger{display:none;background:none;border:none;cursor:pointer;padding:8px}
+.hamburger span{display:block;width:20px;height:2px;background:var(--t1);margin:4px 0;border-radius:1px;transition:all .3s}
+.mob-menu{display:none;position:absolute;top:100%;left:0;right:0;background:var(--surface);border-bottom:1px solid var(--border);padding:12px 28px}
+.mob-menu.active{display:block}
+.mob-menu a{display:block;padding:14px 0;color:var(--t2);text-decoration:none;font-size:15px;font-weight:500;border-bottom:1px solid var(--border)}
+
+/* ══════════════════════════════════
+   HERO - With inline eligibility form
+   ══════════════════════════════════ */
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden;padding:100px 28px 60px}
+.hero::before{content:'';position:absolute;top:-30%;left:50%;transform:translateX(-50%);width:900px;height:900px;background:radial-gradient(circle,rgba(0,229,160,.1) 0%,rgba(0,180,216,.05) 35%,transparent 65%);border-radius:50%;filter:blur(80px);pointer-events:none}
+.hero::after{content:'';position:absolute;bottom:-20%;right:-10%;width:600px;height:600px;background:radial-gradient(circle,rgba(0,180,216,.06),transparent 60%);border-radius:50%;filter:blur(60px);pointer-events:none}
+.hero-content{position:relative;z-index:1;max-width:720px}
+.hero-reg{font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--teal);margin-bottom:24px;display:flex;align-items:center;justify-content:center;gap:8px}
+.hero-reg::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--teal);box-shadow:0 0 8px var(--teal)}
+.hero h1{font-size:60px;letter-spacing:-2px;margin-bottom:20px}
+.hero h1 .gl{background:linear-gradient(135deg,var(--teal),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:18px;color:var(--t2);max-width:540px;margin:0 auto 48px;line-height:1.7}
+
+/* Inline eligibility form */
+.hero-form{background:var(--card);border:1px solid var(--border);border-radius:var(--rxl);padding:32px;max-width:560px;margin:0 auto;text-align:left}
+.hero-form-title{font-size:14px;font-weight:600;color:var(--t1);margin-bottom:20px;display:flex;align-items:center;gap:8px}
+.hero-form-title span{font-size:10px;color:var(--teal);background:var(--teal-dim);padding:3px 8px;border-radius:4px;font-weight:700;letter-spacing:.5px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+.form-group{display:flex;flex-direction:column;gap:6px}
+.form-group label{font-size:12px;color:var(--t3);font-weight:600;letter-spacing:.3px}
+.form-group select,.form-group input{font-family:var(--f);font-size:14px;font-weight:600;color:var(--t1);background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:var(--r);padding:12px 14px;outline:none;transition:border-color .2s;-webkit-appearance:none;appearance:none}
+.form-group select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none'%3E%3Cpath d='M3 4.5l3 3 3-3' stroke='%23666' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px}
+.form-group select:focus,.form-group input:focus{border-color:var(--teal)}
+.form-group select option{background:var(--card);color:var(--t1)}
+.form-amount-display{font-size:24px;font-weight:700;color:var(--teal);margin-top:4px}
+.form-slider{width:100%;height:4px;-webkit-appearance:none;appearance:none;background:rgba(255,255,255,.08);border-radius:2px;outline:none;cursor:pointer;margin-top:8px}
+.form-slider::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--teal);box-shadow:0 0 10px rgba(0,229,160,.3);border:3px solid var(--card)}
+.form-slider::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--teal);box-shadow:0 0 10px rgba(0,229,160,.3);border:3px solid var(--card)}
+.form-submit{width:100%;margin-top:8px;font-family:var(--f);font-size:15px;font-weight:700;color:var(--bg);background:var(--teal);border:none;padding:16px;border-radius:var(--r);cursor:pointer;transition:all .3s;box-shadow:0 0 24px rgba(0,229,160,.15)}
+.form-submit:hover{box-shadow:0 0 36px rgba(0,229,160,.25);transform:translateY(-1px)}
+.hero-trust{display:flex;align-items:center;justify-content:center;gap:24px;margin-top:32px;flex-wrap:wrap}
+.hero-trust-item{font-size:12px;color:var(--t3);font-weight:500;display:flex;align-items:center;gap:6px}
+.hero-trust-item::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--teal);opacity:.5}
+
+/* ══════════════════════════
+   TRUST LOGOS STRIP
+   ══════════════════════════ */
+.trust-strip{border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:28px 0;background:var(--surface)}
+.trust-inner{display:flex;align-items:center;justify-content:center;gap:48px;flex-wrap:wrap}
+.trust-badge{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--t3);font-weight:500}
+.trust-badge-icon{width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,.03);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:18px}
+.trust-badge strong{color:var(--t2)}
+
+/* ══════════════════════════
+   STATS - Full-screen counters
+   ══════════════════════════ */
+.stats-section{padding:120px 0;position:relative;overflow:hidden}
+.stats-section::before{content:'';position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;opacity:.04}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;z-index:1}
+.stat-block{text-align:center;padding:0 20px;border-right:1px solid var(--border)}
+.stat-block:last-child{border-right:none}
+.stat-number{font-size:64px;font-weight:700;letter-spacing:-3px;margin-bottom:8px;background:linear-gradient(135deg,var(--teal),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.stat-label{font-size:13px;color:var(--t3);font-weight:500;letter-spacing:.3px}
+
+/* ══════════════════════════════
+   PRODUCTS - Horizontal scroll
+   ══════════════════════════════ */
+.products{padding:100px 0}
+.products .section-head{margin-bottom:48px}
+.section-label{font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--teal);margin-bottom:10px}
+.section-title{font-size:42px;letter-spacing:-1.2px;margin-bottom:12px}
+.section-sub{font-size:15px;color:var(--t2);max-width:460px;line-height:1.7}
+.product-scroll{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:8px 0 24px;scrollbar-width:none;-ms-overflow-style:none}
+.product-scroll::-webkit-scrollbar{display:none}
+.prod-card{flex:0 0 420px;scroll-snap-align:start;background:var(--card);border:1px solid var(--border);border-radius:var(--rxl);overflow:hidden;transition:all .4s}
+.prod-card:hover{border-color:var(--border-h);transform:translateY(-4px)}
+.prod-card-img{width:100%;height:240px;object-fit:cover;display:block}
+.prod-card-body{padding:28px}
+.prod-tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:4px 10px;border-radius:5px;margin-bottom:14px}
+.prod-tag.t1{background:var(--teal-dim);color:var(--teal)}
+.prod-tag.t2{background:rgba(52,211,153,.07);color:var(--green)}
+.prod-tag.t3{background:rgba(240,180,41,.07);color:var(--gold)}
+.prod-card h3{font-size:22px;margin-bottom:10px;letter-spacing:-.3px}
+.prod-card>div>p{font-size:14px;color:var(--t2);line-height:1.7;margin-bottom:24px}
+.prod-card-metrics{display:flex;gap:24px;margin-bottom:24px;padding-top:20px;border-top:1px solid var(--border)}
+.pcm-val{font-size:18px;font-weight:700;color:var(--t1)}
+.pcm-lbl{font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:.5px;font-weight:600}
+.prod-card-cta{display:flex;gap:12px;align-items:center}
+.prod-btn{font-size:13px;font-weight:700;color:var(--bg);background:var(--teal);padding:10px 22px;border-radius:var(--r);text-decoration:none;transition:all .2s;box-shadow:0 0 12px rgba(0,229,160,.1)}
+.prod-btn:hover{box-shadow:0 0 20px rgba(0,229,160,.2);transform:translateY(-1px)}
+.prod-link{font-size:13px;font-weight:600;color:var(--teal);text-decoration:none;transition:opacity .2s}
+.prod-link:hover{opacity:.7}
+.scroll-hint{display:flex;align-items:center;gap:8px;margin-top:20px;font-size:12px;color:var(--t3);font-weight:500}
+.scroll-hint-line{width:40px;height:2px;background:linear-gradient(90deg,var(--teal),transparent);border-radius:1px}
+
+/* ════════════════════════════════════
+   STICKY SCROLL - Image + Features
+   ════════════════════════════════════ */
+.sticky-section{padding:0;background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.sticky-grid{display:grid;grid-template-columns:1fr 1fr;min-height:100vh}
+.sticky-img{position:sticky;top:0;height:100vh;overflow:hidden}
+.sticky-img img{width:100%;height:100%;object-fit:cover}
+.sticky-img::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent 70%,var(--surface))}
+.sticky-content{padding:120px 56px}
+.sticky-block{margin-bottom:100px;max-width:440px}
+.sticky-block:last-child{margin-bottom:60px}
+.sticky-block-num{font-size:64px;font-weight:700;color:rgba(255,255,255,.03);letter-spacing:-3px;margin-bottom:8px;line-height:1}
+.sticky-block h3{font-size:24px;margin-bottom:12px;letter-spacing:-.3px}
+.sticky-block p{font-size:15px;color:var(--t2);line-height:1.75}
+.sticky-block-accent{width:40px;height:3px;border-radius:2px;background:var(--teal);margin-bottom:20px}
+
+/* ════════════════════════════════════════
+   TESTIMONIAL - Full-viewport cinematic
+   ════════════════════════════════════════ */
+.testimonial-full{position:relative;min-height:70vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.testimonial-bg{position:absolute;inset:0}
+.testimonial-bg img{width:100%;height:100%;object-fit:cover}
+.testimonial-bg::after{content:'';position:absolute;inset:0;background:rgba(6,9,15,.82)}
+.testimonial-content{position:relative;z-index:1;text-align:center;max-width:680px;padding:60px 28px}
+.tq-mark{font-size:72px;color:var(--teal);opacity:.3;line-height:1;margin-bottom:0;font-family:Georgia,serif}
+.tq-text{font-size:24px;color:var(--t1);line-height:1.55;margin-bottom:32px;font-style:italic;font-weight:300;letter-spacing:-.2px}
+.tq-name{font-size:15px;font-weight:600;color:var(--t1)}
+.tq-role{font-size:13px;color:var(--t3);margin-top:4px}
+.tq-nav{display:flex;gap:8px;justify-content:center;margin-top:32px}
+.tq-dot{width:10px;height:10px;border-radius:50%;border:1.5px solid var(--t3);background:none;cursor:pointer;padding:0;transition:all .2s}
+.tq-dot.active{background:var(--teal);border-color:var(--teal)}
+
+/* ══════════════════════════════════════
+   EMI CALCULATOR - With donut chart
+   ══════════════════════════════════════ */
+.calc-section{padding:100px 0}
+.calc-section .section-label,.calc-section .section-title{text-align:center}
+.calc-section .section-sub{text-align:center;margin:0 auto}
+.calc-layout{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;margin-top:56px}
+.calc-card{background:var(--card);border:1px solid var(--border);border-radius:var(--rxl);overflow:hidden}
+.calc-header{padding:20px 28px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.calc-header h3{font-size:15px;font-weight:600;color:var(--t1)}
+.calc-header span{font-size:10px;color:var(--teal);background:var(--teal-dim);padding:3px 8px;border-radius:4px;font-weight:700}
+.calc-body{padding:32px 28px}
+.sg{margin-bottom:24px}
+.sg-top{display:flex;justify-content:space-between;margin-bottom:10px}
+.sg-top label{font-size:13px;color:var(--t2);font-weight:500}
+.sg-top output{font-size:14px;font-weight:700;color:var(--teal);background:var(--teal-dim);padding:2px 10px;border-radius:5px}
+input[type="range"]{width:100%;height:4px;-webkit-appearance:none;appearance:none;background:rgba(255,255,255,.08);border-radius:2px;outline:none;cursor:pointer}
+input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--teal);box-shadow:0 0 10px rgba(0,229,160,.25);border:3px solid var(--card)}
+input[type="range"]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:var(--teal);box-shadow:0 0 10px rgba(0,229,160,.25);border:3px solid var(--card)}
+
+/* Donut chart */
+.calc-visual{display:flex;flex-direction:column;align-items:center;gap:32px}
+.donut-wrap{position:relative;width:240px;height:240px}
+.donut-wrap svg{width:100%;height:100%;transform:rotate(-90deg)}
+.donut-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.donut-center-val{font-size:28px;font-weight:700;color:var(--teal)}
+.donut-center-lbl{font-size:11px;color:var(--t3);font-weight:500}
+.donut-legend{display:flex;gap:28px}
+.legend-item{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--t2)}
+.legend-dot{width:10px;height:10px;border-radius:3px}
+.legend-dot.principal{background:var(--teal)}
+.legend-dot.interest{background:var(--cyan);opacity:.4}
+.donut-values{display:grid;grid-template-columns:1fr 1fr;gap:16px;width:100%}
+.dv{background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:var(--rl);padding:18px;text-align:center}
+.dv-lbl{font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:.5px;font-weight:600;margin-bottom:4px}
+.dv-val{font-size:20px;font-weight:700;color:var(--t1)}
+
+/* ══════════════
+   CTA - Split
+   ══════════════ */
+.final-cta{padding:0;border-top:1px solid var(--border)}
+.cta-split{display:grid;grid-template-columns:1fr 1fr;min-height:400px}
+.cta-img{position:relative;overflow:hidden}
+.cta-img img{width:100%;height:100%;object-fit:cover}
+.cta-img::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,var(--surface) 95%)}
+.cta-text{display:flex;flex-direction:column;justify-content:center;padding:60px 56px;background:var(--surface)}
+.cta-text h2{font-size:36px;letter-spacing:-1px;margin-bottom:14px}
+.cta-text p{font-size:15px;color:var(--t2);margin-bottom:32px;line-height:1.7}
+.cta-btns{display:flex;gap:12px;flex-wrap:wrap}
+.btn-teal-lg{font-size:15px;font-weight:700;color:var(--bg);background:var(--teal);padding:16px 36px;border-radius:var(--r);text-decoration:none;transition:all .25s;box-shadow:0 0 20px rgba(0,229,160,.15);display:inline-flex;align-items:center;gap:8px}
+.btn-teal-lg:hover{box-shadow:0 0 32px rgba(0,229,160,.25);transform:translateY(-2px)}
+.btn-outline-lg{font-size:15px;font-weight:500;color:var(--t1);background:transparent;border:1.5px solid var(--border-h);padding:16px 36px;border-radius:var(--r);text-decoration:none;transition:all .25s}
+.btn-outline-lg:hover{border-color:var(--teal);color:var(--teal)}
+
+/* ── FOOTER ── */
+.footer{background:var(--bg);border-top:1px solid var(--border);padding:56px 0 0;color:var(--t3)}
+.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:36px;margin-bottom:36px}
+.footer-brand img{height:48px;filter:brightness(0) invert(1);opacity:.5;margin-bottom:14px}
+.footer-brand p{font-size:13px;line-height:1.7}
+.footer-brand .lic{font-size:10px;opacity:.5;margin-top:10px;line-height:1.6}
+.fc h4{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--teal);margin-bottom:14px;opacity:.6}
+.fc a{display:block;color:var(--t3);text-decoration:none;font-size:13px;padding:4px 0;transition:color .2s}
+.fc a:hover{color:var(--t1)}
+.footer-btm{border-top:1px solid var(--border);padding:18px 0;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.footer-btm p{font-size:11px;opacity:.4}
+.fb-links{display:flex;gap:16px}
+.fb-links a{font-size:11px;color:var(--t3);opacity:.4;text-decoration:none;transition:opacity .2s}
+.fb-links a:hover{opacity:1}
+
+/* ── WA ── */
+.wa{position:fixed;bottom:24px;right:24px;z-index:200;width:52px;height:52px;border-radius:50%;background:#25D366;border:none;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.3);text-decoration:none;transition:all .3s}
+.wa:hover{transform:scale(1.08)}
+.wa svg{width:26px;height:26px;fill:var(--white)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1024px){
+  .hero h1{font-size:44px}
+  .stats-grid{grid-template-columns:1fr 1fr;gap:40px 0}
+  .stat-block{border-right:none;padding:20px;border-bottom:1px solid var(--border)}
+  .stat-block:nth-child(odd){border-right:1px solid var(--border)}
+  .stat-block:nth-child(3),.stat-block:nth-child(4){border-bottom:none}
+  .stat-number{font-size:48px}
+  .prod-card{flex:0 0 360px}
+  .sticky-content{padding:80px 40px}
+  .sticky-block{margin-bottom:80px}
+  .cta-text{padding:48px 40px}
+  .footer-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:768px){
+  .nav-links{display:none}.hamburger{display:block}.nav-login{display:none}
+  .hero{min-height:auto;padding:100px 28px 48px}.hero h1{font-size:32px;letter-spacing:-1px}
+  .hero-sub{font-size:16px}.form-row{grid-template-columns:1fr}
+  .section-title{font-size:30px}.stat-number{font-size:40px}
+  .stats-grid{grid-template-columns:1fr;gap:0}
+  .stat-block{border-right:none}
+  .stat-block:nth-child(odd){border-right:none}
+  .stat-block:nth-child(3){border-bottom:1px solid var(--border)}
+  .prod-card{flex:0 0 300px}
+  .sticky-grid{grid-template-columns:1fr}.sticky-img{position:relative;height:50vh}
+  .sticky-img::after{background:linear-gradient(180deg,transparent 70%,var(--surface))}
+  .sticky-content{padding:48px 28px}
+  .sticky-block{margin-bottom:60px}.sticky-block-num{font-size:48px}
+  .calc-layout{grid-template-columns:1fr}
+  .cta-split{grid-template-columns:1fr}.cta-img{height:300px}
+  .cta-img::after{background:linear-gradient(180deg,transparent,var(--surface) 95%)}
+  .cta-text{padding:40px 28px}
+  .tq-text{font-size:20px}
+  .donut-wrap{width:200px;height:200px}.donut-values{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr;gap:24px}
+  .footer-btm{flex-direction:column;text-align:center}
+  .cta-btns{flex-direction:column}.trust-inner{gap:24px}
+  .hero-trust{flex-direction:column;gap:8px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="nav-bar" id="nav">
+  <div class="nav-inner">
+    <a href="#"><img src="CI.webp" alt="Capital India" class="logo-img"></a>
+    <nav class="nav-links">
+      <a href="#about">About</a><a href="#products">Products</a><a href="#calculator">Calculator</a><a href="#contact">Contact</a>
+    </nav>
+    <div class="nav-right">
+      <a href="#" class="nav-login">Login</a>
+      <a href="#" class="nav-cta">Apply Now</a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mob-menu" id="mobMenu">
+    <a href="#about">About</a><a href="#products">Products</a><a href="#calculator">Calculator</a><a href="#contact">Contact</a>
+  </div>
+</header>
+
+<!-- ═══ HERO with eligibility form ═══ -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-reg">RBI Registered NBFC &middot; BSE: 530879</div>
+    <h1>Business finance,<br><span class="gl">rediscovered.</span></h1>
+    <p class="hero-sub">Structured lending for India's SMEs. Fast approvals, transparent terms, technology-driven underwriting.</p>
+
+    <div class="hero-form">
+      <div class="hero-form-title">Check your eligibility <span>60 SEC</span></div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>I need financing for</label>
+          <select>
+            <option>Business Expansion</option>
+            <option>Equipment Purchase</option>
+            <option>Working Capital</option>
+            <option>Supply Chain</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Business vintage</label>
+          <select>
+            <option>3+ Years</option>
+            <option>1-3 Years</option>
+            <option>Less than 1 Year</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group" style="margin-bottom:20px">
+        <label>Loan amount required</label>
+        <div class="form-amount-display" id="heroAmtDisplay">&#8377;50,00,000</div>
+        <input type="range" class="form-slider" id="heroAmount" min="500000" max="50000000" step="500000" value="5000000">
+      </div>
+      <button class="form-submit">Check Eligibility &rarr;</button>
+    </div>
+
+    <div class="hero-trust">
+      <div class="hero-trust-item">RBI Registered</div>
+      <div class="hero-trust-item">BSE Listed</div>
+      <div class="hero-trust-item">No Credit Score Impact</div>
+      <div class="hero-trust-item">15+ Years</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TRUST STRIP ═══ -->
+<section class="trust-strip">
+  <div class="trust-inner">
+    <div class="trust-badge"><div class="trust-badge-icon">&#127974;</div><div><strong>RBI</strong> Registered NBFC</div></div>
+    <div class="trust-badge"><div class="trust-badge-icon">&#128200;</div><div><strong>BSE</strong> Code: 530879</div></div>
+    <div class="trust-badge"><div class="trust-badge-icon">&#128274;</div><div><strong>DPDP</strong> Act Compliant</div></div>
+    <div class="trust-badge"><div class="trust-badge-icon">&#128221;</div><div><strong>Fair Practices</strong> Code</div></div>
+  </div>
+</section>
+
+<!-- ═══ STATS - Full screen counters ═══ -->
+<section class="stats-section">
+  <div class="wrap">
+    <div class="stats-grid">
+      <div class="stat-block"><div class="stat-number">&#8377;500Cr+</div><div class="stat-label">Assets Under Management</div></div>
+      <div class="stat-block"><div class="stat-number">3,000+</div><div class="stat-label">Businesses Served</div></div>
+      <div class="stat-block"><div class="stat-number">15+</div><div class="stat-label">Years Experience</div></div>
+      <div class="stat-block"><div class="stat-number">7 Days</div><div class="stat-label">Average Turnaround</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PRODUCTS - Horizontal scroll ═══ -->
+<section class="products" id="products">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-label">Solutions</div>
+      <h2 class="section-title">Explore our products</h2>
+      <p class="section-sub">Three purpose-built lending products for different business needs.</p>
+    </div>
+  </div>
+  <div style="padding-left:max(28px,calc((100vw - 1200px)/2 + 28px))">
+    <div class="product-scroll">
+      <div class="prod-card">
+        <img src="https://images.unsplash.com/photo-1664575602554-2087b04935a5?auto=format&fit=crop&w=840&q=80" alt="Business owner" class="prod-card-img">
+        <div class="prod-card-body">
+          <div class="prod-tag t1">Secured Lending</div>
+          <h3>SME Secured Loans</h3>
+          <p>Collateral-backed term loans for growth capital, working capital, or business expansion across India.</p>
+          <div class="prod-card-metrics">
+            <div><div class="pcm-val">&#8377;5 Cr</div><div class="pcm-lbl">Max Amount</div></div>
+            <div><div class="pcm-val">13%</div><div class="pcm-lbl">From Rate</div></div>
+            <div><div class="pcm-val">15 Yrs</div><div class="pcm-lbl">Tenure</div></div>
+          </div>
+          <div class="prod-card-cta"><a href="#" class="prod-btn">Apply</a><a href="#" class="prod-link">Details &rarr;</a></div>
+        </div>
+      </div>
+      <div class="prod-card">
+        <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=840&q=80" alt="Manufacturing" class="prod-card-img">
+        <div class="prod-card-body">
+          <div class="prod-tag t2">Asset Finance</div>
+          <h3>Equipment Finance</h3>
+          <p>Asset-backed financing for machinery, equipment, and capital goods with flexible repayment structures.</p>
+          <div class="prod-card-metrics">
+            <div><div class="pcm-val">&#8377;1 Cr</div><div class="pcm-lbl">Max Amount</div></div>
+            <div><div class="pcm-val">13%</div><div class="pcm-lbl">From Rate</div></div>
+            <div><div class="pcm-val">5 Yrs</div><div class="pcm-lbl">Tenure</div></div>
+          </div>
+          <div class="prod-card-cta"><a href="#" class="prod-btn">Apply</a><a href="#" class="prod-link">Details &rarr;</a></div>
+        </div>
+      </div>
+      <div class="prod-card">
+        <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=840&q=80" alt="Supply chain" class="prod-card-img">
+        <div class="prod-card-body">
+          <div class="prod-tag t3">Working Capital</div>
+          <h3>Supply Chain Finance</h3>
+          <p>Revolving credit for vendors and dealers. Unlock capital tied in receivables and inventory cycles.</p>
+          <div class="prod-card-metrics">
+            <div><div class="pcm-val">&#8377;5 Cr</div><div class="pcm-lbl">Max Amount</div></div>
+            <div><div class="pcm-val">13%</div><div class="pcm-lbl">From Rate</div></div>
+            <div><div class="pcm-val">Annual</div><div class="pcm-lbl">Revolving</div></div>
+          </div>
+          <div class="prod-card-cta"><a href="#" class="prod-btn">Apply</a><a href="#" class="prod-link">Details &rarr;</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="wrap"><div class="scroll-hint"><div class="scroll-hint-line"></div> Scroll to explore</div></div>
+  </div>
+</section>
+
+<!-- ═══ STICKY SCROLL - Features ═══ -->
+<section class="sticky-section" id="about">
+  <div class="sticky-grid">
+    <div class="sticky-img">
+      <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=960&q=80" alt="Team at work">
+    </div>
+    <div class="sticky-content">
+      <div class="sticky-block">
+        <div class="sticky-block-num">01</div>
+        <div class="sticky-block-accent"></div>
+        <h3>7-Day Disbursals</h3>
+        <p>Digital-first workflows and automated underwriting mean your loan moves from application to disbursal in a single week. No branch visits. No paper shuffling. Just fast, reliable funding when your business needs it.</p>
+      </div>
+      <div class="sticky-block">
+        <div class="sticky-block-num">02</div>
+        <div class="sticky-block-accent"></div>
+        <h3>RBI-Regulated Governance</h3>
+        <p>As a systemically important NBFC registered with the Reserve Bank of India and listed on BSE, we operate under the highest regulatory standards. Your trust is backed by institutional credibility.</p>
+      </div>
+      <div class="sticky-block">
+        <div class="sticky-block-num">03</div>
+        <div class="sticky-block-accent"></div>
+        <h3>Zero Hidden Charges</h3>
+        <p>Every fee, every rate, every charge is communicated upfront before you sign. We believe transparency isn't a feature - it's a baseline. Read our Fair Practices Code for full details.</p>
+      </div>
+      <div class="sticky-block">
+        <div class="sticky-block-num">04</div>
+        <div class="sticky-block-accent"></div>
+        <h3>Dedicated Relationship Manager</h3>
+        <p>From your first enquiry through the life of your loan, you work with a single dedicated RM who understands your business. 340+ channel partners ensure local expertise wherever you are.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TESTIMONIAL - Cinematic ═══ -->
+<section class="testimonial-full">
+  <div class="testimonial-bg">
+    <img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?auto=format&fit=crop&w=1920&q=80" alt="Business skyline">
+  </div>
+  <div class="testimonial-content">
+    <div class="tq-mark">&ldquo;</div>
+    <div class="tq-text" id="tqText">Capital India processed our SME loan in just 5 days. Transparent, digital, and hassle-free. Highly recommended for growing businesses.</div>
+    <div class="tq-name" id="tqName">Rajesh Kumar</div>
+    <div class="tq-role" id="tqRole">Director, Kumar Textiles Pvt. Ltd.</div>
+    <div class="tq-nav">
+      <button class="tq-dot active" data-i="0" aria-label="Quote 1"></button>
+      <button class="tq-dot" data-i="1" aria-label="Quote 2"></button>
+      <button class="tq-dot" data-i="2" aria-label="Quote 3"></button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CALCULATOR with donut ═══ -->
+<section class="calc-section" id="calculator">
+  <div class="wrap">
+    <div class="section-label">Plan Your Finances</div>
+    <h2 class="section-title">EMI Calculator</h2>
+    <p class="section-sub">Visualise your repayments. Adjust and compare instantly.</p>
+    <div class="calc-layout">
+      <div class="calc-card">
+        <div class="calc-header"><h3>Adjust Parameters</h3><span>LIVE</span></div>
+        <div class="calc-body">
+          <div class="sg"><div class="sg-top"><label>Loan Amount</label><output id="loanAmtDisplay">&#8377;25,00,000</output></div><input type="range" id="loanAmount" min="100000" max="50000000" step="100000" value="2500000"></div>
+          <div class="sg"><div class="sg-top"><label>Interest Rate (% p.a.)</label><output id="interestDisplay">13%</output></div><input type="range" id="interestRate" min="10" max="24" step="0.5" value="13"></div>
+          <div class="sg"><div class="sg-top"><label>Tenure</label><output id="tenureDisplay">10 Years</output></div><input type="range" id="tenure" min="1" max="15" step="1" value="10"></div>
+        </div>
+      </div>
+      <div class="calc-visual">
+        <div class="donut-wrap">
+          <svg viewBox="0 0 120 120">
+            <circle cx="60" cy="60" r="50" fill="none" stroke="rgba(255,255,255,.04)" stroke-width="12"/>
+            <circle id="donutInterest" cx="60" cy="60" r="50" fill="none" stroke="rgba(0,180,216,.25)" stroke-width="12" stroke-dasharray="314.16" stroke-dashoffset="0" stroke-linecap="round"/>
+            <circle id="donutPrincipal" cx="60" cy="60" r="50" fill="none" stroke="var(--teal)" stroke-width="12" stroke-dasharray="314.16" stroke-dashoffset="157" stroke-linecap="round"/>
+          </svg>
+          <div class="donut-center">
+            <div class="donut-center-val" id="emiValue">&#8377;37,532</div>
+            <div class="donut-center-lbl">Monthly EMI</div>
+          </div>
+        </div>
+        <div class="donut-legend">
+          <div class="legend-item"><div class="legend-dot principal"></div>Principal</div>
+          <div class="legend-item"><div class="legend-dot interest"></div>Interest</div>
+        </div>
+        <div class="donut-values">
+          <div class="dv"><div class="dv-lbl">Total Interest</div><div class="dv-val" id="totalInterest">&#8377;20,03,840</div></div>
+          <div class="dv"><div class="dv-lbl">Total Payment</div><div class="dv-val" id="totalPayment">&#8377;45,03,840</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA - Split ═══ -->
+<section class="final-cta">
+  <div class="cta-split">
+    <div class="cta-img">
+      <img src="https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=960&q=80" alt="Mumbai skyline">
+    </div>
+    <div class="cta-text">
+      <h2>Ready to grow your business?</h2>
+      <p>Check eligibility in 60 seconds. No paperwork required, no impact on your credit score.</p>
+      <div class="cta-btns">
+        <a href="#" class="btn-teal-lg">Check Eligibility &rarr;</a>
+        <a href="#" class="btn-outline-lg">Talk to Expert</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer" id="contact">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="CI.webp" alt="Capital India">
+        <p>Capital India Finance Limited is an RBI registered NBFC listed on BSE, providing customised lending to India's SME sector.</p>
+        <div class="lic">CIN: L65910DL1994PLC128577<br>NBFC Reg: N-14.03370 &middot; BSE: 530879</div>
+      </div>
+      <div class="fc"><h4>Company</h4><a href="#">About Us</a><a href="#">Leadership</a><a href="#">Investors</a><a href="#">Media</a><a href="#">Careers</a><a href="#">Contact</a></div>
+      <div class="fc"><h4>Products</h4><a href="#">SME Secured Loans</a><a href="#">Equipment Finance</a><a href="#">Supply Chain Finance</a><a href="#">Loan Against Property</a><a href="#">Advisory</a></div>
+      <div class="fc"><h4>Compliance</h4><a href="#">Fair Practices Code</a><a href="#">Grievance Redressal</a><a href="#">Interest Rate Policy</a><a href="#">KYC Policy</a><a href="#">Privacy Policy</a><a href="#">DPDP Compliance</a></div>
+    </div>
+    <div class="footer-btm">
+      <p>&copy; 2026 Capital India Finance Limited. All rights reserved.</p>
+      <div class="fb-links"><a href="#">Terms</a><a href="#">Privacy</a><a href="#">Disclaimer</a><a href="#">Sitemap</a></div>
+    </div>
+  </div>
+</footer>
+
+<a href="https://wa.me/919999999999" class="wa" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 32 32"><path d="M16 2.667A13.26 13.26 0 002.72 15.893a13.16 13.16 0 001.803 6.667L2.667 29.333l7.013-1.84a13.28 13.28 0 006.307 1.6h.017A13.28 13.28 0 0029.333 15.92 13.22 13.22 0 0016 2.667zm0 24.266a11.01 11.01 0 01-5.613-1.533l-.4-.24-4.187 1.1 1.12-4.08-.267-.413A10.95 10.95 0 015 15.9 11.01 11.01 0 0116 4.92 11.01 11.01 0 0127.08 15.92 11.07 11.07 0 0116 26.933zm6.053-8.24c-.333-.167-1.96-.967-2.267-1.08-.307-.107-.527-.167-.747.167-.22.333-.86 1.08-1.053 1.3-.193.22-.387.247-.72.08-.333-.167-1.407-.52-2.68-1.653-.99-.88-1.66-1.967-1.853-2.3-.193-.333-.02-.513.147-.68.147-.147.333-.387.5-.58.167-.193.22-.333.333-.553.113-.22.06-.413-.027-.58-.087-.167-.747-1.8-1.027-2.467-.267-.64-.54-.553-.747-.567h-.64a1.23 1.23 0 00-.893.42c-.307.333-1.167 1.14-1.167 2.78s1.193 3.223 1.36 3.443c.167.22 2.347 3.58 5.687 5.02.793.347 1.413.553 1.9.707.8.253 1.527.22 2.1.133.64-.1 1.96-.8 2.24-1.573.28-.773.28-1.44.193-1.573-.08-.14-.3-.22-.633-.387z"/></svg></a>
+
+<script>
+// Nav scroll
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>10));
+
+// Mobile menu
+const hb=document.getElementById('hamburger'),mm=document.getElementById('mobMenu');
+hb.addEventListener('click',()=>{mm.classList.toggle('active');const s=hb.querySelectorAll('span');if(mm.classList.contains('active')){s[0].style.transform='rotate(45deg) translate(4px,4px)';s[1].style.opacity='0';s[2].style.transform='rotate(-45deg) translate(4px,-4px)'}else{s.forEach(el=>{el.style.transform='';el.style.opacity=''})}});
+mm.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{mm.classList.remove('active');hb.querySelectorAll('span').forEach(el=>{el.style.transform='';el.style.opacity=''})}));
+
+// Hero amount slider
+function fmtINR(n){const s=Math.round(n).toString();let r='',c=0;for(let i=s.length-1;i>=0;i--){if(c===3||(c>3&&(c-3)%2===0))r=','+r;r=s[i]+r;c++}return'\u20B9'+r}
+const heroSlider=document.getElementById('heroAmount');
+heroSlider.addEventListener('input',()=>{document.getElementById('heroAmtDisplay').textContent=fmtINR(+heroSlider.value)});
+
+// Testimonials
+const tqs=[
+  {t:'Capital India processed our SME loan in just 5 days. Transparent, digital, and hassle-free. Highly recommended for growing businesses.',n:'Rajesh Kumar',r:'Director, Kumar Textiles Pvt. Ltd.'},
+  {t:'We needed equipment finance urgently for a new production line. Quick turnaround and flexible terms made our deadline possible.',n:'Sunita Patel',r:'CEO, Patel Manufacturing'},
+  {t:'Their supply chain finance unlocked working capital stuck in receivables. The revolving facility gives us exactly the flexibility we need.',n:'Anand Mehta',r:'CFO, Mehta Trading Co.'}
+];
+const tqT=document.getElementById('tqText'),tqN=document.getElementById('tqName'),tqR=document.getElementById('tqRole');
+function setQuote(i){
+  document.querySelectorAll('.tq-dot').forEach(d=>d.classList.remove('active'));
+  document.querySelectorAll('.tq-dot')[i].classList.add('active');
+  tqT.style.opacity='0';
+  setTimeout(()=>{tqT.textContent=tqs[i].t;tqN.textContent=tqs[i].n;tqR.textContent=tqs[i].r;tqT.style.opacity='1'},200);
+}
+tqT.style.transition='opacity .2s';
+document.querySelectorAll('.tq-dot').forEach(d=>d.addEventListener('click',()=>setQuote(+d.dataset.i)));
+let qi=0;setInterval(()=>{qi=(qi+1)%3;setQuote(qi)},5000);
+
+// EMI Calculator + Donut
+function calc(){
+  const P=+document.getElementById('loanAmount').value,ar=+document.getElementById('interestRate').value,y=+document.getElementById('tenure').value;
+  const r=ar/12/100,n=y*12;
+  const emi=P*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1),tp=emi*n,ti=tp-P;
+  document.getElementById('loanAmtDisplay').textContent=fmtINR(P);
+  document.getElementById('interestDisplay').textContent=ar+'%';
+  document.getElementById('tenureDisplay').textContent=y+(y===1?' Year':' Years');
+  document.getElementById('emiValue').textContent=fmtINR(emi);
+  document.getElementById('totalInterest').textContent=fmtINR(ti);
+  document.getElementById('totalPayment').textContent=fmtINR(tp);
+  // Update donut
+  const circ=314.16;
+  const pRatio=P/tp,iRatio=ti/tp;
+  document.getElementById('donutPrincipal').setAttribute('stroke-dashoffset',circ*(1-pRatio));
+  document.getElementById('donutInterest').setAttribute('stroke-dashoffset',circ*pRatio);
+}
+['loanAmount','interestRate','tenure'].forEach(id=>document.getElementById(id).addEventListener('input',calc));
+calc();
+
+// Scroll reveal
+const obs=new IntersectionObserver(e=>e.forEach(el=>{if(el.isIntersecting){el.target.style.opacity='1';el.target.style.transform='translateY(0)'}}),{threshold:.1});
+document.querySelectorAll('.stat-block,.prod-card,.sticky-block,.calc-card,.calc-visual,.trust-badge').forEach(el=>{el.style.opacity='0';el.style.transform='translateY(24px)';el.style.transition='opacity .6s ease,transform .6s ease';obs.observe(el)});
+</script>
+</body>
+</html>
