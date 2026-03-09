@@ -237,19 +237,16 @@ input[type="range"]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;b
 
 /* ── RESPONSIVE ── */
 @media(max-width:1024px){
-  .hero h1{font-size:44px}.stats-grid{grid-template-columns:1fr 1fr;gap:40px 0}
+  .hero h1{font-size:44px}
+  .stats-grid{grid-template-columns:1fr 1fr;gap:40px 0}
   .stat-block{border-right:none;padding:20px;border-bottom:1px solid var(--border)}
   .stat-block:nth-child(odd){border-right:1px solid var(--border)}
   .stat-block:nth-child(3),.stat-block:nth-child(4){border-bottom:none}
   .stat-number{font-size:48px}
-  .prod-card{flex:0 0 340px}
-  .sticky-grid{grid-template-columns:1fr}.sticky-img{position:relative;height:50vh}
-  .sticky-img::after{background:linear-gradient(180deg,transparent 70%,var(--surface))}
-  .sticky-content{padding:60px 28px}
-  .calc-layout{grid-template-columns:1fr}
-  .cta-split{grid-template-columns:1fr}.cta-img{height:300px}
-  .cta-img::after{background:linear-gradient(180deg,transparent,var(--surface) 95%)}
-  .cta-text{padding:48px 28px}
+  .prod-card{flex:0 0 360px}
+  .sticky-content{padding:80px 40px}
+  .sticky-block{margin-bottom:80px}
+  .cta-text{padding:48px 40px}
   .footer-grid{grid-template-columns:1fr 1fr}
 }
 @media(max-width:768px){
@@ -257,8 +254,19 @@ input[type="range"]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;b
   .hero{min-height:auto;padding:100px 28px 48px}.hero h1{font-size:32px;letter-spacing:-1px}
   .hero-sub{font-size:16px}.form-row{grid-template-columns:1fr}
   .section-title{font-size:30px}.stat-number{font-size:40px}
+  .stats-grid{grid-template-columns:1fr;gap:0}
+  .stat-block{border-right:none}
+  .stat-block:nth-child(odd){border-right:none}
+  .stat-block:nth-child(3){border-bottom:1px solid var(--border)}
   .prod-card{flex:0 0 300px}
+  .sticky-grid{grid-template-columns:1fr}.sticky-img{position:relative;height:50vh}
+  .sticky-img::after{background:linear-gradient(180deg,transparent 70%,var(--surface))}
+  .sticky-content{padding:48px 28px}
   .sticky-block{margin-bottom:60px}.sticky-block-num{font-size:48px}
+  .calc-layout{grid-template-columns:1fr}
+  .cta-split{grid-template-columns:1fr}.cta-img{height:300px}
+  .cta-img::after{background:linear-gradient(180deg,transparent,var(--surface) 95%)}
+  .cta-text{padding:40px 28px}
   .tq-text{font-size:20px}
   .donut-wrap{width:200px;height:200px}.donut-values{grid-template-columns:1fr}
   .footer-grid{grid-template-columns:1fr;gap:24px}
