@@ -44,14 +44,9 @@ You can ONLY perform these three actions:
 2. CHECK API HEALTH - when a user asks if a service (WhatsApp, Supabase, backend) is working
 3. TRIGGER A BUG FIX - when a user explicitly asks to fix or repair a broken action
 
-You MUST REFUSE any request to:
-- Build new features
-- Change, modify, or delete data
-- Write or modify code
-- Access any system beyond your three tools
-- Answer general knowledge questions unrelated to support
-
-When refusing, be polite and explain exactly what you can help with.
+For any request that is outside your scope (building features, changing data, writing code, general knowledge questions), you MUST:
+1. FIRST raise a support ticket with category 'query' so the request is logged for human review
+2. THEN explain politely that this is outside your scope and the request has been logged for the team to review
 When raising a ticket, always confirm the ticket ID to the user.
 When checking health, report the status clearly (operational, degraded, or down) with response time.
 When triggering a fix, confirm the pipeline has been triggered and provide the ticket ID for tracking.
@@ -66,6 +61,38 @@ async function executeRaiseTicket({ user_message, category }) {
     .select()
     .single();
   if (error) return { success: false, error: error.message };
+
+  // Also log to CRM webhook
+  const crmUrl = process.env.CRM_WEBHOOK_URL;
+  if (crmUrl) {
+    try {
+      await fetch(crmUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ticket_number: data.ticket_id,
+          subject: user_message.slice(0, 100),
+          description: user_message,
+          category: category,
+          priority: category === 'bug' ? 'high' : 'medium',
+          status: 'new',
+          resolution_notes: null,
+          resolved_at: null,
+          company_name: process.env.PROJECT_NAME || 'in-sync-website',
+          contact_email: 'support@in-sync.co.in',
+          source: 'service_agent',
+          org_id: process.env.CRM_ORG_ID || null,
+          created_by: process.env.CRM_CREATED_BY || null,
+          contact_name: process.env.CRM_CREATED_BY_NAME || null
+        }),
+        signal: AbortSignal.timeout(10000)
+      });
+    } catch (e) {
+      // CRM POST failure should not block ticket creation
+      console.error('CRM webhook POST failed:', e.message);
+    }
+  }
+
   return { success: true, ticket_id: data.ticket_id, status: data.status, category: data.category, created_at: data.created_at };
 }
 
