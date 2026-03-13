@@ -265,6 +265,140 @@
   cursor: not-allowed;
 }
 
+/* --- attachments in messages --- */
+.service-agent-root .sa-attachments,
+.sa-support-page .sa-attachments {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+.service-agent-root .sa-attachment-thumb,
+.sa-support-page .sa-attachment-thumb {
+  width: 60px;
+  height: 60px;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid var(--sa-navy-border);
+}
+.service-agent-root .sa-attachment-thumb img,
+.sa-support-page .sa-attachment-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.service-agent-root .sa-video-badge,
+.sa-support-page .sa-video-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  background: rgba(59, 130, 246, 0.15);
+  color: var(--sa-accent);
+  font-size: 9px;
+  padding: 4px;
+  text-align: center;
+}
+.service-agent-root .sa-video-badge span,
+.sa-support-page .sa-video-badge span {
+  margin-top: 2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 52px;
+}
+
+/* --- file preview strip --- */
+.service-agent-root .sa-file-preview-strip,
+.sa-support-page .sa-file-preview-strip {
+  display: flex;
+  gap: 6px;
+  padding: 8px 16px 0;
+  background: var(--sa-navy-light);
+  overflow-x: auto;
+}
+.service-agent-root .sa-file-preview-item,
+.sa-support-page .sa-file-preview-item {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid var(--sa-navy-border);
+  flex-shrink: 0;
+}
+.service-agent-root .sa-file-preview-item img,
+.sa-support-page .sa-file-preview-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.service-agent-root .sa-file-preview-video,
+.sa-support-page .sa-file-preview-video {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  background: rgba(59, 130, 246, 0.15);
+  color: var(--sa-accent);
+}
+.service-agent-root .sa-file-remove,
+.sa-support-page .sa-file-remove {
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #ef4444;
+  color: #fff;
+  border: none;
+  font-size: 10px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+/* --- upload error --- */
+.service-agent-root .sa-upload-error,
+.sa-support-page .sa-upload-error {
+  padding: 4px 16px;
+  background: var(--sa-navy-light);
+  color: #f87171;
+  font-size: 11px;
+}
+
+/* --- attach button --- */
+.service-agent-root .sa-attach-btn,
+.sa-support-page .sa-attach-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--sa-text-muted);
+  border: 1px solid var(--sa-navy-border);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: color 0.2s, border-color 0.2s;
+}
+.service-agent-root .sa-attach-btn:hover:not(:disabled),
+.sa-support-page .sa-attach-btn:hover:not(:disabled) {
+  color: var(--sa-accent);
+  border-color: var(--sa-accent);
+}
+.service-agent-root .sa-attach-btn:disabled,
+.sa-support-page .sa-attach-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
 /* mobile */
 @media (max-width: 480px) {
   .service-agent-root .sa-panel {

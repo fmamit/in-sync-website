@@ -8,7 +8,8 @@ const tools = [
       type: 'object',
       properties: {
         user_message: { type: 'string', description: "The user's description of the issue" },
-        category: { type: 'string', enum: ['bug', 'query', 'api_issue'], description: 'Category of the ticket' }
+        category: { type: 'string', enum: ['bug', 'query', 'api_issue'], description: 'Category of the ticket' },
+        attachments: { type: 'array', items: { type: 'object', properties: { name: { type: 'string' }, url: { type: 'string' }, type: { type: 'string' } } }, description: 'File attachments (screenshots/video URLs) provided by the user. Pass these through from the request if present.' }
       },
       required: ['user_message', 'category']
     }
@@ -58,6 +59,7 @@ For any request that is outside your scope (building features, changing data, wr
 2. After confirmation, raise a support ticket with category 'query' so the request is logged for human review
 3. THEN explain politely that this is outside your scope and the request has been logged for the team to review
 
+Users can attach up to 6 screenshots and 1 video to their messages. When attachments are present, acknowledge them and include them with the ticket. Attachment URLs will be passed through automatically when you raise a ticket.
 When raising a ticket, always confirm the ticket ID to the user.
 When checking health, report the status clearly (operational, degraded, or down) with response time.
 When triggering a fix, confirm the pipeline has been triggered and provide the ticket ID for tracking.
@@ -65,10 +67,12 @@ For ticket status queries, look up the ticket by ID and report its current statu
 
 Current portal: ${process.env.PROJECT_NAME || 'in-sync-website'}`;
 
-async function executeRaiseTicket({ user_message, category }) {
+async function executeRaiseTicket({ user_message, category, attachments }) {
+  const insertData = { project_name: process.env.PROJECT_NAME || 'in-sync-website', user_message, category };
+  if (attachments && attachments.length > 0) insertData.attachments = attachments;
   const { data, error } = await supabase
     .from('tickets')
-    .insert({ project_name: process.env.PROJECT_NAME || 'in-sync-website', user_message, category })
+    .insert(insertData)
     .select()
     .single();
   if (error) return { success: false, error: error.message };
@@ -92,6 +96,7 @@ async function executeRaiseTicket({ user_message, category }) {
           company_name: process.env.PROJECT_NAME || 'in-sync-website',
           contact_email: 'support@in-sync.co.in',
           source: 'service_agent',
+          attachments: attachments || [],
           org_id: process.env.CRM_ORG_ID || null,
           created_by: process.env.CRM_CREATED_BY || null,
           contact_name: process.env.CRM_CREATED_BY_NAME || null

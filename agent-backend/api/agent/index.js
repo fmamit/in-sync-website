@@ -8,7 +8,7 @@ module.exports = async function (context, req) {
   }
 
   try {
-    const { message, conversation_history = [] } = req.body || {};
+    const { message, conversation_history = [], attachments } = req.body || {};
     if (!message || typeof message !== 'string') {
       context.res = { status: 400, body: { error: 'message is required and must be a string' }, headers: { 'Content-Type': 'application/json' } };
       return;
@@ -37,7 +37,12 @@ module.exports = async function (context, req) {
 
       let toolResult;
       switch (toolUseBlock.name) {
-        case 'raise_ticket': toolResult = await executeRaiseTicket(toolUseBlock.input); break;
+        case 'raise_ticket': {
+          const ticketInput = { ...toolUseBlock.input };
+          if (attachments && attachments.length > 0 && !ticketInput.attachments) ticketInput.attachments = attachments;
+          toolResult = await executeRaiseTicket(ticketInput);
+          break;
+        }
         case 'check_health': toolResult = await executeCheckHealth(toolUseBlock.input); break;
         case 'trigger_bug_fix': toolResult = await executeTriggerBugFix(toolUseBlock.input); break;
         default: toolResult = { error: 'Unknown tool' };
