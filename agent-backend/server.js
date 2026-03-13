@@ -276,7 +276,10 @@ async function executeTriggerBugFix({ issue }) {
           client_payload: {
             ticket_id: ticketResult.ticket_id,
             project_name: process.env.PROJECT_NAME || 'in-sync-website',
-            issue
+            issue,
+            crm_org_id: process.env.CRM_ORG_ID,
+            crm_created_by: process.env.CRM_CREATED_BY,
+            crm_created_by_name: process.env.CRM_CREATED_BY_NAME
           }
         }),
         signal: AbortSignal.timeout(15000)

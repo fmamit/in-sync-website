@@ -13,9 +13,9 @@ jobs:
       SUPABASE_URL: ${{ secrets.AGENT_SUPABASE_URL }}
       SUPABASE_SERVICE_KEY: ${{ secrets.AGENT_SUPABASE_SERVICE_KEY }}
       CRM_WEBHOOK_URL: ${{ secrets.CRM_WEBHOOK_URL }}
-      CRM_ORG_ID: ${{ secrets.CRM_ORG_ID }}
-      CRM_CREATED_BY: ${{ secrets.CRM_CREATED_BY }}
-      CRM_CREATED_BY_NAME: ${{ secrets.CRM_CREATED_BY_NAME }}
+      CRM_ORG_ID: ${{ github.event.client_payload.crm_org_id }}
+      CRM_CREATED_BY: ${{ github.event.client_payload.crm_created_by }}
+      CRM_CREATED_BY_NAME: ${{ github.event.client_payload.crm_created_by_name }}
       TICKET_ID: ${{ github.event.client_payload.ticket_id }}
       PROJECT_NAME: ${{ github.event.client_payload.project_name }}
       ISSUE_DESCRIPTION: ${{ github.event.client_payload.issue }}
