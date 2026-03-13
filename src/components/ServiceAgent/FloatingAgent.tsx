@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import { useAuth } from '@/hooks/useAuth';
 import { supabaseAgent } from './supabaseAgent';
 import './ServiceAgent.css';
 
@@ -25,6 +26,7 @@ const VIDEO_TYPES = ['video/mp4', 'video/quicktime', 'video/webm'];
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB per file
 
 const FloatingAgent = () => {
+  const { loading, isAdmin } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
@@ -187,6 +189,8 @@ const FloatingAgent = () => {
       handleSend();
     }
   };
+
+  if (loading || !isAdmin) return null;
 
   return (
     <div className="service-agent-root">
