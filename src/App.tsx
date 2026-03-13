@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { HelmetProvider } from 'react-helmet-async';
 import ChatbotEnhanced from "@/components/ChatbotEnhanced";
+import FloatingAgent from "@/components/ServiceAgent/FloatingAgent";
 import Header from "@/components/Header";
 import Index from "./pages/Index";
 import Auth from "./pages/Auth";
@@ -29,6 +30,8 @@ import Cookies from "./pages/Cookies";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
 import NotFound from "./pages/NotFound";
+import SupportPage from "./pages/SupportPage";
+import SupportAdmin from "./pages/SupportAdmin";
 import { useEffect } from "react";
 
 const RSSRedirect = () => {
@@ -47,6 +50,7 @@ const App = () => (
         <Toaster />
         <Sonner />
         <ChatbotEnhanced />
+        <FloatingAgent />
         <BrowserRouter>
         <Header />
         <Routes>
@@ -72,6 +76,8 @@ const App = () => (
           <Route path="/cookies" element={<Cookies />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
+          <Route path="/support" element={<SupportPage />} />
+          <Route path="/support/admin" element={<SupportAdmin />} />
           <Route path="/rss-feed" element={<RSSRedirect />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
