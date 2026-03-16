@@ -41,8 +41,10 @@
   document.body.appendChild(overlay);
 
   var CSS = `
-    :host { all: initial; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; border: 0; font: inherit; }
+    :host { all: initial; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; display: block; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    button, div, span, h3, h4, p, small, b, i, a, label, form { border: 0; }
+    input, textarea, select { font-family: inherit; font-size: inherit; }
 
     .fab {
       width: 44px; height: 44px; border-radius: 50%; background: ${COLOR};
@@ -104,17 +106,18 @@
       border: 2px solid #d1d5db; border-radius: 10px;
       font-size: 14px; font-family: inherit; background: #ffffff; color: #111827;
       outline: none; transition: border-color 0.2s, box-shadow 0.2s;
-      -webkit-appearance: none; appearance: none;
     }
     .g input:focus, .g textarea:focus, .g select:focus {
       border-color: ${COLOR}; background: #fff; box-shadow: 0 0 0 4px rgba(139,92,246,0.12);
     }
     .g input::placeholder, .g textarea::placeholder { color: #9ca3af; font-size: 14px; }
-    .g textarea { resize: vertical; min-height: 100px; height: auto; }
+    .g textarea {
+      resize: vertical; min-height: 100px; height: auto;
+      cursor: text; white-space: pre-wrap; overflow-y: auto;
+    }
     .g select {
       cursor: pointer;
-      background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24'%3E%3Cpath fill='%23666' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E") no-repeat right 14px center;
-      padding-right: 36px;
+      -webkit-appearance: menulist; appearance: menulist;
     }
 
     .r2 { display: flex; gap: 16px; }
