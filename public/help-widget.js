@@ -1,280 +1,304 @@
 /**
- * In-Sync Help Ticket Widget
- * Clean, modern ticket form with AI auto-response.
+ * In-Sync Help Ticket Widget (Shadow DOM isolated)
  */
 (function () {
   "use strict";
 
   var SUPABASE_URL = "https://ljggjepqdqdffoejizpg.supabase.co";
   var SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxqZ2dqZXBxZHFkZmZvZWppenBnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIzMzg0MzAsImV4cCI6MjA4NzkxNDQzMH0.q7J0MALSejAlA1GT5nPsQAv0XmiT3BXSYOOJNwIaUP4";
-
   var scriptTag = document.currentScript;
   var COLOR = (scriptTag && scriptTag.getAttribute("data-color")) || "#8b5cf6";
   var POSITION = (scriptTag && scriptTag.getAttribute("data-position")) || "right";
   var SOURCE = (scriptTag && scriptTag.getAttribute("data-source")) || "website";
-  var MAX_FILE_SIZE = 5 * 1024 * 1024;
-  var MAX_IMG = 5; var MAX_VID = 2;
+  var MAX_IMG = 5, MAX_VID = 2;
 
   function isOnline() {
-    var now = new Date();
-    var ist = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Kolkata" }));
+    var ist = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" }));
     return ist.getDay() >= 1 && ist.getDay() <= 5 && ist.getHours() >= 9 && ist.getHours() < 18;
   }
-  function getSystemInfo() {
-    var ua = navigator.userAgent;
-    var b = "Unknown", o = "Unknown";
-    if (ua.indexOf("Edg") > -1) b = "Edge";
-    else if (ua.indexOf("Chrome") > -1) b = "Chrome";
-    else if (ua.indexOf("Firefox") > -1) b = "Firefox";
-    else if (ua.indexOf("Safari") > -1) b = "Safari";
-    if (ua.indexOf("Win") > -1) o = "Windows";
-    else if (ua.indexOf("Mac") > -1) o = "macOS";
-    else if (ua.indexOf("Linux") > -1) o = "Linux";
-    else if (ua.indexOf("Android") > -1) o = "Android";
-    else if (/iPhone|iPad/.test(ua)) o = "iOS";
-    return { browser: b, os: o, url: window.location.href, screen: screen.width + "x" + screen.height };
+  function getSys() {
+    var ua = navigator.userAgent, b = "Unknown", o = "Unknown";
+    if (ua.indexOf("Edg") > -1) b = "Edge"; else if (ua.indexOf("Chrome") > -1) b = "Chrome"; else if (ua.indexOf("Firefox") > -1) b = "Firefox"; else if (ua.indexOf("Safari") > -1) b = "Safari";
+    if (ua.indexOf("Win") > -1) o = "Windows"; else if (ua.indexOf("Mac") > -1) o = "macOS"; else if (ua.indexOf("Linux") > -1) o = "Linux"; else if (ua.indexOf("Android") > -1) o = "Android"; else if (/iPhone|iPad/.test(ua)) o = "iOS";
+    return { browser: b, os: o, url: location.href, screen: screen.width + "x" + screen.height };
   }
 
   var online = isOnline();
-  var dotColor = online ? "#22c55e" : "#eab308";
+  var dotCol = online ? "#22c55e" : "#eab308";
+  var onTxt = online ? "We're online now" : "We'll respond in business hours";
+  var sys = getSys();
 
-  // ── CSS ──
-  var S = document.createElement("style");
-  S.textContent = [
-    // Reset
-    "#ihw-root,#ihw-root *,#ihw-root *::before,#ihw-root *::after{box-sizing:border-box!important;border-width:0!important;border-style:none!important;border-color:transparent!important;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif!important;line-height:normal!important;-webkit-text-size-adjust:100%!important;margin:0!important;padding:0!important}",
+  // Create host + shadow
+  var host = document.createElement("div");
+  host.style.cssText = "position:fixed;bottom:20px;" + POSITION + ":20px;z-index:999998;font-size:0;line-height:0;";
+  document.body.appendChild(host);
+  var shadow = host.attachShadow({ mode: "open" });
 
-    // Root
-    "#ihw-root{position:fixed!important;bottom:20px!important;" + POSITION + ":20px!important;z-index:999998!important;display:block!important}",
+  // Overlay (outside shadow, on the page)
+  var overlay = document.createElement("div");
+  overlay.id = "ihw-overlay";
+  overlay.style.cssText = "display:none;position:fixed;inset:0;background:rgba(0,0,0,0.35);z-index:999997;backdrop-filter:blur(2px);";
+  document.body.appendChild(overlay);
 
-    // FAB
-    ".ihw-fab{width:44px!important;height:44px!important;border-radius:50%!important;background:" + COLOR + "!important;cursor:pointer!important;display:flex!important;align-items:center!important;justify-content:center!important;box-shadow:0 4px 15px rgba(139,92,246,0.4)!important;transition:transform 0.2s!important;position:relative!important}",
-    ".ihw-fab:hover{transform:scale(1.1)!important}",
-    ".ihw-fab svg{width:20px!important;height:20px!important;fill:#fff!important;display:block!important}",
-    ".ihw-fab .ic2{display:none!important}",
-    ".ihw-fab.on .ic1{display:none!important}",
-    ".ihw-fab.on .ic2{display:block!important}",
-    ".ihw-fab-dot{position:absolute!important;top:-1px!important;right:-1px!important;width:10px!important;height:10px!important;border-radius:50%!important;background:" + dotColor + "!important;border:2px solid #fff!important}",
+  var CSS = `
+    :host { all: initial; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; border: 0; font: inherit; }
 
-    // Overlay
-    ".ihw-ov{display:none!important;position:fixed!important;inset:0!important;background:rgba(0,0,0,0.35)!important;z-index:999998!important;backdrop-filter:blur(2px)!important}",
-    ".ihw-ov.on{display:block!important}",
+    .fab {
+      width: 44px; height: 44px; border-radius: 50%; background: ${COLOR};
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 16px rgba(139,92,246,0.4); transition: transform 0.2s;
+      position: relative;
+    }
+    .fab:hover { transform: scale(1.1); }
+    .fab svg { width: 20px; height: 20px; fill: #fff; }
+    .fab .ic2 { display: none; }
+    .fab.on .ic1 { display: none; }
+    .fab.on .ic2 { display: block; }
+    .dot {
+      position: absolute; top: -1px; right: -1px; width: 10px; height: 10px;
+      border-radius: 50%; background: ${dotCol}; border: 2px solid #fff;
+    }
 
-    // Panel
-    ".ihw-pn{display:none!important;position:fixed!important;top:50%!important;left:50%!important;transform:translate(-50%,-50%)!important;width:460px!important;max-width:calc(100vw - 32px)!important;max-height:calc(100vh - 40px)!important;background:#fff!important;border-radius:16px!important;box-shadow:0 25px 80px rgba(0,0,0,0.18)!important;overflow:hidden!important;flex-direction:column!important;z-index:999999!important;animation:ihwUp 0.3s ease!important}",
-    ".ihw-pn.on{display:flex!important}",
-    "@keyframes ihwUp{from{opacity:0;transform:translate(-50%,-48%) scale(0.95)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}",
+    .pn {
+      display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      width: 460px; max-width: calc(100vw - 32px); max-height: calc(100vh - 40px);
+      background: #fff; border-radius: 16px;
+      box-shadow: 0 25px 80px rgba(0,0,0,0.18);
+      overflow: hidden; flex-direction: column;
+      z-index: 999999; animation: up 0.3s ease;
+    }
+    .pn.on { display: flex; }
+    @keyframes up {
+      from { opacity: 0; transform: translate(-50%, -48%) scale(0.95); }
+      to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    }
 
-    // Header
-    ".ihw-hd{background:linear-gradient(135deg," + COLOR + ",#a78bfa)!important;padding:18px 24px!important;flex-shrink:0!important}",
-    ".ihw-hd h3{color:#fff!important;font-size:16px!important;font-weight:700!important;display:block!important;margin-bottom:4px!important}",
-    ".ihw-hd-st{display:flex!important;align-items:center!important;gap:6px!important}",
-    ".ihw-hd-st i{width:7px!important;height:7px!important;border-radius:50%!important;background:" + dotColor + "!important;display:block!important}",
-    ".ihw-hd-st span{color:rgba(255,255,255,0.85)!important;font-size:12px!important;display:inline!important}",
+    .hd {
+      background: linear-gradient(135deg, ${COLOR}, #a78bfa);
+      padding: 18px 24px; flex-shrink: 0;
+    }
+    .hd h3 { color: #fff; font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+    .hd-st { display: flex; align-items: center; gap: 6px; }
+    .hd-st i { width: 7px; height: 7px; border-radius: 50%; background: ${dotCol}; display: block; font-style: normal; }
+    .hd-st span { color: rgba(255,255,255,0.85); font-size: 12px; }
 
-    // Tabs
-    ".ihw-tb{display:flex!important;border-bottom:1px solid #e5e7eb!important;flex-shrink:0!important;background:#fafafa!important}",
-    ".ihw-t{flex:1!important;padding:10px!important;background:transparent!important;cursor:pointer!important;font-size:12px!important;font-weight:600!important;color:#9ca3af!important;text-align:center!important;border-bottom:2px solid transparent!important;text-transform:uppercase!important;letter-spacing:0.5px!important;transition:all 0.15s!important;display:block!important}",
-    ".ihw-t.on{color:" + COLOR + "!important;border-bottom-color:" + COLOR + "!important;background:#fff!important}",
+    .tabs { display: flex; border-bottom: 1px solid #e5e7eb; flex-shrink: 0; background: #fafafa; }
+    .tab {
+      flex: 1; padding: 10px; background: transparent; cursor: pointer;
+      font-size: 12px; font-weight: 600; color: #9ca3af; text-align: center;
+      border-bottom: 2px solid transparent; text-transform: uppercase; letter-spacing: 0.5px;
+      transition: all 0.15s;
+    }
+    .tab.on { color: ${COLOR}; border-bottom-color: ${COLOR}; background: #fff; }
 
-    // Body
-    ".ihw-bd{padding:20px 24px!important;overflow-y:auto!important;flex:1!important;min-height:0!important;display:block!important}",
-    ".ihw-tc{display:none!important}",
-    ".ihw-tc.on{display:block!important}",
+    .bd { padding: 20px 24px; overflow-y: auto; flex: 1; min-height: 0; }
+    .tc { display: none; }
+    .tc.on { display: block; }
 
-    // Form field
-    ".ihw-g{margin-bottom:16px!important;display:block!important}",
-    ".ihw-g label{display:block!important;font-size:13px!important;font-weight:600!important;color:#374151!important;margin-bottom:6px!important}",
-    ".ihw-g label b{color:#ef4444!important;font-weight:600!important}",
-    ".ihw-g input,.ihw-g textarea,.ihw-g select{display:block!important;width:100%!important;padding:10px 14px!important;border:1.5px solid #e0e0e0!important;border-radius:8px!important;font-size:14px!important;background:#fafafa!important;color:#1f2937!important;transition:border-color 0.15s,background 0.15s!important;outline:none!important;-webkit-appearance:none!important;appearance:none!important}",
-    ".ihw-g input:focus,.ihw-g textarea:focus,.ihw-g select:focus{border-color:" + COLOR + "!important;background:#fff!important;box-shadow:0 0 0 3px rgba(139,92,246,0.08)!important}",
-    ".ihw-g input::placeholder,.ihw-g textarea::placeholder{color:#b0b0b0!important;font-size:13px!important}",
-    ".ihw-g textarea{resize:vertical!important;min-height:80px!important}",
-    ".ihw-g select{cursor:pointer!important;background:#fafafa url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='%23999' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E\") no-repeat right 12px center!important;padding-right:32px!important}",
+    .g { margin-bottom: 16px; }
+    .g label { display: block; font-size: 13px; font-weight: 600; color: #374151; margin-bottom: 6px; }
+    .g label b { color: #ef4444; font-weight: 600; }
+    .g input, .g textarea, .g select {
+      display: block; width: 100%; padding: 10px 14px;
+      border: 1.5px solid #e0e0e0; border-radius: 8px;
+      font-size: 14px; font-family: inherit; background: #fafafa; color: #1f2937;
+      outline: none; transition: border-color 0.15s, background 0.15s;
+      -webkit-appearance: none; appearance: none;
+    }
+    .g input:focus, .g textarea:focus, .g select:focus {
+      border-color: ${COLOR}; background: #fff; box-shadow: 0 0 0 3px rgba(139,92,246,0.08);
+    }
+    .g input::placeholder, .g textarea::placeholder { color: #b0b0b0; font-size: 13px; }
+    .g textarea { resize: vertical; min-height: 80px; }
+    .g select {
+      cursor: pointer;
+      background: #fafafa url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='%23999' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E") no-repeat right 12px center;
+      padding-right: 32px;
+    }
 
-    // Two-col row
-    ".ihw-2{display:flex!important;gap:14px!important}",
-    ".ihw-2>.ihw-g{flex:1!important;min-width:0!important}",
+    .r2 { display: flex; gap: 14px; }
+    .r2 > .g { flex: 1; min-width: 0; }
 
-    // Priority
-    ".ihw-pr{display:flex!important;gap:6px!important}",
-    ".ihw-pb{flex:1!important;padding:8px 4px!important;border:1.5px solid #e0e0e0!important;border-radius:8px!important;background:#fafafa!important;cursor:pointer!important;font-size:12px!important;font-weight:600!important;text-align:center!important;color:#9ca3af!important;transition:all 0.15s!important;display:block!important}",
-    ".ihw-pb:hover{border-color:#ccc!important;background:#f5f5f5!important}",
-    ".ihw-pb.on{border-width:2px!important}",
-    ".ihw-pb[data-p=low].on{border-color:#22c55e!important;background:#f0fdf4!important;color:#166534!important}",
-    ".ihw-pb[data-p=medium].on{border-color:#f59e0b!important;background:#fffbeb!important;color:#92400e!important}",
-    ".ihw-pb[data-p=high].on{border-color:#f97316!important;background:#fff7ed!important;color:#9a3412!important}",
-    ".ihw-pb[data-p=critical].on{border-color:#ef4444!important;background:#fef2f2!important;color:#991b1b!important}",
+    .pr { display: flex; gap: 6px; }
+    .pb {
+      flex: 1; padding: 8px 4px; border: 1.5px solid #e0e0e0; border-radius: 8px;
+      background: #fafafa; cursor: pointer; font-size: 12px; font-weight: 600;
+      text-align: center; color: #9ca3af; transition: all 0.15s; font-family: inherit;
+    }
+    .pb:hover { border-color: #ccc; background: #f5f5f5; }
+    .pb.on { border-width: 2px; }
+    .pb[data-p=low].on { border-color: #22c55e; background: #f0fdf4; color: #166534; }
+    .pb[data-p=medium].on { border-color: #f59e0b; background: #fffbeb; color: #92400e; }
+    .pb[data-p=high].on { border-color: #f97316; background: #fff7ed; color: #9a3412; }
+    .pb[data-p=critical].on { border-color: #ef4444; background: #fef2f2; color: #991b1b; }
 
-    // Upload
-    ".ihw-up{display:flex!important;gap:10px!important}",
-    ".ihw-uf{flex:1!important;border:2px dashed #ddd!important;border-radius:10px!important;padding:16px!important;text-align:center!important;cursor:pointer!important;background:#fafafa!important;transition:all 0.15s!important;display:block!important}",
-    ".ihw-uf:hover{border-color:" + COLOR + "!important;background:#faf5ff!important}",
-    ".ihw-uf svg{width:24px!important;height:24px!important;fill:#bbb!important;display:block!important;margin:0 auto 6px!important}",
-    ".ihw-uf p{font-size:13px!important;color:#888!important;display:block!important}",
-    ".ihw-uf small{font-size:11px!important;color:#bbb!important;display:block!important;margin-top:2px!important}",
-    ".ihw-sb{width:50px!important;border:2px dashed #ddd!important;border-radius:10px!important;background:#fafafa!important;cursor:pointer!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:3px!important;transition:all 0.15s!important;flex-shrink:0!important}",
-    ".ihw-sb:hover{border-color:" + COLOR + "!important;background:#faf5ff!important}",
-    ".ihw-sb svg{width:18px!important;height:18px!important;fill:#bbb!important;display:block!important}",
-    ".ihw-sb span{font-size:8px!important;color:#bbb!important;font-weight:700!important;display:block!important;text-transform:uppercase!important}",
+    .upw { display: flex; gap: 10px; }
+    .upl {
+      flex: 1; border: 2px dashed #ddd; border-radius: 10px; padding: 16px;
+      text-align: center; cursor: pointer; background: #fafafa; transition: all 0.15s;
+    }
+    .upl:hover { border-color: ${COLOR}; background: #faf5ff; }
+    .upl svg { width: 24px; height: 24px; fill: #bbb; display: block; margin: 0 auto 6px; }
+    .upl p { font-size: 13px; color: #888; }
+    .upl small { font-size: 11px; color: #bbb; }
+    .ssb {
+      width: 50px; border: 2px dashed #ddd; border-radius: 10px; background: #fafafa;
+      cursor: pointer; display: flex; flex-direction: column; align-items: center;
+      justify-content: center; gap: 3px; transition: all 0.15s; flex-shrink: 0;
+    }
+    .ssb:hover { border-color: ${COLOR}; background: #faf5ff; }
+    .ssb svg { width: 18px; height: 18px; fill: #bbb; }
+    .ssb span { font-size: 8px; color: #bbb; font-weight: 700; text-transform: uppercase; }
 
-    // Previews
-    ".ihw-pvs{display:flex!important;gap:6px!important;flex-wrap:wrap!important;margin-top:10px!important}",
-    ".ihw-pv{position:relative!important;width:52px!important;height:52px!important;border-radius:8px!important;overflow:hidden!important;border:1px solid #e5e7eb!important;display:block!important}",
-    ".ihw-pv img,.ihw-pv video{width:100%!important;height:100%!important;object-fit:cover!important;display:block!important}",
-    ".ihw-pv button{position:absolute!important;top:2px!important;right:2px!important;width:18px!important;height:18px!important;border-radius:50%!important;background:rgba(0,0,0,0.6)!important;color:#fff!important;cursor:pointer!important;font-size:11px!important;display:flex!important;align-items:center!important;justify-content:center!important;line-height:1!important}",
+    .pvs { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+    .pv { position: relative; width: 52px; height: 52px; border-radius: 8px; overflow: hidden; border: 1px solid #e5e7eb; }
+    .pv img, .pv video { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .pv button {
+      position: absolute; top: 2px; right: 2px; width: 18px; height: 18px;
+      border-radius: 50%; background: rgba(0,0,0,0.6); color: #fff; cursor: pointer;
+      font-size: 11px; display: flex; align-items: center; justify-content: center;
+    }
 
-    // Submit
-    ".ihw-btn{display:block!important;width:100%!important;padding:12px!important;background:linear-gradient(135deg," + COLOR + ",#a78bfa)!important;color:#fff!important;border-radius:10px!important;font-size:14px!important;font-weight:700!important;cursor:pointer!important;transition:opacity 0.15s,transform 0.1s!important;margin-top:8px!important;text-align:center!important;letter-spacing:0.3px!important}",
-    ".ihw-btn:hover{opacity:0.9!important}",
-    ".ihw-btn:active{transform:scale(0.98)!important}",
-    ".ihw-btn:disabled{opacity:0.5!important;cursor:not-allowed!important}",
-    ".ihw-sp{display:inline-block!important;width:16px!important;height:16px!important;border:2px solid rgba(255,255,255,0.3)!important;border-top-color:#fff!important;border-radius:50%!important;animation:ihwSp 0.6s linear infinite!important;vertical-align:middle!important;margin-right:8px!important}",
-    "@keyframes ihwSp{to{transform:rotate(360deg)}}",
+    .btn {
+      display: block; width: 100%; padding: 12px;
+      background: linear-gradient(135deg, ${COLOR}, #a78bfa);
+      color: #fff; border-radius: 10px; font-size: 14px; font-weight: 700;
+      cursor: pointer; transition: opacity 0.15s; margin-top: 8px; text-align: center;
+      letter-spacing: 0.3px;
+    }
+    .btn:hover { opacity: 0.9; }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .sp {
+      display: inline-block; width: 16px; height: 16px;
+      border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff;
+      border-radius: 50%; animation: sp 0.6s linear infinite;
+      vertical-align: middle; margin-right: 8px;
+    }
+    @keyframes sp { to { transform: rotate(360deg); } }
 
-    // Success
-    ".ihw-ok{text-align:center!important;padding:24px 0!important;display:block!important}",
-    ".ihw-ok-ic{width:56px!important;height:56px!important;border-radius:50%!important;background:#dcfce7!important;display:flex!important;align-items:center!important;justify-content:center!important;margin:0 auto 16px!important}",
-    ".ihw-ok-ic svg{width:28px!important;height:28px!important;fill:#16a34a!important;display:block!important}",
-    ".ihw-ok h4{color:#166534!important;font-size:18px!important;font-weight:700!important;margin-bottom:8px!important;display:block!important}",
-    ".ihw-ok .tkt{background:#f0fdf4!important;border:1px solid #bbf7d0!important;padding:8px 20px!important;border-radius:8px!important;display:inline-block!important;margin:8px 0!important}",
-    ".ihw-ok .tkt b{font-size:18px!important;font-weight:700!important;color:" + COLOR + "!important;letter-spacing:1px!important}",
-    ".ihw-ok p{color:#6b7280!important;font-size:13px!important;line-height:1.6!important;display:block!important}",
-    ".ihw-ok .res{background:#f5f3ff!important;border:1px solid #ddd6fe!important;padding:10px 14px!important;border-radius:8px!important;margin:12px 0!important;font-size:12px!important;color:#6d28d9!important;display:block!important;text-align:left!important}",
-    ".ihw-ok .nb{margin-top:12px!important;padding:8px 20px!important;background:#f3f4f6!important;color:#374151!important;border-radius:8px!important;font-size:13px!important;cursor:pointer!important;font-weight:500!important;display:inline-block!important}",
-    ".ihw-ok .nb:hover{background:#e5e7eb!important}",
+    .ok { text-align: center; padding: 24px 0; }
+    .ok-ic {
+      width: 56px; height: 56px; border-radius: 50%; background: #dcfce7;
+      display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;
+    }
+    .ok-ic svg { width: 28px; height: 28px; fill: #16a34a; }
+    .ok h4 { color: #166534; font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+    .ok .tkt { background: #f0fdf4; border: 1px solid #bbf7d0; padding: 8px 20px; border-radius: 8px; display: inline-block; margin: 8px 0; }
+    .ok .tkt b { font-size: 18px; font-weight: 700; color: ${COLOR}; letter-spacing: 1px; }
+    .ok p { color: #6b7280; font-size: 13px; line-height: 1.6; }
+    .ok .res { background: #f5f3ff; border: 1px solid #ddd6fe; padding: 10px 14px; border-radius: 8px; margin: 12px 0; font-size: 12px; color: #6d28d9; text-align: left; }
+    .ok .nb { margin-top: 12px; padding: 8px 20px; background: #f3f4f6; color: #374151; border-radius: 8px; font-size: 13px; cursor: pointer; font-weight: 500; display: inline-block; }
+    .ok .nb:hover { background: #e5e7eb; }
 
-    // AI
-    ".ihw-ai{background:#f5f3ff!important;border:1px solid #ddd6fe!important;border-radius:10px!important;padding:14px!important;margin:14px 0!important;text-align:left!important;display:block!important}",
-    ".ihw-ai-h{display:flex!important;align-items:center!important;gap:6px!important;margin-bottom:8px!important;font-size:13px!important;font-weight:700!important;color:#6d28d9!important}",
-    ".ihw-ai-h i{display:inline-flex!important;width:22px!important;height:22px!important;background:#8b5cf6!important;border-radius:50%!important;align-items:center!important;justify-content:center!important;color:#fff!important;font-size:9px!important;font-weight:700!important;font-style:normal!important}",
-    ".ihw-ai p{color:#374151!important;font-size:13px!important;line-height:1.6!important;display:block!important;white-space:pre-wrap!important}",
-    ".ihw-ai small{color:#9ca3af!important;font-size:10px!important;font-style:italic!important;display:block!important;margin-top:8px!important}",
+    .ai { background: #f5f3ff; border: 1px solid #ddd6fe; border-radius: 10px; padding: 14px; margin: 14px 0; text-align: left; }
+    .ai-h { display: flex; align-items: center; gap: 6px; margin-bottom: 8px; font-size: 13px; font-weight: 700; color: #6d28d9; }
+    .ai-h i { display: inline-flex; width: 22px; height: 22px; background: #8b5cf6; border-radius: 50%; align-items: center; justify-content: center; color: #fff; font-size: 9px; font-weight: 700; font-style: normal; }
+    .ai p { color: #374151; font-size: 13px; line-height: 1.6; white-space: pre-wrap; }
+    .ai small { color: #9ca3af; font-size: 10px; font-style: italic; display: block; margin-top: 8px; }
 
-    // Track
-    ".ihw-trk{background:#f8fafc!important;border:1px solid #e2e8f0!important;border-radius:10px!important;padding:16px!important;margin-top:14px!important;display:block!important}",
-    ".ihw-tr{display:flex!important;justify-content:space-between!important;padding:8px 0!important;border-bottom:1px solid #f1f5f9!important;font-size:13px!important}",
-    ".ihw-tr:last-child{border-bottom:none!important}",
-    ".ihw-tl{color:#6b7280!important;font-weight:500!important;display:inline!important}",
-    ".ihw-tv{color:#1f2937!important;font-weight:600!important;display:inline!important}",
-    ".ihw-st{display:inline-block!important;padding:3px 10px!important;border-radius:12px!important;font-size:10px!important;font-weight:700!important;text-transform:uppercase!important}",
-    ".ihw-st-open{background:#dbeafe!important;color:#1e40af!important}",
-    ".ihw-st-in_progress{background:#fef3c7!important;color:#92400e!important}",
-    ".ihw-st-resolved{background:#dcfce7!important;color:#166534!important}",
-    ".ihw-st-closed{background:#f3f4f6!important;color:#6b7280!important}",
-    ".ihw-wh{background:#fffbeb!important;border:1px solid #fde68a!important;border-radius:8px!important;padding:10px 14px!important;margin-top:14px!important;font-size:12px!important;color:#92400e!important;line-height:1.5!important;display:block!important}",
-    ".ihw-em{color:#ef4444!important;font-size:12px!important;margin-top:6px!important;display:block!important}",
+    .trk { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px; margin-top: 14px; }
+    .tr { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #f1f5f9; font-size: 13px; }
+    .tr:last-child { border-bottom: none; }
+    .tl { color: #6b7280; font-weight: 500; }
+    .tv { color: #1f2937; font-weight: 600; }
+    .st { display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 10px; font-weight: 700; text-transform: uppercase; }
+    .st-open { background: #dbeafe; color: #1e40af; }
+    .st-in_progress { background: #fef3c7; color: #92400e; }
+    .st-resolved { background: #dcfce7; color: #166534; }
+    .st-closed { background: #f3f4f6; color: #6b7280; }
+    .wh { background: #fffbeb; border: 1px solid #fde68a; border-radius: 8px; padding: 10px 14px; margin-top: 14px; font-size: 12px; color: #92400e; line-height: 1.5; }
+    .em { color: #ef4444; font-size: 12px; margin-top: 6px; }
 
-    // Footer
-    ".ihw-ft{padding:10px 24px!important;border-top:1px solid #f0f0f0!important;text-align:center!important;font-size:11px!important;color:#bbb!important;flex-shrink:0!important;display:block!important;background:#fafafa!important}",
-    ".ihw-ft a{color:" + COLOR + "!important;text-decoration:none!important;font-weight:600!important;display:inline!important}",
+    .ft { padding: 10px 24px; border-top: 1px solid #f0f0f0; text-align: center; font-size: 11px; color: #bbb; flex-shrink: 0; background: #fafafa; }
+    .ft a { color: ${COLOR}; text-decoration: none; font-weight: 600; }
 
-    // Mobile
-    "@media(max-width:480px){.ihw-pn{width:calc(100vw - 16px)!important;max-height:92vh!important}#ihw-root{bottom:14px!important;" + POSITION + ":14px!important}}"
-  ].join("\n");
-  document.head.appendChild(S);
+    @media (max-width: 480px) {
+      .pn { width: calc(100vw - 16px); max-height: 92vh; }
+    }
+  `;
 
-  var sysInfo = getSystemInfo();
-  var onlineText = online ? "We're online now" : "We'll respond in business hours";
+  var HTML = `
+    <div class="fab" id="fab">
+      <span class="dot"></span>
+      <svg class="ic1" viewBox="0 0 24 24"><path d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z"/></svg>
+      <svg class="ic2" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+    </div>
+    <div class="pn" id="pn">
+      <div class="hd"><h3>Help & Support</h3><div class="hd-st"><i></i><span>${onTxt}</span></div></div>
+      <div class="tabs"><button class="tab on" data-t="s">Raise Ticket</button><button class="tab" data-t="t">Track Ticket</button></div>
+      <div class="bd">
+        <div class="tc on" id="ts">
+          <form id="fm">
+            <div class="r2"><div class="g"><label>Name <b>*</b></label><input id="nm" placeholder="Your full name" required></div><div class="g"><label>Email <b>*</b></label><input type="email" id="em" placeholder="you@company.com" required></div></div>
+            <div class="r2"><div class="g"><label>Phone</label><input type="tel" id="ph" placeholder="+91 XXXXX XXXXX"></div><div class="g"><label>Company</label><input id="co" placeholder="Company name"></div></div>
+            <div class="r2"><div class="g"><label>Category</label><select id="ct"><option>General</option><option>Bug / Issue</option><option>Feature Request</option><option>Billing</option><option>Integration</option><option>Account / Login</option><option>Other</option></select></div><div class="g"><label>Priority</label><div class="pr"><button type="button" class="pb" data-p="low">Low</button><button type="button" class="pb on" data-p="medium">Medium</button><button type="button" class="pb" data-p="high">High</button><button type="button" class="pb" data-p="critical">Critical</button></div></div></div>
+            <div class="g"><label>Subject <b>*</b></label><input id="su" placeholder="Brief summary of your issue" required></div>
+            <div class="g"><label>Description <b>*</b></label><textarea id="de" placeholder="Please describe your issue in detail..." rows="4" required></textarea></div>
+            <div class="g"><label>Attachments</label>
+              <div class="upw"><div class="upl" id="upl"><svg viewBox="0 0 24 24"><path d="M16.5 6v11.5c0 2.21-1.79 4-4 4s-4-1.79-4-4V5c0-1.38 1.12-2.5 2.5-2.5s2.5 1.12 2.5 2.5v10.5c0 .55-.45 1-1 1s-1-.45-1-1V6H10v9.5c0 1.38 1.12 2.5 2.5 2.5s2.5-1.12 2.5-2.5V5c0-2.21-1.79-4-4-4S7 2.79 7 5v12.5c0 3.04 2.46 5.5 5.5 5.5s5.5-2.46 5.5-5.5V6h-1.5z"/></svg><p>Click to attach files</p><small>Images &middot; Videos &middot; Screenshots</small></div><button type="button" class="ssb" id="ssb"><svg viewBox="0 0 24 24"><path d="M20 4h-3.17L15 2H9L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V6h4.05l1.83-2h4.24l1.83 2H20v12zM12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0 8c-1.65 0-3-1.35-3-3s1.35-3 3-3 3 1.35 3 3-1.35 3-3 3z"/></svg><span>Snap</span></button></div>
+              <input type="file" id="fi" accept="image/*,video/*" multiple style="display:none">
+              <div class="pvs" id="pvs"></div>
+            </div>
+            <button type="submit" class="btn" id="sb">Submit Ticket</button>
+          </form>
+          <div class="ok" id="ok" style="display:none"></div>
+        </div>
+        <div class="tc" id="tt">
+          <div class="g"><label>Ticket Number <b>*</b></label><input id="ti" placeholder="e.g. TKT-20260316-0001"></div>
+          <button class="btn" id="tb">Track Ticket</button>
+          <div id="trd"></div>
+          <div class="wh"><strong>Working Hours:</strong> Monday to Friday, 9:00 AM - 6:00 PM IST.<br>Resolution times are based on business hours.</div>
+        </div>
+      </div>
+      <div class="ft">Powered by <a href="https://in-sync-crm.com" target="_blank">In-Sync CRM</a></div>
+    </div>
+  `;
 
-  var w = document.createElement("div");
-  w.id = "ihw-root";
-  w.innerHTML =
-    '<div class="ihw-ov" id="ihw-ov"></div>' +
-    '<button class="ihw-fab" id="ihw-fab">' +
-      '<span class="ihw-fab-dot"></span>' +
-      '<svg class="ic1" viewBox="0 0 24 24"><path d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z"/></svg>' +
-      '<svg class="ic2" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>' +
-    '</button>' +
-    '<div class="ihw-pn" id="ihw-pn">' +
-      '<div class="ihw-hd"><h3>Help & Support</h3><div class="ihw-hd-st"><i></i><span>' + onlineText + '</span></div></div>' +
-      '<div class="ihw-tb"><button class="ihw-t on" data-t="s">Raise Ticket</button><button class="ihw-t" data-t="t">Track Ticket</button></div>' +
-      '<div class="ihw-bd">' +
-        // ── Submit tab ──
-        '<div class="ihw-tc on" id="ihw-ts">' +
-          '<form id="ihw-fm">' +
-            '<div class="ihw-2">' +
-              '<div class="ihw-g"><label>Name <b>*</b></label><input id="ihw-name" placeholder="Your full name" required></div>' +
-              '<div class="ihw-g"><label>Email <b>*</b></label><input type="email" id="ihw-email" placeholder="you@company.com" required></div>' +
-            '</div>' +
-            '<div class="ihw-2">' +
-              '<div class="ihw-g"><label>Phone</label><input type="tel" id="ihw-phone" placeholder="+91 XXXXX XXXXX"></div>' +
-              '<div class="ihw-g"><label>Company</label><input id="ihw-company" placeholder="Company name"></div>' +
-            '</div>' +
-            '<div class="ihw-2">' +
-              '<div class="ihw-g"><label>Category</label><select id="ihw-cat"><option>General</option><option>Bug / Issue</option><option>Feature Request</option><option>Billing</option><option>Integration</option><option>Account / Login</option><option>Other</option></select></div>' +
-              '<div class="ihw-g"><label>Priority</label><div class="ihw-pr"><button type="button" class="ihw-pb" data-p="low">Low</button><button type="button" class="ihw-pb on" data-p="medium">Medium</button><button type="button" class="ihw-pb" data-p="high">High</button><button type="button" class="ihw-pb" data-p="critical">Critical</button></div></div>' +
-            '</div>' +
-            '<div class="ihw-g"><label>Subject <b>*</b></label><input id="ihw-subj" placeholder="Brief summary of your issue" required></div>' +
-            '<div class="ihw-g"><label>Description <b>*</b></label><textarea id="ihw-desc" placeholder="Please describe your issue in detail so we can help you faster..." rows="4" required></textarea></div>' +
-            '<div class="ihw-g"><label>Attachments</label>' +
-              '<div class="ihw-up">' +
-                '<div class="ihw-uf" id="ihw-uf"><svg viewBox="0 0 24 24"><path d="M16.5 6v11.5c0 2.21-1.79 4-4 4s-4-1.79-4-4V5c0-1.38 1.12-2.5 2.5-2.5s2.5 1.12 2.5 2.5v10.5c0 .55-.45 1-1 1s-1-.45-1-1V6H10v9.5c0 1.38 1.12 2.5 2.5 2.5s2.5-1.12 2.5-2.5V5c0-2.21-1.79-4-4-4S7 2.79 7 5v12.5c0 3.04 2.46 5.5 5.5 5.5s5.5-2.46 5.5-5.5V6h-1.5z"/></svg><p>Click to attach files</p><small>Images &middot; Videos &middot; Screenshots</small></div>' +
-                '<button type="button" class="ihw-sb" id="ihw-ss"><svg viewBox="0 0 24 24"><path d="M20 4h-3.17L15 2H9L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V6h4.05l1.83-2h4.24l1.83 2H20v12zM12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0 8c-1.65 0-3-1.35-3-3s1.35-3 3-3 3 1.35 3 3-1.35 3-3 3z"/></svg><span>Snap</span></button>' +
-              '</div>' +
-              '<input type="file" id="ihw-fi" accept="image/*,video/*" multiple hidden>' +
-              '<div class="ihw-pvs" id="ihw-pvs"></div>' +
-            '</div>' +
-            '<button type="submit" class="ihw-btn" id="ihw-sub">Submit Ticket</button>' +
-          '</form>' +
-          '<div class="ihw-ok" id="ihw-ok" style="display:none"></div>' +
-        '</div>' +
-        // ── Track tab ──
-        '<div class="ihw-tc" id="ihw-tt">' +
-          '<div class="ihw-g"><label>Ticket Number <b>*</b></label><input id="ihw-ti" placeholder="e.g. TKT-20260316-0001"></div>' +
-          '<button class="ihw-btn" id="ihw-tb2">Track Ticket</button>' +
-          '<div id="ihw-tr"></div>' +
-          '<div class="ihw-wh"><strong>Working Hours:</strong> Monday to Friday, 9:00 AM - 6:00 PM IST.<br>Resolution times are calculated based on business hours.</div>' +
-        '</div>' +
-      '</div>' +
-      '<div class="ihw-ft">Powered by <a href="https://in-sync-crm.com" target="_blank">In-Sync CRM</a></div>' +
-    '</div>';
-  document.body.appendChild(w);
+  shadow.innerHTML = "<style>" + CSS + "</style>" + HTML;
 
-  // ── State ──
-  var open = false, files = [], prio = "medium";
-  var $ = function(id) { return document.getElementById(id); };
-  var fab = $("ihw-fab"), pn = $("ihw-pn"), ov = $("ihw-ov");
-  var form = $("ihw-fm"), okDiv = $("ihw-ok"), subBtn = $("ihw-sub");
-  var uf = $("ihw-uf"), fi = $("ihw-fi"), pvs = $("ihw-pvs"), ss = $("ihw-ss");
-  var tabs = w.querySelectorAll(".ihw-t"), ts = $("ihw-ts"), tt = $("ihw-tt");
-  var pbs = w.querySelectorAll(".ihw-pb");
-  var tb2 = $("ihw-tb2"), ti = $("ihw-ti"), tr = $("ihw-tr");
+  // ── Logic ──
+  var q = function(s) { return shadow.querySelector(s); };
+  var qa = function(s) { return shadow.querySelectorAll(s); };
+  var isOpen = false, files = [], prio = "medium";
+
+  var fab = q("#fab"), pn = q("#pn"), fm = q("#fm"), okDiv = q("#ok"), sb = q("#sb");
+  var upl = q("#upl"), fi = q("#fi"), pvs = q("#pvs"), ssb = q("#ssb");
 
   function toggle() {
-    open = !open;
-    pn.classList.toggle("on", open);
-    fab.classList.toggle("on", open);
-    ov.classList.toggle("on", open);
+    isOpen = !isOpen;
+    fab.classList.toggle("on", isOpen);
+    pn.classList.toggle("on", isOpen);
+    overlay.style.display = isOpen ? "block" : "none";
   }
   fab.onclick = toggle;
-  ov.onclick = toggle;
+  overlay.onclick = toggle;
 
-  tabs.forEach(function(t) {
+  qa(".tab").forEach(function(t) {
     t.onclick = function() {
-      tabs.forEach(function(x) { x.classList.remove("on"); });
+      qa(".tab").forEach(function(x) { x.classList.remove("on"); });
       t.classList.add("on");
       var v = t.getAttribute("data-t");
-      ts.classList.toggle("on", v === "s");
-      tt.classList.toggle("on", v === "t");
+      q("#ts").classList.toggle("on", v === "s");
+      q("#tt").classList.toggle("on", v === "t");
     };
   });
 
-  pbs.forEach(function(b) {
+  qa(".pb").forEach(function(b) {
     b.onclick = function() {
-      pbs.forEach(function(x) { x.classList.remove("on"); });
+      qa(".pb").forEach(function(x) { x.classList.remove("on"); });
       b.classList.add("on");
       prio = b.getAttribute("data-p");
     };
   });
 
-  uf.onclick = function() { fi.click(); };
-  uf.ondragover = function(e) { e.preventDefault(); uf.style.borderColor = COLOR; };
-  uf.ondragleave = function() { uf.style.borderColor = "#ddd"; };
-  uf.ondrop = function(e) { e.preventDefault(); uf.style.borderColor = "#ddd"; addF(e.dataTransfer.files); };
+  upl.onclick = function() { fi.click(); };
+  upl.ondragover = function(e) { e.preventDefault(); upl.style.borderColor = COLOR; };
+  upl.ondragleave = function() { upl.style.borderColor = "#ddd"; };
+  upl.ondrop = function(e) { e.preventDefault(); upl.style.borderColor = "#ddd"; addF(e.dataTransfer.files); };
   fi.onchange = function() { addF(fi.files); fi.value = ""; };
 
-  ss.onclick = async function() {
+  ssb.onclick = async function() {
     try {
       var s = await navigator.mediaDevices.getDisplayMedia({ video: { mediaSource: "screen" } });
       var v = document.createElement("video"); v.srcObject = s; await v.play();
@@ -291,17 +315,16 @@
       if (!ii && !iv) return;
       if (ii && files.filter(function(x){return x.type.startsWith("image/")}).length >= MAX_IMG) return;
       if (iv && files.filter(function(x){return x.type.startsWith("video/")}).length >= MAX_VID) return;
-      if (ii && f.size > MAX_FILE_SIZE) { alert(f.name + " exceeds 5 MB."); return; }
+      if (ii && f.size > 5242880) { alert(f.name + " exceeds 5 MB."); return; }
       if (iv && f.size > 10485760) { alert(f.name + " exceeds 10 MB."); return; }
       files.push(f);
-    });
-    renderP();
+    }); renderP();
   }
 
   function renderP() {
     pvs.innerHTML = "";
     files.forEach(function(f, i) {
-      var d = document.createElement("div"); d.className = "ihw-pv";
+      var d = document.createElement("div"); d.className = "pv";
       var el = document.createElement(f.type.startsWith("image/") ? "img" : "video");
       el.src = URL.createObjectURL(f); if (el.tagName === "VIDEO") el.muted = true;
       d.appendChild(el);
@@ -311,70 +334,63 @@
     });
   }
 
-  function toB64(f) {
-    return new Promise(function(r, j) { var x = new FileReader(); x.onload = function() { r(x.result); }; x.onerror = j; x.readAsDataURL(f); });
-  }
+  function toB64(f) { return new Promise(function(r, j) { var x = new FileReader(); x.onload = function(){r(x.result)}; x.onerror = j; x.readAsDataURL(f); }); }
 
   // Draft
-  function saveD() { try { sessionStorage.setItem("ihw_d", JSON.stringify({ n: $("ihw-name").value, e: $("ihw-email").value, p: $("ihw-phone").value, c: $("ihw-company").value, cat: $("ihw-cat").value, s: $("ihw-subj").value, d: $("ihw-desc").value, pr: prio })); } catch(e){} }
-  function loadD() { try { var d = JSON.parse(sessionStorage.getItem("ihw_d")); if (!d) return; if (d.n) $("ihw-name").value = d.n; if (d.e) $("ihw-email").value = d.e; if (d.p) $("ihw-phone").value = d.p; if (d.c) $("ihw-company").value = d.c; if (d.cat) $("ihw-cat").value = d.cat; if (d.s) $("ihw-subj").value = d.s; if (d.d) $("ihw-desc").value = d.d; if (d.pr) { prio = d.pr; pbs.forEach(function(b){b.classList.toggle("on", b.getAttribute("data-p")===d.pr)}); } } catch(e){} }
-  ["ihw-name","ihw-email","ihw-phone","ihw-company","ihw-subj","ihw-desc"].forEach(function(id) { var e = $(id); if (e) e.oninput = saveD; });
-  $("ihw-cat").onchange = saveD;
+  function saveD() { try { sessionStorage.setItem("ihw_d", JSON.stringify({ n:q("#nm").value, e:q("#em").value, p:q("#ph").value, c:q("#co").value, ct:q("#ct").value, s:q("#su").value, d:q("#de").value, pr:prio })); } catch(e){} }
+  function loadD() { try { var d = JSON.parse(sessionStorage.getItem("ihw_d")); if(!d) return; if(d.n) q("#nm").value=d.n; if(d.e) q("#em").value=d.e; if(d.p) q("#ph").value=d.p; if(d.c) q("#co").value=d.c; if(d.ct) q("#ct").value=d.ct; if(d.s) q("#su").value=d.s; if(d.d) q("#de").value=d.d; if(d.pr){prio=d.pr;qa(".pb").forEach(function(b){b.classList.toggle("on",b.getAttribute("data-p")===d.pr)});} } catch(e){} }
+  ["#nm","#em","#ph","#co","#su","#de"].forEach(function(s){var e=q(s);if(e)e.oninput=saveD;});
+  q("#ct").onchange = saveD;
   loadD();
 
   // Submit
-  form.onsubmit = async function(e) {
+  fm.onsubmit = async function(e) {
     e.preventDefault();
-    var nm = $("ihw-name").value.trim(), em = $("ihw-email").value.trim(),
-        ph = $("ihw-phone").value.trim(), co = $("ihw-company").value.trim(),
-        cat = $("ihw-cat").value, su = $("ihw-subj").value.trim(), de = $("ihw-desc").value.trim();
-    if (!nm || !em || !su || !de) return;
-    subBtn.disabled = true;
-    subBtn.innerHTML = '<span class="ihw-sp"></span>Submitting...';
+    var nm=q("#nm").value.trim(), em=q("#em").value.trim(), ph=q("#ph").value.trim(),
+        co=q("#co").value.trim(), ct=q("#ct").value, su=q("#su").value.trim(), de=q("#de").value.trim();
+    if (!nm||!em||!su||!de) return;
+    sb.disabled = true; sb.innerHTML = '<span class="sp"></span>Submitting...';
     try {
       var att = "";
-      if (files.length) { att = "\n\n--- Attachments ---\n"; for (var i = 0; i < files.length; i++) { var b = await toB64(files[i]); att += "File " + (i+1) + ": " + files[i].name + " (" + (files[i].size/1024).toFixed(1) + "KB)\nData: " + b + "\n\n"; } }
+      if (files.length) { att = "\n\n--- Attachments ---\n"; for (var i=0;i<files.length;i++) { var b=await toB64(files[i]); att+="File "+(i+1)+": "+files[i].name+" ("+(files[i].size/1024).toFixed(1)+"KB)\nData: "+b+"\n\n"; } }
       var desc = de;
-      if (co) desc = "Company: " + co + "\n" + desc;
-      if (cat) desc = "Category: " + cat + "\n" + desc;
-      desc += "\n\n--- System ---\n" + sysInfo.os + " / " + sysInfo.browser + " / " + sysInfo.screen + "\n" + sysInfo.url + att;
+      if (co) desc = "Company: "+co+"\n"+desc;
+      if (ct) desc = "Category: "+ct+"\n"+desc;
+      desc += "\n\n--- System ---\n"+sys.os+" / "+sys.browser+" / "+sys.screen+"\n"+sys.url+att;
 
-      var r = await fetch(SUPABASE_URL + "/functions/v1/submit-ticket", {
-        method: "POST",
-        headers: { "Content-Type": "application/json", "apikey": SUPABASE_ANON_KEY, "Authorization": "Bearer " + SUPABASE_ANON_KEY },
-        body: JSON.stringify({ name: nm, email: em, phone: ph || undefined, subject: su, description: desc, priority: prio, source: SOURCE })
+      var r = await fetch(SUPABASE_URL+"/functions/v1/submit-ticket", {
+        method:"POST", headers:{"Content-Type":"application/json","apikey":SUPABASE_ANON_KEY,"Authorization":"Bearer "+SUPABASE_ANON_KEY},
+        body: JSON.stringify({name:nm,email:em,phone:ph||undefined,subject:su,description:desc,priority:prio,source:SOURCE})
       });
       var res = await r.json();
       if (res.success) {
-        try { sessionStorage.removeItem("ihw_d"); } catch(x){}
-        form.style.display = "none";
-        okDiv.style.display = "block";
-        var ai = "";
-        if (res.ai_response) {
-          ai = '<div class="ihw-ai"><div class="ihw-ai-h"><i>AI</i> In-Sync AI Response</div><p>' + res.ai_response.replace(/</g,"&lt;").replace(/>/g,"&gt;") + '</p><small>Automated response. Our team will follow up if needed.</small></div>';
-        }
-        okDiv.innerHTML = '<div class="ihw-ok"><div class="ihw-ok-ic"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><h4>Ticket Created!</h4><div class="tkt"><b>' + res.ticket_number + '</b></div><p>Confirmation email sent to <b>' + em + '</b></p>' + ai + '<div class="res"><b>Expected Resolution:</b> ' + res.expected_resolution_formatted + '<br>Mon-Fri, 9 AM - 6 PM IST</div><p style="font-size:11px!important;color:#aaa!important">Use <b>' + res.ticket_number + '</b> in Track Ticket tab</p><button class="nb" id="ihw-nw">Submit Another Ticket</button></div>';
-        $("ihw-nw").onclick = function() { form.reset(); form.style.display = "block"; okDiv.style.display = "none"; files = []; renderP(); prio = "medium"; pbs.forEach(function(b){b.classList.toggle("on", b.getAttribute("data-p")==="medium")}); };
-      } else { alert("Error: " + (res.error || "Failed")); }
-    } catch(err) { alert("Network error. Please try again."); }
-    finally { subBtn.disabled = false; subBtn.innerHTML = "Submit Ticket"; }
+        try{sessionStorage.removeItem("ihw_d")}catch(x){}
+        fm.style.display="none"; okDiv.style.display="block";
+        var ai="";
+        if(res.ai_response) ai='<div class="ai"><div class="ai-h"><i>AI</i> In-Sync AI Response</div><p>'+res.ai_response.replace(/</g,"&lt;").replace(/>/g,"&gt;")+'</p><small>Automated response. Our team will follow up if needed.</small></div>';
+        okDiv.innerHTML='<div class="ok"><div class="ok-ic"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><h4>Ticket Created!</h4><div class="tkt"><b>'+res.ticket_number+'</b></div><p>Confirmation sent to <b>'+em+'</b></p>'+ai+'<div class="res"><b>Expected Resolution:</b> '+res.expected_resolution_formatted+'<br>Mon-Fri, 9 AM - 6 PM IST</div><p style="font-size:11px;color:#aaa">Track with <b>'+res.ticket_number+'</b></p><button class="nb" id="nw">Submit Another</button></div>';
+        q("#nw").onclick=function(){fm.reset();fm.style.display="block";okDiv.style.display="none";files=[];renderP();prio="medium";qa(".pb").forEach(function(b){b.classList.toggle("on",b.getAttribute("data-p")==="medium")});};
+      } else { alert("Error: "+(res.error||"Failed")); }
+    } catch(err) { alert("Network error. Try again."); }
+    finally { sb.disabled=false; sb.innerHTML="Submit Ticket"; }
   };
 
   // Track
-  tb2.onclick = async function() {
-    var n = ti.value.trim().toUpperCase();
-    if (!n) { tr.innerHTML = '<p class="ihw-em">Please enter a ticket number</p>'; return; }
-    tb2.disabled = true; tb2.innerHTML = '<span class="ihw-sp"></span>Searching...';
+  var tb=q("#tb"), ti=q("#ti"), trd=q("#trd");
+  tb.onclick = async function() {
+    var n=ti.value.trim().toUpperCase();
+    if(!n){trd.innerHTML='<p class="em">Please enter a ticket number</p>';return;}
+    tb.disabled=true; tb.innerHTML='<span class="sp"></span>Searching...';
     try {
-      var r = await fetch(SUPABASE_URL + "/rest/v1/support_tickets?ticket_number=eq." + encodeURIComponent(n) + "&select=*", { headers: { "apikey": SUPABASE_ANON_KEY, "Authorization": "Bearer " + SUPABASE_ANON_KEY } });
-      var tks = await r.json();
-      if (tks && tks.length) {
-        var t = tks[0], ct = new Date(t.created_at).toLocaleString("en-IN", { timeZone: "Asia/Kolkata", dateStyle: "medium", timeStyle: "short" });
-        var rv = ""; if (t.resolved_at) { rv = '<div class="ihw-tr"><span class="ihw-tl">Resolved</span><span class="ihw-tv">' + new Date(t.resolved_at).toLocaleString("en-IN", { timeZone: "Asia/Kolkata", dateStyle: "medium", timeStyle: "short" }) + '</span></div>'; }
-        tr.innerHTML = '<div class="ihw-trk"><div class="ihw-tr"><span class="ihw-tl">Ticket</span><span class="ihw-tv">' + t.ticket_number + '</span></div><div class="ihw-tr"><span class="ihw-tl">Subject</span><span class="ihw-tv">' + t.subject + '</span></div><div class="ihw-tr"><span class="ihw-tl">Status</span><span class="ihw-st ihw-st-' + t.status + '">' + t.status.replace("_"," ").toUpperCase() + '</span></div><div class="ihw-tr"><span class="ihw-tl">Priority</span><span class="ihw-tv" style="text-transform:capitalize!important">' + t.priority + '</span></div><div class="ihw-tr"><span class="ihw-tl">Created</span><span class="ihw-tv">' + ct + '</span></div>' + rv + '</div>';
-      } else { tr.innerHTML = '<p class="ihw-em" style="text-align:center!important;padding:16px!important">No ticket found: <b>' + n + '</b></p>'; }
-    } catch(e) { tr.innerHTML = '<p class="ihw-em">Failed to fetch. Try again.</p>'; }
-    finally { tb2.disabled = false; tb2.innerHTML = "Track Ticket"; }
+      var r=await fetch(SUPABASE_URL+"/rest/v1/support_tickets?ticket_number=eq."+encodeURIComponent(n)+"&select=*",{headers:{"apikey":SUPABASE_ANON_KEY,"Authorization":"Bearer "+SUPABASE_ANON_KEY}});
+      var tks=await r.json();
+      if(tks&&tks.length){
+        var t=tks[0],ct=new Date(t.created_at).toLocaleString("en-IN",{timeZone:"Asia/Kolkata",dateStyle:"medium",timeStyle:"short"});
+        var rv="";if(t.resolved_at)rv='<div class="tr"><span class="tl">Resolved</span><span class="tv">'+new Date(t.resolved_at).toLocaleString("en-IN",{timeZone:"Asia/Kolkata",dateStyle:"medium",timeStyle:"short"})+'</span></div>';
+        trd.innerHTML='<div class="trk"><div class="tr"><span class="tl">Ticket</span><span class="tv">'+t.ticket_number+'</span></div><div class="tr"><span class="tl">Subject</span><span class="tv">'+t.subject+'</span></div><div class="tr"><span class="tl">Status</span><span class="st st-'+t.status+'">'+t.status.replace("_"," ").toUpperCase()+'</span></div><div class="tr"><span class="tl">Priority</span><span class="tv" style="text-transform:capitalize">'+t.priority+'</span></div><div class="tr"><span class="tl">Created</span><span class="tv">'+ct+'</span></div>'+rv+'</div>';
+      } else { trd.innerHTML='<p class="em" style="text-align:center;padding:16px">No ticket found: <b>'+n+'</b></p>'; }
+    } catch(e){ trd.innerHTML='<p class="em">Failed to fetch. Try again.</p>'; }
+    finally { tb.disabled=false; tb.innerHTML="Track Ticket"; }
   };
-  ti.onkeydown = function(e) { if (e.key === "Enter") { e.preventDefault(); tb2.click(); } };
+  ti.onkeydown=function(e){if(e.key==="Enter"){e.preventDefault();tb.click();}};
 })();
