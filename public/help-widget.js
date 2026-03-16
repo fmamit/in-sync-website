@@ -42,7 +42,7 @@
   var S = document.createElement("style");
   S.textContent = [
     // Reset
-    "#ihw-root,#ihw-root *,#ihw-root *::before,#ihw-root *::after{all:unset!important;box-sizing:border-box!important;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif!important}",
+    "#ihw-root,#ihw-root *,#ihw-root *::before,#ihw-root *::after{box-sizing:border-box!important;border-width:0!important;border-style:none!important;border-color:transparent!important;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif!important;line-height:normal!important;-webkit-text-size-adjust:100%!important;margin:0!important;padding:0!important}",
 
     // Root
     "#ihw-root{position:fixed!important;bottom:20px!important;" + POSITION + ":20px!important;z-index:999998!important;display:block!important}",
