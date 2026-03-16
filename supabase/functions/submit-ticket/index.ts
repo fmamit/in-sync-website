@@ -402,6 +402,11 @@ ${aiSection}
 }
 
 // --- CRM Integration ---
+const CRM_SUPABASE_URL = "https://knuewnenaswscgaldjej.supabase.co";
+const CRM_SERVICE_ROLE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtudWV3bmVuYXN3c2NnYWxkamVqIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3MjY2NDkwNywiZXhwIjoyMDg4MjQwOTA3fQ.QftfznfeN8CdQ-7aGLIx9u9AhGTPGEtPHdaenXzkgE8";
+const CRM_ORG_ID = "65e22e43-f23d-4c0a-9d84-2eba65ad0e12";
+const CRM_DEFAULT_USER_ID = "a8e93829-a8dd-4bc1-bc92-a3093abcb168";
+
 async function pushToCRM(ticket: {
   ticket_number: string;
   name: string;
@@ -413,36 +418,36 @@ async function pushToCRM(ticket: {
   source: string;
   status: string;
   created_at: string;
-  ai_response?: string | null;
   expected_resolution?: string;
 }) {
   try {
-    const response = await fetch("https://crm.in-sync.co.in/support-tickets", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
+    const crmSupabase = createClient(CRM_SUPABASE_URL, CRM_SERVICE_ROLE_KEY);
+
+    const { data, error } = await crmSupabase
+      .from("support_tickets")
+      .insert({
+        org_id: CRM_ORG_ID,
+        created_by: CRM_DEFAULT_USER_ID,
+        assigned_to: CRM_DEFAULT_USER_ID,
         ticket_number: ticket.ticket_number,
-        name: ticket.name,
-        email: ticket.email,
-        phone: ticket.phone || null,
         subject: ticket.subject,
         description: ticket.description,
+        category: "support",
         priority: ticket.priority,
+        status: ticket.status === "open" ? "open" : ticket.status,
+        contact_name: ticket.name,
+        contact_email: ticket.email,
+        contact_phone: ticket.phone || null,
         source: ticket.source,
-        status: ticket.status,
-        created_at: ticket.created_at,
-        ai_response: ticket.ai_response || null,
-        expected_resolution: ticket.expected_resolution || null,
-      }),
-    });
+        due_at: ticket.expected_resolution || null,
+      })
+      .select()
+      .single();
 
-    if (!response.ok) {
-      const err = await response.text();
-      console.error("CRM push failed:", response.status, err);
+    if (error) {
+      console.error("CRM push failed:", error.message);
     } else {
-      console.log("Ticket pushed to CRM:", ticket.ticket_number);
+      console.log("Ticket pushed to CRM:", data.id);
     }
   } catch (err) {
     console.error("CRM push error:", err);
