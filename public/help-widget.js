@@ -1,7 +1,6 @@
 /**
  * In-Sync Help Ticket Widget
- * Ticket submission + tracking with screenshot upload, priority, and auto browser info.
- * <script src="/help-widget.js" data-source="PLATFORM" data-color="#8b5cf6" data-position="right" data-company="in-sync-website"></script>
+ * Compact ticket submission + tracking with screenshot upload, priority, and auto browser info.
  */
 (function () {
   "use strict";
@@ -17,7 +16,6 @@
   var MAX_IMG = 5;
   var MAX_VID = 2;
 
-  // Check if currently within working hours (Mon-Fri 9AM-6PM IST)
   function isOnline() {
     var now = new Date();
     var ist = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Kolkata" }));
@@ -26,7 +24,6 @@
     return day >= 1 && day <= 5 && hour >= 9 && hour < 18;
   }
 
-  // Get browser & OS info for debugging
   function getSystemInfo() {
     var ua = navigator.userAgent;
     var browser = "Unknown";
@@ -45,214 +42,225 @@
 
   var online = isOnline();
   var statusDot = online ? "#22c55e" : "#f59e0b";
-  var statusText = online ? "We're online" : "We'll respond during business hours";
+  var statusText = online ? "We're online" : "We'll respond in business hours";
 
   var style = document.createElement("style");
   style.textContent = `
-    #ihw-root *, #ihw-root *::before, #ihw-root *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    #ihw-root {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      position: fixed; bottom: 24px; ${POSITION}: 24px; z-index: 999998;
+    #ihw-root, #ihw-root *, #ihw-root *::before, #ihw-root *::after {
+      box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, 'Segoe UI', Roboto, sans-serif;
     }
+    #ihw-root {
+      position: fixed; bottom: 20px; ${POSITION}: 20px; z-index: 999998;
+      line-height: 1.4;
+    }
+    /* FAB */
     .ihw-fab {
-      width: 44px; height: 44px; border-radius: 50%; background: ${COLOR};
+      width: 42px; height: 42px; border-radius: 50%; background: ${COLOR};
       border: none; cursor: pointer; display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 3px 14px rgba(139,92,246,0.35); transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 2px 12px rgba(139,92,246,0.3); transition: transform 0.2s;
       position: relative;
     }
-    .ihw-fab:hover { transform: scale(1.08); box-shadow: 0 4px 20px rgba(139,92,246,0.45); }
-    .ihw-fab svg { width: 20px; height: 20px; fill: #fff; }
+    .ihw-fab:hover { transform: scale(1.1); }
+    .ihw-fab svg { width: 18px; height: 18px; fill: #fff; }
     .ihw-fab .ihw-ic-close { display: none; }
     .ihw-fab.ihw-active .ihw-ic-open { display: none; }
     .ihw-fab.ihw-active .ihw-ic-close { display: block; }
     .ihw-fab-tip {
-      position: absolute; ${POSITION === "right" ? "right: 66px" : "left: 66px"};
+      position: absolute; ${POSITION === "right" ? "right: 52px" : "left: 52px"};
       top: 50%; transform: translateY(-50%); background: #1f2937; color: #fff;
-      padding: 6px 14px; border-radius: 8px; font-size: 13px; white-space: nowrap;
+      padding: 4px 10px; border-radius: 6px; font-size: 11px; white-space: nowrap;
       opacity: 0; pointer-events: none; transition: opacity 0.2s;
     }
     .ihw-fab:hover .ihw-fab-tip { opacity: 1; }
-    .ihw-badge {
-      position: absolute; top: -2px; right: -2px; width: 12px; height: 12px;
+    .ihw-dot {
+      position: absolute; top: -1px; right: -1px; width: 10px; height: 10px;
       border-radius: 50%; background: ${statusDot}; border: 2px solid #fff;
     }
+    /* Panel */
     .ihw-panel {
-      display: none; position: fixed; bottom: 80px; ${POSITION}: 24px;
-      width: 360px; max-width: calc(100vw - 32px); max-height: calc(100vh - 100px);
-      background: #fff; border-radius: 16px;
-      box-shadow: 0 10px 60px rgba(0,0,0,0.15), 0 0 0 1px rgba(0,0,0,0.05);
-      overflow: hidden; flex-direction: column; animation: ihw-up 0.3s ease;
+      display: none; position: fixed; bottom: 72px; ${POSITION}: 20px;
+      width: 340px; max-width: calc(100vw - 24px); max-height: calc(100vh - 90px);
+      background: #fff; border-radius: 12px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.12), 0 0 0 1px rgba(0,0,0,0.04);
+      overflow: hidden; flex-direction: column; animation: ihw-up 0.25s ease;
     }
     .ihw-panel.ihw-open { display: flex; }
-    @keyframes ihw-up { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
-    .ihw-hdr { background: ${COLOR}; padding: 14px 18px; }
-    .ihw-hdr h3 { color: #fff; font-size: 15px; font-weight: 700; margin-bottom: 2px; }
-    .ihw-hdr-status { display: flex; align-items: center; gap: 6px; margin-top: 4px; }
-    .ihw-hdr-dot { width: 8px; height: 8px; border-radius: 50%; background: ${statusDot}; }
-    .ihw-hdr-status span { color: rgba(255,255,255,0.85); font-size: 12px; }
+    @keyframes ihw-up { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+    /* Header */
+    .ihw-hdr { background: ${COLOR}; padding: 12px 16px; flex-shrink: 0; }
+    .ihw-hdr h3 { color: #fff; font-size: 14px; font-weight: 600; }
+    .ihw-hdr-status { display: flex; align-items: center; gap: 5px; margin-top: 2px; }
+    .ihw-hdr-dot { width: 6px; height: 6px; border-radius: 50%; background: ${statusDot}; flex-shrink: 0; }
+    .ihw-hdr-status span { color: rgba(255,255,255,0.8); font-size: 11px; }
     /* Tabs */
-    .ihw-tabs { display: flex; border-bottom: 1px solid #e5e7eb; }
+    .ihw-tabs { display: flex; border-bottom: 1px solid #e5e7eb; flex-shrink: 0; }
     .ihw-tab {
-      flex: 1; padding: 8px; border: none; background: #fff; cursor: pointer;
-      font-size: 12px; font-weight: 500; color: #6b7280; transition: all 0.2s;
-      border-bottom: 2px solid transparent; font-family: inherit;
+      flex: 1; padding: 7px; border: none; background: #fff; cursor: pointer;
+      font-size: 11px; font-weight: 600; color: #9ca3af; transition: all 0.15s;
+      border-bottom: 2px solid transparent; font-family: inherit; text-transform: uppercase; letter-spacing: 0.3px;
     }
     .ihw-tab.ihw-active { color: ${COLOR}; border-bottom-color: ${COLOR}; background: #faf5ff; }
-    .ihw-body { padding: 12px 14px; overflow-y: auto; flex: 1; }
-    .ihw-tab-content { display: none; }
-    .ihw-tab-content.ihw-show { display: block; }
-    .ihw-row { display: flex; gap: 12px; }
-    .ihw-row .ihw-fld { flex: 1; }
-    .ihw-fld { margin-bottom: 10px; }
-    .ihw-fld label { display: block; font-size: 12px; font-weight: 600; color: #374151; margin-bottom: 3px; }
-    .ihw-fld label .ihw-req { color: #ef4444; }
-    .ihw-fld input, .ihw-fld textarea, .ihw-fld select {
-      width: 100%; padding: 7px 10px; border: 1px solid #d1d5db; border-radius: 6px;
-      font-size: 13px; font-family: inherit; outline: none; background: #fff; color: #1f2937;
-      transition: border-color 0.2s, box-shadow 0.2s;
+    /* Body */
+    .ihw-body { padding: 10px 14px; overflow-y: auto; flex: 1; min-height: 0; }
+    .ihw-tc { display: none; }
+    .ihw-tc.ihw-show { display: block; }
+    /* Form fields */
+    .ihw-r { display: flex; gap: 8px; }
+    .ihw-r > .ihw-f { flex: 1; min-width: 0; }
+    .ihw-f { margin-bottom: 8px; }
+    .ihw-f label {
+      display: block; font-size: 11px; font-weight: 600; color: #4b5563;
+      margin-bottom: 2px; letter-spacing: 0.2px;
     }
-    .ihw-fld input:focus, .ihw-fld textarea:focus, .ihw-fld select:focus {
-      border-color: ${COLOR}; box-shadow: 0 0 0 3px rgba(139,92,246,0.1);
+    .ihw-f label .rq { color: #ef4444; }
+    .ihw-f input, .ihw-f textarea, .ihw-f select {
+      width: 100%; padding: 6px 8px; border: 1px solid #d1d5db; border-radius: 5px;
+      font-size: 12px; font-family: inherit; outline: none; background: #fff; color: #1f2937;
+      transition: border-color 0.15s;
     }
-    .ihw-fld textarea { resize: vertical; min-height: 60px; }
-    .ihw-fld input.ihw-err, .ihw-fld textarea.ihw-err, .ihw-fld select.ihw-err { border-color: #ef4444; }
-    .ihw-err-msg { color: #ef4444; font-size: 12px; margin-top: 4px; }
+    .ihw-f input:focus, .ihw-f textarea:focus, .ihw-f select:focus {
+      border-color: ${COLOR};
+    }
+    .ihw-f input::placeholder, .ihw-f textarea::placeholder { color: #b0b0b0; font-size: 11px; }
+    .ihw-f textarea { resize: vertical; min-height: 50px; max-height: 120px; }
+    .ihw-f select { padding: 5px 8px; cursor: pointer; }
     /* Priority */
-    .ihw-prio { display: flex; gap: 8px; }
-    .ihw-prio-btn {
-      flex: 1; padding: 5px 4px; border: 1px solid #d1d5db; border-radius: 6px; background: #fff;
-      cursor: pointer; font-size: 11px; font-weight: 500; text-align: center;
-      transition: all 0.2s; color: #6b7280; font-family: inherit;
+    .ihw-pr { display: flex; gap: 4px; }
+    .ihw-pb {
+      flex: 1; padding: 4px 2px; border: 1px solid #d1d5db; border-radius: 4px; background: #fff;
+      cursor: pointer; font-size: 10px; font-weight: 600; text-align: center;
+      transition: all 0.15s; color: #9ca3af; font-family: inherit;
     }
-    .ihw-prio-btn:hover { border-color: #9ca3af; }
-    .ihw-prio-btn.ihw-sel { border-width: 2px; }
-    .ihw-prio-btn[data-p="low"].ihw-sel { border-color:#22c55e; background:#f0fdf4; color:#166534; }
-    .ihw-prio-btn[data-p="medium"].ihw-sel { border-color:#f59e0b; background:#fffbeb; color:#92400e; }
-    .ihw-prio-btn[data-p="high"].ihw-sel { border-color:#f97316; background:#fff7ed; color:#9a3412; }
-    .ihw-prio-btn[data-p="critical"].ihw-sel { border-color:#ef4444; background:#fef2f2; color:#991b1b; }
-    /* Upload */
-    .ihw-upload-wrap { display: flex; gap: 8px; }
-    .ihw-upload {
-      flex: 1; border: 1.5px dashed #d1d5db; border-radius: 6px; padding: 10px;
-      text-align: center; cursor: pointer; transition: all 0.2s; background: #fafafa;
+    .ihw-pb:hover { border-color: #aaa; }
+    .ihw-pb.sel { border-width: 2px; }
+    .ihw-pb[data-p="low"].sel { border-color:#22c55e; background:#f0fdf4; color:#166534; }
+    .ihw-pb[data-p="medium"].sel { border-color:#f59e0b; background:#fffbeb; color:#92400e; }
+    .ihw-pb[data-p="high"].sel { border-color:#f97316; background:#fff7ed; color:#9a3412; }
+    .ihw-pb[data-p="critical"].sel { border-color:#ef4444; background:#fef2f2; color:#991b1b; }
+    /* Attach */
+    .ihw-att { display: flex; gap: 6px; }
+    .ihw-upl {
+      flex: 1; border: 1.5px dashed #d1d5db; border-radius: 5px; padding: 8px;
+      text-align: center; cursor: pointer; transition: all 0.15s; background: #fafafa;
     }
-    .ihw-upload:hover { border-color: ${COLOR}; background: #f5f3ff; }
-    .ihw-upload svg { width: 20px; height: 20px; margin: 0 auto 3px; fill: #9ca3af; display: block; }
-    .ihw-upload p { font-size: 11px; color: #6b7280; }
-    .ihw-upload .ihw-hint { font-size: 9px; color: #9ca3af; margin-top: 2px; }
-    .ihw-ss-btn {
-      width: 42px; border: 1.5px dashed #d1d5db; border-radius: 6px; background: #fafafa;
+    .ihw-upl:hover { border-color: ${COLOR}; background: #f5f3ff; }
+    .ihw-upl svg { width: 16px; height: 16px; margin: 0 auto 2px; fill: #b0b0b0; display: block; }
+    .ihw-upl p { font-size: 10px; color: #888; }
+    .ihw-upl .ht { font-size: 8px; color: #b0b0b0; margin-top: 1px; }
+    .ihw-ssb {
+      width: 36px; border: 1.5px dashed #d1d5db; border-radius: 5px; background: #fafafa;
       cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center;
-      transition: all 0.2s; gap: 2px;
+      transition: all 0.15s; gap: 1px; flex-shrink: 0;
     }
-    .ihw-ss-btn:hover { border-color: ${COLOR}; background: #f5f3ff; }
-    .ihw-ss-btn svg { width: 20px; height: 20px; fill: #9ca3af; }
-    .ihw-ss-btn span { font-size: 8px; color: #9ca3af; font-weight: 600; }
-    .ihw-previews { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
-    .ihw-prev {
-      position: relative; width: 50px; height: 50px; border-radius: 6px;
+    .ihw-ssb:hover { border-color: ${COLOR}; background: #f5f3ff; }
+    .ihw-ssb svg { width: 14px; height: 14px; fill: #b0b0b0; }
+    .ihw-ssb span { font-size: 7px; color: #b0b0b0; font-weight: 700; }
+    .ihw-pvs { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 6px; }
+    .ihw-pv {
+      position: relative; width: 40px; height: 40px; border-radius: 4px;
       overflow: hidden; border: 1px solid #e5e7eb;
     }
-    .ihw-prev img, .ihw-prev video { width: 100%; height: 100%; object-fit: cover; }
-    .ihw-prev-rm {
-      position: absolute; top: 2px; right: 2px; width: 20px; height: 20px;
+    .ihw-pv img, .ihw-pv video { width: 100%; height: 100%; object-fit: cover; }
+    .ihw-pv-x {
+      position: absolute; top: 1px; right: 1px; width: 16px; height: 16px;
       border-radius: 50%; background: rgba(0,0,0,0.6); color: #fff; border: none;
-      cursor: pointer; font-size: 12px; display: flex; align-items: center; justify-content: center;
+      cursor: pointer; font-size: 10px; display: flex; align-items: center; justify-content: center;
     }
+    /* Submit btn */
     .ihw-btn {
-      width: 100%; padding: 9px; background: ${COLOR}; color: #fff; border: none;
-      border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer;
-      transition: opacity 0.2s, transform 0.1s; margin-top: 4px;
+      width: 100%; padding: 8px; background: ${COLOR}; color: #fff; border: none;
+      border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer;
+      transition: opacity 0.15s; margin-top: 6px;
     }
-    .ihw-btn:hover { opacity: 0.92; }
-    .ihw-btn:active { transform: scale(0.98); }
-    .ihw-btn:disabled { opacity: 0.6; cursor: not-allowed; }
-    .ihw-spin {
-      display: inline-block; width: 18px; height: 18px;
+    .ihw-btn:hover { opacity: 0.9; }
+    .ihw-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .ihw-sp {
+      display: inline-block; width: 14px; height: 14px;
       border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff;
-      border-radius: 50%; animation: ihw-sp 0.6s linear infinite;
-      vertical-align: middle; margin-right: 8px;
+      border-radius: 50%; animation: ihw-spin 0.6s linear infinite;
+      vertical-align: middle; margin-right: 6px;
     }
-    @keyframes ihw-sp { to { transform: rotate(360deg); } }
+    @keyframes ihw-spin { to { transform: rotate(360deg); } }
     /* Success */
-    .ihw-ok { text-align: center; padding: 20px 0; }
+    .ihw-ok { text-align: center; padding: 16px 0; }
     .ihw-ok-ic {
-      width: 60px; height: 60px; border-radius: 50%; background: #dcfce7;
-      display: flex; align-items: center; justify-content: center; margin: 0 auto 14px;
+      width: 48px; height: 48px; border-radius: 50%; background: #dcfce7;
+      display: flex; align-items: center; justify-content: center; margin: 0 auto 10px;
     }
-    .ihw-ok-ic svg { width: 30px; height: 30px; fill: #16a34a; }
-    .ihw-ok h4 { color: #166534; font-size: 17px; margin-bottom: 8px; }
+    .ihw-ok-ic svg { width: 24px; height: 24px; fill: #16a34a; }
+    .ihw-ok h4 { color: #166534; font-size: 14px; margin-bottom: 6px; }
     .ihw-ok .ihw-tkt {
-      background: #f0fdf4; border: 1px solid #bbf7d0; padding: 10px 18px;
-      border-radius: 8px; display: inline-block; margin: 10px 0;
+      background: #f0fdf4; border: 1px solid #bbf7d0; padding: 6px 14px;
+      border-radius: 6px; display: inline-block; margin: 6px 0;
     }
-    .ihw-ok .ihw-tkt span { font-size: 20px; font-weight: 700; color: ${COLOR}; letter-spacing: 1px; }
-    .ihw-ok p { color: #6b7280; font-size: 13px; line-height: 1.5; }
+    .ihw-ok .ihw-tkt span { font-size: 16px; font-weight: 700; color: ${COLOR}; letter-spacing: 0.5px; }
+    .ihw-ok p { color: #6b7280; font-size: 11px; line-height: 1.5; }
     .ihw-ok .ihw-res {
-      background: #f5f3ff; border: 1px solid #ddd6fe; padding: 10px 14px;
-      border-radius: 8px; margin: 14px 0; font-size: 12px; color: #6d28d9;
+      background: #f5f3ff; border: 1px solid #ddd6fe; padding: 8px 10px;
+      border-radius: 6px; margin: 10px 0; font-size: 10px; color: #6d28d9;
     }
     .ihw-ok-btn {
-      margin-top: 14px; padding: 9px 20px; background: #f3f4f6; color: #374151;
-      border: none; border-radius: 8px; font-size: 13px; cursor: pointer; font-family: inherit;
+      margin-top: 10px; padding: 6px 16px; background: #f3f4f6; color: #374151;
+      border: none; border-radius: 6px; font-size: 11px; cursor: pointer; font-family: inherit;
     }
     .ihw-ok-btn:hover { background: #e5e7eb; }
-    /* AI Response */
+    /* AI */
     .ihw-ai {
-      background: #f5f3ff; border: 1px solid #ddd6fe; border-radius: 10px;
-      padding: 14px; margin: 14px 0; text-align: left;
+      background: #f5f3ff; border: 1px solid #ddd6fe; border-radius: 8px;
+      padding: 10px; margin: 10px 0; text-align: left;
     }
     .ihw-ai-hdr {
-      display: flex; align-items: center; gap: 6px; margin-bottom: 8px;
-      font-size: 13px; font-weight: 700; color: #6d28d9;
+      display: flex; align-items: center; gap: 5px; margin-bottom: 6px;
+      font-size: 11px; font-weight: 700; color: #6d28d9;
     }
     .ihw-ai-hdr span {
-      display: inline-flex; width: 22px; height: 22px; background: #8b5cf6;
+      display: inline-flex; width: 18px; height: 18px; background: #8b5cf6;
       border-radius: 50%; align-items: center; justify-content: center;
-      color: #fff; font-size: 10px; font-weight: 700;
+      color: #fff; font-size: 8px; font-weight: 700;
     }
-    .ihw-ai p { color: #374151; font-size: 13px; line-height: 1.6; margin: 0; white-space: pre-wrap; }
-    .ihw-ai .ihw-ai-note { color: #9ca3af; font-size: 10px; font-style: italic; margin-top: 8px; }
-    /* Track ticket */
-    .ihw-track-card {
-      background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px; margin-top: 14px;
+    .ihw-ai p { color: #374151; font-size: 11px; line-height: 1.5; margin: 0; white-space: pre-wrap; }
+    .ihw-ai .ihw-ai-note { color: #9ca3af; font-size: 9px; font-style: italic; margin-top: 6px; }
+    /* Track */
+    .ihw-tc2 { }
+    .ihw-trk {
+      background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px; margin-top: 10px;
     }
-    .ihw-track-row {
-      display: flex; justify-content: space-between; padding: 8px 0;
-      border-bottom: 1px solid #f1f5f9; font-size: 13px;
+    .ihw-tr {
+      display: flex; justify-content: space-between; padding: 5px 0;
+      border-bottom: 1px solid #f1f5f9; font-size: 11px;
     }
-    .ihw-track-row:last-child { border-bottom: none; }
-    .ihw-track-lbl { color: #6b7280; font-weight: 500; }
-    .ihw-track-val { color: #1f2937; font-weight: 600; }
-    .ihw-badge-status {
-      display: inline-block; padding: 3px 10px; border-radius: 12px;
-      font-size: 11px; font-weight: 600; text-transform: uppercase;
+    .ihw-tr:last-child { border-bottom: none; }
+    .ihw-tl { color: #6b7280; font-weight: 500; }
+    .ihw-tv { color: #1f2937; font-weight: 600; }
+    .ihw-st {
+      display: inline-block; padding: 2px 8px; border-radius: 10px;
+      font-size: 9px; font-weight: 700; text-transform: uppercase;
     }
     .ihw-st-open { background:#dbeafe; color:#1e40af; }
     .ihw-st-in_progress { background:#fef3c7; color:#92400e; }
     .ihw-st-resolved { background:#dcfce7; color:#166534; }
     .ihw-st-closed { background:#f3f4f6; color:#6b7280; }
     .ihw-wh {
-      background: #fffbeb; border: 1px solid #fde68a; border-radius: 8px;
-      padding: 10px 14px; margin-top: 12px; font-size: 11px; color: #92400e; line-height: 1.5;
+      background: #fffbeb; border: 1px solid #fde68a; border-radius: 6px;
+      padding: 8px 10px; margin-top: 10px; font-size: 10px; color: #92400e; line-height: 1.4;
     }
-    /* System info bar */
-    .ihw-sysinfo {
-      background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 6px;
-      padding: 5px 10px; margin-bottom: 10px; font-size: 10px; color: #9ca3af;
-      display: flex; flex-wrap: wrap; gap: 8px;
+    .ihw-em { color: #ef4444; font-size: 10px; margin-top: 3px; }
+    /* Sysinfo */
+    .ihw-si {
+      background: #f9fafb; border: 1px solid #eee; border-radius: 4px;
+      padding: 4px 8px; margin-bottom: 8px; font-size: 9px; color: #b0b0b0;
+      display: flex; gap: 8px;
     }
-    .ihw-sysinfo span { display: flex; align-items: center; gap: 3px; }
-    .ihw-sysinfo svg { width: 12px; height: 12px; fill: #9ca3af; }
     /* Footer */
-    .ihw-footer {
-      padding: 10px 16px; border-top: 1px solid #f3f4f6;
-      text-align: center; font-size: 11px; color: #9ca3af;
+    .ihw-ft {
+      padding: 6px 14px; border-top: 1px solid #f3f4f6; flex-shrink: 0;
+      text-align: center; font-size: 9px; color: #b0b0b0;
     }
-    .ihw-footer a { color: ${COLOR}; text-decoration: none; font-weight: 600; }
+    .ihw-ft a { color: ${COLOR}; text-decoration: none; font-weight: 600; }
+    /* Mobile */
     @media (max-width: 480px) {
-      .ihw-panel { bottom:0; ${POSITION}:0; width:100vw; max-width:100vw; max-height:90vh; border-radius:16px 16px 0 0; }
-      #ihw-root { bottom:16px; ${POSITION}:16px; }
+      .ihw-panel { bottom: 0; ${POSITION}: 0; width: 100vw; max-width: 100vw; max-height: 85vh; border-radius: 12px 12px 0 0; }
+      #ihw-root { bottom: 14px; ${POSITION}: 14px; }
     }
   `;
   document.head.appendChild(style);
@@ -261,128 +269,74 @@
 
   var w = document.createElement("div");
   w.id = "ihw-root";
-  w.innerHTML = `
-    <button class="ihw-fab" aria-label="Raise a ticket">
-      <span class="ihw-fab-tip">Need Help?</span>
-      <span class="ihw-badge"></span>
-      <svg class="ihw-ic-open" viewBox="0 0 24 24"><path d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z"/></svg>
-      <svg class="ihw-ic-close" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
-    </button>
-    <div class="ihw-panel">
-      <div class="ihw-hdr">
-        <h3>Help & Support</h3>
-        <div class="ihw-hdr-status">
-          <span class="ihw-hdr-dot"></span>
-          <span>${statusText}</span>
-        </div>
-      </div>
-      <div class="ihw-tabs">
-        <button class="ihw-tab ihw-active" data-tab="submit">Raise Ticket</button>
-        <button class="ihw-tab" data-tab="track">Track Ticket</button>
-      </div>
-      <div class="ihw-body">
-        <!-- SUBMIT TAB -->
-        <div class="ihw-tab-content ihw-show" id="ihw-tc-submit">
-          <div class="ihw-sysinfo">
-            <span><svg viewBox="0 0 24 24"><path d="M20 18c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z"/></svg> ${sysInfo.os}</span>
-            <span><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg> ${sysInfo.browser}</span>
-            <span><svg viewBox="0 0 24 24"><path d="M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8z"/></svg> ${sysInfo.screen}</span>
-          </div>
-          <form id="ihw-form">
-            <div class="ihw-row">
-              <div class="ihw-fld">
-                <label>Name <span class="ihw-req">*</span></label>
-                <input type="text" id="ihw-name" placeholder="Your name" required>
-              </div>
-              <div class="ihw-fld">
-                <label>Email <span class="ihw-req">*</span></label>
-                <input type="email" id="ihw-email" placeholder="you@email.com" required>
-              </div>
-            </div>
-            <div class="ihw-row">
-              <div class="ihw-fld">
-                <label>Phone</label>
-                <input type="tel" id="ihw-phone" placeholder="+91 XXXXX XXXXX">
-              </div>
-              <div class="ihw-fld">
-                <label>Company</label>
-                <input type="text" id="ihw-company" placeholder="Company name">
-              </div>
-            </div>
-            <div class="ihw-fld">
-              <label>Category</label>
-              <select id="ihw-category">
-                <option value="General">General</option>
-                <option value="Bug">Bug / Issue</option>
-                <option value="Feature Request">Feature Request</option>
-                <option value="Billing">Billing</option>
-                <option value="Integration">Integration</option>
-                <option value="Account">Account / Login</option>
-                <option value="Other">Other</option>
-              </select>
-            </div>
-            <div class="ihw-fld">
-              <label>Priority</label>
-              <div class="ihw-prio">
-                <button type="button" class="ihw-prio-btn" data-p="low">Low</button>
-                <button type="button" class="ihw-prio-btn ihw-sel" data-p="medium">Medium</button>
-                <button type="button" class="ihw-prio-btn" data-p="high">High</button>
-                <button type="button" class="ihw-prio-btn" data-p="critical">Critical</button>
-              </div>
-            </div>
-            <div class="ihw-fld">
-              <label>Subject <span class="ihw-req">*</span></label>
-              <input type="text" id="ihw-subject" placeholder="Brief summary of your issue" required>
-            </div>
-            <div class="ihw-fld">
-              <label>Description <span class="ihw-req">*</span></label>
-              <textarea id="ihw-desc" placeholder="Describe your issue in detail..." rows="4" required></textarea>
-            </div>
-            <div class="ihw-fld">
-              <label>Attachments</label>
-              <div class="ihw-upload-wrap">
-                <div class="ihw-upload" id="ihw-upload">
-                  <svg viewBox="0 0 24 24"><path d="M16.5 6v11.5c0 2.21-1.79 4-4 4s-4-1.79-4-4V5c0-1.38 1.12-2.5 2.5-2.5s2.5 1.12 2.5 2.5v10.5c0 .55-.45 1-1 1s-1-.45-1-1V6H10v9.5c0 1.38 1.12 2.5 2.5 2.5s2.5-1.12 2.5-2.5V5c0-2.21-1.79-4-4-4S7 2.79 7 5v12.5c0 3.04 2.46 5.5 5.5 5.5s5.5-2.46 5.5-5.5V6h-1.5z"/></svg>
-                  <p>Click to attach files</p>
-                  <div class="ihw-hint">Images (max ${MAX_IMG}, 5MB) · Videos (max ${MAX_VID}, 10MB)</div>
-                </div>
-                <button type="button" class="ihw-ss-btn" id="ihw-ss-btn" title="Capture screenshot">
-                  <svg viewBox="0 0 24 24"><path d="M20 4h-3.17L15 2H9L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V6h4.05l1.83-2h4.24l1.83 2H20v12zM12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0 8c-1.65 0-3-1.35-3-3s1.35-3 3-3 3 1.35 3 3-1.35 3-3 3z"/></svg>
-                  <span>SCREEN</span>
-                </button>
-              </div>
-              <input type="file" id="ihw-file" accept="image/*,video/*" multiple hidden>
-              <div class="ihw-previews" id="ihw-previews"></div>
-            </div>
-            <button type="submit" class="ihw-btn" id="ihw-submit">Submit Ticket</button>
-          </form>
-          <div class="ihw-ok" id="ihw-ok" style="display:none;"></div>
-        </div>
-        <!-- TRACK TAB -->
-        <div class="ihw-tab-content" id="ihw-tc-track">
-          <div class="ihw-fld">
-            <label>Ticket Number <span class="ihw-req">*</span></label>
-            <input type="text" id="ihw-track-input" placeholder="e.g. TKT-20260316-0001">
-          </div>
-          <button class="ihw-btn" id="ihw-track-btn">Track Ticket</button>
-          <div id="ihw-track-result"></div>
-          <div class="ihw-wh">
-            <strong>Working Hours:</strong> Monday to Friday, 9:00 AM - 6:00 PM IST.<br>
-            Resolution times are calculated based on business hours only.
-          </div>
-        </div>
-      </div>
-      <div class="ihw-footer">Powered by <a href="https://in-sync-crm.com" target="_blank">In-Sync CRM</a></div>
-    </div>
-  `;
+  w.innerHTML =
+    '<button class="ihw-fab" aria-label="Help">' +
+      '<span class="ihw-fab-tip">Need Help?</span>' +
+      '<span class="ihw-dot"></span>' +
+      '<svg class="ihw-ic-open" viewBox="0 0 24 24"><path d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z"/></svg>' +
+      '<svg class="ihw-ic-close" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>' +
+    '</button>' +
+    '<div class="ihw-panel">' +
+      '<div class="ihw-hdr">' +
+        '<h3>Help & Support</h3>' +
+        '<div class="ihw-hdr-status"><span class="ihw-hdr-dot"></span><span>' + statusText + '</span></div>' +
+      '</div>' +
+      '<div class="ihw-tabs">' +
+        '<button class="ihw-tab ihw-active" data-tab="submit">Raise Ticket</button>' +
+        '<button class="ihw-tab" data-tab="track">Track Ticket</button>' +
+      '</div>' +
+      '<div class="ihw-body">' +
+        '<div class="ihw-tc ihw-show" id="ihw-tc-submit">' +
+          '<div class="ihw-si">' + sysInfo.os + ' · ' + sysInfo.browser + ' · ' + sysInfo.screen + '</div>' +
+          '<form id="ihw-form">' +
+            '<div class="ihw-r">' +
+              '<div class="ihw-f"><label>Name <span class="rq">*</span></label><input type="text" id="ihw-name" placeholder="Your name" required></div>' +
+              '<div class="ihw-f"><label>Email <span class="rq">*</span></label><input type="email" id="ihw-email" placeholder="you@email.com" required></div>' +
+            '</div>' +
+            '<div class="ihw-r">' +
+              '<div class="ihw-f"><label>Phone</label><input type="tel" id="ihw-phone" placeholder="+91 XXXXX XXXXX"></div>' +
+              '<div class="ihw-f"><label>Company</label><input type="text" id="ihw-company" placeholder="Company name"></div>' +
+            '</div>' +
+            '<div class="ihw-r">' +
+              '<div class="ihw-f"><label>Category</label><select id="ihw-category"><option value="General">General</option><option value="Bug">Bug / Issue</option><option value="Feature Request">Feature Request</option><option value="Billing">Billing</option><option value="Integration">Integration</option><option value="Account">Account / Login</option><option value="Other">Other</option></select></div>' +
+            '</div>' +
+            '<div class="ihw-f"><label>Priority</label>' +
+              '<div class="ihw-pr">' +
+                '<button type="button" class="ihw-pb" data-p="low">Low</button>' +
+                '<button type="button" class="ihw-pb sel" data-p="medium">Medium</button>' +
+                '<button type="button" class="ihw-pb" data-p="high">High</button>' +
+                '<button type="button" class="ihw-pb" data-p="critical">Critical</button>' +
+              '</div>' +
+            '</div>' +
+            '<div class="ihw-f"><label>Subject <span class="rq">*</span></label><input type="text" id="ihw-subject" placeholder="Brief summary of your issue" required></div>' +
+            '<div class="ihw-f"><label>Description <span class="rq">*</span></label><textarea id="ihw-desc" placeholder="Describe your issue in detail..." rows="3" required></textarea></div>' +
+            '<div class="ihw-f"><label>Attachments</label>' +
+              '<div class="ihw-att">' +
+                '<div class="ihw-upl" id="ihw-upload"><svg viewBox="0 0 24 24"><path d="M16.5 6v11.5c0 2.21-1.79 4-4 4s-4-1.79-4-4V5c0-1.38 1.12-2.5 2.5-2.5s2.5 1.12 2.5 2.5v10.5c0 .55-.45 1-1 1s-1-.45-1-1V6H10v9.5c0 1.38 1.12 2.5 2.5 2.5s2.5-1.12 2.5-2.5V5c0-2.21-1.79-4-4-4S7 2.79 7 5v12.5c0 3.04 2.46 5.5 5.5 5.5s5.5-2.46 5.5-5.5V6h-1.5z"/></svg><p>Attach files</p><div class="ht">Images · Videos</div></div>' +
+                '<button type="button" class="ihw-ssb" id="ihw-ss-btn" title="Screenshot"><svg viewBox="0 0 24 24"><path d="M20 4h-3.17L15 2H9L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V6h4.05l1.83-2h4.24l1.83 2H20v12zM12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0 8c-1.65 0-3-1.35-3-3s1.35-3 3-3 3 1.35 3 3-1.35 3-3 3z"/></svg><span>SNAP</span></button>' +
+              '</div>' +
+              '<input type="file" id="ihw-file" accept="image/*,video/*" multiple hidden>' +
+              '<div class="ihw-pvs" id="ihw-previews"></div>' +
+            '</div>' +
+            '<button type="submit" class="ihw-btn" id="ihw-submit">Submit Ticket</button>' +
+          '</form>' +
+          '<div class="ihw-ok" id="ihw-ok" style="display:none;"></div>' +
+        '</div>' +
+        '<div class="ihw-tc" id="ihw-tc-track">' +
+          '<div class="ihw-f"><label>Ticket Number <span class="rq">*</span></label><input type="text" id="ihw-track-input" placeholder="e.g. TKT-20260316-0001"></div>' +
+          '<button class="ihw-btn" id="ihw-track-btn">Track Ticket</button>' +
+          '<div id="ihw-track-result"></div>' +
+          '<div class="ihw-wh"><strong>Working Hours:</strong> Mon-Fri, 9 AM - 6 PM IST. Resolution times are based on business hours.</div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="ihw-ft">Powered by <a href="https://in-sync-crm.com" target="_blank">In-Sync CRM</a></div>' +
+    '</div>';
   document.body.appendChild(w);
 
-  // State
   var isOpen = false;
   var files = [];
   var selectedPriority = "medium";
 
-  // DOM
   var fab = w.querySelector(".ihw-fab");
   var panel = w.querySelector(".ihw-panel");
   var tabs = w.querySelectorAll(".ihw-tab");
@@ -395,19 +349,17 @@
   var ssBtn = document.getElementById("ihw-ss-btn");
   var fileInput = document.getElementById("ihw-file");
   var previews = document.getElementById("ihw-previews");
-  var prioBtns = w.querySelectorAll(".ihw-prio-btn");
+  var prioBtns = w.querySelectorAll(".ihw-pb");
   var trackBtn = document.getElementById("ihw-track-btn");
   var trackInput = document.getElementById("ihw-track-input");
   var trackResult = document.getElementById("ihw-track-result");
 
-  // Toggle panel
   fab.addEventListener("click", function () {
     isOpen = !isOpen;
     panel.classList.toggle("ihw-open", isOpen);
     fab.classList.toggle("ihw-active", isOpen);
   });
 
-  // Tabs
   tabs.forEach(function (tab) {
     tab.addEventListener("click", function () {
       tabs.forEach(function (t) { t.classList.remove("ihw-active"); });
@@ -418,16 +370,14 @@
     });
   });
 
-  // Priority
   prioBtns.forEach(function (btn) {
     btn.addEventListener("click", function () {
-      prioBtns.forEach(function (b) { b.classList.remove("ihw-sel"); });
-      btn.classList.add("ihw-sel");
+      prioBtns.forEach(function (b) { b.classList.remove("sel"); });
+      btn.classList.add("sel");
       selectedPriority = btn.getAttribute("data-p");
     });
   });
 
-  // File upload
   uploadArea.addEventListener("click", function () { fileInput.click(); });
   uploadArea.addEventListener("dragover", function (e) { e.preventDefault(); uploadArea.style.borderColor = COLOR; });
   uploadArea.addEventListener("dragleave", function () { uploadArea.style.borderColor = "#d1d5db"; });
@@ -437,7 +387,6 @@
   });
   fileInput.addEventListener("change", function () { addFiles(fileInput.files); fileInput.value = ""; });
 
-  // Screenshot capture
   ssBtn.addEventListener("click", async function () {
     try {
       var stream = await navigator.mediaDevices.getDisplayMedia({ video: { mediaSource: "screen" } });
@@ -456,9 +405,7 @@
           renderPreviews();
         }
       }, "image/png");
-    } catch (err) {
-      console.log("Screenshot cancelled or not supported");
-    }
+    } catch (err) { console.log("Screenshot cancelled"); }
   });
 
   function addFiles(list) {
@@ -480,13 +427,13 @@
   function renderPreviews() {
     previews.innerHTML = "";
     files.forEach(function (f, i) {
-      var d = document.createElement("div"); d.className = "ihw-prev";
+      var d = document.createElement("div"); d.className = "ihw-pv";
       if (f.type.startsWith("image/")) {
         var img = document.createElement("img"); img.src = URL.createObjectURL(f); d.appendChild(img);
       } else {
         var vid = document.createElement("video"); vid.src = URL.createObjectURL(f); vid.muted = true; d.appendChild(vid);
       }
-      var rm = document.createElement("button"); rm.className = "ihw-prev-rm"; rm.innerHTML = "&times;"; rm.type = "button";
+      var rm = document.createElement("button"); rm.className = "ihw-pv-x"; rm.innerHTML = "&times;"; rm.type = "button";
       rm.addEventListener("click", function () { files.splice(i, 1); renderPreviews(); });
       d.appendChild(rm); previews.appendChild(d);
     });
@@ -501,7 +448,7 @@
     });
   }
 
-  // Save form draft to sessionStorage
+  // Draft save/load
   function saveDraft() {
     try {
       sessionStorage.setItem("ihw_draft", JSON.stringify({
@@ -516,7 +463,6 @@
       }));
     } catch (e) {}
   }
-
   function loadDraft() {
     try {
       var d = JSON.parse(sessionStorage.getItem("ihw_draft"));
@@ -530,22 +476,18 @@
       if (d.desc) document.getElementById("ihw-desc").value = d.desc;
       if (d.priority) {
         selectedPriority = d.priority;
-        prioBtns.forEach(function (b) { b.classList.toggle("ihw-sel", b.getAttribute("data-p") === d.priority); });
+        prioBtns.forEach(function (b) { b.classList.toggle("sel", b.getAttribute("data-p") === d.priority); });
       }
     } catch (e) {}
   }
-
-  // Auto-save draft on input
   ["ihw-name","ihw-email","ihw-phone","ihw-company","ihw-subject","ihw-desc"].forEach(function (id) {
     var el = document.getElementById(id);
     if (el) el.addEventListener("input", saveDraft);
   });
   document.getElementById("ihw-category").addEventListener("change", saveDraft);
-
-  // Load draft on init
   loadDraft();
 
-  // Submit form
+  // Submit
   form.addEventListener("submit", async function (e) {
     e.preventDefault();
     var name = document.getElementById("ihw-name").value.trim();
@@ -555,11 +497,10 @@
     var category = document.getElementById("ihw-category").value;
     var subject = document.getElementById("ihw-subject").value.trim();
     var desc = document.getElementById("ihw-desc").value.trim();
-
     if (!name || !email || !subject || !desc) return;
 
     submitBtn.disabled = true;
-    submitBtn.innerHTML = '<span class="ihw-spin"></span>Submitting...';
+    submitBtn.innerHTML = '<span class="ihw-sp"></span>Submitting...';
 
     try {
       var attachInfo = "";
@@ -570,7 +511,6 @@
           attachInfo += "File " + (i + 1) + ": " + files[i].name + " (" + (files[i].size / 1024).toFixed(1) + "KB)\nData: " + b64 + "\n\n";
         }
       }
-
       var fullDesc = desc;
       if (company) fullDesc = "Company: " + company + "\n" + fullDesc;
       if (category) fullDesc = "Category: " + category + "\n" + fullDesc;
@@ -579,34 +519,19 @@
 
       var resp = await fetch(SUPABASE_URL + "/functions/v1/submit-ticket", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "apikey": SUPABASE_ANON_KEY,
-          "Authorization": "Bearer " + SUPABASE_ANON_KEY,
-        },
-        body: JSON.stringify({
-          name: name, email: email, phone: phone || undefined,
-          subject: subject, description: fullDesc, priority: selectedPriority, source: SOURCE,
-        }),
+        headers: { "Content-Type": "application/json", "apikey": SUPABASE_ANON_KEY, "Authorization": "Bearer " + SUPABASE_ANON_KEY },
+        body: JSON.stringify({ name: name, email: email, phone: phone || undefined, subject: subject, description: fullDesc, priority: selectedPriority, source: SOURCE }),
       });
-
       var result = await resp.json();
 
       if (result.success) {
-        // Clear draft
         try { sessionStorage.removeItem("ihw_draft"); } catch (e) {}
         form.style.display = "none";
         okDiv.style.display = "block";
-
         var aiHtml = "";
         if (result.ai_response) {
-          aiHtml = '<div class="ihw-ai">' +
-            '<div class="ihw-ai-hdr"><span>AI</span> Quick Response from In-Sync AI</div>' +
-            '<p>' + result.ai_response.replace(/</g, '&lt;').replace(/>/g, '&gt;') + '</p>' +
-            '<div class="ihw-ai-note">Automated AI response. Our team will follow up if needed.</div>' +
-            '</div>';
+          aiHtml = '<div class="ihw-ai"><div class="ihw-ai-hdr"><span>AI</span> In-Sync AI Response</div><p>' + result.ai_response.replace(/</g, '&lt;').replace(/>/g, '&gt;') + '</p><div class="ihw-ai-note">Automated response. Team will follow up if needed.</div></div>';
         }
-
         okDiv.innerHTML =
           '<div class="ihw-ok">' +
           '<div class="ihw-ok-ic"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>' +
@@ -614,75 +539,59 @@
           '<div class="ihw-tkt"><span>' + result.ticket_number + '</span></div>' +
           '<p>Confirmation sent to <strong>' + email + '</strong></p>' +
           aiHtml +
-          '<div class="ihw-res"><strong>Expected Resolution:</strong> ' + result.expected_resolution_formatted +
-          '<br>Working Hours: Mon-Fri, 9 AM - 6 PM IST</div>' +
-          '<p style="font-size:11px;color:#9ca3af;margin-top:8px;">Save your ticket number <strong>' + result.ticket_number + '</strong> to track progress in the "Track Ticket" tab.</p>' +
-          '<button class="ihw-ok-btn" id="ihw-new">Submit Another Ticket</button>' +
-          '</div>';
+          '<div class="ihw-res"><strong>Resolution:</strong> ' + result.expected_resolution_formatted + '<br>Mon-Fri, 9 AM - 6 PM IST</div>' +
+          '<p style="font-size:9px;color:#b0b0b0;margin-top:6px;">Track with <strong>' + result.ticket_number + '</strong></p>' +
+          '<button class="ihw-ok-btn" id="ihw-new">New Ticket</button></div>';
         document.getElementById("ihw-new").addEventListener("click", function () {
           form.reset(); form.style.display = "block"; okDiv.style.display = "none";
           files = []; renderPreviews(); selectedPriority = "medium";
-          prioBtns.forEach(function (b) { b.classList.toggle("ihw-sel", b.getAttribute("data-p") === "medium"); });
+          prioBtns.forEach(function (b) { b.classList.toggle("sel", b.getAttribute("data-p") === "medium"); });
         });
       } else {
         alert("Error: " + (result.error || "Failed to create ticket."));
       }
     } catch (err) {
       alert("Network error. Please try again.");
-      console.error("Help widget error:", err);
     } finally {
       submitBtn.disabled = false;
       submitBtn.innerHTML = "Submit Ticket";
     }
   });
 
-  // Track ticket
+  // Track
   trackBtn.addEventListener("click", async function () {
     var num = trackInput.value.trim().toUpperCase();
-    if (!num) { trackResult.innerHTML = '<p class="ihw-err-msg">Please enter a ticket number</p>'; return; }
-
+    if (!num) { trackResult.innerHTML = '<p class="ihw-em">Please enter a ticket number</p>'; return; }
     trackBtn.disabled = true;
-    trackBtn.innerHTML = '<span class="ihw-spin"></span>Searching...';
-
+    trackBtn.innerHTML = '<span class="ihw-sp"></span>Searching...';
     try {
-      var resp = await fetch(
-        SUPABASE_URL + "/rest/v1/support_tickets?ticket_number=eq." + encodeURIComponent(num) + "&select=*",
-        { headers: { "apikey": SUPABASE_ANON_KEY, "Authorization": "Bearer " + SUPABASE_ANON_KEY } }
-      );
+      var resp = await fetch(SUPABASE_URL + "/rest/v1/support_tickets?ticket_number=eq." + encodeURIComponent(num) + "&select=*",
+        { headers: { "apikey": SUPABASE_ANON_KEY, "Authorization": "Bearer " + SUPABASE_ANON_KEY } });
       var tickets = await resp.json();
-
       if (tickets && tickets.length > 0) {
         var t = tickets[0];
-        var stCls = "ihw-st-" + t.status;
-        var stLbl = t.status.replace("_", " ").toUpperCase();
         var created = new Date(t.created_at).toLocaleString("en-IN", { timeZone: "Asia/Kolkata", dateStyle: "medium", timeStyle: "short" });
         var resolved = "";
         if (t.resolved_at) {
-          var rDate = new Date(t.resolved_at).toLocaleString("en-IN", { timeZone: "Asia/Kolkata", dateStyle: "medium", timeStyle: "short" });
-          resolved = '<div class="ihw-track-row"><span class="ihw-track-lbl">Resolved</span><span class="ihw-track-val">' + rDate + '</span></div>';
-          if (t.resolution_working_hours) {
-            resolved += '<div class="ihw-track-row"><span class="ihw-track-lbl">Resolution Time</span><span class="ihw-track-val">' + t.resolution_working_hours + ' working hrs</span></div>';
-          }
+          var rd = new Date(t.resolved_at).toLocaleString("en-IN", { timeZone: "Asia/Kolkata", dateStyle: "medium", timeStyle: "short" });
+          resolved = '<div class="ihw-tr"><span class="ihw-tl">Resolved</span><span class="ihw-tv">' + rd + '</span></div>';
         }
-        trackResult.innerHTML = '<div class="ihw-track-card">' +
-          '<div class="ihw-track-row"><span class="ihw-track-lbl">Ticket</span><span class="ihw-track-val">' + t.ticket_number + '</span></div>' +
-          '<div class="ihw-track-row"><span class="ihw-track-lbl">Subject</span><span class="ihw-track-val">' + t.subject + '</span></div>' +
-          '<div class="ihw-track-row"><span class="ihw-track-lbl">Status</span><span class="ihw-badge-status ' + stCls + '">' + stLbl + '</span></div>' +
-          '<div class="ihw-track-row"><span class="ihw-track-lbl">Priority</span><span class="ihw-track-val" style="text-transform:capitalize;">' + t.priority + '</span></div>' +
-          '<div class="ihw-track-row"><span class="ihw-track-lbl">Created</span><span class="ihw-track-val">' + created + '</span></div>' +
+        trackResult.innerHTML = '<div class="ihw-trk">' +
+          '<div class="ihw-tr"><span class="ihw-tl">Ticket</span><span class="ihw-tv">' + t.ticket_number + '</span></div>' +
+          '<div class="ihw-tr"><span class="ihw-tl">Subject</span><span class="ihw-tv">' + t.subject + '</span></div>' +
+          '<div class="ihw-tr"><span class="ihw-tl">Status</span><span class="ihw-st ihw-st-' + t.status + '">' + t.status.replace("_", " ").toUpperCase() + '</span></div>' +
+          '<div class="ihw-tr"><span class="ihw-tl">Priority</span><span class="ihw-tv" style="text-transform:capitalize">' + t.priority + '</span></div>' +
+          '<div class="ihw-tr"><span class="ihw-tl">Created</span><span class="ihw-tv">' + created + '</span></div>' +
           resolved + '</div>';
       } else {
-        trackResult.innerHTML = '<p class="ihw-err-msg" style="text-align:center;padding:20px;">No ticket found with number <strong>' + num + '</strong></p>';
+        trackResult.innerHTML = '<p class="ihw-em" style="text-align:center;padding:14px;">No ticket found: <strong>' + num + '</strong></p>';
       }
     } catch (err) {
-      trackResult.innerHTML = '<p class="ihw-err-msg">Failed to fetch ticket. Please try again.</p>';
+      trackResult.innerHTML = '<p class="ihw-em">Failed to fetch. Try again.</p>';
     } finally {
       trackBtn.disabled = false;
       trackBtn.innerHTML = "Track Ticket";
     }
   });
-
-  trackInput.addEventListener("keydown", function (e) {
-    if (e.key === "Enter") { e.preventDefault(); trackBtn.click(); }
-  });
+  trackInput.addEventListener("keydown", function (e) { if (e.key === "Enter") { e.preventDefault(); trackBtn.click(); } });
 })();
