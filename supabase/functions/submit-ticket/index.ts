@@ -4,6 +4,7 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 const resendApiKey = Deno.env.get("RESEND_API_KEY");
 const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
 const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+const anthropicApiKey = Deno.env.get("ANTHROPIC_API_KEY");
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -33,17 +34,13 @@ function calculateExpectedResolution(
   createdAt: Date,
   priorityHours: number
 ): string {
-  // Working hours: Mon-Fri 9AM-6PM IST (9 hours/day)
   const WORK_START = 9;
   const WORK_END = 18;
-  const HOURS_PER_DAY = 9;
 
-  // Convert to IST
   const istOffset = 5.5 * 60 * 60 * 1000;
   let current = new Date(createdAt.getTime() + istOffset);
   let remainingHours = priorityHours;
 
-  // If outside working hours, move to next working day 9AM
   const currentHour = current.getUTCHours() + current.getUTCMinutes() / 60;
   if (currentHour >= WORK_END || currentHour < WORK_START) {
     if (currentHour >= WORK_END) {
@@ -73,7 +70,6 @@ function calculateExpectedResolution(
     }
   }
 
-  // Convert back from IST to UTC for display
   const resultUTC = new Date(current.getTime() - istOffset);
   return resultUTC.toISOString();
 }
@@ -81,13 +77,13 @@ function calculateExpectedResolution(
 function getPriorityHours(priority: string): number {
   switch (priority) {
     case "critical":
-      return 4; // 4 working hours
+      return 4;
     case "high":
-      return 9; // 1 working day
+      return 9;
     case "medium":
-      return 18; // 2 working days
+      return 18;
     case "low":
-      return 36; // 4 working days
+      return 36;
     default:
       return 18;
   }
@@ -107,6 +103,72 @@ function formatDateIST(isoString: string): string {
   });
 }
 
+// --- Claude AI Auto-Response ---
+async function getAIResponse(ticket: {
+  subject: string;
+  description: string;
+  category?: string;
+  priority: string;
+}): Promise<string | null> {
+  if (!anthropicApiKey) {
+    console.error("ANTHROPIC_API_KEY not configured");
+    return null;
+  }
+
+  try {
+    const response = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: {
+        "x-api-key": anthropicApiKey,
+        "anthropic-version": "2023-06-01",
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({
+        model: "claude-haiku-4-5-20251001",
+        max_tokens: 500,
+        system: `You are a friendly and helpful support assistant for In-Sync CRM, an AI-powered customer relationship management platform based in India.
+
+Your job is to provide an immediate, helpful first response to support tickets. Be concise, professional, and empathetic.
+
+Guidelines:
+- Acknowledge the issue clearly
+- If it's a common issue (login, billing, integration, feature request), provide relevant quick steps or info
+- If you can suggest a potential solution or workaround, do so
+- If it needs human investigation, say the team will look into it
+- Keep response under 150 words
+- Use a warm, professional tone
+- Don't make up features that don't exist
+- For bugs, ask for any additional details that might help
+- End with a reassuring note
+
+In-Sync CRM features: Sales automation, WhatsApp integration, field force tracking, multi-channel marketing, lead management, ticketing system, AI voice, drip marketing, auto-dialer.
+Working hours: Mon-Fri, 9 AM - 6 PM IST.`,
+        messages: [
+          {
+            role: "user",
+            content: `New support ticket:\nSubject: ${ticket.subject}\nDescription: ${ticket.description}\nPriority: ${ticket.priority}`,
+          },
+        ],
+      }),
+    });
+
+    if (!response.ok) {
+      const err = await response.text();
+      console.error("Claude API error:", err);
+      return null;
+    }
+
+    const result = await response.json();
+    if (result.content && result.content.length > 0) {
+      return result.content[0].text;
+    }
+    return null;
+  } catch (err) {
+    console.error("Failed to get AI response:", err);
+    return null;
+  }
+}
+
 async function sendClientEmail(
   ticket: {
     ticket_number: string;
@@ -116,7 +178,8 @@ async function sendClientEmail(
     priority: string;
     created_at: string;
   },
-  expectedResolution: string
+  expectedResolution: string,
+  aiResponse: string | null
 ) {
   if (!resendApiKey) {
     console.error("RESEND_API_KEY not configured");
@@ -133,6 +196,23 @@ async function sendClientEmail(
   const priorityLabel =
     ticket.priority.charAt(0).toUpperCase() + ticket.priority.slice(1);
   const color = priorityColors[ticket.priority] || "#f59e0b";
+
+  const aiSection = aiResponse
+    ? `
+              <!-- AI Response -->
+              <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f5f3ff;border:1px solid #ddd6fe;border-radius:8px;margin:0 0 24px;">
+                <tr>
+                  <td style="padding:20px;">
+                    <p style="color:#6d28d9;font-size:14px;margin:0 0 8px;font-weight:700;">
+                      <span style="display:inline-block;width:20px;height:20px;background:#8b5cf6;border-radius:50%;text-align:center;color:#fff;font-size:12px;line-height:20px;margin-right:6px;">AI</span>
+                      Quick Response from In-Sync AI
+                    </p>
+                    <p style="color:#374151;font-size:14px;line-height:1.7;margin:0;white-space:pre-wrap;">${aiResponse}</p>
+                    <p style="color:#9ca3af;font-size:11px;margin:12px 0 0;font-style:italic;">This is an automated AI response. Our support team will follow up during business hours if needed.</p>
+                  </td>
+                </tr>
+              </table>`
+    : "";
 
   const html = `
 <!DOCTYPE html>
@@ -161,6 +241,8 @@ async function sendClientEmail(
               <p style="color:#6b7280;font-size:15px;line-height:1.6;margin:0 0 24px;">
                 Thank you for reaching out to us. We have received your support request and a ticket has been created. Our team will review it and get back to you shortly.
               </p>
+
+              ${aiSection}
 
               <!-- Ticket Card -->
               <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;margin:0 0 24px;">
@@ -261,21 +343,33 @@ async function sendClientEmail(
   }
 }
 
-async function sendTeamEmail(ticket: {
-  ticket_number: string;
-  name: string;
-  email: string;
-  phone?: string;
-  subject: string;
-  description: string;
-  priority: string;
-  source: string;
-  created_at: string;
-}) {
+async function sendTeamEmail(
+  ticket: {
+    ticket_number: string;
+    name: string;
+    email: string;
+    phone?: string;
+    subject: string;
+    description: string;
+    priority: string;
+    source: string;
+    created_at: string;
+  },
+  aiResponse: string | null
+) {
   if (!resendApiKey) return;
+
+  const aiSection = aiResponse
+    ? `<h3>AI Suggested Response</h3>
+<div style="background:#f5f3ff;border:1px solid #ddd6fe;padding:16px;border-radius:8px;margin:0 0 16px;">
+  <p style="white-space:pre-wrap;color:#374151;font-size:14px;line-height:1.6;margin:0;">${aiResponse}</p>
+  <p style="color:#9ca3af;font-size:11px;margin:8px 0 0;font-style:italic;">This AI response was sent to the customer automatically.</p>
+</div>`
+    : "";
 
   const html = `
 <h2>New Support Ticket: ${ticket.ticket_number}</h2>
+${aiSection}
 <table style="border-collapse:collapse;width:100%;max-width:600px;">
   <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">Ticket #</td><td style="padding:8px;border:1px solid #ddd;">${ticket.ticket_number}</td></tr>
   <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">Name</td><td style="padding:8px;border:1px solid #ddd;">${ticket.name}</td></tr>
@@ -336,6 +430,13 @@ const handler = async (req: Request): Promise<Response> => {
     );
     const ticketNumber = ticketNumResult || `TKT-${Date.now()}`;
 
+    // Get AI response (non-blocking — we still create the ticket even if AI fails)
+    const aiResponsePromise = getAIResponse({
+      subject: data.subject,
+      description: data.description,
+      priority,
+    });
+
     // Insert ticket
     const { data: ticket, error } = await supabase
       .from("support_tickets")
@@ -358,6 +459,17 @@ const handler = async (req: Request): Promise<Response> => {
       throw new Error(`Failed to create ticket: ${error.message}`);
     }
 
+    // Wait for AI response
+    const aiResponse = await aiResponsePromise;
+
+    // Save AI response to database if we got one
+    if (aiResponse) {
+      await supabase
+        .from("support_tickets")
+        .update({ ai_response: aiResponse })
+        .eq("ticket_number", ticketNumber);
+    }
+
     // Calculate expected resolution
     const priorityHours = getPriorityHours(priority);
     const expectedResolution = calculateExpectedResolution(
@@ -365,7 +477,7 @@ const handler = async (req: Request): Promise<Response> => {
       priorityHours
     );
 
-    // Send emails in parallel
+    // Send emails in parallel (with AI response included)
     await Promise.allSettled([
       sendClientEmail(
         {
@@ -376,19 +488,23 @@ const handler = async (req: Request): Promise<Response> => {
           priority: ticket.priority,
           created_at: ticket.created_at,
         },
-        expectedResolution
+        expectedResolution,
+        aiResponse
       ),
-      sendTeamEmail({
-        ticket_number: ticket.ticket_number,
-        name: ticket.name,
-        email: ticket.email,
-        phone: ticket.phone,
-        subject: ticket.subject,
-        description: ticket.description,
-        priority: ticket.priority,
-        source: ticket.source,
-        created_at: ticket.created_at,
-      }),
+      sendTeamEmail(
+        {
+          ticket_number: ticket.ticket_number,
+          name: ticket.name,
+          email: ticket.email,
+          phone: ticket.phone,
+          subject: ticket.subject,
+          description: ticket.description,
+          priority: ticket.priority,
+          source: ticket.source,
+          created_at: ticket.created_at,
+        },
+        aiResponse
+      ),
     ]);
 
     return new Response(
@@ -398,6 +514,7 @@ const handler = async (req: Request): Promise<Response> => {
         expected_resolution: expectedResolution,
         expected_resolution_formatted: formatDateIST(expectedResolution),
         priority,
+        ai_response: aiResponse || null,
         message: `Ticket ${ticket.ticket_number} created successfully. A confirmation has been sent to ${ticket.email}.`,
       }),
       {

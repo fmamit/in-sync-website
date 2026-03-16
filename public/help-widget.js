@@ -197,6 +197,22 @@
       border: none; border-radius: 8px; font-size: 13px; cursor: pointer; font-family: inherit;
     }
     .ihw-ok-btn:hover { background: #e5e7eb; }
+    /* AI Response */
+    .ihw-ai {
+      background: #f5f3ff; border: 1px solid #ddd6fe; border-radius: 10px;
+      padding: 14px; margin: 14px 0; text-align: left;
+    }
+    .ihw-ai-hdr {
+      display: flex; align-items: center; gap: 6px; margin-bottom: 8px;
+      font-size: 13px; font-weight: 700; color: #6d28d9;
+    }
+    .ihw-ai-hdr span {
+      display: inline-flex; width: 22px; height: 22px; background: #8b5cf6;
+      border-radius: 50%; align-items: center; justify-content: center;
+      color: #fff; font-size: 10px; font-weight: 700;
+    }
+    .ihw-ai p { color: #374151; font-size: 13px; line-height: 1.6; margin: 0; white-space: pre-wrap; }
+    .ihw-ai .ihw-ai-note { color: #9ca3af; font-size: 10px; font-style: italic; margin-top: 8px; }
     /* Track ticket */
     .ihw-track-card {
       background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px; margin-top: 14px;
@@ -581,12 +597,23 @@
         try { sessionStorage.removeItem("ihw_draft"); } catch (e) {}
         form.style.display = "none";
         okDiv.style.display = "block";
+
+        var aiHtml = "";
+        if (result.ai_response) {
+          aiHtml = '<div class="ihw-ai">' +
+            '<div class="ihw-ai-hdr"><span>AI</span> Quick Response from In-Sync AI</div>' +
+            '<p>' + result.ai_response.replace(/</g, '&lt;').replace(/>/g, '&gt;') + '</p>' +
+            '<div class="ihw-ai-note">Automated AI response. Our team will follow up if needed.</div>' +
+            '</div>';
+        }
+
         okDiv.innerHTML =
           '<div class="ihw-ok">' +
           '<div class="ihw-ok-ic"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>' +
           '<h4>Ticket Created!</h4>' +
           '<div class="ihw-tkt"><span>' + result.ticket_number + '</span></div>' +
           '<p>Confirmation sent to <strong>' + email + '</strong></p>' +
+          aiHtml +
           '<div class="ihw-res"><strong>Expected Resolution:</strong> ' + result.expected_resolution_formatted +
           '<br>Working Hours: Mon-Fri, 9 AM - 6 PM IST</div>' +
           '<p style="font-size:11px;color:#9ca3af;margin-top:8px;">Save your ticket number <strong>' + result.ticket_number + '</strong> to track progress in the "Track Ticket" tab.</p>' +
