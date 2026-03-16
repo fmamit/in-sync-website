@@ -1,457 +1,344 @@
 /**
- * In-Sync Help Widget
- * Embeddable help/support widget with FAQ, contact info, and quick links.
+ * In-Sync Help Ticket Widget
+ * Simple ticket submission with screenshot upload.
  * <script src="/help-widget.js" data-source="PLATFORM" data-color="#8b5cf6" data-position="right" data-company="in-sync-website"></script>
  */
 (function () {
   "use strict";
 
+  var SUPABASE_URL = "https://ljggjepqdqdffoejizpg.supabase.co";
+  var SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxqZ2dqZXBxZHFkZmZvZWppenBnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIzMzg0MzAsImV4cCI6MjA4NzkxNDQzMH0.q7J0MALSejAlA1GT5nPsQAv0XmiT3BXSYOOJNwIaUP4";
+
   var scriptTag = document.currentScript;
   var COLOR = (scriptTag && scriptTag.getAttribute("data-color")) || "#8b5cf6";
   var POSITION = (scriptTag && scriptTag.getAttribute("data-position")) || "right";
-  var COMPANY = (scriptTag && scriptTag.getAttribute("data-company")) || "In-Sync";
   var SOURCE = (scriptTag && scriptTag.getAttribute("data-source")) || "website";
+  var MAX_FILE_SIZE = 5 * 1024 * 1024;
+  var MAX_IMG = 5;
+  var MAX_VID = 2;
 
   var style = document.createElement("style");
   style.textContent = `
-    #insync-help-widget *,
-    #insync-help-widget *::before,
-    #insync-help-widget *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    #insync-help-widget {
+    #ihw-root *, #ihw-root *::before, #ihw-root *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    #ihw-root {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      position: fixed;
-      bottom: 24px;
-      ${POSITION}: 24px;
-      z-index: 999998;
+      position: fixed; bottom: 24px; ${POSITION}: 24px; z-index: 999998;
     }
     .ihw-fab {
-      width: 56px;
-      height: 56px;
-      border-radius: 50%;
-      background: ${COLOR};
-      border: none;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4);
-      transition: transform 0.2s, box-shadow 0.2s;
-      position: relative;
+      width: 56px; height: 56px; border-radius: 50%; background: ${COLOR};
+      border: none; cursor: pointer; display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 20px rgba(139,92,246,0.4); transition: transform 0.2s, box-shadow 0.2s;
     }
-    .ihw-fab:hover {
-      transform: scale(1.08);
-      box-shadow: 0 6px 28px rgba(139, 92, 246, 0.5);
-    }
-    .ihw-fab svg {
-      width: 26px;
-      height: 26px;
-      fill: white;
-    }
-    .ihw-fab .ihw-fab-close {
-      display: none;
-    }
-    .ihw-fab.ihw-active .ihw-fab-open {
-      display: none;
-    }
-    .ihw-fab.ihw-active .ihw-fab-close {
-      display: block;
-    }
-    .ihw-fab-tooltip {
-      position: absolute;
-      ${POSITION === "right" ? "right: 66px" : "left: 66px"};
-      top: 50%;
-      transform: translateY(-50%);
-      background: #1f2937;
-      color: #fff;
-      padding: 6px 14px;
-      border-radius: 8px;
-      font-size: 13px;
-      white-space: nowrap;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.2s;
-    }
-    .ihw-fab:hover .ihw-fab-tooltip {
-      opacity: 1;
-    }
+    .ihw-fab:hover { transform: scale(1.08); box-shadow: 0 6px 28px rgba(139,92,246,0.5); }
+    .ihw-fab svg { width: 26px; height: 26px; fill: #fff; }
+    .ihw-fab .ihw-ic-close { display: none; }
+    .ihw-fab.ihw-active .ihw-ic-open { display: none; }
+    .ihw-fab.ihw-active .ihw-ic-close { display: block; }
     .ihw-panel {
-      display: none;
-      position: fixed;
-      bottom: 92px;
-      ${POSITION}: 24px;
-      width: 380px;
-      max-width: calc(100vw - 32px);
-      max-height: calc(100vh - 120px);
-      background: #fff;
-      border-radius: 16px;
+      display: none; position: fixed; bottom: 92px; ${POSITION}: 24px;
+      width: 400px; max-width: calc(100vw - 32px); max-height: calc(100vh - 120px);
+      background: #fff; border-radius: 16px;
       box-shadow: 0 10px 60px rgba(0,0,0,0.15), 0 0 0 1px rgba(0,0,0,0.05);
-      overflow: hidden;
-      flex-direction: column;
-      animation: ihw-slideUp 0.3s ease;
+      overflow: hidden; flex-direction: column; animation: ihw-up 0.3s ease;
     }
-    .ihw-panel.ihw-open {
-      display: flex;
-    }
-    @keyframes ihw-slideUp {
-      from { opacity: 0; transform: translateY(16px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .ihw-header {
-      background: ${COLOR};
-      padding: 24px;
-    }
-    .ihw-header h3 {
-      color: #fff;
-      font-size: 18px;
-      font-weight: 700;
-      margin-bottom: 4px;
-    }
-    .ihw-header p {
-      color: rgba(255,255,255,0.85);
-      font-size: 13px;
-    }
-    .ihw-body {
-      padding: 16px;
-      overflow-y: auto;
-      flex: 1;
-    }
-    .ihw-search {
-      width: 100%;
-      padding: 10px 14px 10px 38px;
-      border: 1px solid #e5e7eb;
-      border-radius: 10px;
-      font-size: 14px;
-      outline: none;
-      background: #f9fafb;
-      font-family: inherit;
+    .ihw-panel.ihw-open { display: flex; }
+    @keyframes ihw-up { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+    .ihw-hdr { background: ${COLOR}; padding: 20px 24px; }
+    .ihw-hdr h3 { color: #fff; font-size: 17px; font-weight: 700; margin-bottom: 2px; }
+    .ihw-hdr p { color: rgba(255,255,255,0.85); font-size: 12px; }
+    .ihw-body { padding: 18px 20px; overflow-y: auto; flex: 1; }
+    .ihw-row { display: flex; gap: 12px; }
+    .ihw-row .ihw-fld { flex: 1; }
+    .ihw-fld { margin-bottom: 14px; }
+    .ihw-fld label { display: block; font-size: 13px; font-weight: 600; color: #374151; margin-bottom: 5px; }
+    .ihw-fld label .ihw-req { color: #ef4444; }
+    .ihw-fld input, .ihw-fld textarea, .ihw-fld select {
+      width: 100%; padding: 9px 12px; border: 1px solid #d1d5db; border-radius: 8px;
+      font-size: 14px; font-family: inherit; outline: none; background: #fff; color: #1f2937;
       transition: border-color 0.2s, box-shadow 0.2s;
-      margin-bottom: 16px;
     }
-    .ihw-search:focus {
-      border-color: ${COLOR};
-      box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
-      background: #fff;
+    .ihw-fld input:focus, .ihw-fld textarea:focus, .ihw-fld select:focus {
+      border-color: ${COLOR}; box-shadow: 0 0 0 3px rgba(139,92,246,0.1);
     }
-    .ihw-search-wrap {
-      position: relative;
+    .ihw-fld textarea { resize: vertical; min-height: 80px; }
+    .ihw-fld input.ihw-err, .ihw-fld textarea.ihw-err, .ihw-fld select.ihw-err { border-color: #ef4444; }
+    .ihw-upload {
+      border: 2px dashed #d1d5db; border-radius: 8px; padding: 16px;
+      text-align: center; cursor: pointer; transition: all 0.2s; background: #fafafa;
     }
-    .ihw-search-wrap svg {
-      position: absolute;
-      left: 12px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 16px;
-      height: 16px;
-      fill: #9ca3af;
-      margin-bottom: 16px;
+    .ihw-upload:hover { border-color: ${COLOR}; background: #f5f3ff; }
+    .ihw-upload svg { width: 28px; height: 28px; margin: 0 auto 6px; fill: #9ca3af; display: block; }
+    .ihw-upload p { font-size: 13px; color: #6b7280; }
+    .ihw-upload .ihw-hint { font-size: 11px; color: #9ca3af; margin-top: 4px; }
+    .ihw-previews { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+    .ihw-prev {
+      position: relative; width: 64px; height: 64px; border-radius: 8px;
+      overflow: hidden; border: 1px solid #e5e7eb;
     }
-    .ihw-section-title {
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: #9ca3af;
-      margin-bottom: 10px;
+    .ihw-prev img, .ihw-prev video { width: 100%; height: 100%; object-fit: cover; }
+    .ihw-prev-rm {
+      position: absolute; top: 2px; right: 2px; width: 20px; height: 20px;
+      border-radius: 50%; background: rgba(0,0,0,0.6); color: #fff; border: none;
+      cursor: pointer; font-size: 12px; display: flex; align-items: center; justify-content: center;
     }
-    .ihw-links {
-      list-style: none;
-      margin-bottom: 20px;
+    .ihw-btn {
+      width: 100%; padding: 12px; background: ${COLOR}; color: #fff; border: none;
+      border-radius: 10px; font-size: 15px; font-weight: 600; cursor: pointer;
+      transition: opacity 0.2s, transform 0.1s; margin-top: 4px;
     }
-    .ihw-links li {
-      margin-bottom: 4px;
+    .ihw-btn:hover { opacity: 0.92; }
+    .ihw-btn:active { transform: scale(0.98); }
+    .ihw-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+    .ihw-spin {
+      display: inline-block; width: 18px; height: 18px;
+      border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff;
+      border-radius: 50%; animation: ihw-sp 0.6s linear infinite;
+      vertical-align: middle; margin-right: 8px;
     }
-    .ihw-links a {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 12px;
-      border-radius: 10px;
-      text-decoration: none;
-      color: #374151;
-      font-size: 14px;
-      font-weight: 500;
-      transition: background 0.15s;
+    @keyframes ihw-sp { to { transform: rotate(360deg); } }
+    .ihw-ok { text-align: center; padding: 20px 0; }
+    .ihw-ok-ic {
+      width: 60px; height: 60px; border-radius: 50%; background: #dcfce7;
+      display: flex; align-items: center; justify-content: center; margin: 0 auto 14px;
     }
-    .ihw-links a:hover {
-      background: #f3f4f6;
+    .ihw-ok-ic svg { width: 30px; height: 30px; fill: #16a34a; }
+    .ihw-ok h4 { color: #166534; font-size: 17px; margin-bottom: 8px; }
+    .ihw-ok .ihw-tkt {
+      background: #f0fdf4; border: 1px solid #bbf7d0; padding: 10px 18px;
+      border-radius: 8px; display: inline-block; margin: 10px 0;
     }
-    .ihw-links a svg {
-      width: 20px;
-      height: 20px;
-      fill: ${COLOR};
-      flex-shrink: 0;
+    .ihw-ok .ihw-tkt span { font-size: 20px; font-weight: 700; color: ${COLOR}; letter-spacing: 1px; }
+    .ihw-ok p { color: #6b7280; font-size: 13px; line-height: 1.5; }
+    .ihw-ok .ihw-res {
+      background: #f5f3ff; border: 1px solid #ddd6fe; padding: 10px 14px;
+      border-radius: 8px; margin: 14px 0; font-size: 12px; color: #6d28d9;
     }
-    .ihw-links a .ihw-link-desc {
-      font-size: 12px;
-      color: #9ca3af;
-      font-weight: 400;
+    .ihw-ok-btn {
+      margin-top: 14px; padding: 9px 20px; background: #f3f4f6; color: #374151;
+      border: none; border-radius: 8px; font-size: 13px; cursor: pointer;
     }
-    .ihw-faq {
-      margin-bottom: 20px;
-    }
-    .ihw-faq-item {
-      border: 1px solid #e5e7eb;
-      border-radius: 10px;
-      margin-bottom: 8px;
-      overflow: hidden;
-    }
-    .ihw-faq-q {
-      width: 100%;
-      padding: 12px 14px;
-      background: #fff;
-      border: none;
-      cursor: pointer;
-      font-size: 14px;
-      font-weight: 500;
-      color: #374151;
-      text-align: left;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-family: inherit;
-      transition: background 0.15s;
-    }
-    .ihw-faq-q:hover {
-      background: #f9fafb;
-    }
-    .ihw-faq-q svg {
-      width: 16px;
-      height: 16px;
-      fill: #9ca3af;
-      transition: transform 0.2s;
-      flex-shrink: 0;
-    }
-    .ihw-faq-q.ihw-expanded svg {
-      transform: rotate(180deg);
-    }
-    .ihw-faq-a {
-      display: none;
-      padding: 0 14px 14px;
-      font-size: 13px;
-      color: #6b7280;
-      line-height: 1.6;
-    }
-    .ihw-faq-a.ihw-show {
-      display: block;
-    }
-    .ihw-contact-card {
-      background: #f9fafb;
-      border: 1px solid #e5e7eb;
-      border-radius: 12px;
-      padding: 16px;
-    }
-    .ihw-contact-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 8px 0;
-      font-size: 13px;
-      color: #374151;
-    }
-    .ihw-contact-row svg {
-      width: 18px;
-      height: 18px;
-      fill: ${COLOR};
-      flex-shrink: 0;
-    }
-    .ihw-contact-row a {
-      color: ${COLOR};
-      text-decoration: none;
-      font-weight: 500;
-    }
-    .ihw-contact-row a:hover {
-      text-decoration: underline;
-    }
+    .ihw-ok-btn:hover { background: #e5e7eb; }
     .ihw-footer {
-      padding: 12px 16px;
-      border-top: 1px solid #f3f4f6;
-      text-align: center;
-      font-size: 11px;
-      color: #9ca3af;
+      padding: 10px 16px; border-top: 1px solid #f3f4f6;
+      text-align: center; font-size: 11px; color: #9ca3af;
     }
-    .ihw-footer a {
-      color: ${COLOR};
-      text-decoration: none;
-      font-weight: 600;
-    }
+    .ihw-footer a { color: ${COLOR}; text-decoration: none; font-weight: 600; }
     @media (max-width: 480px) {
-      .ihw-panel {
-        bottom: 0;
-        ${POSITION}: 0;
-        width: 100vw;
-        max-width: 100vw;
-        max-height: 85vh;
-        border-radius: 16px 16px 0 0;
-      }
-      #insync-help-widget {
-        bottom: 16px;
-        ${POSITION}: 16px;
-      }
+      .ihw-panel { bottom:0; ${POSITION}:0; width:100vw; max-width:100vw; max-height:90vh; border-radius:16px 16px 0 0; }
+      #ihw-root { bottom:16px; ${POSITION}:16px; }
     }
   `;
   document.head.appendChild(style);
 
-  var widget = document.createElement("div");
-  widget.id = "insync-help-widget";
-  widget.innerHTML = `
-    <button class="ihw-fab" aria-label="Help">
-      <span class="ihw-fab-tooltip">Help & Support</span>
-      <svg class="ihw-fab-open" viewBox="0 0 24 24"><path d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z"/></svg>
-      <svg class="ihw-fab-close" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+  var w = document.createElement("div");
+  w.id = "ihw-root";
+  w.innerHTML = `
+    <button class="ihw-fab" aria-label="Raise a ticket">
+      <svg class="ihw-ic-open" viewBox="0 0 24 24"><path d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z"/></svg>
+      <svg class="ihw-ic-close" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
     </button>
     <div class="ihw-panel">
-      <div class="ihw-header">
-        <h3>Hi there! How can we help?</h3>
-        <p>Search our help resources or get in touch</p>
+      <div class="ihw-hdr">
+        <h3>Raise a Ticket</h3>
+        <p>Describe your issue and we'll get back to you</p>
       </div>
       <div class="ihw-body">
-        <div class="ihw-search-wrap">
-          <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
-          <input type="text" class="ihw-search" placeholder="Search for help..." id="ihw-search">
-        </div>
-
-        <div class="ihw-section-title">Quick Links</div>
-        <ul class="ihw-links" id="ihw-links">
-          <li>
-            <a href="https://in-sync-crm.com/#features" target="_blank">
-              <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-              <div>
-                <div>Features</div>
-                <div class="ihw-link-desc">Explore all CRM features</div>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="https://in-sync-crm.com/#pricing" target="_blank">
-              <svg viewBox="0 0 24 24"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg>
-              <div>
-                <div>Pricing</div>
-                <div class="ihw-link-desc">View plans & pricing</div>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="https://in-sync-crm.com/blog" target="_blank">
-              <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
-              <div>
-                <div>Blog & Resources</div>
-                <div class="ihw-link-desc">Tips, guides & updates</div>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="https://in-sync-crm.com/#faq" target="_blank">
-              <svg viewBox="0 0 24 24"><path d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z"/></svg>
-              <div>
-                <div>FAQ</div>
-                <div class="ihw-link-desc">Frequently asked questions</div>
-              </div>
-            </a>
-          </li>
-        </ul>
-
-        <div class="ihw-section-title">Common Questions</div>
-        <div class="ihw-faq" id="ihw-faq">
-          <div class="ihw-faq-item">
-            <button class="ihw-faq-q">
-              <span>How do I get started with In-Sync?</span>
-              <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
-            </button>
-            <div class="ihw-faq-a">Sign up for a free account at in-sync-crm.com. Our free-forever plan includes core CRM features. You can upgrade anytime as your business grows.</div>
+        <form id="ihw-form">
+          <div class="ihw-row">
+            <div class="ihw-fld">
+              <label>Name <span class="ihw-req">*</span></label>
+              <input type="text" id="ihw-name" placeholder="Your name" required>
+            </div>
+            <div class="ihw-fld">
+              <label>Email <span class="ihw-req">*</span></label>
+              <input type="email" id="ihw-email" placeholder="you@email.com" required>
+            </div>
           </div>
-          <div class="ihw-faq-item">
-            <button class="ihw-faq-q">
-              <span>Does In-Sync integrate with WhatsApp?</span>
-              <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
-            </button>
-            <div class="ihw-faq-a">Yes! In-Sync offers full WhatsApp Business API integration. You can send messages, automate responses, and manage conversations directly from the CRM.</div>
+          <div class="ihw-row">
+            <div class="ihw-fld">
+              <label>Phone</label>
+              <input type="tel" id="ihw-phone" placeholder="+91 XXXXX XXXXX">
+            </div>
+            <div class="ihw-fld">
+              <label>Company</label>
+              <input type="text" id="ihw-company" placeholder="Company name">
+            </div>
           </div>
-          <div class="ihw-faq-item">
-            <button class="ihw-faq-q">
-              <span>What are the working hours for support?</span>
-              <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
-            </button>
-            <div class="ihw-faq-a">Our support team is available Monday to Friday, 9:00 AM to 6:00 PM IST. You can submit a support ticket anytime and we'll respond during business hours.</div>
+          <div class="ihw-fld">
+            <label>Category</label>
+            <select id="ihw-category">
+              <option value="General">General</option>
+              <option value="Bug">Bug / Issue</option>
+              <option value="Feature Request">Feature Request</option>
+              <option value="Billing">Billing</option>
+              <option value="Integration">Integration</option>
+              <option value="Other">Other</option>
+            </select>
           </div>
-          <div class="ihw-faq-item">
-            <button class="ihw-faq-q">
-              <span>Is my data secure with In-Sync?</span>
-              <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
-            </button>
-            <div class="ihw-faq-a">Absolutely. We use enterprise-grade encryption, secure cloud infrastructure powered by Supabase, and follow industry best practices to keep your data safe.</div>
+          <div class="ihw-fld">
+            <label>Subject <span class="ihw-req">*</span></label>
+            <input type="text" id="ihw-subject" placeholder="Brief summary of your issue" required>
           </div>
-        </div>
-
-        <div class="ihw-section-title">Contact Us</div>
-        <div class="ihw-contact-card">
-          <div class="ihw-contact-row">
-            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-            <a href="mailto:delight@in-sync.co.in">delight@in-sync.co.in</a>
+          <div class="ihw-fld">
+            <label>Description <span class="ihw-req">*</span></label>
+            <textarea id="ihw-desc" placeholder="Describe your issue in detail..." rows="4" required></textarea>
           </div>
-          <div class="ihw-contact-row">
-            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-            <span>India</span>
+          <div class="ihw-fld">
+            <label>Attachments</label>
+            <div class="ihw-upload" id="ihw-upload">
+              <svg viewBox="0 0 24 24"><path d="M16.5 6v11.5c0 2.21-1.79 4-4 4s-4-1.79-4-4V5c0-1.38 1.12-2.5 2.5-2.5s2.5 1.12 2.5 2.5v10.5c0 .55-.45 1-1 1s-1-.45-1-1V6H10v9.5c0 1.38 1.12 2.5 2.5 2.5s2.5-1.12 2.5-2.5V5c0-2.21-1.79-4-4-4S7 2.79 7 5v12.5c0 3.04 2.46 5.5 5.5 5.5s5.5-2.46 5.5-5.5V6h-1.5z"/></svg>
+              <p>Click to attach files</p>
+              <div class="ihw-hint">Images (max ${MAX_IMG}, 5 MB each) · Videos (max ${MAX_VID}, 10 MB each)</div>
+            </div>
+            <input type="file" id="ihw-file" accept="image/*,video/*" multiple hidden>
+            <div class="ihw-previews" id="ihw-previews"></div>
           </div>
-          <div class="ihw-contact-row">
-            <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
-            <span>Mon-Fri, 9:00 AM - 6:00 PM IST</span>
-          </div>
-        </div>
+          <button type="submit" class="ihw-btn" id="ihw-submit">Submit Ticket</button>
+        </form>
+        <div class="ihw-ok" id="ihw-ok" style="display:none;"></div>
       </div>
-      <div class="ihw-footer">
-        Powered by <a href="https://in-sync-crm.com" target="_blank">In-Sync CRM</a>
-      </div>
+      <div class="ihw-footer">Powered by <a href="https://in-sync-crm.com" target="_blank">In-Sync CRM</a></div>
     </div>
   `;
-  document.body.appendChild(widget);
+  document.body.appendChild(w);
 
-  // State & DOM
   var isOpen = false;
-  var fab = widget.querySelector(".ihw-fab");
-  var panel = widget.querySelector(".ihw-panel");
-  var searchInput = document.getElementById("ihw-search");
-  var faqItems = widget.querySelectorAll(".ihw-faq-q");
-  var linkItems = widget.querySelectorAll("#ihw-links li");
-  var faqContainers = widget.querySelectorAll(".ihw-faq-item");
+  var files = [];
+  var fab = w.querySelector(".ihw-fab");
+  var panel = w.querySelector(".ihw-panel");
+  var form = document.getElementById("ihw-form");
+  var okDiv = document.getElementById("ihw-ok");
+  var submitBtn = document.getElementById("ihw-submit");
+  var uploadArea = document.getElementById("ihw-upload");
+  var fileInput = document.getElementById("ihw-file");
+  var previews = document.getElementById("ihw-previews");
 
-  // Toggle
   fab.addEventListener("click", function () {
     isOpen = !isOpen;
     panel.classList.toggle("ihw-open", isOpen);
     fab.classList.toggle("ihw-active", isOpen);
   });
 
-  // FAQ accordion
-  faqItems.forEach(function (btn) {
-    btn.addEventListener("click", function () {
-      var answer = btn.nextElementSibling;
-      var wasOpen = answer.classList.contains("ihw-show");
-      // Close all
-      widget.querySelectorAll(".ihw-faq-a").forEach(function (a) { a.classList.remove("ihw-show"); });
-      widget.querySelectorAll(".ihw-faq-q").forEach(function (q) { q.classList.remove("ihw-expanded"); });
-      if (!wasOpen) {
-        answer.classList.add("ihw-show");
-        btn.classList.add("ihw-expanded");
-      }
-    });
+  uploadArea.addEventListener("click", function () { fileInput.click(); });
+  uploadArea.addEventListener("dragover", function (e) { e.preventDefault(); uploadArea.style.borderColor = COLOR; });
+  uploadArea.addEventListener("dragleave", function () { uploadArea.style.borderColor = "#d1d5db"; });
+  uploadArea.addEventListener("drop", function (e) {
+    e.preventDefault(); uploadArea.style.borderColor = "#d1d5db";
+    addFiles(e.dataTransfer.files);
   });
+  fileInput.addEventListener("change", function () { addFiles(fileInput.files); fileInput.value = ""; });
 
-  // Search filter
-  searchInput.addEventListener("input", function () {
-    var query = searchInput.value.toLowerCase().trim();
-    // Filter FAQ
-    faqContainers.forEach(function (item) {
-      var text = item.textContent.toLowerCase();
-      item.style.display = query && !text.includes(query) ? "none" : "block";
+  function addFiles(list) {
+    Array.from(list).forEach(function (f) {
+      var isVid = f.type.startsWith("video/");
+      var isImg = f.type.startsWith("image/");
+      if (!isImg && !isVid) return;
+      var imgCount = files.filter(function (x) { return x.type.startsWith("image/"); }).length;
+      var vidCount = files.filter(function (x) { return x.type.startsWith("video/"); }).length;
+      if (isImg && imgCount >= MAX_IMG) return;
+      if (isVid && vidCount >= MAX_VID) return;
+      if (isImg && f.size > MAX_FILE_SIZE) { alert(f.name + " exceeds 5 MB."); return; }
+      if (isVid && f.size > 10 * 1024 * 1024) { alert(f.name + " exceeds 10 MB."); return; }
+      files.push(f);
     });
-    // Filter links
-    linkItems.forEach(function (item) {
-      var text = item.textContent.toLowerCase();
-      item.style.display = query && !text.includes(query) ? "none" : "list-item";
+    renderPreviews();
+  }
+
+  function renderPreviews() {
+    previews.innerHTML = "";
+    files.forEach(function (f, i) {
+      var d = document.createElement("div"); d.className = "ihw-prev";
+      if (f.type.startsWith("image/")) {
+        var img = document.createElement("img"); img.src = URL.createObjectURL(f); d.appendChild(img);
+      } else {
+        var vid = document.createElement("video"); vid.src = URL.createObjectURL(f); vid.muted = true; d.appendChild(vid);
+      }
+      var rm = document.createElement("button"); rm.className = "ihw-prev-rm"; rm.innerHTML = "&times;"; rm.type = "button";
+      rm.addEventListener("click", function () { files.splice(i, 1); renderPreviews(); });
+      d.appendChild(rm); previews.appendChild(d);
     });
+  }
+
+  function toBase64(file) {
+    return new Promise(function (res, rej) {
+      var r = new FileReader();
+      r.onload = function () { res(r.result); };
+      r.onerror = rej;
+      r.readAsDataURL(file);
+    });
+  }
+
+  form.addEventListener("submit", async function (e) {
+    e.preventDefault();
+    var name = document.getElementById("ihw-name").value.trim();
+    var email = document.getElementById("ihw-email").value.trim();
+    var phone = document.getElementById("ihw-phone").value.trim();
+    var company = document.getElementById("ihw-company").value.trim();
+    var category = document.getElementById("ihw-category").value;
+    var subject = document.getElementById("ihw-subject").value.trim();
+    var desc = document.getElementById("ihw-desc").value.trim();
+
+    if (!name || !email || !subject || !desc) return;
+
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<span class="ihw-spin"></span>Submitting...';
+
+    try {
+      var attachInfo = "";
+      if (files.length > 0) {
+        attachInfo = "\n\n--- Attachments ---\n";
+        for (var i = 0; i < files.length; i++) {
+          var b64 = await toBase64(files[i]);
+          attachInfo += "File " + (i + 1) + ": " + files[i].name + " (" + (files[i].size / 1024).toFixed(1) + "KB)\nData: " + b64 + "\n\n";
+        }
+      }
+
+      var fullDesc = desc;
+      if (company) fullDesc = "Company: " + company + "\n" + fullDesc;
+      if (category) fullDesc = "Category: " + category + "\n" + fullDesc;
+      fullDesc += attachInfo;
+
+      var resp = await fetch(SUPABASE_URL + "/functions/v1/submit-ticket", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "apikey": SUPABASE_ANON_KEY,
+          "Authorization": "Bearer " + SUPABASE_ANON_KEY,
+        },
+        body: JSON.stringify({
+          name: name, email: email, phone: phone || undefined,
+          subject: subject, description: fullDesc, priority: "medium", source: SOURCE,
+        }),
+      });
+
+      var result = await resp.json();
+
+      if (result.success) {
+        form.style.display = "none";
+        okDiv.style.display = "block";
+        okDiv.innerHTML =
+          '<div class="ihw-ok">' +
+          '<div class="ihw-ok-ic"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>' +
+          '<h4>Ticket Created!</h4>' +
+          '<div class="ihw-tkt"><span>' + result.ticket_number + '</span></div>' +
+          '<p>Confirmation sent to <strong>' + email + '</strong></p>' +
+          '<div class="ihw-res"><strong>Expected Resolution:</strong> ' + result.expected_resolution_formatted +
+          '<br>Working Hours: Mon-Fri, 9 AM - 6 PM IST</div>' +
+          '<button class="ihw-ok-btn" id="ihw-new">Submit Another Ticket</button>' +
+          '</div>';
+        document.getElementById("ihw-new").addEventListener("click", function () {
+          form.reset(); form.style.display = "block"; okDiv.style.display = "none";
+          files = []; renderPreviews();
+        });
+      } else {
+        alert("Error: " + (result.error || "Failed to create ticket."));
+      }
+    } catch (err) {
+      alert("Network error. Please try again.");
+      console.error("Help widget error:", err);
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = "Submit Ticket";
+    }
   });
 })();
