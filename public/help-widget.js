@@ -55,13 +55,13 @@
       position: fixed; bottom: 24px; ${POSITION}: 24px; z-index: 999998;
     }
     .ihw-fab {
-      width: 56px; height: 56px; border-radius: 50%; background: ${COLOR};
+      width: 44px; height: 44px; border-radius: 50%; background: ${COLOR};
       border: none; cursor: pointer; display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 4px 20px rgba(139,92,246,0.4); transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 3px 14px rgba(139,92,246,0.35); transition: transform 0.2s, box-shadow 0.2s;
       position: relative;
     }
-    .ihw-fab:hover { transform: scale(1.08); box-shadow: 0 6px 28px rgba(139,92,246,0.5); }
-    .ihw-fab svg { width: 26px; height: 26px; fill: #fff; }
+    .ihw-fab:hover { transform: scale(1.08); box-shadow: 0 4px 20px rgba(139,92,246,0.45); }
+    .ihw-fab svg { width: 20px; height: 20px; fill: #fff; }
     .ihw-fab .ihw-ic-close { display: none; }
     .ihw-fab.ihw-active .ihw-ic-open { display: none; }
     .ihw-fab.ihw-active .ihw-ic-close { display: block; }
@@ -73,55 +73,55 @@
     }
     .ihw-fab:hover .ihw-fab-tip { opacity: 1; }
     .ihw-badge {
-      position: absolute; top: -2px; right: -2px; width: 14px; height: 14px;
+      position: absolute; top: -2px; right: -2px; width: 12px; height: 12px;
       border-radius: 50%; background: ${statusDot}; border: 2px solid #fff;
     }
     .ihw-panel {
-      display: none; position: fixed; bottom: 92px; ${POSITION}: 24px;
-      width: 420px; max-width: calc(100vw - 32px); max-height: calc(100vh - 120px);
+      display: none; position: fixed; bottom: 80px; ${POSITION}: 24px;
+      width: 360px; max-width: calc(100vw - 32px); max-height: calc(100vh - 100px);
       background: #fff; border-radius: 16px;
       box-shadow: 0 10px 60px rgba(0,0,0,0.15), 0 0 0 1px rgba(0,0,0,0.05);
       overflow: hidden; flex-direction: column; animation: ihw-up 0.3s ease;
     }
     .ihw-panel.ihw-open { display: flex; }
     @keyframes ihw-up { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
-    .ihw-hdr { background: ${COLOR}; padding: 20px 24px; }
-    .ihw-hdr h3 { color: #fff; font-size: 17px; font-weight: 700; margin-bottom: 2px; }
+    .ihw-hdr { background: ${COLOR}; padding: 14px 18px; }
+    .ihw-hdr h3 { color: #fff; font-size: 15px; font-weight: 700; margin-bottom: 2px; }
     .ihw-hdr-status { display: flex; align-items: center; gap: 6px; margin-top: 4px; }
     .ihw-hdr-dot { width: 8px; height: 8px; border-radius: 50%; background: ${statusDot}; }
     .ihw-hdr-status span { color: rgba(255,255,255,0.85); font-size: 12px; }
     /* Tabs */
     .ihw-tabs { display: flex; border-bottom: 1px solid #e5e7eb; }
     .ihw-tab {
-      flex: 1; padding: 11px; border: none; background: #fff; cursor: pointer;
-      font-size: 13px; font-weight: 500; color: #6b7280; transition: all 0.2s;
+      flex: 1; padding: 8px; border: none; background: #fff; cursor: pointer;
+      font-size: 12px; font-weight: 500; color: #6b7280; transition: all 0.2s;
       border-bottom: 2px solid transparent; font-family: inherit;
     }
     .ihw-tab.ihw-active { color: ${COLOR}; border-bottom-color: ${COLOR}; background: #faf5ff; }
-    .ihw-body { padding: 18px 20px; overflow-y: auto; flex: 1; }
+    .ihw-body { padding: 12px 14px; overflow-y: auto; flex: 1; }
     .ihw-tab-content { display: none; }
     .ihw-tab-content.ihw-show { display: block; }
     .ihw-row { display: flex; gap: 12px; }
     .ihw-row .ihw-fld { flex: 1; }
-    .ihw-fld { margin-bottom: 14px; }
-    .ihw-fld label { display: block; font-size: 13px; font-weight: 600; color: #374151; margin-bottom: 5px; }
+    .ihw-fld { margin-bottom: 10px; }
+    .ihw-fld label { display: block; font-size: 12px; font-weight: 600; color: #374151; margin-bottom: 3px; }
     .ihw-fld label .ihw-req { color: #ef4444; }
     .ihw-fld input, .ihw-fld textarea, .ihw-fld select {
-      width: 100%; padding: 9px 12px; border: 1px solid #d1d5db; border-radius: 8px;
-      font-size: 14px; font-family: inherit; outline: none; background: #fff; color: #1f2937;
+      width: 100%; padding: 7px 10px; border: 1px solid #d1d5db; border-radius: 6px;
+      font-size: 13px; font-family: inherit; outline: none; background: #fff; color: #1f2937;
       transition: border-color 0.2s, box-shadow 0.2s;
     }
     .ihw-fld input:focus, .ihw-fld textarea:focus, .ihw-fld select:focus {
       border-color: ${COLOR}; box-shadow: 0 0 0 3px rgba(139,92,246,0.1);
     }
-    .ihw-fld textarea { resize: vertical; min-height: 80px; }
+    .ihw-fld textarea { resize: vertical; min-height: 60px; }
     .ihw-fld input.ihw-err, .ihw-fld textarea.ihw-err, .ihw-fld select.ihw-err { border-color: #ef4444; }
     .ihw-err-msg { color: #ef4444; font-size: 12px; margin-top: 4px; }
     /* Priority */
     .ihw-prio { display: flex; gap: 8px; }
     .ihw-prio-btn {
-      flex: 1; padding: 7px 4px; border: 1px solid #d1d5db; border-radius: 8px; background: #fff;
-      cursor: pointer; font-size: 12px; font-weight: 500; text-align: center;
+      flex: 1; padding: 5px 4px; border: 1px solid #d1d5db; border-radius: 6px; background: #fff;
+      cursor: pointer; font-size: 11px; font-weight: 500; text-align: center;
       transition: all 0.2s; color: #6b7280; font-family: inherit;
     }
     .ihw-prio-btn:hover { border-color: #9ca3af; }
@@ -133,24 +133,24 @@
     /* Upload */
     .ihw-upload-wrap { display: flex; gap: 8px; }
     .ihw-upload {
-      flex: 1; border: 2px dashed #d1d5db; border-radius: 8px; padding: 14px;
+      flex: 1; border: 1.5px dashed #d1d5db; border-radius: 6px; padding: 10px;
       text-align: center; cursor: pointer; transition: all 0.2s; background: #fafafa;
     }
     .ihw-upload:hover { border-color: ${COLOR}; background: #f5f3ff; }
-    .ihw-upload svg { width: 24px; height: 24px; margin: 0 auto 4px; fill: #9ca3af; display: block; }
-    .ihw-upload p { font-size: 12px; color: #6b7280; }
-    .ihw-upload .ihw-hint { font-size: 10px; color: #9ca3af; margin-top: 3px; }
+    .ihw-upload svg { width: 20px; height: 20px; margin: 0 auto 3px; fill: #9ca3af; display: block; }
+    .ihw-upload p { font-size: 11px; color: #6b7280; }
+    .ihw-upload .ihw-hint { font-size: 9px; color: #9ca3af; margin-top: 2px; }
     .ihw-ss-btn {
-      width: 48px; border: 2px dashed #d1d5db; border-radius: 8px; background: #fafafa;
+      width: 42px; border: 1.5px dashed #d1d5db; border-radius: 6px; background: #fafafa;
       cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center;
       transition: all 0.2s; gap: 2px;
     }
     .ihw-ss-btn:hover { border-color: ${COLOR}; background: #f5f3ff; }
     .ihw-ss-btn svg { width: 20px; height: 20px; fill: #9ca3af; }
     .ihw-ss-btn span { font-size: 8px; color: #9ca3af; font-weight: 600; }
-    .ihw-previews { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+    .ihw-previews { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
     .ihw-prev {
-      position: relative; width: 64px; height: 64px; border-radius: 8px;
+      position: relative; width: 50px; height: 50px; border-radius: 6px;
       overflow: hidden; border: 1px solid #e5e7eb;
     }
     .ihw-prev img, .ihw-prev video { width: 100%; height: 100%; object-fit: cover; }
@@ -160,8 +160,8 @@
       cursor: pointer; font-size: 12px; display: flex; align-items: center; justify-content: center;
     }
     .ihw-btn {
-      width: 100%; padding: 12px; background: ${COLOR}; color: #fff; border: none;
-      border-radius: 10px; font-size: 15px; font-weight: 600; cursor: pointer;
+      width: 100%; padding: 9px; background: ${COLOR}; color: #fff; border: none;
+      border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer;
       transition: opacity 0.2s, transform 0.1s; margin-top: 4px;
     }
     .ihw-btn:hover { opacity: 0.92; }
@@ -238,8 +238,8 @@
     }
     /* System info bar */
     .ihw-sysinfo {
-      background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px;
-      padding: 8px 12px; margin-bottom: 14px; font-size: 11px; color: #9ca3af;
+      background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 6px;
+      padding: 5px 10px; margin-bottom: 10px; font-size: 10px; color: #9ca3af;
       display: flex; flex-wrap: wrap; gap: 8px;
     }
     .ihw-sysinfo span { display: flex; align-items: center; gap: 3px; }

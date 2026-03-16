@@ -176,17 +176,17 @@ const ChatbotEnhanced = () => {
     <>
       {/* Floating Chat Button */}
       {!isOpen && (
-        <div className="fixed bottom-20 right-6 z-50 group">
+        <div className="fixed bottom-[90px] right-6 z-50 group">
           {/* Pulse ring animation */}
           <div className="absolute inset-0 rounded-full bg-primary/30 animate-ping" />
           <div className="absolute inset-0 rounded-full bg-primary/20 animate-pulse" />
-          
+
           <Button
             onClick={() => setIsOpen(true)}
-            className="relative h-16 w-16 rounded-full shadow-premium-lg bg-primary hover:bg-primary/90 hover:scale-110 transition-all duration-300 btn-glow"
+            className="relative h-11 w-11 rounded-full shadow-premium-lg bg-primary hover:bg-primary/90 hover:scale-110 transition-all duration-300 btn-glow"
             size="icon"
           >
-            <MessageCircle className="h-7 w-7 group-hover:scale-110 transition-transform" />
+            <MessageCircle className="h-5 w-5 group-hover:scale-110 transition-transform" />
           </Button>
           
           {/* Tooltip */}
@@ -200,7 +200,7 @@ const ChatbotEnhanced = () => {
 
       {/* Chat Window */}
       {isOpen && (
-        <Card className="fixed bottom-20 right-6 w-96 h-[500px] shadow-xl z-[100] flex flex-col bg-background border">
+        <Card className="fixed bottom-[90px] right-6 w-80 h-[450px] shadow-xl z-[100] flex flex-col bg-background border">
           <CardHeader className="flex flex-row items-center justify-between p-4 pb-2 border-b">
             <CardTitle className="text-lg font-semibold text-foreground">In-Sync Assistant</CardTitle>
             <Button
