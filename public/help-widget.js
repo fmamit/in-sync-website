@@ -78,14 +78,21 @@
     }
     /* Panel */
     .ihw-panel {
-      display: none; position: fixed; bottom: 72px; ${POSITION}: 20px;
-      width: 340px; max-width: calc(100vw - 24px); max-height: calc(100vh - 90px);
+      display: none; position: fixed;
+      top: 50%; left: 50%; transform: translate(-50%, -50%);
+      width: 400px; max-width: calc(100vw - 32px); max-height: calc(100vh - 40px);
       background: #fff; border-radius: 12px;
-      box-shadow: 0 8px 40px rgba(0,0,0,0.12), 0 0 0 1px rgba(0,0,0,0.04);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2), 0 0 0 1px rgba(0,0,0,0.05);
       overflow: hidden; flex-direction: column; animation: ihw-up 0.25s ease;
+      z-index: 999999;
     }
+    .ihw-overlay {
+      display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.3); z-index: 999998;
+    }
+    .ihw-overlay.ihw-show { display: block; }
     .ihw-panel.ihw-open { display: flex; }
-    @keyframes ihw-up { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes ihw-up { from { opacity:0; transform: translate(-50%, -48%) scale(0.96); } to { opacity:1; transform: translate(-50%, -50%) scale(1); } }
     /* Header */
     .ihw-hdr { background: ${COLOR}; padding: 12px 16px; flex-shrink: 0; }
     .ihw-hdr h3 { color: #fff; font-size: 14px; font-weight: 600; }
@@ -259,7 +266,7 @@
     .ihw-ft a { color: ${COLOR}; text-decoration: none; font-weight: 600; }
     /* Mobile */
     @media (max-width: 480px) {
-      .ihw-panel { bottom: 0; ${POSITION}: 0; width: 100vw; max-width: 100vw; max-height: 85vh; border-radius: 12px 12px 0 0; }
+      .ihw-panel { width: calc(100vw - 16px); max-height: 90vh; }
       #ihw-root { bottom: 14px; ${POSITION}: 14px; }
     }
   `;
@@ -270,6 +277,7 @@
   var w = document.createElement("div");
   w.id = "ihw-root";
   w.innerHTML =
+    '<div class="ihw-overlay" id="ihw-overlay"></div>' +
     '<button class="ihw-fab" aria-label="Help">' +
       '<span class="ihw-fab-tip">Need Help?</span>' +
       '<span class="ihw-dot"></span>' +
@@ -354,11 +362,17 @@
   var trackInput = document.getElementById("ihw-track-input");
   var trackResult = document.getElementById("ihw-track-result");
 
-  fab.addEventListener("click", function () {
+  var overlay = document.getElementById("ihw-overlay");
+
+  function togglePanel() {
     isOpen = !isOpen;
     panel.classList.toggle("ihw-open", isOpen);
     fab.classList.toggle("ihw-active", isOpen);
-  });
+    overlay.classList.toggle("ihw-show", isOpen);
+  }
+
+  fab.addEventListener("click", togglePanel);
+  overlay.addEventListener("click", togglePanel);
 
   tabs.forEach(function (tab) {
     tab.addEventListener("click", function () {
