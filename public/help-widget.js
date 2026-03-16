@@ -78,12 +78,12 @@
 
     .hd {
       background: linear-gradient(135deg, ${COLOR}, #a78bfa);
-      padding: 18px 24px; flex-shrink: 0;
+      padding: 18px 24px; flex-shrink: 0; display: block;
     }
-    .hd h3 { color: #fff; font-size: 16px; font-weight: 700; margin-bottom: 4px; }
-    .hd-st { display: flex; align-items: center; gap: 6px; }
-    .hd-st i { width: 7px; height: 7px; border-radius: 50%; background: ${dotCol}; display: block; font-style: normal; }
-    .hd-st span { color: rgba(255,255,255,0.85); font-size: 12px; }
+    .hd h3 { display: block; color: #fff; font-size: 16px; font-weight: 700; margin: 0 0 6px 0; line-height: 1.3; }
+    .hd-st { display: flex; align-items: center; gap: 6px; margin: 0; }
+    .hd-st i { width: 7px; height: 7px; border-radius: 50%; background: ${dotCol}; display: inline-block; font-style: normal; flex-shrink: 0; }
+    .hd-st span { color: rgba(255,255,255,0.85); font-size: 12px; line-height: 1.3; }
 
     .tabs { display: flex; border-bottom: 1px solid #e5e7eb; flex-shrink: 0; background: #fafafa; }
     .tab {
