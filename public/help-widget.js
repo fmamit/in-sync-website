@@ -78,12 +78,19 @@
 
     .hd {
       background: linear-gradient(135deg, ${COLOR}, #a78bfa);
-      padding: 18px 24px; flex-shrink: 0; display: block;
+      padding: 18px 24px; flex-shrink: 0; display: flex; align-items: flex-start; justify-content: space-between;
     }
+    .hd-txt { display: block; }
     .hd h3 { display: block; color: #fff; font-size: 16px; font-weight: 700; margin: 0 0 6px 0; line-height: 1.3; }
     .hd-st { display: flex; align-items: center; gap: 6px; margin: 0; }
     .hd-st i { width: 7px; height: 7px; border-radius: 50%; background: ${dotCol}; display: inline-block; font-style: normal; flex-shrink: 0; }
     .hd-st span { color: rgba(255,255,255,0.85); font-size: 12px; line-height: 1.3; }
+    .hd-x {
+      width: 28px; height: 28px; border-radius: 50%; background: rgba(255,255,255,0.2);
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 16px; flex-shrink: 0; transition: background 0.15s; line-height: 1;
+    }
+    .hd-x:hover { background: rgba(255,255,255,0.35); }
 
     .tabs { display: flex; border-bottom: 1px solid #e5e7eb; flex-shrink: 0; background: #fafafa; }
     .tab {
@@ -98,9 +105,9 @@
     .tc { display: none; }
     .tc.on { display: block; }
 
-    .g { margin-bottom: 20px; }
-    .g label { display: block; font-size: 14px; font-weight: 600; color: #1f2937; margin-bottom: 8px; }
-    .g label b { color: #ef4444; font-weight: 600; }
+    .g { margin-bottom: 20px; display: block; }
+    .g label { display: block; font-size: 14px; font-weight: 600; color: #1f2937; margin: 0 0 8px 0; line-height: 1.3; }
+    .g label b { color: #ef4444; font-weight: 600; display: inline; }
     .g input, .g textarea, .g select {
       display: block; width: 100%; padding: 12px 16px; height: 44px;
       border: 2px solid #d1d5db; border-radius: 10px;
@@ -123,11 +130,12 @@
     .r2 { display: flex; gap: 16px; }
     .r2 > .g { flex: 1; min-width: 0; }
 
-    .pr { display: flex; gap: 8px; }
+    .pr { display: flex; gap: 8px; flex-wrap: wrap; }
     .pb {
-      flex: 1; padding: 10px 6px; border: 2px solid #d1d5db; border-radius: 10px;
+      flex: 1 1 auto; min-width: 70px; padding: 10px 8px; border: 2px solid #d1d5db; border-radius: 10px;
       background: #fff; cursor: pointer; font-size: 13px; font-weight: 600;
       text-align: center; color: #6b7280; transition: all 0.15s; font-family: inherit;
+      display: block; line-height: 1.2;
     }
     .pb:hover { border-color: #9ca3af; background: #f9fafb; }
     .pb.on { border-width: 2.5px; }
@@ -140,19 +148,20 @@
     .upl {
       flex: 1; border: 2px dashed #c7c7c7; border-radius: 12px; padding: 20px;
       text-align: center; cursor: pointer; background: #f9fafb; transition: all 0.15s;
+      display: block;
     }
     .upl:hover { border-color: ${COLOR}; background: #faf5ff; }
     .upl svg { width: 28px; height: 28px; fill: #9ca3af; display: block; margin: 0 auto 8px; }
-    .upl p { font-size: 14px; color: #6b7280; }
-    .upl small { font-size: 12px; color: #9ca3af; display: block; margin-top: 4px; }
+    .upl p { font-size: 14px; color: #6b7280; display: block; line-height: 1.4; margin: 0 0 4px 0; }
+    .upl small { font-size: 12px; color: #9ca3af; display: block; line-height: 1.4; }
     .ssb {
       width: 56px; border: 2px dashed #c7c7c7; border-radius: 12px; background: #f9fafb;
       cursor: pointer; display: flex; flex-direction: column; align-items: center;
       justify-content: center; gap: 4px; transition: all 0.15s; flex-shrink: 0;
     }
     .ssb:hover { border-color: ${COLOR}; background: #faf5ff; }
-    .ssb svg { width: 22px; height: 22px; fill: #9ca3af; }
-    .ssb span { font-size: 9px; color: #9ca3af; font-weight: 700; text-transform: uppercase; }
+    .ssb svg { width: 22px; height: 22px; fill: #9ca3af; display: block; }
+    .ssb span { font-size: 9px; color: #9ca3af; font-weight: 700; text-transform: uppercase; display: block; line-height: 1.2; }
 
     .pvs { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
     .pv { position: relative; width: 56px; height: 56px; border-radius: 10px; overflow: hidden; border: 2px solid #e5e7eb; }
@@ -229,14 +238,15 @@
       <svg class="ic2" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
     </div>
     <div class="pn" id="pn">
-      <div class="hd"><h3>Help & Support</h3><div class="hd-st"><i></i><span>${onTxt}</span></div></div>
+      <div class="hd"><div class="hd-txt"><h3>Help & Support</h3><div class="hd-st"><i></i><span>${onTxt}</span></div></div><div class="hd-x" id="hd-x">&times;</div></div>
       <div class="tabs"><button class="tab on" data-t="s">Raise Ticket</button><button class="tab" data-t="t">Track Ticket</button></div>
       <div class="bd">
         <div class="tc on" id="ts">
           <form id="fm">
             <div class="r2"><div class="g"><label>Name <b>*</b></label><input id="nm" placeholder="Your full name" required></div><div class="g"><label>Email <b>*</b></label><input type="email" id="em" placeholder="you@company.com" required></div></div>
             <div class="r2"><div class="g"><label>Phone</label><input type="tel" id="ph" placeholder="+91 XXXXX XXXXX"></div><div class="g"><label>Company</label><input id="co" placeholder="Company name"></div></div>
-            <div class="r2"><div class="g"><label>Category</label><select id="ct"><option>General</option><option>Bug / Issue</option><option>Feature Request</option><option>Billing</option><option>Integration</option><option>Account / Login</option><option>Other</option></select></div><div class="g"><label>Priority</label><div class="pr"><button type="button" class="pb" data-p="low">Low</button><button type="button" class="pb on" data-p="medium">Medium</button><button type="button" class="pb" data-p="high">High</button><button type="button" class="pb" data-p="critical">Critical</button></div></div></div>
+            <div class="g"><label>Category</label><select id="ct"><option>General</option><option>Bug / Issue</option><option>Feature Request</option><option>Billing</option><option>Integration</option><option>Account / Login</option><option>Other</option></select></div>
+            <div class="g"><label>Priority</label><div class="pr"><button type="button" class="pb" data-p="low">Low</button><button type="button" class="pb on" data-p="medium">Medium</button><button type="button" class="pb" data-p="high">High</button><button type="button" class="pb" data-p="critical">Critical</button></div></div>
             <div class="g"><label>Subject <b>*</b></label><input id="su" placeholder="Brief summary of your issue" required></div>
             <div class="g"><label>Description <b>*</b></label><textarea id="de" placeholder="Please describe your issue in detail..." rows="4" required></textarea></div>
             <div class="g"><label>Attachments</label>
@@ -277,6 +287,7 @@
   }
   fab.onclick = toggle;
   overlay.onclick = toggle;
+  q("#hd-x").onclick = toggle;
 
   qa(".tab").forEach(function(t) {
     t.onclick = function() {
