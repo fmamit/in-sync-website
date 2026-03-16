@@ -401,6 +401,54 @@ ${aiSection}
   });
 }
 
+// --- CRM Integration ---
+async function pushToCRM(ticket: {
+  ticket_number: string;
+  name: string;
+  email: string;
+  phone?: string;
+  subject: string;
+  description: string;
+  priority: string;
+  source: string;
+  status: string;
+  created_at: string;
+  ai_response?: string | null;
+  expected_resolution?: string;
+}) {
+  try {
+    const response = await fetch("https://crm.in-sync.co.in/support-tickets", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        ticket_number: ticket.ticket_number,
+        name: ticket.name,
+        email: ticket.email,
+        phone: ticket.phone || null,
+        subject: ticket.subject,
+        description: ticket.description,
+        priority: ticket.priority,
+        source: ticket.source,
+        status: ticket.status,
+        created_at: ticket.created_at,
+        ai_response: ticket.ai_response || null,
+        expected_resolution: ticket.expected_resolution || null,
+      }),
+    });
+
+    if (!response.ok) {
+      const err = await response.text();
+      console.error("CRM push failed:", response.status, err);
+    } else {
+      console.log("Ticket pushed to CRM:", ticket.ticket_number);
+    }
+  } catch (err) {
+    console.error("CRM push error:", err);
+  }
+}
+
 const handler = async (req: Request): Promise<Response> => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
@@ -477,7 +525,7 @@ const handler = async (req: Request): Promise<Response> => {
       priorityHours
     );
 
-    // Send emails in parallel (with AI response included)
+    // Send emails and push to CRM in parallel
     await Promise.allSettled([
       sendClientEmail(
         {
@@ -505,6 +553,20 @@ const handler = async (req: Request): Promise<Response> => {
         },
         aiResponse
       ),
+      pushToCRM({
+        ticket_number: ticket.ticket_number,
+        name: ticket.name,
+        email: ticket.email,
+        phone: ticket.phone,
+        subject: ticket.subject,
+        description: ticket.description,
+        priority: ticket.priority,
+        source: ticket.source,
+        status: ticket.status,
+        created_at: ticket.created_at,
+        ai_response: aiResponse,
+        expected_resolution: expectedResolution,
+      }),
     ]);
 
     return new Response(
